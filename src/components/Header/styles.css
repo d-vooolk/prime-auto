@@ -1,0 +1,60 @@
+header {
+    display: flex;
+    align-items: center;
+    height: 87px;
+    width: 100%;
+    justify-content: space-between;
+    background-color: var(--light-gray-background);
+    padding: 0 353px;
+    box-sizing: border-box;
+}
+
+.header-contacts {
+    display: flex;
+    gap: 10px;
+}
+
+.phones-wrapper {
+    display: flex;
+    flex-direction: column;
+}
+
+.phones-wrapper a:hover {
+    color: var(--base-green);
+    transition:all .5s ease;
+}
+
+.phones-wrapper a:not(:hover) {
+    transition:all .5s ease;
+}
+
+nav ul {
+    display: flex;
+    gap: 40px;
+    background-color: var(--base-white);
+    padding: 14px 20px;
+    border-radius: 42px;
+}
+
+nav ul li {
+    list-style: none;
+}
+
+nav ul li:hover {
+    color: var(--base-green);
+    cursor: pointer;
+    transition:all .5s ease;
+}
+
+nav ul li:not(:hover) {
+    transition:all .5s ease;
+}
+
+.phone-link {
+    color: var(--base-dark);
+    text-decoration: none;
+}
+
+.instagram-icon:hover {
+    cursor: pointer;
+}
