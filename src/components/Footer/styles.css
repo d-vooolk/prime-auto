@@ -1,0 +1,53 @@
+footer {
+    background-color: var(--base-dark);
+    padding: 40px 353px 0;
+    box-sizing: border-box;
+    color: var(--base-white);
+}
+
+.footer-nav ul {
+    display: flex;
+    gap: 40px;
+    padding: 14px 20px;
+    background-color: transparent;
+}
+
+.footer-nav ul li {
+    list-style: none;
+}
+
+.footer-nav ul li:hover {
+    color: var(--base-green);
+    cursor: pointer;
+    transition:all .5s ease;
+}
+
+.footer-nav ul li:not(:hover) {
+    transition:all .5s ease;
+}
+
+.footer-inform-wrapper {
+    display: flex;
+    width: 100%;
+    box-sizing: border-box;
+    justify-content: space-between;
+    align-items: center;
+    height: 82px;
+}
+
+footer .phones-wrapper a {
+    color: var(--base-white);
+}
+
+footer .footer-contacts {
+    display: flex;
+    gap: 10px;
+}
+
+.footer-copyright-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 57px;
+    color: var(--base-gray);
+}
