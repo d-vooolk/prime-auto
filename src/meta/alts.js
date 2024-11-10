@@ -6,5 +6,10 @@ export const Alts = {
     },
     footer: {
         logo: 'Логотип компании Prime Auto Прайм Авто',
+    },
+    welcomeBlock: {
+        plus: 'Пункт',
+        buttonGetLead: 'Оставить заявку',
+        car: "Автомобиль",
     }
 }

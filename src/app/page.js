@@ -1,9 +1,9 @@
-"use client"
+import WelcomeBlock from "@/components/WelcomeBlock/WelcomeBlock";
 
 export default function Home() {
   return (
-    <div>
-      <main>main</main>
-    </div>
+    <main>
+        <WelcomeBlock />
+    </main>
   );
 }

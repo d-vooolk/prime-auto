@@ -1,0 +1,84 @@
+.welcome-block-wrapper {
+    padding: 100px 353px 120px;
+    box-sizing: border-box;
+    background-color: var(--light-gray-background);
+}
+
+.list-element {
+    color: var(--base-dark)
+}
+
+.get-lead-button {
+    display: flex;
+    gap: 10px;
+    justify-content: space-between;
+    align-items: center;
+    background-color: transparent;
+    padding: 20px 30px;
+    border-radius: 31px;
+    border: 1px solid var(--base-dark);
+    font-weight: 600;
+    font-size: 16px;
+    margin-bottom: 183px;
+    color: var(--base-dark);
+}
+
+.get-lead-button:hover {
+    cursor: pointer;
+    color: var(--base-white);
+    background-color: var(--base-dark);
+    transition:all .5s ease;
+}
+
+.get-lead-button:not(:hover) {
+    transition:all .5s ease;
+}
+
+.statistic-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--base-dark);
+    color: var(--base-white);
+    padding: 30px 60px;
+    border-radius: 20px;
+}
+
+.statistic-element {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.statistic-divider {
+    width: 1px;
+    height: 90px;
+    border-width: 0 1px 0 0;
+    border-style: solid;
+    border-image: linear-gradient(#4E4E4E 0%, #C7C7C7 50%, #4E4E4E 100%);
+    border-image-slice: 1;
+}
+
+.big-numbers {
+    font-family: "Comforter Brush", sans-serif;
+    color: var(--base-green);
+    font-size: 60px;
+}
+
+h1 {
+    font-size: 80px;
+    color: var(--base-dark);
+    margin-top: 0;
+}
+
+.welcome-block {
+    max-width: 704px;
+}
+
+.welcome-car {
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    top: 200px;
+    right: 0;
+}

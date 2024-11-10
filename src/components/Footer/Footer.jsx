@@ -36,6 +36,9 @@ const Footer = () => {
                     </div>
                 </div>
             </div>
+
+            <hr className="footer-divider" />
+
             <div className="footer-copyright-wrapper">
                 <span>© 2024 Prime auto. Все права защищены</span>
                 <span>Политика конфиденциальности</span>

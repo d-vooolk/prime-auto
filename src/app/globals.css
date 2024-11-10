@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Comforter+Brush&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
 :root {
   --base-dark: #262626;
   --base-green: #A2DB00;
@@ -12,4 +14,6 @@ body {
   box-sizing: border-box;
   padding: 0;
   font-family: "Inter", sans-serif;
+  font-size: 16px;
+  background-color: var(--light-gray-background);
 }

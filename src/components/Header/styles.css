@@ -4,9 +4,10 @@ header {
     height: 87px;
     width: 100%;
     justify-content: space-between;
-    background-color: var(--light-gray-background);
+    background-color: transparent;
     padding: 0 353px;
     box-sizing: border-box;
+    position: fixed;
 }
 
 .header-contacts {
