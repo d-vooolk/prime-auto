@@ -1,4 +1,4 @@
-import ListComponent from "@/components/ListComponent/ListComponent";
+import ListComponent from "@/components/HelperComponents/ListComponent/ListComponent";
 import Image from "next/image";
 import {Alts} from "@/meta/alts";
 import './styles.css';

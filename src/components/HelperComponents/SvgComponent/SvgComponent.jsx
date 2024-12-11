@@ -1,5 +1,5 @@
 import React from "react";
-import {SVG_NAMES} from "@/components/SvgComponent/constants.js";
+import {SVG_NAMES} from "@/components/HelperComponents/SvgComponent/constants.js";
 
 const PolirovkaSvg = ({ className }) => (
     <svg className={className} width="260" height="170" viewBox="0 0 260 170" fill="none" xmlns="http://www.w3.org/2000/svg">

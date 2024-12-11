@@ -1,9 +1,9 @@
 import React from 'react';
-import ListComponent from "@/components/ListComponent/ListComponent.jsx";
+import ListComponent from "@/components/HelperComponents/ListComponent/ListComponent.jsx";
 import Link from "next/link";
 import './styles.css';
-import SvgComponent from "@/components/SvgComponent/SvgComponent.jsx";
-import {SVG_NAMES} from "@/components/SvgComponent/constants.js";
+import SvgComponent from "@/components/HelperComponents/SvgComponent/SvgComponent.jsx";
+import {SVG_NAMES} from "@/components/HelperComponents/SvgComponent/constants.js";
 
 const cardInfo = {
     servicesLists: {

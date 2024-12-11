@@ -1,5 +1,5 @@
 import Image from "next/image";
-import {Alts} from "@/meta/alts";
+import {Alts} from "@/meta/alts.js";
 import './styles.css';
 
 const ListComponent = ({list, className, wrapperClassname}) => {

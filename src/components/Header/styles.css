@@ -8,6 +8,7 @@ header {
     padding: 0 353px;
     box-sizing: border-box;
     position: fixed;
+    z-index: 100;
 }
 
 .header-contacts {
