@@ -1,7 +1,7 @@
 .welcome-block-wrapper {
     padding: 100px 353px 120px;
     box-sizing: border-box;
-    background-color: var(--light-gray-background);
+    background-image: url("/images/noise-background.png");
 }
 
 .list-element {
@@ -55,8 +55,7 @@
     height: 90px;
     border-width: 0 1px 0 0;
     border-style: solid;
-    border-image: linear-gradient(#4E4E4E 0%, #C7C7C7 50%, #4E4E4E 100%);
-    border-image-slice: 1;
+    border-image: linear-gradient(#4E4E4E 0%, #C7C7C7 50%, #4E4E4E 100%) 1;
 }
 
 .big-numbers {

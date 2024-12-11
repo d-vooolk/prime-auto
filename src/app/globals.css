@@ -4,7 +4,7 @@
   /* colors */
   --base-dark: #262626;
   --base-green: #A2DB00;
-  --base-white: #FFFFFF;
+  --base-white: rgb(255, 255, 255);
   --error: #FF0000;
   --base-gray: #777777;
   --light-gray-background: #F5F5F5;

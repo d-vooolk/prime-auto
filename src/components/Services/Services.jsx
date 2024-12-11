@@ -28,7 +28,7 @@ const Card3 = ({ svgName, svgClassName, cardCount = 3, title, list, href }) => {
             <Link href={href} className="card-3-link">
                 <div className="card-text-info">
                     <SvgComponent name={svgName} className={svgClassName}/>
-                    <h2 className="h2-services">{ title }</h2>
+                    <h3 className="h2-services">{ title }</h3>
 
                     <ListComponent
                         list={list}
