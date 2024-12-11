@@ -1,0 +1,129 @@
+.card-3-wrapper {
+    height: 449px;
+    margin: 0 0 10px;
+    padding: 0;
+    box-sizing: border-box;
+    display: flex;
+    width: 100%;
+    gap: 10px;
+    justify-content: center;
+}
+
+.card-2-wrapper {
+    height: 449px;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    display: flex;
+    width: 100%;
+    gap: 10px;
+    justify-content: center;
+}
+
+.block-title-services {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+}
+
+.h2-styled-font-services {
+    font-family: "Comforter Brush", sans-serif;
+    color: var(--base-green);
+    font-size: 60px;
+    margin: 100px 0 0;
+    padding: 0;
+    font-weight: 100;
+}
+
+.services-block {
+    background-color: var(--base-dark);
+    z-index: -1000;
+}
+
+.h2-base-font-services {
+    font-size: 80px;
+    color: var(--base-white);
+    margin: 0 0 40px;
+    padding: 0;
+    position: relative;
+    top: -50px;
+    font-weight: 900;
+}
+
+.card-3 {
+    width: 398px;
+    position: relative;
+    box-sizing: border-box;
+    z-index: 0;
+    border: .5px solid var(--gray-light);
+    border-radius: 20px;
+    background-color: var(--black-dark-cards);
+    font-weight: 300;
+}
+
+.card-2 {
+    width: 602px;
+    position: relative;
+    box-sizing: border-box;
+    z-index: 0;
+    border: .5px solid var(--gray-light);
+    border-radius: 20px;
+    background-color: var(--black-dark-cards);
+    font-weight: 300;
+}
+
+.card-3:hover, .card-2:hover {
+    background-color: var(--base-dark);
+    transition:all .5s ease;
+}
+
+.card-3:hover .card-3-footer, .card-2:hover .card-3-footer {
+    color: var(--base-green);
+    transition:all .5s ease;
+}
+
+.svg-card-services {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+}
+
+.card-3-footer {
+    height: 90px;
+    width: 100%;
+    border-top: .5px solid red;
+    border-image: linear-gradient(90deg, rgba(78, 78, 78, 0) 0%, #C7C7C7 50%, rgba(78, 78, 78, 0) 100%) 1;
+    padding: 20px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: var(--base-white);
+    box-sizing: border-box;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+}
+
+.h2-services {
+    font-size: 20px;
+    color: var(--base-white);
+}
+
+.card-list-services {
+    font-size: 16px;
+    color: var(--gray-light);
+}
+
+.wrapper-list-services {
+    gap: 10px !important;
+}
+
+.card-3-link {
+    text-decoration: none;
+}
+
+.card-text-info {
+    padding: 120px 30px 0;
+}

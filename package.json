@@ -2,16 +2,17 @@
   "name": "prime-auto",
   "version": "0.1.0",
   "private": true,
+  "type": "module",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start",
+    "start": "NODE_ENV=production node server.js",
     "lint": "next lint"
   },
   "dependencies": {
+    "next": "15.0.0",
     "react": "19.0.0-rc-65a56d0e-20241020",
-    "react-dom": "19.0.0-rc-65a56d0e-20241020",
-    "next": "15.0.0"
+    "react-dom": "19.0.0-rc-65a56d0e-20241020"
   },
   "devDependencies": {
     "eslint": "^8",

@@ -8,6 +8,8 @@
   --error: #FF0000;
   --base-gray: #777777;
   --light-gray-background: #F5F5F5;
+  --gray-light: rgba(168, 168, 168, 0.3);
+  --black-dark-cards: #1C1C1C;
 
   /* fonts */
   --comforter-font: "Comforter Brush", sans-serif;

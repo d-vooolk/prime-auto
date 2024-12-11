@@ -2,9 +2,9 @@ import Image from "next/image";
 import {Alts} from "@/meta/alts";
 import './styles.css';
 
-const ListComponent = ({list, className}) => {
+const ListComponent = ({list, className, wrapperClassname}) => {
     return (
-        <div className="list-wrapper">
+        <div className={`${wrapperClassname} list-wrapper`}>
             {
                 list?.map((item, index) => (
                     <div className="item-wrapper" key={`${item}-${index + Math.random() * Math.random()}`}>
