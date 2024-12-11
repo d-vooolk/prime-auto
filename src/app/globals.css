@@ -8,7 +8,7 @@
   --error: #FF0000;
   --base-gray: #777777;
   --light-gray-background: #F5F5F5;
-  --gray-light: rgba(168, 168, 168, 0.3);
+  --gray-light: rgb(168, 168, 168);
   --black-dark-cards: #1C1C1C;
 
   /* fonts */
