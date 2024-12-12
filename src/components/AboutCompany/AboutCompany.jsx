@@ -1,7 +1,7 @@
 import React from "react";
 import './styles.css';
-import Image from "next/image";
 import ListComponent from "@/components/_HelperComponents/ListComponent/ListComponent.jsx";
+import FullWidthImage from "@/components/_HelperComponents/FullWidthImage/FullWidthImage.jsx";
 
 const textAbout = {
     title: 'PRIME AUTO -',
@@ -88,9 +88,12 @@ const AboutCompany = () => {
                 <DescriptionButtons/>
             </div>
 
-            <div className="about-car-image">
-                <Image src="/images/about-car.jpg" alt={imageAlt} width={1920} height={575}/>
-            </div>
+            <FullWidthImage
+                src="/images/about-car.jpg"
+                alt={imageAlt}
+                height={575}
+                className="about-car-image"
+            />
 
             <div>
                 <BenefitsDescription/>
