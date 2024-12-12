@@ -8,12 +8,19 @@
     position: absolute;
     left: -8em;
     top: 50%;
+    cursor: pointer;
+}
+
+.reviews-arrow-back:hover, .reviews-arrow-next:hover {
+    transition:all .5s ease;
+    transform: scale(110%);
 }
 
 .reviews-arrow-next {
     position: absolute;
     right: -8em;
     top: 50%;
+    cursor: pointer;
 }
 
 .slider-card {
@@ -56,4 +63,10 @@
 .slider-link:hover {
     color: var(--base-white);
     transition:all .5s ease;
+}
+
+.slider-reviews-double {
+    position: absolute;
+    top: -30px;
+    left: 30px;
 }

@@ -6,8 +6,22 @@ import Image from "next/image";
 import Link from "next/link";
 import './styles.css';
 
+const ReviewCardQuoteImage = () => {
+    return (
+        <div className="slider-reviews-double">
+            <Image
+                src="/images/reviews-double.png"
+                alt="цитата отзыва"
+                width={73}
+                height={59}
+            />
+        </div>
+    )
+}
+
 const ReviewCard = ({ name, review, link }) => (
     <div className="slider-card">
+        <ReviewCardQuoteImage />
         <div className="slider-name">{name.toUpperCase()}</div>
         <div className="slider-description">{review}</div>
         <Link
