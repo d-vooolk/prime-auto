@@ -1,0 +1,78 @@
+.form-block-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-image: url("../../../public/images/noise-background.png");
+    padding-top: 100px;
+}
+
+.form-block-title {
+    width: 806px;
+    font-size: 60px;
+    line-height: 120%;
+    font-family: Montserrat, sans-serif;
+    font-weight: 800;
+    text-align: center;
+    margin-bottom: 20px;
+    margin-top: 0;
+}
+
+.form-block-description {
+    width: 602px;
+    text-align: center;
+    font-size: 16px;
+    line-height: 120%;
+    font-family: Inter, sans-serif;
+    font-weight: 300;
+    margin-bottom: 30px;
+}
+
+.form-block-form {
+    display: flex;
+    flex-direction: column;
+    width: 602px;
+    gap: 10px;
+}
+
+.form-input {
+    padding: 20px;
+    font-size: 16px;
+    line-height: 120%;
+    font-family: Inter, sans-serif;
+    font-weight: 300;
+    border: none;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+.form-confidence-wrapper {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.form-block-confidence-checkbox {
+
+}
+
+.form-get-lead-button {
+    display: flex;
+    gap: 10px;
+    justify-content: space-between;
+    align-items: center;
+    background-color: transparent;
+    padding: 20px 30px;
+    border-radius: 31px;
+    border: 1px solid var(--base-dark);
+    font-weight: 600;
+    font-size: 16px;
+    color: var(--base-dark);
+    width: 181px;
+}
+
+.form-block-button-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
