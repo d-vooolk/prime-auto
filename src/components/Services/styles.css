@@ -78,8 +78,16 @@
     transition:all .5s ease;
 }
 
+.card-3:not(:hover), .card-2:not(:hover) {
+    transition:all .5s ease;
+}
+
 .card-3:hover .card-3-footer, .card-2:hover .card-3-footer {
     color: var(--base-green);
+    transition:all .5s ease;
+}
+
+.card-3:not(:hover) .card-3-footer, .card-2:not(:hover) .card-3-footer {
     transition:all .5s ease;
 }
 

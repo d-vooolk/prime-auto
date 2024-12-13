@@ -20,7 +20,7 @@ const PortfolioImages = () => {
         <div className="portfolio-images-wrapper">
             {
                 images.length && images.map((item) => (
-                    <div key={`${item}${Math.random() * item}`}>
+                    <div className="portfolio-image-wrapper" key={`${item}${Math.random() * item}`}>
                         <Image
                             src={`${imageSrc}${item}.png`}
                             alt="примеры работ"

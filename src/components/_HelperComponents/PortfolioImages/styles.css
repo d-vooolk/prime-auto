@@ -8,3 +8,12 @@
     align-items: center;
     justify-content: center;
 }
+
+.portfolio-image-wrapper:hover {
+    transform: scale(103%);
+    transition:all .5s ease;
+}
+
+.portfolio-image-wrapper:not(:hover) {
+    transition:all .5s ease;
+}
