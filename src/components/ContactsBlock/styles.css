@@ -79,3 +79,27 @@
     line-height: 140%;
     font-weight: 800;
 }
+
+@media (min-width: 320px) and (max-width: 768px) {
+    .contacts-title-upper {
+        font-size: 48px;
+        margin: 60px 0 0;
+    }
+
+    .contacts-title-under {
+        font-size: 36px;
+        margin: 0 0 20px;
+        top: -35px;
+    }
+
+    .contacts-benefits-wrapper {
+        flex-direction: column;
+        padding: 0 20px;
+        box-sizing: border-box;
+    }
+
+    .contacts-card {
+        padding: 20px;
+        width: 100%;
+    }
+}

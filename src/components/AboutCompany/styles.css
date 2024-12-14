@@ -165,13 +165,15 @@
         white-space: wrap;
     }
 
-    .about-car-image {
+    .about-car-image-wrapper {
+        width: 100%;
         height: auto;
-        width: 1300px;
-        position: relative;
-        left: -450px;
         overflow: hidden;
-        top: 0;
+    }
+
+    .about-car-image {
+        object-fit: cover;
+        object-position: center center;
     }
 
     .about-benefits-wrapper {

@@ -22,6 +22,7 @@ const FullWidthImage = ({ src, alt, className, height, imageClassName }) => {
                 width={screenWidth}
                 height={height}
                 className={imageClassName}
+                quality={100}
             />
         </div>
     );
