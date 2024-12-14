@@ -1,7 +1,7 @@
 .welcome-block-wrapper {
     padding: 100px 353px 120px;
     box-sizing: border-box;
-    background-image: url("/images/noise-background.png");
+    background-image: url("../../../public/images/noise-background.png");
 }
 
 .list-element {
@@ -64,10 +64,11 @@
     font-size: 60px;
 }
 
-h1 {
+.desktop-h1 {
     font-size: 80px;
     color: var(--base-dark);
     margin-top: 0;
+    font-weight: 800;
 }
 
 .welcome-block {
@@ -80,4 +81,58 @@ h1 {
     position: absolute;
     top: 200px;
     right: 0;
+}
+
+@media (min-width: 320px) and (max-width: 768px) {
+    .welcome-block-wrapper {
+        padding: 0 0 40px;
+    }
+
+    .desktop-h1 {
+        font-size: 40px;
+    }
+
+    .list-element-wrapper {
+        gap: 10px;
+    }
+
+    .welcome-car-image {
+        height: 280px;
+        width: auto;
+    }
+
+    .welcome-car {
+        top: 500px;
+        right: -110px;
+        overflow: hidden;
+    }
+
+    .welcome-block {
+        max-width: 100%;
+        padding: 20px;
+    }
+
+    .get-lead-button {
+        margin-bottom: 280px;
+    }
+
+    .statistic-wrapper {
+        border-radius: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .statistic-divider {
+        width: 100%;
+        height: 6px;
+        border-top: .5px solid red;
+        border-image: linear-gradient(90deg, rgba(78, 78, 78, 0) 0%, #C7C7C7 50%, rgba(78, 78, 78, 0) 100%) 1;
+        margin-top: 30px;
+    }
+
+    .statistic-element {
+        align-items: center;
+    }
 }

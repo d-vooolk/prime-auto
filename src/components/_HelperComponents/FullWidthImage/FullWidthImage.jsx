@@ -7,7 +7,7 @@ const FullWidthImage = ({ src, alt, className, height }) => {
     const [screenWidth, setScreenWidth] = useState(0);
 
     useEffect(() => {
-        setScreenWidth(window.innerWidth);
+        setScreenWidth(window.screen.width);
     }, []);
 
     if (screenWidth === 0) {

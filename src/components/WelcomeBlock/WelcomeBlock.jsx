@@ -19,14 +19,16 @@ const WelcomeBlock = () => {
                     alt={Alts.welcomeBlock.car}
                     width={1100}
                     height={632.3}
+                    className="welcome-car-image"
                 />
             </div>
             <div className="welcome-block">
-                <h1>МАСТЕРСКАЯ АВТОСВЕТА В МИНСКЕ</h1>
+                <h1 className="desktop-h1">МАСТЕРСКАЯ АВТОСВЕТА В МИНСКЕ</h1>
 
                 <ListComponent
                     list={list}
                     className="list-element"
+                    wrapperClassname="list-element-wrapper"
                 />
 
                 <button className="get-lead-button">
