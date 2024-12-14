@@ -2,6 +2,8 @@
     padding: 100px 353px 120px;
     box-sizing: border-box;
     background-image: url("../../../public/images/noise-background.png");
+    position: relative;
+    overflow: hidden;
 }
 
 .list-element {
@@ -96,15 +98,15 @@
         gap: 10px;
     }
 
+    .welcome-car {
+        top: 400px;
+        right: -110px;
+        overflow: hidden;
+    }
+
     .welcome-car-image {
         height: 280px;
         width: auto;
-    }
-
-    .welcome-car {
-        top: 500px;
-        right: -110px;
-        overflow: hidden;
     }
 
     .welcome-block {

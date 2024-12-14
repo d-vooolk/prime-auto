@@ -30,9 +30,9 @@ const Footer = () => {
                         height={40}
                         alt={Alts.header.phone}
                     />
-                    <div className="phones-wrapper">
-                        <Link className="phone-link" href="tel:+375 (25) 733-22-29">+375 (25) 733-22-29</Link>
-                        <Link className="phone-link" href="tel:+375 (29) 820-62-46">+375 (29) 820-62-46</Link>
+                    <div className="footer-phones-wrapper">
+                        <Link className="footer-phone-link" href="tel:+375 (25) 733-22-29">+375 (25) 733-22-29</Link>
+                        <Link className="footer-phone-link" href="tel:+375 (29) 820-62-46">+375 (29) 820-62-46</Link>
                     </div>
                 </div>
             </div>
