@@ -156,7 +156,7 @@
 
     .about-description-button-wrapper {
         gap: 10px;
-        justify-content: center;
+        justify-content: flex-start;
         max-width: 100%;
         flex-wrap: wrap;
     }
