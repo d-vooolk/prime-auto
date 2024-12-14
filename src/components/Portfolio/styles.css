@@ -1,3 +1,8 @@
+.portfolio-global-wrapper {
+    box-sizing: border-box;
+    height: 100%;
+}
+
 .portfolio-wrapper {
     background-image: url("../../../public/images/noise-background.png");
     box-sizing: border-box;
@@ -131,4 +136,81 @@
     position: relative;
     right: -160px;
     top: 60px;
+}
+
+@media (min-width: 320px) and (max-width: 768px) {
+    .portfolio-wrapper {
+        padding: 0 20px;
+    }
+
+    .portfolio-instagram-wrapper {
+        top: -250px;
+        padding: 300px 0 0;
+        flex-direction: column;
+        margin: 0 0 -250px
+    }
+
+    .portfolio-title-upper {
+        font-size: 48px;
+        margin: 60px 0 0;
+    }
+
+    .portfolio-title-under {
+        font-size: 36px;
+        margin: 0 0 20px;
+        top: -35px;
+    }
+
+    .portfolio-instagram-upper-title {
+        font-size: 48px;
+    }
+
+    .portfolio-instagram-under-title {
+        font-size: 26px;
+        line-height: 140%;
+        position: relative;
+        top: -25px;
+        left: 0;
+        width: 100%;
+        text-align: center;
+    }
+
+    .portfolio-instagram-title-wrapper {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        width: 360px;
+    }
+
+    .portfolio-instagram-description {
+        width: 90%;
+        font-weight: 300;
+        flex-wrap: wrap;
+        padding: 0 20px;
+    }
+
+    .portfolio-instagram-underwrapper {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 30px;
+    }
+
+    .portfolio-instagram-images-wrapper {
+        position: static;
+        display: flex;
+        flex-direction: column-reverse;
+        margin-bottom: 80px;
+    }
+
+    .portfolio-dialog-image {
+        position: relative;
+        rotate: 4deg;
+    }
+
+    .portfolio-heart-image {
+        position: relative;
+    }
 }

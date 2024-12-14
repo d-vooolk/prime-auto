@@ -17,3 +17,15 @@
 .portfolio-image-wrapper:not(:hover) {
     transition:all .5s ease;
 }
+
+@media (min-width: 320px) and (max-width: 768px) {
+    .portfolio-image {
+        width: 100%;
+        height: auto;
+    }
+
+    .portfolio-image-wrapper:hover {
+        transform: scale(130%);
+        transition:all .5s ease;
+    }
+}

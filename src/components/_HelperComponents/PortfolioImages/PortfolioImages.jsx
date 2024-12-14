@@ -26,6 +26,7 @@ const PortfolioImages = () => {
                             alt="примеры работ"
                             width={250}
                             height={250}
+                            className="portfolio-image"
                         />
                     </div>
                 ))
