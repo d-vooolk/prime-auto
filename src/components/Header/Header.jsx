@@ -6,14 +6,14 @@ import Link from "next/link";
 
 const Header = () => {
     return (
-        <header>
+        <header className="desktop-header">
             <Image
                 src="/logo.svg"
                 width={132}
                 height={40}
                 alt={Alts.header.logo}
             />
-            <nav>
+            <nav className="desktop-nav">
                 <ul>
                     <li>Услуги</li>
                     <li>О компании</li>
@@ -22,7 +22,7 @@ const Header = () => {
                     <li>Контакты</li>
                 </ul>
             </nav>
-            <div className="header-contacts">
+            <div className="desktop-header-contacts">
                 <Image
                     src="/icons/phone.svg"
                     width={40}

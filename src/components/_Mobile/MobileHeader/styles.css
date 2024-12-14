@@ -1,0 +1,11 @@
+.mobile-header {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+}
+
+.mobile-header-buttons-wrapper {
+    height: 40px;
+    display: flex;
+    gap: 10px;
+}

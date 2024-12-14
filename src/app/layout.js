@@ -1,8 +1,8 @@
 import "./globals.css";
 import {META} from "@/constants/metadata";
-import Header from "@/components/Header/Header";
 import Footer from "@/components/Footer/Footer";
 import Head from "next/head.js";
+import {GetAdaptiveHeader} from "@/utils/utils.js";
 
 
 export const metadata = {...META.general, robots: String(META.general.robots)}
@@ -18,7 +18,7 @@ export default function RootLayout({children}) {
             <title>Мой сайт</title>
         </Head>
         <body>
-            <Header/>
+            <GetAdaptiveHeader />
             {children}
             <Footer/>
         </body>
