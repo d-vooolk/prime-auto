@@ -1,10 +1,18 @@
 'use client'
 
-import React from "react";
+import React, {useEffect, useState} from "react";
 import Image from "next/image";
 
-const FullWidthImage = ({ src, alt,  className, height }) => {
-    const screenWidth = window.screen.width;
+const FullWidthImage = ({ src, alt, className, height }) => {
+    const [screenWidth, setScreenWidth] = useState(0);
+
+    useEffect(() => {
+        setScreenWidth(window.innerWidth);
+    }, []);
+
+    if (screenWidth === 0) {
+        return null;
+    }
 
     return (
         <div className={className}>
@@ -15,7 +23,7 @@ const FullWidthImage = ({ src, alt,  className, height }) => {
                 height={height}
             />
         </div>
-    )
-}
+    );
+};
 
 export default FullWidthImage;
