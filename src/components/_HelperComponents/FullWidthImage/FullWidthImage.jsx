@@ -3,7 +3,7 @@
 import React, {useEffect, useState} from "react";
 import Image from "next/image";
 
-const FullWidthImage = ({ src, alt, className, height }) => {
+const FullWidthImage = ({ src, alt, className, height, imageClassName }) => {
     const [screenWidth, setScreenWidth] = useState(0);
 
     useEffect(() => {
@@ -21,6 +21,7 @@ const FullWidthImage = ({ src, alt, className, height }) => {
                 alt={alt}
                 width={screenWidth}
                 height={height}
+                className={imageClassName}
             />
         </div>
     );

@@ -140,7 +140,7 @@
 
 @media (min-width: 320px) and (max-width: 768px) {
     .h2-styled-font-services {
-        font-size: 40px;
+        font-size: 48px;
         margin: 60px 0 0;
     }
 
@@ -148,7 +148,7 @@
         font-size: 36px;
         margin: 0;
         position: relative;
-        top: -30px;
+        top: -35px;
     }
 
     .card-3-wrapper, .card-2-wrapper {

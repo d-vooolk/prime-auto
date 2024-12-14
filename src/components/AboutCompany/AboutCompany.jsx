@@ -55,7 +55,11 @@ const BenefitsDescription = () => (
                     key={`${item.title}${Math.random() * index}`}
                     className="about-benefit"
                 >
-                    <ListComponent list={[item.title.toUpperCase()]} className="about-benefits-title"/>
+                    <ListComponent
+                        list={[item.title.toUpperCase()]}
+                        className="about-benefits-title"
+                        wrapperClassname="about-benefits-title-wrapper"
+                    />
                     <div className="about-benefits-description">
                         <span>
                             {item.description}
@@ -92,12 +96,11 @@ const AboutCompany = () => {
                 src="/images/about-car.jpg"
                 alt={imageAlt}
                 height={575}
-                className="about-car-image"
+                className="about-car-image-wrapper"
+                imageClassName="about-car-image"
             />
 
-            <div>
-                <BenefitsDescription/>
-            </div>
+            <BenefitsDescription/>
         </div>
     )
 }
