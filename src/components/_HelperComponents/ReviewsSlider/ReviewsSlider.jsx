@@ -1,6 +1,6 @@
 'use client'
 
-import React from "react";
+import React, {useEffect} from "react";
 import {useState} from "react";
 import Image from "next/image";
 import Link from "next/link";
@@ -35,32 +35,47 @@ const ReviewCard = ({ name, review, link }) => (
 
 const ReviewsSlider = ({reviews}) => {
     const [currentSlide, setCurrentSlide] = useState(0);
+    const [screenWidth, setScreenWidth] = useState(0);
+
+    useEffect(() => {
+        const handleResize = () => setScreenWidth(window.innerWidth);
+        window.addEventListener('resize', handleResize);
+        handleResize();
+
+        return () => window.removeEventListener('resize', handleResize);
+    }, []);
+
+    const slidesToMove = screenWidth >= 1200 ? 2 : 1;
 
     const nextPage = () => {
-        if (reviews[currentSlide + 2]) {
-            setCurrentSlide(currentSlide + 2)
+        const nextSlide = currentSlide + slidesToMove;
+        if (reviews[nextSlide]) {
+            setCurrentSlide(nextSlide);
         }
-    }
+    };
 
     const prevPage = () => {
-        if (reviews[currentSlide - 2]) {
-            setCurrentSlide(currentSlide - 2)
+        const prevSlide = currentSlide - slidesToMove;
+        if (reviews[prevSlide]) {
+            setCurrentSlide(prevSlide);
         }
-    }
+    };
 
     return (
         <div className="slider-wrapper">
-            <div
-                className="reviews-arrow-back"
-                onClick={() => prevPage()}
-            >
-                <Image src="/images/slider-prev.png" alt="стрелка назад" width={62} height={50}/>
-            </div>
-            <div
-                className="reviews-arrow-next"
-                onClick={() => nextPage()}
-            >
-                <Image src="/images/slider-next.png" alt="стрелка вперёд" width={62} height={50}/>
+            <div className="slider-buttons-wrapper">
+                <div
+                    className="reviews-arrow-back"
+                    onClick={() => prevPage()}
+                >
+                    <Image src="/images/slider-prev.png" alt="стрелка назад" width={62} height={50}/>
+                </div>
+                <div
+                    className="reviews-arrow-next"
+                    onClick={() => nextPage()}
+                >
+                    <Image src="/images/slider-next.png" alt="стрелка вперёд" width={62} height={50}/>
+                </div>
             </div>
 
             <ReviewCard
@@ -69,11 +84,15 @@ const ReviewsSlider = ({reviews}) => {
                 link={reviews[currentSlide].link}
             />
 
-            <ReviewCard
-                name={reviews[currentSlide + 1].name}
-                review={reviews[currentSlide + 1].review}
-                link={reviews[currentSlide + 1].link}
-            />
+            {
+                screenWidth >= 1200 && (
+                    <ReviewCard
+                        name={reviews[currentSlide + 1].name}
+                        review={reviews[currentSlide + 1].review}
+                        link={reviews[currentSlide + 1].link}
+                    />
+                )
+            }
         </div>
     )
 }

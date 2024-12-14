@@ -31,3 +31,24 @@
 .reviews-slider-wrapper {
     margin: 0 353px;
 }
+
+@media (min-width: 320px) and (max-width: 768px) {
+    .reviews-title-upper {
+        font-size: 48px;
+        padding: 60px 0 0;
+    }
+
+    .reviews-title-under {
+        font-size: 36px;
+        margin: 0 0 30px;
+        top: -35px;
+    }
+
+    .reviews-slider-wrapper {
+        margin: 0;
+    }
+
+    .reviews-wrapper {
+        padding-bottom: 80px;
+    }
+}
