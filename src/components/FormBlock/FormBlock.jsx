@@ -25,9 +25,8 @@ const FormBlock = () => {
                         <div>{formBlockText.confidence}</div>
                     </div>
 
-                    {/*<input className="form-block-form-submit" type="submit" value="Отправить"/>*/}
                     <div className="form-block-button-wrapper">
-                        <button className="form-get-lead-button">
+                        <button type="submit" className="form-get-lead-button">
                             <span>Отправить</span>
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M7 7H17M17 7V17M17 7L7 17" stroke="currentColor" strokeWidth="2"
@@ -39,7 +38,13 @@ const FormBlock = () => {
                 </form>
             </div>
 
-            <Image src="/images/zeekr-blue.png" alt="автомобиль" width={1214} height={490}/>
+            <Image
+                src="/images/zeekr-blue.png"
+                alt="автомобиль"
+                width={1214}
+                height={490}
+                className="form-block-car-image"
+            />
         </div>
     )
 }
