@@ -16,11 +16,11 @@ app.prepare().then(() => {
         }
 
         handle(req, res, parsedUrl);
-    }).listen(port)
-
-    console.log(
-        `> Server listening at http://localhost:${port} as ${
-            dev ? 'development' : process.env.NODE_ENV
-        }`
-    )
-})
+    }).listen(port, '0.0.0.0', () => {
+        console.log(
+            `> Server listening at http://0.0.0.0:${port} as ${
+                dev ? 'development' : process.env.NODE_ENV
+            }`
+        )
+    })
+});
