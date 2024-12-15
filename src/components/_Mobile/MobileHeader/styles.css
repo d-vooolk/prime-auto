@@ -3,6 +3,7 @@
     justify-content: space-between;
     padding: 20px;
     background-image: url("../../../../public/images/noise-background.png");
+    box-sizing: border-box;
 }
 
 .mobile-header-buttons-wrapper {

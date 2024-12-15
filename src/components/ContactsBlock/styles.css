@@ -94,7 +94,7 @@
 
     .contacts-benefits-wrapper {
         flex-direction: column;
-        padding: 0 20px;
+        padding: 0;
         box-sizing: border-box;
     }
 
