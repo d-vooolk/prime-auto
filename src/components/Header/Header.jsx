@@ -4,6 +4,7 @@ import './styles.css';
 import {Alts} from "@/meta/alts";
 import Link from "next/link";
 import NavigateBar from "@/components/_HelperComponents/NavigateBar/NavigateBar.jsx";
+import {LINKS} from "@/constants/contactsData.js";
 
 const Header = () => {
     return (
@@ -28,13 +29,15 @@ const Header = () => {
                     <Link className="phone-link" href="tel:+375 (25) 733-22-29">+375 (25) 733-22-29</Link>
                     <Link className="phone-link" href="tel:+375 (29) 820-62-46">+375 (29) 820-62-46</Link>
                 </div>
-                <Image
-                    src="/icons/insta.svg"
-                    width={40}
-                    height={40}
-                    alt={Alts.header.instagram}
-                    className="instagram-icon"
-                />
+                <Link href={LINKS.instagram} target="_blank noopener norefferer">
+                    <Image
+                        src="/icons/insta.svg"
+                        width={40}
+                        height={40}
+                        alt={Alts.header.instagram}
+                        className="instagram-icon"
+                    />
+                </Link>
             </div>
         </header>
     )
