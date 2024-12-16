@@ -10,7 +10,7 @@ const formBlockText = {
 
 const FormBlock = () => {
     return (
-        <div className="form-block-wrapper">
+        <div className="form-block-wrapper" id="leadForm">
             <h3 className="form-block-title">{ formBlockText.title }</h3>
             <div className="form-block-description">{ formBlockText.description }</div>
 

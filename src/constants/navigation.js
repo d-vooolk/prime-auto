@@ -1,9 +1,10 @@
-const NAVIGATION_URL = {
+export const NAVIGATION_URL = {
     services: '#services',
     about: '#about',
     reviews: '#reviews',
     portfolio: '#portfolio',
     contacts: '#contacts',
+    leadForm: '#leadForm',
 }
 
 export const NAVIGATION = [
