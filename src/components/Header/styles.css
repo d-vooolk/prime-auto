@@ -4,11 +4,11 @@
     height: 87px;
     width: 100%;
     justify-content: space-between;
-    background-color: transparent;
     padding: 0 353px;
     box-sizing: border-box;
     position: fixed;
     z-index: 100;
+    background-color: rgba(255, 255, 255, 0.3);
 }
 
 .desktop-header-contacts {
