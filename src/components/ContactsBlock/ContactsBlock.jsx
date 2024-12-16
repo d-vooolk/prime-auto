@@ -30,7 +30,7 @@ const contactsItems = [
 ];
 
 const BenefitsDescription = () => (
-    <div className="contacts-benefits-wrapper">
+    <div className="contacts-benefits-wrapper" id="contacts">
         {
             contactsItems.map((item, index) => (
                 <div

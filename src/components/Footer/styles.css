@@ -16,13 +16,18 @@ footer {
     list-style: none;
 }
 
-.footer-nav ul li:hover {
+.footer-nav ul li a {
+    color: var(--base-white);
+    text-decoration: none;
+}
+
+.footer-nav ul li a:hover {
     color: var(--base-green);
     cursor: pointer;
     transition:all .5s ease;
 }
 
-.footer-nav ul li:not(:hover) {
+.footer-nav ul li a:not(:hover) {
     transition:all .5s ease;
 }
 

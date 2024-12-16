@@ -3,6 +3,7 @@ import './styles.css';
 import {Alts} from "@/meta/alts";
 import Link from "next/link";
 import React from "react";
+import NavigateBar from "@/components/_HelperComponents/NavigateBar/NavigateBar.jsx";
 
 const Footer = () => {
     return (
@@ -15,13 +16,7 @@ const Footer = () => {
                     height={40}
                 />
                 <nav className="footer-nav">
-                    <ul>
-                        <li>Услуги</li>
-                        <li>О компании</li>
-                        <li>Отзывы</li>
-                        <li>Работы</li>
-                        <li>Контакты</li>
-                    </ul>
+                    <NavigateBar />
                 </nav>
                 <div className="footer-contacts">
                     <Image

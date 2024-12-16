@@ -50,7 +50,7 @@ const Services = () => {
     const { servicesLists, cardTitles } = cardInfo;
 
     return (
-        <div className="services-block">
+        <div className="services-block" id="services">
             <div className="block-title-services">
                 <h2 className="h2-styled-font-services">Наши</h2>
                 <h2 className="h2-base-font-services">УСЛУГИ</h2>

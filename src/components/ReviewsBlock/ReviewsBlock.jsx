@@ -27,7 +27,7 @@ const reviews = [
 
 const ReviewsBlock = () => {
     return (
-        <div className="reviews-wrapper">
+        <div className="reviews-wrapper" id="reviews">
             <div className="reviews-title-wrapper">
                 <h2 className="reviews-title-upper">Наших клиентов</h2>
                 <h2 className="reviews-title-under">ОТЗЫВЫ</h2>

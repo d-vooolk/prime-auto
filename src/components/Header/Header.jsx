@@ -3,6 +3,7 @@ import Image from "next/image";
 import './styles.css';
 import {Alts} from "@/meta/alts";
 import Link from "next/link";
+import NavigateBar from "@/components/_HelperComponents/NavigateBar/NavigateBar.jsx";
 
 const Header = () => {
     return (
@@ -14,13 +15,7 @@ const Header = () => {
                 alt={Alts.header.logo}
             />
             <nav className="desktop-nav">
-                <ul>
-                    <li>Услуги</li>
-                    <li>О компании</li>
-                    <li>Отзывы</li>
-                    <li>Работы</li>
-                    <li>Контакты</li>
-                </ul>
+                <NavigateBar />
             </nav>
             <div className="desktop-header-contacts">
                 <Image

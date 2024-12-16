@@ -7,7 +7,7 @@ const linkToInstagram = '#';
 
 const Portfolio = () => {
     return (
-        <div className="portfolio-global-wrapper">
+        <div className="portfolio-global-wrapper" id="portfolio">
             <div className="portfolio-wrapper">
                 <div className="portfolio-title-wrapper">
                     <h2 className="portfolio-title-upper">Наши работы</h2>

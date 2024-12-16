@@ -73,7 +73,7 @@ const BenefitsDescription = () => (
 
 const AboutCompany = () => {
     return (
-        <div className="about-wrapper">
+        <div className="about-wrapper" id="about">
             <div className="block-title-about">
                 <h2 className="block-title-upper-about">О нас</h2>
                 <h2 className="block-title-under-about">О КОМПАНИИ</h2>

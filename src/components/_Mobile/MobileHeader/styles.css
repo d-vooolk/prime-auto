@@ -4,10 +4,67 @@
     padding: 20px;
     background-image: url("../../../../public/images/noise-background.png");
     box-sizing: border-box;
+    position: relative;
 }
 
 .mobile-header-buttons-wrapper {
     height: 40px;
     display: flex;
     gap: 10px;
+}
+
+.mobile-nav-wrapper {
+    background-color: var(--base-dark);
+    color: var(--base-white);
+    position: absolute;
+    right: 0;
+    top: 70px;
+    width: 100%;
+    box-sizing: border-box;
+    z-index: 999;
+    height: 100vh;
+}
+
+.mobile-nav {
+    box-sizing: border-box;
+}
+
+.mobile-nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.mobile-nav ul li {
+    padding: 20px;
+    box-sizing: border-box;
+    border-width: 0 0 .5px;
+    border-style: solid;
+    border-image: linear-gradient(to right, #4E4E4E 0%, #4E4E4E 30%, #C7C7C7 50%, #4E4E4E 70%, #4E4E4E 100%) 1;
+}
+
+.mobile-nav ul li a {
+    color: var(--base-white);
+    text-decoration: none;
+}
+
+.mobile-header-contacts {
+    display: flex;
+    gap: 10px;
+    padding: 20px;
+    box-sizing: border-box;
+    align-items: center;
+}
+
+.mobile-phones-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.mobile-phone-link {
+    color: var(--base-white);
+    text-decoration: none;
 }

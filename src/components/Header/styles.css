@@ -42,13 +42,18 @@
     list-style: none;
 }
 
-.desktop-nav ul li:hover {
+.desktop-nav ul li a {
+    color: var(--base-dark);
+    text-decoration: none;
+}
+
+.desktop-nav ul li a:hover {
     color: var(--base-green);
     cursor: pointer;
     transition:all .5s ease;
 }
 
-.desktop-nav ul li:not(:hover) {
+.desktop-nav ul li a:not(:hover) {
     transition:all .5s ease;
 }
 
