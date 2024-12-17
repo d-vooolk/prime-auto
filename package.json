@@ -7,7 +7,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "NODE_ENV=production node server.js",
-    "lint": "next lint"
+    "lint": "next lint",
+    "restart": "rm -rf .next && npm run build && pm2 restart prime-auto"
   },
   "dependencies": {
     "@next/third-parties": "^15.1.1",
