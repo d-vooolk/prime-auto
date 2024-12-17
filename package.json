@@ -8,7 +8,7 @@
     "build": "next build",
     "start": "NODE_ENV=production node server.js",
     "lint": "next lint",
-    "restart": "rm -rf .next && npm run build && pm2 restart prime-auto"
+    "restart": "rm -rf .next && npm run build && sudo rm -rf /var/cache/nginx/* && sudo systemctl restart nginx && pm2 restart prime-auto"
   },
   "dependencies": {
     "@next/third-parties": "^15.1.1",
