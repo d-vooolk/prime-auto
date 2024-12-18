@@ -79,7 +79,7 @@
     color: var(--base-white);
     display: flex;
     justify-content: space-between;
-    align-items: end;
+    align-items: flex-end;
 }
 
 .portfolio-instagram-upper-title {
