@@ -1,8 +1,11 @@
 import React from "react";
 import './styles.css';
 import ListComponent from "@/components/_HelperComponents/ListComponent/ListComponent.jsx";
-import Image from "next/image";
-import FullWidthImage from "@/components/_HelperComponents/FullWidthImage/FullWidthImage.jsx";
+import dynamic from "next/dynamic.js";
+import {yandexApi} from "../../api/yandexApi.ts";
+const DynamicYandexMap = dynamic(() => import("../../components/YandexMap/YandexMap.tsx"), {
+    ssr: false,
+});
 
 const contactsBlockText = {
     title: 'Мы находимся',
@@ -57,17 +60,15 @@ const ContactsBlock = () => {
     return (
         <div className="contacts-block-wrapper">
             <div className="contacts-title-wrapper">
-                <div className="contacts-title-upper">{ contactsBlockText.title }</div>
-                <div className="contacts-title-under">{ contactsBlockText.description.toUpperCase() }</div>
+                <div className="contacts-title-upper">{contactsBlockText.title}</div>
+                <div className="contacts-title-under">{contactsBlockText.description.toUpperCase()}</div>
             </div>
 
-            <BenefitsDescription />
+            <BenefitsDescription/>
 
-            <FullWidthImage
-                src="/images/map.png"
-                alt="карта"
-                className="contacts-map"
-                height={600}
+            <DynamicYandexMap
+                center={yandexApi.center}
+                zoom={yandexApi.zoom}
             />
         </div>
     )

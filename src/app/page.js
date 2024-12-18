@@ -8,14 +8,14 @@ import ContactsBlock from "@/components/ContactsBlock/ContactsBlock.jsx";
 
 export default function Home() {
   return (
-    <main>
-        <WelcomeBlock />
-        <Services />
-        <AboutCompany />
-        <ReviewsBlock />
-        <Portfolio />
-        <FormBlock />
-        <ContactsBlock />
-    </main>
+      <main>
+          <WelcomeBlock/>
+          <Services/>
+          <AboutCompany/>
+          <ReviewsBlock/>
+          <Portfolio/>
+          <FormBlock/>
+          <ContactsBlock/>
+      </main>
   );
 }
