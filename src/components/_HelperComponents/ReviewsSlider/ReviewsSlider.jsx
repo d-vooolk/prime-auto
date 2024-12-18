@@ -26,6 +26,7 @@ const ReviewCard = ({ name, review, link }) => (
         <div className="slider-description">{review}</div>
         <Link
             href={link}
+            target="_blank noopener norefferer"
             className="slider-link"
         >
             Прочитать источник

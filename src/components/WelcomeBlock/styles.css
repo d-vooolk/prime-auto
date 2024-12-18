@@ -13,7 +13,7 @@
 .get-lead-button {
     display: flex;
     gap: 10px;
-    justify-content: space-between;
+    justify-content: space-around;
     align-items: center;
     background-color: transparent;
     padding: 20px 30px;
@@ -23,6 +23,8 @@
     font-size: 16px;
     margin-bottom: 183px;
     color: var(--base-dark);
+    max-width: 228px;
+    text-decoration: none;
 }
 
 .get-lead-button:hover {

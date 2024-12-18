@@ -2,8 +2,7 @@ import './styles.css';
 import PortfolioImages from "@/components/_HelperComponents/PortfolioImages/PortfolioImages.jsx";
 import Link from "next/link";
 import Image from "next/image";
-
-const linkToInstagram = '#';
+import {LINKS} from "../../constants/contactsData.js";
 
 const Portfolio = () => {
     return (
@@ -25,7 +24,11 @@ const Portfolio = () => {
 
                     <div className="portfolio-instagram-description">В инстаграме вы увидите ещё больше наших работ, отзывов клиентов и новостей компании</div>
 
-                    <Link href={linkToInstagram} className="portfolio-get-instagram-button">
+                    <Link
+                        href={LINKS.instagram}
+                        target="_blank noopener norefferer"
+                        className="portfolio-get-instagram-button"
+                    >
                         <span>Перейти в инстаграм</span>
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"
                              xmlns="http://www.w3.org/2000/svg">

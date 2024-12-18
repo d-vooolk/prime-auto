@@ -2,7 +2,7 @@ import React from "react";
 import './styles.css';
 import ListComponent from "@/components/_HelperComponents/ListComponent/ListComponent.jsx";
 import dynamic from "next/dynamic.js";
-import {yandexApi} from "../../api/yandexApi.ts";
+import {yandexApi} from "../../app/api/yandex/yandexApi.ts";
 const DynamicYandexMap = dynamic(() => import("../../components/YandexMap/YandexMap.tsx"), {
     ssr: false,
 });

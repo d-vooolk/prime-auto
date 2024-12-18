@@ -1,7 +1,7 @@
 "use client";
 
 import React, {useEffect, useRef} from "react";
-import {yandexApi} from "@/api/yandexApi";
+import {yandexApi} from "@/app/api/yandex/yandexApi";
 import {YandexMapProps} from "@/components/YandexMap/interface";
 
 const YandexMap: React.FC<YandexMapProps> = ({center, zoom}) => {

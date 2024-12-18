@@ -2,12 +2,14 @@ import ListComponent from "@/components/_HelperComponents/ListComponent/ListComp
 import Image from "next/image";
 import {Alts} from "@/meta/alts";
 import './styles.css';
+import Link from "next/link";
+import {NAVIGATION_URL} from "../../constants/navigation.js";
 
 const list = [
+    'Установка Bi-Led модулей',
     'Полировка и оклейка защитной плёнкой',
     'Устранение запотевания',
-    'Ремонт фар, фонарей',
-    'Тюнинг фар',
+    'Ремонт фар',
 ];
 
 const WelcomeBlock = () => {
@@ -31,13 +33,13 @@ const WelcomeBlock = () => {
                     wrapperClassname="list-element-wrapper"
                 />
 
-                <button className="get-lead-button">
+                <Link href={NAVIGATION_URL.leadForm} className="get-lead-button">
                     <span>Оставить заявку</span>
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M7 7H17M17 7V17M17 7L7 17" stroke="currentColor" strokeWidth="2" strokeLinecap="round"
                               strokeLinejoin="round"/>
                     </svg>
-                </button>
+                </Link>
             </div>
 
             <div className="statistic-wrapper">
@@ -63,7 +65,7 @@ const WelcomeBlock = () => {
                 <hr className="statistic-divider"/>
 
                 <div className="statistic-element">
-                    <span className="big-numbers">1 год</span>
+                    <span className="big-numbers">от 2 лет</span>
                     <span>Гарантии на модули</span>
                 </div>
             </div>

@@ -1,4 +1,4 @@
-import {YandexApiInterface} from "@/api/interface";
+import {YandexApiInterface} from "@/app/api/yandex/interface";
 
 const baseUrl = 'https://api-maps.yandex.ru/2.1/?';
 const apiKeyUrl = "apikey=";
