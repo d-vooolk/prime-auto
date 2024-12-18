@@ -7,9 +7,9 @@ export async function POST(req) {
 
         // Настройка транспортера для отправки писем через SMTP
         const transporter = nodemailer.createTransport({
-            service: 'smtp.yourdomain.com',
-            port: 587,
-            secure: false,
+            host: 'smtp.beget.com',
+            port: 465,
+            secure: true,
             auth: {
                 user: 'info@prime-auto.by',
                 pass: '82Ehedub!',
@@ -18,8 +18,8 @@ export async function POST(req) {
 
         // Формируем письмо
         const mailOptions = {
-            from: 'nestwedman@gmail.com', // Отправитель
-            to: 'nestwedman@gmail.com', // Получатель
+            from: 'info@prime-auto.by',
+            to: 'info@prime-auto.by',
             subject: 'Новая заявка с формы',
             text: `Имя: ${name}\nТелефон: ${phone}\nКомментарий: ${comment}\nСогласие на обработку данных: ${agreement ? 'Да' : 'Нет'}`,
         };
