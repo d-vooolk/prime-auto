@@ -15,7 +15,7 @@ const YandexMap: React.FC<YandexMapProps> = ({center, zoom}) => {
                         center,
                         zoom,
                         controls: ["zoomControl"],
-                        behaviors: ["multiTouch", "drag"],
+                        // behaviors: ["multiTouch", "drag"],
                     });
 
                     const placemark = new window.ymaps.Placemark(center, {
@@ -24,6 +24,8 @@ const YandexMap: React.FC<YandexMapProps> = ({center, zoom}) => {
                     });
 
                     map.behaviors.disable("scrollZoom");
+                    map.behaviors.enable("multiTouch");
+                    map.behaviors.enable("drag");
                     map.options.set("scrollZoomSpeed", 0);
 
                     map.geoObjects.add(placemark);
