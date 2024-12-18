@@ -7,10 +7,12 @@ export async function POST(req) {
 
         // Настройка транспортера для отправки писем через SMTP
         const transporter = nodemailer.createTransport({
-            service: 'gmail', // Укажите вашу почтовую службу (Gmail, Yandex, и т.д.)
+            service: 'smtp.yourdomain.com',
+            port: 587,
+            secure: false,
             auth: {
-                user: 'nestwedman@gmail.com', // Ваша почта
-                pass: 'your-email-password-or-app-password', // Пароль или app-password (для Gmail)
+                user: 'info@prime-auto.by',
+                pass: '82Ehedub!',
             },
         });
 
