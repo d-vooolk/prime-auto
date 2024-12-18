@@ -2,11 +2,12 @@
 
 import React, {useState} from "react";
 import {formBlockText} from "../../FormBlock/FormBlock.jsx";
+import MaskedInput from "react-text-mask/dist/reactTextMask.js";
 
 const Form = () => {
     const [formData, setFormData] = useState({
         name: '',
-        phone: '',
+        phone: '+375 (__) ___-__-__',
         comment: '',
         agreement: true,
     });
@@ -56,10 +57,11 @@ const Form = () => {
                 onChange={handleChange}
                 required
             />
-            <input
+            <MaskedInput
+                mask={['+', '3', '7', '5', ' ', '(', /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, '-', /\d/, /\d/]}
                 className="form-input"
-                type="tel"
-                placeholder="+375 (99) 999-99-99"
+                placeholder="+375 (__) ___-__-__"
+                guide={false}
                 name="phone"
                 value={formData.phone}
                 onChange={handleChange}
