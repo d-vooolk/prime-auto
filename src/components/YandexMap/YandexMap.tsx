@@ -22,7 +22,8 @@ const YandexMap: React.FC<YandexMapProps> = ({center, zoom}) => {
                         balloonContent: yandexApi.balloonContent,
                     });
 
-                    const isMobile = window.matchMedia("(pointer: coarse)").matches;
+                    const isMobile = window.innerWidth <= 768;
+                    console.log('isMobile', isMobile)
 
                     if (isMobile) {
                         map.behaviors.disable("drag");
