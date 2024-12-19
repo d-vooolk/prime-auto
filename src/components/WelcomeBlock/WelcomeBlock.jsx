@@ -51,7 +51,7 @@ const WelcomeBlock = () => {
                 <hr className="statistic-divider"/>
 
                 <div className="statistic-element">
-                    <span className="big-numbers">5 лет</span>
+                    <span className="big-numbers">2 года</span>
                     <span>Опыта в данной сфере</span>
                 </div>
 

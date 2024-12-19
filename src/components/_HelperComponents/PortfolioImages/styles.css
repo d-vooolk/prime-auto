@@ -18,6 +18,10 @@
     transition:all .5s ease;
 }
 
+.portfolio-image {
+    border-radius: 20px;
+}
+
 @media (min-width: 320px) and (max-width: 768px) {
     .portfolio-image {
         width: 100%;

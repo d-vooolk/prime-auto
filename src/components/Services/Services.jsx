@@ -4,31 +4,15 @@ import Link from "next/link";
 import './styles.css';
 import SvgComponent from "@/components/_HelperComponents/SvgComponent/SvgComponent.jsx";
 import {SVG_NAMES} from "@/components/_HelperComponents/SvgComponent/constants.js";
+import {CARD_INFO, SERVICE_TYPES} from "./constants.ts";
 
-const cardInfo = {
-    servicesLists: {
-        polirovka: ['Полировка фар', 'Химическая полировка фар', 'Оклейка фар защитной пленкой'],
-        zapotevaniye: ['Поиск негерметичности', 'Герметизация', 'Проверка вентиляции', 'Установка силикагелевых поглотителей влаги'],
-        remontFar: ['Замена корпусов, стекол', 'Очистка фар изнутри', 'Замена отражателей, светодиодов', 'Полировка', 'Ремонт внутренних деталей'],
-        remontFonarey: ['Замена выгоревших светодиодов', 'Переделка с USA на EU (замена красных светодиодов на оранжевые)', 'Устранение запотевания фонарей', 'Очистка изнутри'],
-        tuning: ['Установка светодиодных модулей (LED, BI-LED)', 'Установка галогенных модулей', 'Установка модулей для газоразрядных ламп (XENON, BI-XENON)', 'Замена отражателей, электронных компонентов', 'Установка светодиодных ламп'],
-    },
-    cardTitles: {
-        polirovka: 'ПОЛИРОВКА И ОКЛЕЙКА ЗАЩИТНОЙ ПЛЁНКОЙ',
-        zapotevaniye: 'УСТРАНЕНИЕ ЗАПОТЕВАНИЯ',
-        remontFar: 'РЕМОНТ ФАР',
-        remontFonarey: 'РЕМОНТ ФОНАРЕЙ',
-        tuning: 'ТЮНИНГ ФАР',
-    }
-}
-
-const Card3 = ({ svgName, svgClassName, cardCount = 3, title, list, href }) => {
+const Card3 = ({svgName, svgClassName, cardCount = 3, title, list, href}) => {
     return (
         <div className={`card-${cardCount}`}>
             <Link href={href} className="card-3-link">
                 <div className="card-text-info">
                     <SvgComponent name={svgName} className={svgClassName}/>
-                    <h3 className="h2-services">{ title }</h3>
+                    <h3 className="h2-services">{title}</h3>
 
                     <ListComponent
                         list={list}
@@ -47,8 +31,6 @@ const Card3 = ({ svgName, svgClassName, cardCount = 3, title, list, href }) => {
 }
 
 const Services = () => {
-    const { servicesLists, cardTitles } = cardInfo;
-
     return (
         <div className="services-block" id="services">
             <div className="block-title-services">
@@ -58,44 +40,44 @@ const Services = () => {
 
             <div className="card-3-wrapper">
                 <Card3
-                    svgName={SVG_NAMES.polirovka}
+                    svgName={SVG_NAMES.tuning}
                     svgClassName="svg-card-services"
-                    title={cardTitles.polirovka}
-                    list={servicesLists.polirovka}
+                    title={(CARD_INFO[SERVICE_TYPES.IMPROVEMENT_LIGHT_QUALITY].title).toUpperCase()}
+                    list={CARD_INFO[SERVICE_TYPES.IMPROVEMENT_LIGHT_QUALITY].list}
                     href="#"
                     cardCount={3}
                 />
                 <Card3
-                    svgName={SVG_NAMES.zapotevaniye}
+                    svgName={SVG_NAMES.polirovka}
                     svgClassName="svg-card-services"
-                    title={cardTitles.zapotevaniye}
-                    list={servicesLists.zapotevaniye}
+                    title={(CARD_INFO[SERVICE_TYPES.POLISHING_POSTING].title).toUpperCase()}
+                    list={CARD_INFO[SERVICE_TYPES.POLISHING_POSTING].list}
                     href="#"
                     cardCount={3}
                 />
                 <Card3
                     svgName={SVG_NAMES.remontFar}
                     svgClassName="svg-card-services"
-                    title={cardTitles.remontFar}
-                    list={servicesLists.remontFar}
+                    title={(CARD_INFO[SERVICE_TYPES.HEADLIGHTS_REPAIR].title).toUpperCase()}
+                    list={CARD_INFO[SERVICE_TYPES.HEADLIGHTS_REPAIR].list}
                     href="#"
                     cardCount={3}
                 />
             </div>
             <div className="card-2-wrapper">
                 <Card3
-                    svgName={SVG_NAMES.remontFonarey}
+                    svgName={SVG_NAMES.zapotevaniye}
                     svgClassName="svg-card-services"
-                    title={cardTitles.remontFonarey}
-                    list={servicesLists.remontFonarey}
+                    title={(CARD_INFO[SERVICE_TYPES.HEADLIGHTS_PERSPIRATION].title).toUpperCase()}
+                    list={CARD_INFO[SERVICE_TYPES.HEADLIGHTS_PERSPIRATION].list}
                     href="#"
                     cardCount={2}
                 />
                 <Card3
-                    svgName={SVG_NAMES.tuning}
+                    svgName={SVG_NAMES.remontFonarey}
                     svgClassName="svg-card-services"
-                    title={cardTitles.tuning}
-                    list={servicesLists.tuning}
+                    title={(CARD_INFO[SERVICE_TYPES.MAINTENANCE].title).toUpperCase()}
+                    list={CARD_INFO[SERVICE_TYPES.MAINTENANCE].list}
                     href="#"
                     cardCount={2}
                 />
