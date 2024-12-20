@@ -22,7 +22,7 @@ const WelcomeBlock = () => {
                     width={1100}
                     height={632.3}
                     className="welcome-car-image"
-                    loading="eager"
+                    priority
                 />
             </div>
             <div className="welcome-block">
