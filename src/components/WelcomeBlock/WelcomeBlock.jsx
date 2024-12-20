@@ -17,7 +17,7 @@ const WelcomeBlock = () => {
         <div className="welcome-block-wrapper">
             <div className="welcome-car">
                 <Image
-                    src="/images/first-car.png"
+                    src="/images/first-car.webp"
                     alt={Alts.welcomeBlock.car}
                     width={1100}
                     height={632.3}

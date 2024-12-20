@@ -20,7 +20,7 @@ const FormBlock = () => {
             </div>
 
             <Image
-                src="/images/zeekr-blue.png"
+                src="/images/zeekr-blue.webp"
                 alt="автомобиль"
                 width={1214}
                 height={490}

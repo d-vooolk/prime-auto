@@ -68,7 +68,7 @@ const AboutCompany = () => {
             </div>
 
             <FullWidthImage
-                src="/images/about-car.jpg"
+                src="/images/about-car.webp"
                 alt={imageAlt}
                 height={575}
                 className="about-car-image-wrapper"

@@ -1,7 +1,7 @@
 .welcome-block-wrapper {
     padding: 100px 353px 120px;
     box-sizing: border-box;
-    background-image: url("../../../public/images/noise-background.png");
+    background-image: url("../../../public/images/noise-background.webp");
     position: relative;
     overflow: hidden;
 }

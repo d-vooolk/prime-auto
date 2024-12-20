@@ -10,7 +10,7 @@ const ReviewCardQuoteImage = () => {
     return (
         <div className="slider-reviews-double">
             <Image
-                src="/images/reviews-double.png"
+                src="/images/reviews-double.webp"
                 alt="цитата отзыва"
                 width={73}
                 height={59}
@@ -69,13 +69,13 @@ const ReviewsSlider = ({reviews}) => {
                     className="reviews-arrow-back"
                     onClick={() => prevPage()}
                 >
-                    <Image src="/images/slider-prev.png" alt="стрелка назад" width={62} height={50}/>
+                    <Image src="/images/slider-prev.webp" alt="стрелка назад" width={62} height={50}/>
                 </div>
                 <div
                     className="reviews-arrow-next"
                     onClick={() => nextPage()}
                 >
-                    <Image src="/images/slider-next.png" alt="стрелка вперёд" width={62} height={50}/>
+                    <Image src="/images/slider-next.webp" alt="стрелка вперёд" width={62} height={50}/>
                 </div>
             </div>
 

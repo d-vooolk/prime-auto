@@ -41,21 +41,21 @@ const Portfolio = () => {
                 <div className="portfolio-instagram-images-wrapper">
                     <Image
                         className="portfolio-instagram-image"
-                        src="/images/instagram-gray-bg.png"
+                        src="/images/instagram-gray-bg.webp"
                         alt="Инстаграм"
                         width={228}
                         height={172}
                     />
                     <Image
                         className="portfolio-dialog-image"
-                        src="/images/dialog.png"
+                        src="/images/dialog.webp"
                         alt="Инстаграм"
                         width={87}
                         height={56}
                     />
                     <Image
                         className="portfolio-heart-image"
-                        src="/images/heart.png"
+                        src="/images/heart.webp"
                         alt="Инстаграм"
                         width={56}
                         height={45}
