@@ -29,7 +29,7 @@
     }
 
     .portfolio-image-wrapper:hover {
-        transform: scale(130%);
+        transform: scale(103%);
         transition:all .5s ease;
     }
 }
