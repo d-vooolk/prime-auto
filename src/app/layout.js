@@ -19,11 +19,13 @@ export default function RootLayout({children}) {
             <meta charSet="UTF-8"/>
             <meta name="viewport" content="width=device-width, initial-scale=1"/>
             <title>Мой сайт</title>
+            <link rel="preconnect" href="https://prime-auto.by"/>
+            <link rel="preload" as="image" href="/images/first-car.webp"/>
         </Head>
         <body>
-            <GetAdaptiveHeader />
-            {children}
-            <Footer/>
+        <GetAdaptiveHeader/>
+        {children}
+        <Footer/>
         </body>
         </html>
     );
