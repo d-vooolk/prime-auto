@@ -23,7 +23,6 @@ const YandexMap: React.FC<YandexMapProps> = ({center, zoom}) => {
                     });
 
                     const isMobile = window.innerWidth <= 768;
-                    console.log('isMobile', isMobile)
 
                     if (isMobile) {
                         map.behaviors.disable("drag");

@@ -23,7 +23,7 @@ const WelcomeBlock = () => {
                     height={632.3}
                     className="welcome-car-image"
                     priority
-                    fetchpriority="high"
+                    fetchPriority="high"
                 />
             </div>
             <div className="welcome-block">
