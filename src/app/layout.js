@@ -14,6 +14,9 @@ export default function RootLayout({children}) {
     return (
         <html lang="ru">
         <GoogleTagManager gtmId="GTM-PKL79DZC" />
+        <head>
+            <script src="//code.jivo.ru/widget/nCCAMNcF5a" async></script>
+        </head>
         <Head>
             <link rel="icon" href="/favicon.ico"/>
             <meta charSet="UTF-8"/>
