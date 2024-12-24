@@ -146,6 +146,16 @@ footer .footer-contacts {
         height: 57px;
         padding-bottom: 20px;
     }
+
+    .footer-full-info-wrapper {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        width: 100%;
+        justify-content: space-between;
+        margin: 20px 0 20px;
+        align-items: flex-start;
+    }
 }
 
 @media (min-width: 769px) and (max-width: 1700px) {
