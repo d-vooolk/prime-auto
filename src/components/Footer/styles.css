@@ -85,6 +85,34 @@ footer .footer-contacts {
     text-decoration: none;
 }
 
+.footer-full-info-wrapper {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    margin: 20px 0 20px;
+    align-items: center;
+}
+
+.footer-full-info-name {
+    font-family: Montserrat, sans-serif;
+    font-size: 20px;
+}
+
+.footer-full-info-email {
+    display: flex;
+    gap: 10px;
+}
+
+.footer-full-info-email a {
+    text-decoration: none;
+    color: var(--base-white);
+}
+
+.footer-full-info-social {
+    display: flex;
+    gap: 10px;
+}
+
 
 
 @media (min-width: 320px) and (max-width: 768px) {

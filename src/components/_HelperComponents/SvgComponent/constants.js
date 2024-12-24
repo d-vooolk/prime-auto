@@ -5,4 +5,8 @@ export const SVG_NAMES = {
     remontFonarey: 'remontFonarey',
     tuning: 'tuning',
     arrowUpRight: 'arrowUpRight',
+    instagram: 'instagram',
+    facebook: 'facebook',
+    tiktok: 'tiktok',
+    youTube: 'youTube',
 }

@@ -4,6 +4,9 @@ import {Alts} from "@/meta/alts";
 import Link from "next/link";
 import React from "react";
 import NavigateBar from "@/components/_HelperComponents/NavigateBar/NavigateBar.jsx";
+import SvgComponent from "../_HelperComponents/SvgComponent/SvgComponent.jsx";
+import {SVG_NAMES} from "../_HelperComponents/SvgComponent/constants.js";
+import {LINKS} from "../../constants/contactsData.js";
 
 const Footer = () => {
     return (
@@ -16,7 +19,7 @@ const Footer = () => {
                     height={40}
                 />
                 <nav className="footer-nav">
-                    <NavigateBar />
+                    <NavigateBar/>
                 </nav>
                 <div className="footer-contacts">
                     <Image
@@ -32,7 +35,34 @@ const Footer = () => {
                 </div>
             </div>
 
-            <hr className="footer-divider" />
+            <hr className="footer-divider"/>
+
+            <div className="footer-full-info-wrapper">
+                <div className="footer-full-info-name">Prime Auto</div>
+                <div className="footer-full-info-email">
+                    <div>Email</div>
+                    <div>
+                        <Link href="mailto:info@prime-auto.by" target="_blank noopener norefferer">
+                            info@prime-auto.by
+                        </Link>
+                    </div>
+                </div>
+                <div className="footer-full-info-unp">УНП 291388531</div>
+                <div className="footer-full-info-social">
+                    <Link href={LINKS.instagram} target="_blank noopener norefferer">
+                        <SvgComponent name={SVG_NAMES.instagram}/>
+                    </Link>
+                    <Link href={LINKS.tiktok} target="_blank noopener norefferer">
+                        <SvgComponent name={SVG_NAMES.tiktok}/>
+                    </Link>
+                    <Link href={LINKS.youTube} target="_blank noopener norefferer">
+                        <SvgComponent name={SVG_NAMES.youTube}/>
+                    </Link>
+                    <Link href={LINKS.facebook} target="_blank noopener norefferer">
+                        <SvgComponent name={SVG_NAMES.facebook}/>
+                    </Link>
+                </div>
+            </div>
 
             <div className="footer-copyright-wrapper">
                 <span>© 2024 Prime auto. Все права защищены</span>
