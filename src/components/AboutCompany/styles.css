@@ -196,3 +196,12 @@
         justify-content: center;
     }
 }
+
+@media (min-width: 769px) and (max-width: 1700px) {
+    .about-section {
+        flex-direction: column;
+        margin: 0 120px 20px;
+        gap: 20px;
+        padding: 0 20px;
+    }
+}

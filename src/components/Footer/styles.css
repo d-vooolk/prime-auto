@@ -119,3 +119,9 @@ footer .footer-contacts {
         padding-bottom: 20px;
     }
 }
+
+@media (min-width: 769px) and (max-width: 1700px) {
+    footer {
+        padding: 40px 120px 0;
+    }
+}

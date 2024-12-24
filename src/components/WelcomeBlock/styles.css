@@ -140,3 +140,15 @@
         align-items: center;
     }
 }
+
+@media (min-width: 769px) and (max-width: 1700px) {
+    .welcome-block-wrapper {
+        padding: 100px 220px 120px;
+    }
+
+    .welcome-car {
+        top: 260px;
+        right: -210px;
+        overflow: hidden;
+    }
+}

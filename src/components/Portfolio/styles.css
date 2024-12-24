@@ -214,3 +214,9 @@
         position: relative;
     }
 }
+
+@media (min-width: 769px) and (max-width: 1700px) {
+    .portfolio-wrapper {
+        padding: 0 220px;
+    }
+}

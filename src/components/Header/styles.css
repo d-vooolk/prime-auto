@@ -65,3 +65,9 @@
 .instagram-icon:hover {
     cursor: pointer;
 }
+
+@media (min-width: 769px) and (max-width: 1700px) {
+    .desktop-header {
+        padding: 0 120px;
+    }
+}
