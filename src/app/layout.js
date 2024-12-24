@@ -5,6 +5,7 @@ import Head from "next/head.js";
 import {GetAdaptiveHeader} from "@/utils/utils.js";
 import React from "react";
 import { GoogleTagManager } from '@next/third-parties/google'
+import FastUp from "../components/_HelperComponents/FastUp/FastUp.jsx";
 
 
 export const metadata = {...META.general, robots: String(META.general.robots)}
@@ -23,7 +24,8 @@ export default function RootLayout({children}) {
             <meta name="viewport" content="width=device-width, initial-scale=1"/>
             <script src="//code.jivo.ru/widget/nCCAMNcF5a" async></script>
         </Head>
-        <body>
+        <body id="page-start">
+        <FastUp />
         <GetAdaptiveHeader/>
         {children}
         <Footer/>
