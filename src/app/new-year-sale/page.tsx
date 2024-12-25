@@ -51,7 +51,7 @@ const NewYearSale = () => {
 
     return (
         <div className="circle-chart-page-wrapper" style={{textAlign: "center", paddingTop: 100}}>
-            <Snowfall />
+            <Snowfall/>
             <h1 className="circle-chart-head-text">Новогодняя скидка 25% на установку билед модулей 🎁</h1>
 
             <div className="circle-chart-description">Успей забронировать себе праздничную цену 🙃</div>
