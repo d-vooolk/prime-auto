@@ -9,7 +9,7 @@
     "start": "NODE_ENV=production node server.js",
     "lint": "next lint",
     "restart": "rm -rf .next && npm run build && sudo rm -rf /var/cache/nginx/* && sudo systemctl restart nginx && pm2 restart prime-auto",
-    "deploy": "git pull && npm i && npm run restart"
+    "deploy": "git pull && npm install && npm run restart"
   },
   "dependencies": {
     "@next/third-parties": "^15.1.1",
