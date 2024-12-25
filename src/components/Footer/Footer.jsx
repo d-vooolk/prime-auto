@@ -7,17 +7,20 @@ import NavigateBar from "@/components/_HelperComponents/NavigateBar/NavigateBar.
 import SvgComponent from "../_HelperComponents/SvgComponent/SvgComponent.jsx";
 import {SVG_NAMES} from "../_HelperComponents/SvgComponent/constants.js";
 import {LINKS} from "../../constants/contactsData.js";
+import {NAVIGATION_URL} from "../../constants/navigation.js";
 
 const Footer = () => {
     return (
         <footer>
             <div className="footer-inform-wrapper">
-                <Image
-                    src="dark-logo.svg"
-                    alt=""
-                    width={132}
-                    height={40}
-                />
+                <Link href={NAVIGATION_URL.home}>
+                    <Image
+                        src="dark-logo.svg"
+                        alt=""
+                        width={132}
+                        height={40}
+                    />
+                </Link>
                 <nav className="footer-nav">
                     <NavigateBar/>
                 </nav>

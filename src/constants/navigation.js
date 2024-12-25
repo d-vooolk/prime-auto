@@ -1,4 +1,4 @@
-export const NAVIGATION_URL = {
+export const NAVIGATION_URL_ANCHORS = {
     services: '#services',
     about: '#about',
     reviews: '#reviews',
@@ -7,25 +7,29 @@ export const NAVIGATION_URL = {
     leadForm: '#leadForm',
 }
 
+export const NAVIGATION_URL = {
+    home: '/',
+};
+
 export const NAVIGATION = [
     {
         title: 'Услуги',
-        url: NAVIGATION_URL.services,
+        url: NAVIGATION_URL_ANCHORS.services,
     },
     {
         title: 'О компании',
-        url: NAVIGATION_URL.about,
+        url: NAVIGATION_URL_ANCHORS.about,
     },
     {
         title: 'Отзывы',
-        url: NAVIGATION_URL.reviews,
+        url: NAVIGATION_URL_ANCHORS.reviews,
     },
     {
         title: 'Работы',
-        url: NAVIGATION_URL.portfolio,
+        url: NAVIGATION_URL_ANCHORS.portfolio,
     },
     {
         title: 'Контакты',
-        url: NAVIGATION_URL.contacts,
+        url: NAVIGATION_URL_ANCHORS.contacts,
     },
 ];

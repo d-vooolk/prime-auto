@@ -7,6 +7,7 @@ import Image from "next/image.js";
 import Link from "next/link";
 import {CONTACTS_DATA, LINKS} from "../../../constants/contactsData.js";
 import NavigateBar from "@/components/_HelperComponents/NavigateBar/NavigateBar.jsx";
+import {NAVIGATION_URL} from "../../../constants/navigation.js";
 
 const MobileHeader = () => {
     const [isOpenMenu, setIsOpenMenu] = useState(false);
@@ -17,12 +18,14 @@ const MobileHeader = () => {
 
     return (
         <header className="mobile-header">
-            <Image
-                src="/logo.svg"
-                width={132}
-                height={40}
-                alt={Alts.header.logo}
-            />
+            <Link href={NAVIGATION_URL.home}>
+                <Image
+                    src="/logo.svg"
+                    width={132}
+                    height={40}
+                    alt={Alts.header.logo}
+                />
+            </Link>
 
             <div className="mobile-header-buttons-wrapper">
                 <Link href={`tel:${CONTACTS_DATA.phone1}`}>

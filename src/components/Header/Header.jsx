@@ -5,16 +5,19 @@ import {Alts} from "../../meta/alts";
 import Link from "next/link";
 import NavigateBar from "../../components/_HelperComponents/NavigateBar/NavigateBar.jsx";
 import {LINKS} from "../../constants/contactsData.js";
+import {NAVIGATION_URL} from "../../constants/navigation.js";
 
 const Header = () => {
     return (
         <header className="desktop-header">
-            <Image
-                src="/logo.svg"
-                width={132}
-                height={40}
-                alt={Alts.header.logo}
-            />
+            <Link href={NAVIGATION_URL.home}>
+                <Image
+                    src="/logo.svg"
+                    width={132}
+                    height={40}
+                    alt={Alts.header.logo}
+                />
+            </Link>
             <nav className="desktop-nav">
                 <NavigateBar />
             </nav>
