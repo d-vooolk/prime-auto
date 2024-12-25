@@ -68,7 +68,7 @@ const Form = () => {
                 className="form-input"
                 rows={5}
                 placeholder="Ваш комментарий"
-                name="comment"
+                name="message"
                 value={formData.message}
                 onChange={handleChange}
             />
