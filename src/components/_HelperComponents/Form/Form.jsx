@@ -3,12 +3,13 @@
 import React, {useState} from "react";
 import {formBlockText} from "../../FormBlock/FormBlock.jsx";
 import MaskedInput from "react-text-mask/dist/reactTextMask.js";
+import {sendLeadToBot} from "../../../app/api/tg-bot/leads.js";
 
 const Form = () => {
     const [formData, setFormData] = useState({
         name: '',
         phone: '+375 (__) ___-__-__',
-        comment: '',
+        message: '',
         agreement: true,
     });
     const [status, setStatus] = useState('');
@@ -25,15 +26,11 @@ const Form = () => {
         e.preventDefault();
         setStatus('Отправка...');
         try {
-            const response = await fetch('/api/send-email', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(formData),
-            });
+            const response = await sendLeadToBot(formData);
 
             if (response.ok) {
                 setStatus('Данные успешно отправлены!');
-                setFormData({ name: '', phone: '', comment: '', agreement: false });
+                setFormData({ name: '', phone: '', message: '', agreement: false });
             } else {
                 setStatus('Ошибка при отправке данных.');
             }
@@ -72,7 +69,7 @@ const Form = () => {
                 rows={5}
                 placeholder="Ваш комментарий"
                 name="comment"
-                value={formData.comment}
+                value={formData.message}
                 onChange={handleChange}
             />
 
