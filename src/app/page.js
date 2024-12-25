@@ -5,6 +5,9 @@ import ReviewsBlock from "../components/ReviewsBlock/ReviewsBlock.jsx";
 import Portfolio from "../components/Portfolio/Portfolio.jsx";
 import FormBlock from "../components/FormBlock/FormBlock.jsx";
 import ContactsBlock from "../components/ContactsBlock/ContactsBlock.jsx";
+import HideNotification from "../components/_HelperComponents/HideNotification/HideNotification";
+import {HIDE_NOTIFICATION_TEXT} from "../constants/textConstants.js";
+import {NAVIGATION_URL} from "../constants/navigation.js";
 
 export default function Home() {
   return (
@@ -16,6 +19,10 @@ export default function Home() {
           <Portfolio/>
           <FormBlock/>
           <ContactsBlock/>
+          <HideNotification
+              text={HIDE_NOTIFICATION_TEXT}
+              link={NAVIGATION_URL.newYearSale}
+          />
       </main>
   );
 }
