@@ -32,3 +32,12 @@
     font-size: 25px;
     margin: 50px 0;
 }
+
+.circle-chart-image-gift {
+    width: 100vw;
+    height: auto;
+    position: relative;
+    bottom: 0;
+    left: 0;
+
+}

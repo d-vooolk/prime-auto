@@ -20,6 +20,7 @@
     "react-dom": "^18.2.0",
     "react-input-mask": "^2.0.4",
     "react-input-mask-next": "^3.0.0-alpha.12",
+    "react-snowfall": "^2.2.0",
     "react-text-mask": "^5.5.0",
     "sass": "^1.83.0"
   },

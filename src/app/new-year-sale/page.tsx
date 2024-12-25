@@ -4,6 +4,10 @@ import React from "react";
 import CircleChart from "@/components/_HelperComponents/CircleChart/CircleChart";
 import './styles.css';
 import {Button, Card, Table} from "antd";
+import Link from "next/link";
+import {NAVIGATION_URL, NAVIGATION_URL_ANCHORS} from "@/constants/navigation";
+import {Snowfall} from "react-snowfall";
+import Image from "next/image";
 
 const dataSource = [
     // {
@@ -48,42 +52,51 @@ const NewYearSale = () => {
 
     return (
         <div className="circle-chart-page-wrapper" style={{textAlign: "center", paddingTop: 100}}>
+            <Snowfall />
             <h1 className="circle-chart-head-text">Новогодняя скидка 25% на установку билед модулей 🎁</h1>
 
-            <div className="circle-chart-description">Успей забронировать себе новогоднюю цену 🙃</div>
+            <div className="circle-chart-description">Успей забронировать себе праздничную цену 🙃</div>
             <div className="circle-chart-table-title">Осталось записей:</div>
 
             <CircleChart value={currentValue}/>
 
             {
                 dataSource.length
-                    ? (<div className="circle-chart-table-title">Уже успели забронировать:</div>)
-                    : null
-            }
-
-            {
-                dataSource.length
                     ? (
-                        <Card className="circle-chart-table-wrapper">
-                            <Table
-                                dataSource={dataSource}
-                                columns={columns}
-                                className="circle-chart-table"
-                                pagination={false}
-                            />
-                        </Card>
+                        <>
+                            <div className="circle-chart-table-title">Уже успели забронировать:</div>
+                            <Card className="circle-chart-table-wrapper">
+                                <Table
+                                    dataSource={dataSource}
+                                    columns={columns}
+                                    className="circle-chart-table"
+                                    pagination={false}
+                                />
+                            </Card>
+                        </>
                     )
                     : null
             }
 
+
             <Button
                 type="primary"
                 size="large"
-                style={{ marginTop: 50 }}
+                style={{marginTop: 50}}
                 onClick={(e) => leadHandler(e)}
             >
-                Записаться 🎁
+                <Link href={`${NAVIGATION_URL.home}${NAVIGATION_URL_ANCHORS.leadForm}`}>
+                    Записаться 🎁
+                </Link>
             </Button>
+
+            {/*<Image*/}
+            {/*    src="/images/gift.png"*/}
+            {/*    alt="gifts"*/}
+            {/*    width={1545}*/}
+            {/*    height={577}*/}
+            {/*    className="circle-chart-image-gift"*/}
+            {/*/>*/}
         </div>
     );
 }

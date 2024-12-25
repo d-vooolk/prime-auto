@@ -9,6 +9,7 @@ export const NAVIGATION_URL_ANCHORS = {
 
 export const NAVIGATION_URL = {
     home: '/',
+    newYearSale: '/new-year-sale',
 };
 
 export const NAVIGATION = [
@@ -32,4 +33,8 @@ export const NAVIGATION = [
         title: 'Контакты',
         url: NAVIGATION_URL_ANCHORS.contacts,
     },
+    {
+        title: 'Акции',
+        url: NAVIGATION_URL.newYearSale,
+    }
 ];

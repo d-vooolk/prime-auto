@@ -1,7 +1,7 @@
 'use client'
 
 import React from "react";
-import {NAVIGATION} from "@/constants/navigation.js";
+import {NAVIGATION} from "../../../constants/navigation.js";
 import Link from "next/link";
 
 const NavigateBar = ({ closeMenu }) => {
