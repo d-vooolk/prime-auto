@@ -28,7 +28,7 @@ const Form = () => {
         try {
             const response = await sendLeadToBot(formData);
 
-            if (response.ok) {
+            if (response.success) {
                 setStatus('Данные успешно отправлены!');
                 setFormData({ name: '', phone: '', message: '', agreement: false });
             } else {
