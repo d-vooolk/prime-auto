@@ -7,9 +7,8 @@ import {Button, Card, Table} from "antd";
 import Link from "next/link";
 import {NAVIGATION_URL, NAVIGATION_URL_ANCHORS} from "@/constants/navigation";
 import {Snowfall} from "react-snowfall";
-import Image from "next/image";
 
-const dataSource = [
+const dataSource: any[] = [
     // {
     //     key: '1',
     //     index: 1,
@@ -45,7 +44,7 @@ const columns = [
 const NewYearSale = () => {
     const currentValue = 10;
 
-    const leadHandler = (e) => {
+    const leadHandler = (e: React.SyntheticEvent) => {
         e.preventDefault();
         e.stopPropagation();
     }
@@ -89,14 +88,6 @@ const NewYearSale = () => {
                     Записаться 🎁
                 </Link>
             </Button>
-
-            {/*<Image*/}
-            {/*    src="/images/gift.png"*/}
-            {/*    alt="gifts"*/}
-            {/*    width={1545}*/}
-            {/*    height={577}*/}
-            {/*    className="circle-chart-image-gift"*/}
-            {/*/>*/}
         </div>
     );
 }
