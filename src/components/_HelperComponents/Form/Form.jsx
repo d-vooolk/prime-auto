@@ -3,7 +3,7 @@
 import React, {useState} from "react";
 import {formBlockText} from "../../FormBlock/FormBlock.jsx";
 import MaskedInput from "react-text-mask/dist/reactTextMask.js";
-import {sendLeadToBot} from "../../../app/api/tg-bot/leads.js";
+import {sendLeadToBot} from "../../../app/api/tg-bot/leads.ts";
 
 const Form = () => {
     const [formData, setFormData] = useState({
