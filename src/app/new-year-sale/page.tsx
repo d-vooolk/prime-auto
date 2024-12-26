@@ -9,12 +9,20 @@ import {NAVIGATION_URL, NAVIGATION_URL_ANCHORS} from "@/constants/navigation";
 import {Snowfall} from "react-snowfall";
 
 const dataSource: any[] = [
-    // {
-    //     key: '1',
-    //     index: 1,
-    //     client: "Волк Д. И.",
-    //     auto: "BMW e39",
-    // },
+    {
+        key: '1',
+        index: 1,
+        client: "Виктор",
+        auto: "Volkswagen Passat B6",
+        module: "Vision Ultimate",
+    },
+    {
+        key: '2',
+        index: 2,
+        client: "Артём",
+        auto: "Renault Laguna 3",
+        module: "Vision Ultimate",
+    },
 ];
 
 const columns = [
@@ -33,6 +41,11 @@ const columns = [
         dataIndex: 'auto',
         key: 'auto',
     },
+    {
+        title: 'Модуль',
+        dataIndex: 'module',
+        key: 'module',
+    },
 ];
 
 const NewYearSale = () => {
@@ -44,14 +57,15 @@ const NewYearSale = () => {
     }
 
     return (
-        <div className="circle-chart-page-wrapper" style={{textAlign: "center", paddingTop: 100}}>
+        <div className="circle-chart-page-wrapper" style={{textAlign: "center"}}>
             <Snowfall/>
+            <div style={{ paddingTop: "100px" }}></div>
             <h1 className="circle-chart-head-text">Новогодняя скидка 25% на установку билед модулей 🎁</h1>
 
             <div className="circle-chart-description">Успей забронировать себе праздничную цену 🙃</div>
             <div className="circle-chart-table-title">Осталось записей:</div>
 
-            <CircleChart value={currentValue}/>
+            <CircleChart value={dataSource.length}/>
 
             {
                 dataSource.length
@@ -64,6 +78,7 @@ const NewYearSale = () => {
                                     columns={columns}
                                     className="circle-chart-table"
                                     pagination={false}
+                                    style={{ width: "100%" }}
                                 />
                             </Card>
                         </>

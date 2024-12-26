@@ -2,7 +2,6 @@
     margin: 0 0 100px;
     padding: 0;
     box-sizing: border-box;
-    height: 100vh;
 }
 
 .circle-chart-head-text {
@@ -31,4 +30,14 @@
     font-family: Montserrat, sans-serif;
     font-size: 25px;
     margin: 50px 0;
+}
+
+@media (min-width: 320px) and (max-width: 768px) {
+    .circle-chart-table-wrapper {
+        width: 100%;
+        margin: 0;
+        display: flex;
+        justify-content: center;
+        background-color: transparent;
+    }
 }

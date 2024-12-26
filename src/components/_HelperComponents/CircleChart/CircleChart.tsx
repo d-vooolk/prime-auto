@@ -7,7 +7,7 @@ type CircleChartProps = {
 
 const CircleChart: React.FC<CircleChartProps> = ({ value }) => {
     const maxValue = 10;
-    const normalizedValue = Math.min(Math.max(value, 0), maxValue);
+    const normalizedValue = Math.min(Math.max(maxValue - value, 0), maxValue);
     const percentage = (normalizedValue / maxValue) * 100;
     const strokeDasharray = `${percentage} ${100 - percentage}`;
 
