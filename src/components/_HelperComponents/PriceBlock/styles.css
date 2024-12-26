@@ -1,0 +1,51 @@
+.price-block-wrapper {
+    background-color: var(--base-dark);
+    color: var(--base-white);
+    padding: 100px 353px 120px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.price-block-upper-title {
+    padding: 0;
+    margin: 0;
+    font-size: 60px;
+    line-height: 100%;
+    color: var(--base-green);
+    font-family: "Comforter Brush", sans-serif;
+    font-weight: 300;
+}
+
+.price-block-under-title {
+    padding: 0;
+    margin: 0;
+    font-size: 40px;
+    line-height: 120%;
+    position: relative;
+    top: -30px;
+    font-weight: 800;
+}
+
+.price-table {
+    width: 100%;
+}
+
+@media (min-width: 320px) and (max-width: 768px) {
+    .price-block-wrapper {
+        padding: 80px 20px 100px;
+    }
+
+    .price-block-upper-title {
+        font-size: 48px;
+    }
+
+    .price-block-under-title {
+        font-size: 36px;
+        text-align: center;
+        top: -25px;
+    }
+}

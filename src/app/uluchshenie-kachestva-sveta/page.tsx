@@ -4,9 +4,10 @@ import ServicePageTitleContainer
     from "@/components/_HelperComponents/ServicePageTitleContainer/ServicePageTitleContainer";
 import './styles.css';
 import OurProposalBlock from "@/components/_HelperComponents/OurProposalBlock/OurProposalBlock";
-import {lightQualityProposalList, PAGE_TITLE_TEXT} from "@/app/uluchshenie-kachestva-sveta/constants";
+import {lightQualityProposalList, PAGE_TITLE_TEXT, priceDataSource} from "@/app/uluchshenie-kachestva-sveta/constants";
 import Portfolio from "@/components/Portfolio/Portfolio";
 import FormBlock from "@/components/FormBlock/FormBlock";
+import PriceBlock from "@/components/_HelperComponents/PriceBlock/PriceBlock";
 
 export const metadata = {...META.lightQuality, robots: String(META.lightQuality.robots)}
 
@@ -17,8 +18,11 @@ const LightQuality = () => {
                 headText={PAGE_TITLE_TEXT.title}
                 description={PAGE_TITLE_TEXT.description}
             />
-
             <OurProposalBlock list={lightQualityProposalList} />
+            <PriceBlock
+                title={PAGE_TITLE_TEXT.priceTitle}
+                priceDataSource={priceDataSource}
+            />
             <Portfolio/>
             <FormBlock/>
         </div>

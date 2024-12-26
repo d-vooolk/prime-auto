@@ -3,6 +3,7 @@ import {OurProposalBlockList} from "@/components/_HelperComponents/OurProposalBl
 export const PAGE_TITLE_TEXT = {
     title: "Улучшение качества света в Минске",
     description: "Наша команда профессионально улучшает свет",
+    priceTitle: "Цены на полировку",
 }
 
 export const lightQualityProposalList: OurProposalBlockList[] = [
@@ -17,5 +18,16 @@ export const lightQualityProposalList: OurProposalBlockList[] = [
     {
         title: 'качество и надёжность',
         description: 'Мы ориентируемся на достижение превосходных результатов, используя только материалы высочайшего качества и новейшее профессиональное оборудование. Такой подход гарантирует надежность, долговечность и соответствие самым высоким стандартам качества.',
+    },
+];
+
+export const priceDataSource = [
+    {
+        serviceName: 'Полировка стекол фар (за две)',
+        price: 'от 80 руб.',
+    },
+    {
+        serviceName: 'Оклейка защитной пленкой с обеих сторон (зависит от площади фары)',
+        price: 'от 150 руб.',
     },
 ];

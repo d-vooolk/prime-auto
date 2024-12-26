@@ -1,0 +1,47 @@
+.custom-table-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    box-sizing: border-box;
+    gap: 10px;
+}
+
+.custom-table-row {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: flex-start;
+    align-items: center;
+    box-sizing: border-box;
+    background: transparent;
+    border: .5px solid rgba(168, 168, 168, 0.3);
+    border-radius: 20px;
+    padding: 20px;
+    gap: 10px;
+}
+
+.custom-table-row-first {
+    background-color: #1C1C1C;
+}
+
+.custom-table-service-name {
+    width: 80%;
+    max-width: 80%;
+}
+
+.custom-table-service-price {
+    width: 40%;
+    max-width: 40%;
+}
+
+@media (min-width: 320px) and (max-width: 768px) {
+    .custom-table-row {
+        justify-content: flex-end;
+    }
+
+    .custom-table-service-price {
+        text-align: end;
+    }
+}
