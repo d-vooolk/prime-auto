@@ -15,12 +15,6 @@ const dataSource: any[] = [
     //     client: "Волк Д. И.",
     //     auto: "BMW e39",
     // },
-    // {
-    //     key: '2',
-    //     index: 2,
-    //     client: "Иванова В. А.",
-    //     auto: "Audi A5",
-    // },
 ];
 
 const columns = [
