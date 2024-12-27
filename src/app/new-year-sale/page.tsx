@@ -30,6 +30,13 @@ const dataSource: any[] = [
         auto: "Lexus LS 430 3",
         module: "Vision Advance",
     },
+    {
+        key: '4',
+        index: 4,
+        client: "Алексей",
+        auto: "Audi A6C6",
+        module: "Sanvi F50",
+    },
 ];
 
 const columns = [
