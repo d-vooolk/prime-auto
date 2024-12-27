@@ -23,6 +23,13 @@ const dataSource: any[] = [
         auto: "Renault Laguna 3",
         module: "Vision Ultimate",
     },
+    {
+        key: '3',
+        index: 3,
+        client: "Владислав",
+        auto: "Lexus LS 430 3",
+        module: "Vision Advance",
+    },
 ];
 
 const columns = [
@@ -49,8 +56,6 @@ const columns = [
 ];
 
 const NewYearSale = () => {
-    const currentValue = 10;
-
     const leadHandler = (e: React.SyntheticEvent) => {
         e.preventDefault();
         e.stopPropagation();
