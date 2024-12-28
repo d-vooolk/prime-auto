@@ -5,7 +5,8 @@ import './styles.css';
 import {Alts} from "../../../meta/alts.js";
 import Image from "next/image.js";
 import Link from "next/link";
-import {CONTACTS_DATA, LINKS} from "../../../constants/contactsData.js";
+import {CONTACTS_DATA} from "../../../constants/contactsData.js";
+import {LINKS} from "../../../constants/links.js";
 import NavigateBar from "@/components/_HelperComponents/NavigateBar/NavigateBar.jsx";
 import {NAVIGATION_URL} from "../../../constants/navigation.js";
 

@@ -7,7 +7,7 @@ import OurProposalBlock from "@/components/_HelperComponents/OurProposalBlock/Ou
 import Portfolio from "@/components/Portfolio/Portfolio";
 import FormBlock from "@/components/FormBlock/FormBlock";
 import PriceBlock from "@/components/_HelperComponents/PriceBlock/PriceBlock";
-import {proposalList, PAGE_TITLE_TEXT, priceDataSource} from "@/app/tehnicheskoye-obsluzhivaniye-far/constants";
+import {lightQualityProposalList, PAGE_TITLE_TEXT, priceDataSource} from "@/app/uslugi/polirovka-i-okleyka-far/constants";
 
 export const metadata = {...META.lightQuality, robots: String(META.lightQuality.robots)}
 
@@ -18,7 +18,7 @@ const WindowWorks = () => {
                 headText={PAGE_TITLE_TEXT.title}
                 description={PAGE_TITLE_TEXT.description}
             />
-            <OurProposalBlock list={proposalList} />
+            <OurProposalBlock list={lightQualityProposalList} />
             <PriceBlock
                 title={PAGE_TITLE_TEXT.priceTitle}
                 priceDataSource={priceDataSource}

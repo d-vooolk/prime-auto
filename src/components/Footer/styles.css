@@ -113,6 +113,11 @@ footer .footer-contacts {
     gap: 10px;
 }
 
+.conf-polic {
+    color: var(--base-gray);
+    text-decoration: none;
+}
+
 
 
 @media (min-width: 320px) and (max-width: 768px) {

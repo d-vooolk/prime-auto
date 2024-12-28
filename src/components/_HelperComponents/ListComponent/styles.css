@@ -9,3 +9,9 @@
     gap: 20px;
     margin-bottom: 40px;
 }
+
+@media (min-width: 320px) and (max-width: 768px) {
+    .list-wrapper {
+        margin-bottom: 10px;
+    }
+}

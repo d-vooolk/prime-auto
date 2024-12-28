@@ -6,7 +6,7 @@ import React from "react";
 import NavigateBar from "@/components/_HelperComponents/NavigateBar/NavigateBar.jsx";
 import SvgComponent from "../_HelperComponents/SvgComponent/SvgComponent.jsx";
 import {SVG_NAMES} from "../_HelperComponents/SvgComponent/constants.js";
-import {LINKS} from "../../constants/contactsData.js";
+import {LINKS} from "../../constants/links.js";
 import {NAVIGATION_URL} from "../../constants/navigation.js";
 
 const Footer = () => {
@@ -15,7 +15,7 @@ const Footer = () => {
             <div className="footer-inform-wrapper">
                 <Link href={NAVIGATION_URL.home}>
                     <Image
-                        src="dark-logo.svg"
+                        src="/dark-logo.svg"
                         alt=""
                         width={132}
                         height={40}
@@ -69,7 +69,15 @@ const Footer = () => {
 
             <div className="footer-copyright-wrapper">
                 <span>© 2024 Prime auto. Все права защищены</span>
-                <span>Политика конфиденциальности</span>
+                <span>
+                    <Link
+                        className="conf-polic"
+                        href={NAVIGATION_URL.confidencePolicy}
+                        target="_blank"
+                    >
+                        Политика конфиденциальности
+                    </Link>
+                </span>
             </div>
         </footer>
     )

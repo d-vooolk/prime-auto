@@ -3,6 +3,7 @@ import './styles.css';
 import ListComponent from "@/components/_HelperComponents/ListComponent/ListComponent.jsx";
 import FullWidthImage from "@/components/_HelperComponents/FullWidthImage/FullWidthImage.jsx";
 import {benefitsItems, imageAlt, textAbout, works, worksTitle} from "./constants.ts";
+import Link from "next/link";
 
 
 const DescriptionButtons = () => {
@@ -10,12 +11,13 @@ const DescriptionButtons = () => {
         <div className="about-description-button-wrapper">
             {
                 works.map((item, index) => (
-                    <div
+                    <Link
                         key={`${item}${Math.random() * index}`}
                         className="about-description-button"
+                        href={item.link}
                     >
-                        {item}
-                    </div>
+                        {item.title}
+                    </Link>
                 ))
             }
         </div>

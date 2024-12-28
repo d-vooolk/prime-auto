@@ -1,5 +1,19 @@
+export const NAVIGATION_URL = {
+    home: '/',
+    newYearSale: '/new-year-sale',
+    price: '/price',
+    contacts: '/contacts',
+    uslugi: '/uslugi',
+    polirovkaOkleyka: '/uslugi/polirovka-i-okleyka-far',
+    remont: '/uslugi/remont-far',
+    tehObsluzhivaniye: '/uslugi/tehnicheskoye-obsluzhivaniye-far',
+    zapotevaniye: '/uslugi/ustraneniye-zapotevaniya',
+    uluchsheniyeKachestvaSveta: '/uslugi/uluchshenie-kachestva-sveta',
+    biled: '/uslugi/uluchshenie-kachestva-sveta/ustanovka-biled-moduley-minsk',
+    confidencePolicy: '/confidence-policy',
+};
+
 export const NAVIGATION_URL_ANCHORS = {
-    services: '#services',
     about: '#about',
     reviews: '#reviews',
     portfolio: '#portfolio',
@@ -7,33 +21,34 @@ export const NAVIGATION_URL_ANCHORS = {
     leadForm: '#leadForm',
 }
 
-export const NAVIGATION_URL = {
-    // current (worked)
-    home: '/',
-    newYearSale: '/new-year-sale',
-    polirovkaOkleyka: '/polirovka-i-okleyka-far',
-    remont: '/remont-far',
-    tehObsluzhivaniye: '/tehnicheskoye-obsluzhivaniye-far',
-    uluchsheniyeKachestvaSveta: '/uluchshenie-kachestva-sveta',
-    uslugi: '/uslugi',
+export const breadcrumbLabels = {
+    [NAVIGATION_URL.home]: "Главная",
+    [NAVIGATION_URL.newYearSale]: "Новогодняя акция",
+    [NAVIGATION_URL.polirovkaOkleyka]: "Полировка и оклейка",
+    [NAVIGATION_URL.remont]: "Ремонт фар",
+    [NAVIGATION_URL.tehObsluzhivaniye]: "Техническое обслуживание фар",
+    [NAVIGATION_URL.uluchsheniyeKachestvaSveta]: "Улучшение качества света",
+    [NAVIGATION_URL.uslugi]: "Услуги по ретрофиту фар",
+    [NAVIGATION_URL.zapotevaniye]: "Устранение запотевания фар",
 
-    // add
-    price: '/price',
-    works: '/works',
-    contacts: '/contacts',
-    biLed: '/ustanovka-bi-led-moduley-v-faru',
-    polirovka: '/polirovka-far',
-    okleyka: '/okleyka-far',
+    [NAVIGATION_URL.price]: "Цены",
+    [NAVIGATION_URL.contacts]: "Контакты",
+    [NAVIGATION_URL.biled]: "Установка Bi-Led модулей в фары",
+
+    // for add
+    [NAVIGATION_URL.works]: "Примеры работ",
+    [NAVIGATION_URL.polirovka]: "Полировка фар",
+    [NAVIGATION_URL.okleyka]: "Оклейка фар",
 };
 
 export const NAVIGATION = [
     {
         title: 'Услуги',
-        url: NAVIGATION_URL_ANCHORS.services,
+        url: NAVIGATION_URL.uslugi,
     },
     {
-        title: 'О компании',
-        url: NAVIGATION_URL_ANCHORS.about,
+        title: 'Цены',
+        url: NAVIGATION_URL.price,
     },
     {
         title: 'Отзывы',
@@ -45,7 +60,7 @@ export const NAVIGATION = [
     },
     {
         title: 'Контакты',
-        url: NAVIGATION_URL_ANCHORS.contacts,
+        url: NAVIGATION_URL.contacts,
     },
     {
         title: 'Акции',

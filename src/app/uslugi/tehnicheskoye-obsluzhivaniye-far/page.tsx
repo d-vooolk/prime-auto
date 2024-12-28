@@ -7,7 +7,7 @@ import OurProposalBlock from "@/components/_HelperComponents/OurProposalBlock/Ou
 import Portfolio from "@/components/Portfolio/Portfolio";
 import FormBlock from "@/components/FormBlock/FormBlock";
 import PriceBlock from "@/components/_HelperComponents/PriceBlock/PriceBlock";
-import {proposalList, PAGE_TITLE_TEXT, priceDataSource} from "@/app/remont-far/constants";
+import {proposalList, PAGE_TITLE_TEXT, priceDataSource} from "@/app/uslugi/tehnicheskoye-obsluzhivaniye-far/constants";
 
 export const metadata = {...META.lightQuality, robots: String(META.lightQuality.robots)}
 

@@ -32,6 +32,46 @@
     margin: 0 353px;
 }
 
+.reviews-block-button-wrapper {
+    margin-top: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+}
+
+.reviews-get-lead-button {
+    display: flex;
+    gap: 10px;
+    justify-content: space-between;
+    align-items: center;
+    background-color: transparent;
+    padding: 20px 30px;
+    border-radius: 31px;
+    border: 1px solid var(--base-white);
+    font-weight: 600;
+    font-size: 16px;
+    color: var(--base-white);
+    width: auto;
+    cursor: pointer;
+}
+
+.reviews-get-lead-button:active {
+    background-color: inherit;
+    border: 1px solid var(--base-dark);
+}
+
+.reviews-get-lead-button:hover {
+    background-color: var(--base-white);
+    border: 1px solid var(--base-dark);
+    color: var(--base-dark);
+    transition: 0.3s ease all;
+}
+
+.reviews-get-lead-button:not(:hover) {
+    transition: 0.3s ease all;
+}
+
 @media (min-width: 320px) and (max-width: 768px) {
     .reviews-title-upper {
         font-size: 48px;

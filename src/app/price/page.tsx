@@ -4,24 +4,24 @@ import ServicePageTitleContainer
     from "@/components/_HelperComponents/ServicePageTitleContainer/ServicePageTitleContainer";
 import './styles.css';
 import OurProposalBlock from "@/components/_HelperComponents/OurProposalBlock/OurProposalBlock";
+import {lightQualityProposalList, PAGE_TITLE_TEXT, priceDataSource} from "@/app/price/constants";
 import Portfolio from "@/components/Portfolio/Portfolio";
 import FormBlock from "@/components/FormBlock/FormBlock";
 import PriceBlock from "@/components/_HelperComponents/PriceBlock/PriceBlock";
-import {lightQualityProposalList, PAGE_TITLE_TEXT, priceDataSource} from "@/app/polirovka-i-okleyka-far/constants";
 
 export const metadata = {...META.lightQuality, robots: String(META.lightQuality.robots)}
 
-const WindowWorks = () => {
+const LightQuality = () => {
     return (
         <div className="light-quality-page-wrapper">
             <ServicePageTitleContainer
                 headText={PAGE_TITLE_TEXT.title}
                 description={PAGE_TITLE_TEXT.description}
             />
-            <OurProposalBlock list={lightQualityProposalList} />
             <PriceBlock
                 title={PAGE_TITLE_TEXT.priceTitle}
                 priceDataSource={priceDataSource}
+                withoutHeader
             />
             <Portfolio/>
             <FormBlock/>
@@ -29,4 +29,4 @@ const WindowWorks = () => {
     )
 }
 
-export default WindowWorks;
+export default LightQuality;

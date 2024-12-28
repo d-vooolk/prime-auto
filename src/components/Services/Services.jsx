@@ -5,11 +5,12 @@ import './styles.css';
 import SvgComponent from "@/components/_HelperComponents/SvgComponent/SvgComponent.jsx";
 import {SVG_NAMES} from "@/components/_HelperComponents/SvgComponent/constants.js";
 import {CARD_INFO, SERVICE_TYPES} from "./constants.ts";
+import {NAVIGATION_URL} from "../../constants/navigation.js";
 
-const Card3 = ({svgName, svgClassName, cardCount = 3, title, list, href}) => {
+const Card3 = ({svgName, svgClassName, cardCount = 3, title, list, link}) => {
     return (
         <div className={`card-${cardCount}`}>
-            <Link href={href} className="card-3-link">
+            <Link href={link} className="card-3-link">
                 <div className="card-text-info">
                     <SvgComponent name={svgName} className={svgClassName}/>
                     <h3 className="h2-services">{title}</h3>
@@ -30,13 +31,17 @@ const Card3 = ({svgName, svgClassName, cardCount = 3, title, list, href}) => {
     )
 }
 
-const Services = () => {
+const Services = ({withoutHeader = false}) => {
     return (
         <div className="services-block" id="services">
-            <div className="block-title-services">
-                <h2 className="h2-styled-font-services">Наши</h2>
-                <h2 className="h2-base-font-services">УСЛУГИ</h2>
-            </div>
+            {
+                !withoutHeader && (
+                    <div className="block-title-services">
+                        <h2 className="h2-styled-font-services">Наши</h2>
+                        <h2 className="h2-base-font-services">УСЛУГИ</h2>
+                    </div>
+                )
+            }
 
             <div className="card-3-wrapper">
                 <Card3
@@ -44,7 +49,7 @@ const Services = () => {
                     svgClassName="svg-card-services"
                     title={(CARD_INFO[SERVICE_TYPES.IMPROVEMENT_LIGHT_QUALITY].title).toUpperCase()}
                     list={CARD_INFO[SERVICE_TYPES.IMPROVEMENT_LIGHT_QUALITY].list}
-                    href="#"
+                    link={NAVIGATION_URL.uluchsheniyeKachestvaSveta}
                     cardCount={3}
                 />
                 <Card3
@@ -52,7 +57,7 @@ const Services = () => {
                     svgClassName="svg-card-services"
                     title={(CARD_INFO[SERVICE_TYPES.POLISHING_POSTING].title).toUpperCase()}
                     list={CARD_INFO[SERVICE_TYPES.POLISHING_POSTING].list}
-                    href="#"
+                    link={NAVIGATION_URL.polirovkaOkleyka}
                     cardCount={3}
                 />
                 <Card3
@@ -60,7 +65,7 @@ const Services = () => {
                     svgClassName="svg-card-services"
                     title={(CARD_INFO[SERVICE_TYPES.HEADLIGHTS_REPAIR].title).toUpperCase()}
                     list={CARD_INFO[SERVICE_TYPES.HEADLIGHTS_REPAIR].list}
-                    href="#"
+                    link={NAVIGATION_URL.remont}
                     cardCount={3}
                 />
             </div>
@@ -70,7 +75,7 @@ const Services = () => {
                     svgClassName="svg-card-services"
                     title={(CARD_INFO[SERVICE_TYPES.HEADLIGHTS_PERSPIRATION].title).toUpperCase()}
                     list={CARD_INFO[SERVICE_TYPES.HEADLIGHTS_PERSPIRATION].list}
-                    href="#"
+                    link={NAVIGATION_URL.zapotevaniye}
                     cardCount={2}
                 />
                 <Card3
@@ -78,7 +83,7 @@ const Services = () => {
                     svgClassName="svg-card-services"
                     title={(CARD_INFO[SERVICE_TYPES.MAINTENANCE].title).toUpperCase()}
                     list={CARD_INFO[SERVICE_TYPES.MAINTENANCE].list}
-                    href="#"
+                    link={NAVIGATION_URL.tehObsluzhivaniye}
                     cardCount={2}
                 />
             </div>

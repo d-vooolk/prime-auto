@@ -2,7 +2,7 @@ import './styles.css';
 import PortfolioImages from "@/components/_HelperComponents/PortfolioImages/PortfolioImages.jsx";
 import Link from "next/link";
 import Image from "next/image";
-import {LINKS} from "../../constants/contactsData.js";
+import {LINKS} from "../../constants/links.js";
 
 const Portfolio = () => {
     return (

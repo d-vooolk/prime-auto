@@ -1,3 +1,5 @@
+import {NAVIGATION_URL} from "@/constants/navigation";
+
 export const textAbout = {
     title: 'PRIME AUTO -',
     first: 'Мы — команда опытных специалистов, которая понимает ценность вашего автомобиля и стремится сохранить его в состоянии нового. Мы используем материалы премиального качества и гарантируем долгосрочную надежность наших работ.',
@@ -5,11 +7,26 @@ export const textAbout = {
 }
 
 export const works = [
-    'Замена линз фар',
-    'Оклейка и полировка фар',
-    'Восстановление и ремонт фар',
-    'Тюнинг',
-    'Регулировка света'
+    {
+        title: 'Замена линз фар',
+        link: NAVIGATION_URL.uluchsheniyeKachestvaSveta,
+    },
+    {
+        title: 'Оклейка и полировка фар',
+        link: NAVIGATION_URL.polirovkaOkleyka,
+    },
+    {
+        title: 'Восстановление и ремонт фар',
+        link: NAVIGATION_URL.remont,
+    },
+    {
+        title: 'Тюнинг',
+        link: NAVIGATION_URL.uluchsheniyeKachestvaSveta,
+    },
+    {
+        title: 'Регулировка света',
+        link: NAVIGATION_URL.tehObsluzhivaniye,
+    }
 ];
 
 export const benefitsItems = [

@@ -4,7 +4,7 @@ import ServicePageTitleContainer
     from "@/components/_HelperComponents/ServicePageTitleContainer/ServicePageTitleContainer";
 import './styles.css';
 import OurProposalBlock from "@/components/_HelperComponents/OurProposalBlock/OurProposalBlock";
-import {lightQualityProposalList, PAGE_TITLE_TEXT, priceDataSource} from "@/app/uluchshenie-kachestva-sveta/constants";
+import {lightQualityProposalList, PAGE_TITLE_TEXT, priceDataSource} from "@/app/uslugi/uluchshenie-kachestva-sveta/ustanovka-biled-moduley-minsk/constants";
 import Portfolio from "@/components/Portfolio/Portfolio";
 import FormBlock from "@/components/FormBlock/FormBlock";
 import PriceBlock from "@/components/_HelperComponents/PriceBlock/PriceBlock";

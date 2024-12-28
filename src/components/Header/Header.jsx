@@ -4,7 +4,7 @@ import './styles.css';
 import {Alts} from "../../meta/alts";
 import Link from "next/link";
 import NavigateBar from "../../components/_HelperComponents/NavigateBar/NavigateBar.jsx";
-import {LINKS} from "../../constants/contactsData.js";
+import {LINKS} from "../../constants/links.js";
 import {NAVIGATION_URL} from "../../constants/navigation.js";
 
 const Header = () => {

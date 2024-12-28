@@ -7,6 +7,8 @@ import {Button, Card, Table} from "antd";
 import Link from "next/link";
 import {NAVIGATION_URL, NAVIGATION_URL_ANCHORS} from "@/constants/navigation";
 import {Snowfall} from "react-snowfall";
+import Breadcrumbs from "@/components/_HelperComponents/Breadcrumbs/Breadcrumbs";
+import FormBlock from "@/components/FormBlock/FormBlock";
 
 const dataSource: any[] = [
     {
@@ -99,16 +101,7 @@ const NewYearSale = () => {
             }
 
 
-            <Button
-                type="primary"
-                size="large"
-                style={{marginTop: 50}}
-                onClick={(e) => leadHandler(e)}
-            >
-                <Link href={`${NAVIGATION_URL.home}${NAVIGATION_URL_ANCHORS.leadForm}`}>
-                    Записаться 🎁
-                </Link>
-            </Button>
+            <FormBlock />
         </div>
     );
 }

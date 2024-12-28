@@ -2,13 +2,14 @@ import React from 'react';
 import ListComponent from "@/components/_HelperComponents/ListComponent/ListComponent";
 import './styles.css';
 import {OurProposalBlockProps} from "@/components/_HelperComponents/OurProposalBlock/types";
+import Link from "next/link";
 
 const BLOCK_TEXT = {
     title: "Что мы делаем",
     description: "Наши предложения",
 }
 
-const OurProposalBlock = ({ list }: OurProposalBlockProps) => {
+const OurProposalBlock = ({list}: OurProposalBlockProps) => {
     return (
         <div className="our-proposal-block-wrapper">
             <div className="our-proposal-block-title-container">
@@ -19,9 +20,10 @@ const OurProposalBlock = ({ list }: OurProposalBlockProps) => {
             <div className="our-proposal-wrapper">
                 {
                     list.map((item, index) => (
-                        <div
+                        <Link
                             key={`${item.title}${Math.random() * index}`}
                             className="our-proposal"
+                            href={item.link || '#'}
                         >
                             <ListComponent
                                 list={[item.title.toUpperCase()]}
@@ -29,11 +31,11 @@ const OurProposalBlock = ({ list }: OurProposalBlockProps) => {
                                 wrapperClassname="our-proposal-title-wrapper"
                             />
                             <div className="our-proposal-description">
-                        <span>
-                            {item.description}
-                        </span>
+                                <span>
+                                    {item.description}
+                                </span>
                             </div>
-                        </div>
+                        </Link>
                     ))
                 }
             </div>
