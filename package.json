@@ -8,7 +8,7 @@
     "build": "next build",
     "start": "NODE_ENV=production node server.js",
     "lint": "next lint",
-    "restart": "rm -rf .next && NODE_ENV=production npm run build && sudo rm -rf /var/cache/nginx/* && sudo systemctl restart nginx && pm2 delete prime-auto && pm2 start server.js --name prime-auto --env production",
+    "restart": "rm -rf .next && NODE_ENV=production npm run build && sudo rm -rf /var/cache/nginx/* && sudo systemctl restart nginx && pm2 delete prime-auto && pm2 delete prime-auto && pm2 start ecosystem.config.cjs --env production",
     "deploy": "git pull && npm install && npm run restart"
   },
   "dependencies": {
