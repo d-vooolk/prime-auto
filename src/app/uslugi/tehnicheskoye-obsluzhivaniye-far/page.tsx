@@ -9,7 +9,7 @@ import FormBlock from "@/components/FormBlock/FormBlock";
 import PriceBlock from "@/components/_HelperComponents/PriceBlock/PriceBlock";
 import {proposalList, PAGE_TITLE_TEXT, priceDataSource} from "@/app/uslugi/tehnicheskoye-obsluzhivaniye-far/constants";
 
-export const metadata = {...META.lightQuality, robots: String(META.lightQuality.robots)}
+export const metadata = {...META.tehObsluzhivaniye, robots: String(META.tehObsluzhivaniye.robots)}
 
 const WindowWorks = () => {
     return (

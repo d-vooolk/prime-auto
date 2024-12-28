@@ -8,7 +8,7 @@ import Portfolio from "@/components/Portfolio/Portfolio";
 import FormBlock from "@/components/FormBlock/FormBlock";
 import Services from "@/components/Services/Services";
 
-export const metadata = {...META.lightQuality, robots: String(META.lightQuality.robots)}
+export const metadata = {...META.uslugi, robots: String(META.uslugi.robots)}
 
 const LightQuality = () => {
     return (

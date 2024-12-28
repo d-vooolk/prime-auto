@@ -9,7 +9,7 @@ import FormBlock from "@/components/FormBlock/FormBlock";
 import PriceBlock from "@/components/_HelperComponents/PriceBlock/PriceBlock";
 import {proposalList, PAGE_TITLE_TEXT, priceDataSource} from "@/app/uslugi/remont-far/constants";
 
-export const metadata = {...META.lightQuality, robots: String(META.lightQuality.robots)}
+export const metadata = {...META.remont, robots: String(META.remont.robots)}
 
 const WindowWorks = () => {
     return (

@@ -9,7 +9,7 @@ import FormBlock from "@/components/FormBlock/FormBlock";
 import PriceBlock from "@/components/_HelperComponents/PriceBlock/PriceBlock";
 import {lightQualityProposalList, PAGE_TITLE_TEXT, priceDataSource} from "@/app/uslugi/polirovka-i-okleyka-far/constants";
 
-export const metadata = {...META.lightQuality, robots: String(META.lightQuality.robots)}
+export const metadata = {...META.polirovkaOkleyka, robots: String(META.polirovkaOkleyka.robots)}
 
 const WindowWorks = () => {
     return (

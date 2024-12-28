@@ -3,13 +3,12 @@ import {META} from "@/constants/metadata";
 import ServicePageTitleContainer
     from "@/components/_HelperComponents/ServicePageTitleContainer/ServicePageTitleContainer";
 import './styles.css';
-import OurProposalBlock from "@/components/_HelperComponents/OurProposalBlock/OurProposalBlock";
-import {lightQualityProposalList, PAGE_TITLE_TEXT, priceDataSource} from "@/app/price/constants";
+import {PAGE_TITLE_TEXT, priceDataSource} from "@/app/price/constants";
 import Portfolio from "@/components/Portfolio/Portfolio";
 import FormBlock from "@/components/FormBlock/FormBlock";
 import PriceBlock from "@/components/_HelperComponents/PriceBlock/PriceBlock";
 
-export const metadata = {...META.lightQuality, robots: String(META.lightQuality.robots)}
+export const metadata = {...META.price, robots: String(META.price.robots)}
 
 const LightQuality = () => {
     return (

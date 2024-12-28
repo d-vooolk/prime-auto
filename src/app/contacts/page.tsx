@@ -9,7 +9,7 @@ import Portfolio from "@/components/Portfolio/Portfolio";
 import FormBlock from "@/components/FormBlock/FormBlock";
 import ContactsBlock from "@/components/ContactsBlock/ContactsBlock";
 
-export const metadata = {...META.lightQuality, robots: String(META.lightQuality.robots)}
+export const metadata = {...META.contacts, robots: String(META.contacts.robots)}
 
 const LightQuality = () => {
     return (
