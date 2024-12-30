@@ -3,11 +3,8 @@
 import React from "react";
 import CircleChart from "@/components/_HelperComponents/CircleChart/CircleChart";
 import './styles.css';
-import {Button, Card, Table} from "antd";
-import Link from "next/link";
-import {NAVIGATION_URL, NAVIGATION_URL_ANCHORS} from "@/constants/navigation";
+import {Card, Table} from "antd";
 import {Snowfall} from "react-snowfall";
-import Breadcrumbs from "@/components/_HelperComponents/Breadcrumbs/Breadcrumbs";
 import FormBlock from "@/components/FormBlock/FormBlock";
 
 const dataSource: any[] = [
@@ -39,6 +36,41 @@ const dataSource: any[] = [
         auto: "Audi A6C6",
         module: "Sanvi F50",
     },
+    {
+        key: '5',
+        index: 5,
+        client: "Антон",
+        auto: "BMW e70",
+        module: "Sanvi F50",
+    },
+    {
+        key: '6',
+        index: 6,
+        client: "Марина",
+        auto: "Audi A5",
+        module: "Vision Advance",
+    },
+    {
+        key: '7',
+        index: 7,
+        client: "Максим",
+        auto: "Audi A4B6",
+        module: "Vision Ultimate",
+    },
+    {
+        key: '8',
+        index: 8,
+        client: "Юрий",
+        auto: "Mazda 6",
+        module: "Sanvi F50",
+    },
+    {
+        key: '9',
+        index: 9,
+        client: "Артём",
+        auto: "Renault Megane 3",
+        module: "Sanvi F50",
+    },
 ];
 
 const columns = [
@@ -65,11 +97,6 @@ const columns = [
 ];
 
 const NewYearSale = () => {
-    const leadHandler = (e: React.SyntheticEvent) => {
-        e.preventDefault();
-        e.stopPropagation();
-    }
-
     return (
         <div className="circle-chart-page-wrapper" style={{textAlign: "center"}}>
             <Snowfall/>

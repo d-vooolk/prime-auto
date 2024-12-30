@@ -15,7 +15,7 @@ export const NAVIGATION_URL = {
 
 export const NAVIGATION_URL_ANCHORS = {
     about: '#about',
-    reviews: '#reviews',
+    reviews: '/#reviews',
     portfolio: '#portfolio',
     contacts: '#contacts',
     leadForm: '#leadForm',
