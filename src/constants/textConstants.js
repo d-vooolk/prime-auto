@@ -1,1 +1,1 @@
-export const HIDE_NOTIFICATION_TEXT = 'Новогодняя акция 🎁';
+export const HIDE_NOTIFICATION_TEXT = 'Результаты акции 🎁';

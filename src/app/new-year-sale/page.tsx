@@ -71,6 +71,13 @@ const dataSource: any[] = [
         auto: "Renault Megane 3",
         module: "Sanvi F50",
     },
+    {
+        key: '10',
+        index: 10,
+        client: "Леонид",
+        auto: "Volkswagen Passat B6",
+        module: "Sanvi F50",
+    },
 ];
 
 const columns = [
