@@ -14,9 +14,10 @@ export default function RootLayout({children}) {
             <script src="//code.jivo.ru/widget/nCCAMNcF5a" async></script>
         </head>
         <Head>
-            <link rel="icon" href="/favicon.ico"/>
-            <meta charSet="UTF-8"/>
-            <meta name="viewport" content="width=device-width, initial-scale=1"/>
+            <link rel="icon" href="/favicon.ico" />
+            <meta charSet="UTF-8" />
+            <meta name="viewport" content="width=device-width, initial-scale=1" />
+            <meta name="yandex-verification" content="46166f0eb1874634" />
             <script src="//code.jivo.ru/widget/nCCAMNcF5a" async></script>
         </Head>
         <body id="page-start">
