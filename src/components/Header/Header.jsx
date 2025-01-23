@@ -6,6 +6,7 @@ import Link from "next/link";
 import NavigateBar from "../../components/_HelperComponents/NavigateBar/NavigateBar.jsx";
 import {LINKS} from "../../constants/links.js";
 import {NAVIGATION_URL} from "../../constants/navigation.js";
+import { CONTACTS_DATA } from "../../constants/contactsData.js";
 
 const Header = () => {
     return (
@@ -29,8 +30,7 @@ const Header = () => {
                     alt={Alts.header.phone}
                 />
                 <div className="phones-wrapper">
-                    <Link className="phone-link" href="tel:+375 (25) 733-22-29">+375 (25) 733-22-29</Link>
-                    <Link className="phone-link" href="tel:+375 (29) 820-62-46">+375 (29) 820-62-46</Link>
+                    <Link className="phone-link" href={`tel:${CONTACTS_DATA.phone1}`}>{ CONTACTS_DATA.phone1 }</Link>
                 </div>
                 <Link href={LINKS.instagram} target="_blank noopener norefferer">
                     <Image

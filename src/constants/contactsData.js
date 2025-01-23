@@ -1,5 +1,4 @@
 export const CONTACTS_DATA = {
-    phone1: '+375298206246',
-    phone2: '+375257332229',
+    phone1: '+375 (33) 66-55-44-9',
     address: 'Брилевский тупик 5',
 }

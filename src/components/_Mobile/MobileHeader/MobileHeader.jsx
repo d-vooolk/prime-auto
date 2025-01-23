@@ -76,10 +76,7 @@ const MobileHeader = () => {
                                 alt={Alts.header.phone}
                             />
                             <div className="mobile-phones-wrapper">
-                                <Link className="mobile-phone-link" href="tel:+375 (25) 733-22-29">+375 (25)
-                                    733-22-29</Link>
-                                <Link className="mobile-phone-link" href="tel:+375 (29) 820-62-46">+375 (29)
-                                    820-62-46</Link>
+                                <Link className="mobile-phone-link" href={`tel:${CONTACTS_DATA.phone1}`}>{ CONTACTS_DATA.phone1 }</Link>
                             </div>
                             <Link href={LINKS.instagram} target="_blank noopener norefferer">
                                 <Image

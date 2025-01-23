@@ -8,6 +8,7 @@ import SvgComponent from "../_HelperComponents/SvgComponent/SvgComponent.jsx";
 import {SVG_NAMES} from "../_HelperComponents/SvgComponent/constants.js";
 import {LINKS} from "../../constants/links.js";
 import {NAVIGATION_URL} from "../../constants/navigation.js";
+import { CONTACTS_DATA } from "../../constants/contactsData.js";
 
 const Footer = () => {
     return (
@@ -32,8 +33,7 @@ const Footer = () => {
                         alt={Alts.header.phone}
                     />
                     <div className="footer-phones-wrapper">
-                        <Link className="footer-phone-link" href="tel:+375 (25) 733-22-29">+375 (25) 733-22-29</Link>
-                        <Link className="footer-phone-link" href="tel:+375 (29) 820-62-46">+375 (29) 820-62-46</Link>
+                        <Link className="footer-phone-link" href={`tel:${CONTACTS_DATA.phone1}`}>{ CONTACTS_DATA.phone1 }</Link>
                     </div>
                 </div>
             </div>

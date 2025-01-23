@@ -3,6 +3,8 @@ import './styles.css';
 import ListComponent from "@/components/_HelperComponents/ListComponent/ListComponent.jsx";
 import dynamic from "next/dynamic.js";
 import {yandexApi} from "../../app/api/yandex/yandexApi.ts";
+import { CONTACTS_DATA } from "@/constants/contactsData.js";
+import Link from "next/link.js";
 const DynamicYandexMap = dynamic(() => import("../../components/YandexMap/YandexMap.tsx"), {
     ssr: false,
 });
@@ -22,11 +24,10 @@ const contactsItems = [
         description: 'Будние 10:00 - 20:00 Суббота,воскресенье - выходной',
     },
     {
-        title: 'номера телефонов',
+        title: 'номер телефона',
         description: (
             <div>
-                <div>+375 (25) 733-22-29</div>
-                <div>+375 (29) 820-62-46</div>
+              <Link className="contacts-phone" href={`tel:${CONTACTS_DATA.phone1}`}>{ CONTACTS_DATA.phone1 }</Link>
             </div>
         )
     },
