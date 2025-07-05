@@ -62,8 +62,4 @@ export const NAVIGATION = [
         title: 'Контакты',
         url: NAVIGATION_URL.contacts,
     },
-    {
-        title: 'Акции',
-        url: NAVIGATION_URL.newYearSale,
-    }
 ];
