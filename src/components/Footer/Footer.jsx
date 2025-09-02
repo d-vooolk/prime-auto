@@ -52,7 +52,7 @@ const Footer = () => {
                 </div>
                 <div className="footer-full-info-unp">
                     <div>ООО &#34;Первый Автосвет&#34;</div>
-                    <div>УНП 291388531</div>
+                    <div>УНП 193897412</div>
                 </div>
                 <div className="footer-full-info-social">
                     <Link href={LINKS.instagram} target="_blank noopener norefferer">
