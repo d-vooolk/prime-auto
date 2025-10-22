@@ -30,7 +30,11 @@ export const lightQualityProposalList: OurProposalBlockList[] = [
 export const priceDataSource = [
     {
         serviceName: 'Шлифовка и полировка фар',
-        price: 'от 100',
+        price: 'от 150',
+    },
+    {
+        serviceName: 'Оклейка фар полиуретановой плёнкой',
+        price: 'от 150',
     },
     {
         serviceName: 'Снятие и установка фар без снятия бампера',
