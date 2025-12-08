@@ -2,7 +2,7 @@
 
 import React, {useState} from "react";
 import {formBlockText} from "../../FormBlock/FormBlock.jsx";
-import MaskedInput from "react-text-mask/dist/reactTextMask.js";
+import { IMaskInput } from 'react-imask';
 import {sendLeadToBot} from "../../../app/api/tg-bot/leads.ts";
 
 const Form = () => {
@@ -54,14 +54,23 @@ const Form = () => {
                 onChange={handleChange}
                 required
             />
-            <MaskedInput
-                mask={['+', '3', '7', '5', ' ', '(', /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, '-', /\d/, /\d/]}
+            <IMaskInput
+                mask="+375 (00) 000-00-00"
+                definitions={{
+                    '0': /[0-9]/
+                }}
                 className="form-input"
                 placeholder="+375 (__) ___-__-__"
-                guide={false}
                 name="phone"
                 value={formData.phone}
-                onChange={handleChange}
+                onAccept={(value, mask) => {
+                    handleChange({
+                        target: {
+                            name: 'phone',
+                            value: value
+                        }
+                    });
+                }}
                 required
             />
             <textarea
