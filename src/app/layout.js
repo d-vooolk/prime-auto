@@ -13,6 +13,7 @@ export default function RootLayout({children}) {
         <GoogleTagManager gtmId="GTM-PKL79DZC" />
         <head>
             <meta name="yandex-verification" content="46166f0eb1874634" />
+            <script src="//code.jivo.ru/widget/eflGLev20k" async></script>
         </head>
         <Head>
             <link rel="icon" href="/favicon.ico" />
