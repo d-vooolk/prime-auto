@@ -1,8 +1,7 @@
 import React from "react";
 import './styles.css';
 import ListComponent from "@/components/_HelperComponents/ListComponent/ListComponent.jsx";
-import FullWidthImage from "@/components/_HelperComponents/FullWidthImage/FullWidthImage.jsx";
-import {benefitsItems, imageAlt, textAbout, works, worksTitle} from "./constants.ts";
+import {benefitsItems, textAbout, works, worksTitle} from "./constants.ts";
 import Link from "next/link";
 
 
@@ -68,14 +67,6 @@ const AboutCompany = () => {
                 <div className="about-works-title">{worksTitle.toUpperCase()}</div>
                 <DescriptionButtons/>
             </div>
-
-            <FullWidthImage
-                src="/images/about-car.webp"
-                alt={imageAlt}
-                height={575}
-                className="about-car-image-wrapper"
-                imageClassName="about-car-image"
-            />
 
             <BenefitsDescription/>
         </div>

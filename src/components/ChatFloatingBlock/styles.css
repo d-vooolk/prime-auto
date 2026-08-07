@@ -1,0 +1,29 @@
+.chat-block-wrapper {
+    position: fixed;
+    bottom: 20px;
+    right: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    z-index: 9999;
+}
+
+.chat-base-img {
+    background-color: #262626;
+    border-radius: 50%;
+    padding: 5px;
+    box-sizing: border-box;
+    cursor: pointer;
+}
+
+.chat-img {
+    cursor: pointer;
+}
+
+.flex {
+    display: flex;
+}
+
+.none {
+    display: none;
+}

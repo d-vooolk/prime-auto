@@ -6,6 +6,7 @@ import React from "react";
 import { GoogleTagManager } from '@next/third-parties/google'
 import FastUp from "../components/_HelperComponents/FastUp/FastUp.jsx";
 import Script from "next/script.js";
+import ChatFloatingBlock from "../components/ChatFloatingBlock/ChatFloatingBlock.jsx";
 
 export default function RootLayout({children}) {
     return (
@@ -45,6 +46,8 @@ export default function RootLayout({children}) {
         <GetAdaptiveHeader/>
         {children}
         <Footer/>
+
+        <ChatFloatingBlock />
         </body>
         </html>
     );
