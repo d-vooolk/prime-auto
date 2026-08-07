@@ -31,8 +31,14 @@ const ChatFloatingBlock = () => {
                 ))
             }
 
-            <div onClick={() => {setIsBarVisible(!isBarVisible)}}>
-                <Tooltip title={isBarVisible ? "Закрыть" : "Связаться"} placement="left">
+            <div onClick={
+                () => setIsBarVisible(!isBarVisible)
+            }>
+                <Tooltip
+                    title={isBarVisible ? "Закрыть" : "Связаться"}
+                    placement="left"
+                    trigger="focus"
+                >
                     <Image
                         src='/dark-logo.svg'
                         alt="logo"
