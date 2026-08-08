@@ -9,10 +9,6 @@
 }
 
 .chat-base-img {
-    background-color: #262626;
-    border-radius: 50%;
-    padding: 5px;
-    box-sizing: border-box;
     cursor: pointer;
 }
 
