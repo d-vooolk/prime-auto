@@ -1,29 +1,44 @@
 import React from "react";
+import './styles.css';
 import {META} from "@/constants/metadata";
 import ServicePageTitleContainer
     from "@/components/_HelperComponents/ServicePageTitleContainer/ServicePageTitleContainer";
-import './styles.css';
+import ContactsBlock from "@/components/ContactsBlock/ContactsBlock";
 import OurProposalBlock from "@/components/_HelperComponents/OurProposalBlock/OurProposalBlock";
-import {lightQualityProposalList, PAGE_TITLE_TEXT} from "@/app/contacts/constants";
+import FaqBlock from "@/components/_HelperComponents/FaqBlock/FaqBlock";
 import Portfolio from "@/components/Portfolio/Portfolio";
 import FormBlock from "@/components/FormBlock/FormBlock";
-import ContactsBlock from "@/components/ContactsBlock/ContactsBlock";
+import {lightQualityProposalList, PAGE_TITLE_TEXT} from "@/app/contacts/constants";
+import {CONTACTS_FAQ} from "@/constants/faq";
+import {NAVIGATION_URL} from "@/constants/navigation";
+import {buildMetadata} from "@/utils/seo";
 
-export const metadata = {...META.contacts, robots: String(META.contacts.robots)}
+export const metadata = buildMetadata({
+    title: META.contacts.title,
+    description: META.contacts.description,
+    keywords: META.contacts.keywords,
+    path: NAVIGATION_URL.contacts,
+});
 
-const LightQuality = () => {
-    return (
-        <div className="light-quality-page-wrapper">
-            <ServicePageTitleContainer
-                headText={PAGE_TITLE_TEXT.title}
-                description={PAGE_TITLE_TEXT.description}
-            />
-            <ContactsBlock />
-            <OurProposalBlock list={lightQualityProposalList} />
-            <Portfolio/>
-            <FormBlock/>
-        </div>
-    )
-}
+const ContactsPage = () => (
+    <main className="light-quality-page-wrapper">
+        <ServicePageTitleContainer
+            headText={PAGE_TITLE_TEXT.title}
+            description={PAGE_TITLE_TEXT.description}
+            breadcrumbs={[
+                {name: 'Главная', path: NAVIGATION_URL.home},
+                {name: 'Контакты', path: NAVIGATION_URL.contacts},
+            ]}
+        />
 
-export default LightQuality;
+        <ContactsBlock />
+        <OurProposalBlock list={lightQualityProposalList} />
+
+        <FaqBlock items={CONTACTS_FAQ} />
+
+        <Portfolio/>
+        <FormBlock/>
+    </main>
+);
+
+export default ContactsPage;

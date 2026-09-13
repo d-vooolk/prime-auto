@@ -3,7 +3,7 @@ import './styles.css';
 import ReviewsSlider from "@/components/_HelperComponents/ReviewsSlider/ReviewsSlider.jsx";
 import {reviews} from "./constants.js";
 import Link from "next/link";
-import {LINKS} from "../../constants/links.js";
+import {NAVIGATION_URL} from "../../constants/navigation.js";
 
 const ReviewsBlock = () => {
     return (
@@ -18,9 +18,8 @@ const ReviewsBlock = () => {
             </div>
 
             <Link
-                href={LINKS.yandexMap}
+                href={NAVIGATION_URL.reviews}
                 className="reviews-block-button-wrapper"
-                target="_blank noopener noreferrer"
             >
                 <button type="submit" className="reviews-get-lead-button">
                     <span>Читать все</span>

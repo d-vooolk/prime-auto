@@ -1,26 +1,58 @@
 import "./globals.css";
-import Footer from "@/components/Footer/Footer";
-import Head from "next/head.js";
-import {GetAdaptiveHeader} from "@/utils/utils.js";
 import React from "react";
+import ReactDOM from "react-dom";
 import { GoogleTagManager } from '@next/third-parties/google'
-import FastUp from "../components/_HelperComponents/FastUp/FastUp.jsx";
 import Script from "next/script.js";
+import Footer from "@/components/Footer/Footer";
+import Header from "@/components/Header/Header.jsx";
+import MobileHeader from "@/components/_Mobile/MobileHeader/MobileHeader.jsx";
+import FastUp from "../components/_HelperComponents/FastUp/FastUp.jsx";
 import ChatFloatingBlock from "../components/ChatFloatingBlock/ChatFloatingBlock.jsx";
+import JsonLd from "@/components/_HelperComponents/JsonLd/JsonLd";
+import { SITE_URL } from "@/constants/site.ts";
+import { localBusinessJsonLd, webSiteJsonLd } from "@/utils/seo.ts";
+
+export const metadata = {
+    // База для canonical и Open Graph: без неё Next отдаёт относительные URL
+    metadataBase: new URL(SITE_URL),
+    icons: {
+        icon: '/favicon.ico',
+    },
+    verification: {
+        yandex: '46166f0eb1874634',
+    },
+    openGraph: {
+        type: 'website',
+        locale: 'ru_RU',
+        siteName: 'Prime Auto',
+    },
+};
+
+export const viewport = {
+    width: 'device-width',
+    initialScale: 1,
+    themeColor: '#262626',
+};
+
+const FONTS_TO_PRELOAD = [
+    '/fonts/inter-cyrillic.woff2',
+    '/fonts/montserrat-cyrillic.woff2',
+];
 
 export default function RootLayout({children}) {
+    // Шрифты лежат локально, но браузер узнаёт о них только после разбора CSS.
+    // Preload убирает эту задержку с критического пути отрисовки.
+    FONTS_TO_PRELOAD.forEach((href) => {
+        ReactDOM.preload(href, {as: 'font', type: 'font/woff2', crossOrigin: 'anonymous'});
+    });
+
     return (
         <html lang="ru">
-        <GoogleTagManager gtmId="GTM-PKL79DZC" />
-        <head>
-            <meta name="yandex-verification" content="46166f0eb1874634" />
-        </head>
-        <Head>
-            <link rel="icon" href="/favicon.ico" />
-            <meta charSet="UTF-8" />
-            <meta name="viewport" content="width=device-width, initial-scale=1" />
-        </Head>
         <body id="page-start">
+        <GoogleTagManager gtmId="GTM-PKL79DZC" />
+
+        <JsonLd data={[localBusinessJsonLd(), webSiteJsonLd()]} />
+
         <Script
             id="yandex-metrika"
             strategy="afterInteractive"
@@ -43,7 +75,16 @@ export default function RootLayout({children}) {
             </div>
         </noscript>
         <FastUp />
-        <GetAdaptiveHeader/>
+
+        {/*
+          Обе шапки рендерятся на сервере, нужная выбирается медиазапросом.
+          Раньше выбор делался по window.screen.width уже в браузере: до гидратации
+          шапки в HTML не было вообще — это и скачок вёрстки, и отсутствие
+          навигационных ссылок для поискового робота.
+        */}
+        <Header/>
+        <MobileHeader/>
+
         {children}
         <Footer/>
 

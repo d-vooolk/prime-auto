@@ -1,5 +1,6 @@
 .mobile-header {
-    display: flex;
+    /* видимость шапок разводится медиазапросами, а не JS — см. src/app/layout.js */
+    display: none;
     justify-content: space-between;
     padding: 20px;
     box-sizing: border-box;
@@ -69,4 +70,9 @@
 .mobile-phone-link {
     color: var(--base-white);
     text-decoration: none;
+}
+@media (max-width: 768px) {
+    .mobile-header {
+        display: flex;
+    }
 }

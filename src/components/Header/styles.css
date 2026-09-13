@@ -1,5 +1,6 @@
 .desktop-header {
-    display: flex;
+    /* видимость шапок разводится медиазапросами, а не JS — см. src/app/layout.js */
+    display: none;
     align-items: center;
     height: 87px;
     width: 100%;
@@ -66,6 +67,12 @@
 
 .instagram-icon:hover {
     cursor: pointer;
+}
+
+@media (min-width: 769px) {
+    .desktop-header {
+        display: flex;
+    }
 }
 
 @media (min-width: 769px) and (max-width: 1700px) {

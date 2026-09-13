@@ -23,3 +23,71 @@
 .none {
     display: none;
 }
+
+.chat-toggle-button {
+    padding: 0;
+    margin: 0;
+    border: none;
+    background: transparent;
+    line-height: 0;
+    cursor: pointer;
+}
+
+/* Всплывающая подсказка слева от иконки — на CSS, без JS-библиотеки */
+.chat-tooltip {
+    position: relative;
+    display: inline-flex;
+}
+
+.chat-tooltip::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    right: calc(100% + 12px);
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.85);
+    color: var(--base-white);
+    font-family: Inter, sans-serif;
+    font-size: 14px;
+    line-height: 22px;
+    font-weight: 400;
+    padding: 6px 8px;
+    border-radius: 6px;
+    white-space: nowrap;
+    box-shadow: 0 6px 16px 0 rgba(0, 0, 0, 0.08), 0 3px 6px -4px rgba(0, 0, 0, 0.12);
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity .2s ease;
+}
+
+/* уголок подсказки */
+.chat-tooltip::before {
+    content: "";
+    position: absolute;
+    right: calc(100% + 6px);
+    top: 50%;
+    transform: translateY(-50%);
+    border: 6px solid transparent;
+    border-left-color: rgba(0, 0, 0, 0.85);
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity .2s ease;
+}
+
+.chat-tooltip:hover::after,
+.chat-tooltip:hover::before,
+.chat-tooltip:focus-visible::after,
+.chat-tooltip:focus-visible::before {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* На тач-устройствах подсказка только мешает попасть по иконке */
+@media (hover: none) {
+    .chat-tooltip::after,
+    .chat-tooltip::before {
+        display: none;
+    }
+}

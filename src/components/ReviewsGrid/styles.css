@@ -1,0 +1,90 @@
+.reviews-grid-wrapper {
+    background-image: url("../../../public/images/noise-background.webp");
+    background-color: var(--base-white);
+    padding: 100px 353px 120px;
+    box-sizing: border-box;
+    width: 100%;
+}
+
+.reviews-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 40px 10px;
+    align-items: stretch;
+}
+
+.reviews-grid-card {
+    position: relative;
+    box-sizing: border-box;
+    border: .5px solid rgba(168, 168, 168, 0.3);
+    border-radius: 20px;
+    background-color: var(--black-dark-cards);
+    padding: 40px 30px 30px;
+    display: flex;
+    flex-direction: column;
+}
+
+.reviews-grid-quote {
+    position: absolute;
+    top: -30px;
+    left: 30px;
+}
+
+.reviews-grid-name {
+    margin: 0 0 15px;
+    font-size: 20px;
+    font-family: Montserrat, sans-serif;
+    line-height: 140%;
+    color: var(--base-white);
+    font-weight: 800;
+}
+
+.reviews-grid-description {
+    margin: 0 0 15px;
+    font-size: 16px;
+    line-height: 150%;
+    color: var(--gray-light);
+    font-weight: 300;
+    font-family: Inter, sans-serif;
+    flex-grow: 1;
+}
+
+.reviews-grid-link {
+    font-size: 16px;
+    line-height: 120%;
+    color: var(--gray-light);
+    font-weight: 300;
+    font-family: Inter, sans-serif;
+    align-self: flex-start;
+}
+
+.reviews-grid-link:hover {
+    color: var(--base-white);
+    transition: all .5s ease;
+}
+
+@media (min-width: 320px) and (max-width: 768px) {
+    .reviews-grid-wrapper {
+        padding: 80px 20px 100px;
+    }
+
+    .reviews-grid {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 45px;
+    }
+
+    .reviews-grid-card {
+        padding: 40px 20px 20px;
+    }
+
+    .reviews-grid-quote {
+        left: 20px;
+    }
+}
+
+@media (min-width: 769px) and (max-width: 1200px) {
+    .reviews-grid {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 45px;
+    }
+}

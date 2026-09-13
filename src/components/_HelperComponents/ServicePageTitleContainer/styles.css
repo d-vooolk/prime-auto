@@ -30,6 +30,19 @@
     font-weight: 300;
 }
 
+.service-page-title-container-list {
+    margin-bottom: 0;
+    gap: 12px;
+}
+
+.service-page-title-container-list-item {
+    font-family: Inter, sans-serif;
+    font-size: 16px;
+    line-height: 130%;
+    font-weight: 400;
+    color: var(--base-white);
+}
+
 @media (min-width: 320px) and (max-width: 768px) {
     .service-page-title-container-wrapper {
         width: 100%;

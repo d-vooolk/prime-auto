@@ -46,14 +46,14 @@ const WelcomeBlock = () => {
 
             <div className="statistic-wrapper">
                 <div className="statistic-element">
-                    <span className="big-numbers">500+</span>
+                    <span className="big-numbers">1000+</span>
                     <span>Выполненных работ</span>
                 </div>
 
                 <hr className="statistic-divider"/>
 
                 <div className="statistic-element">
-                    <span className="big-numbers">3 года</span>
+                    <span className="big-numbers">4 года</span>
                     <span>Опыта в данной сфере</span>
                 </div>
 

@@ -1,0 +1,58 @@
+.reviews-page-cta {
+    background-image: url("../../../public/images/noise-background.webp");
+    background-color: var(--base-white);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 0 353px 100px;
+    box-sizing: border-box;
+    width: 100%;
+}
+
+.reviews-page-cta-text {
+    margin: 0 0 30px;
+    max-width: 806px;
+    text-align: center;
+    font-family: Inter, sans-serif;
+    font-size: 16px;
+    line-height: 150%;
+    font-weight: 300;
+    color: var(--base-gray);
+}
+
+.reviews-page-cta-button {
+    display: flex;
+    gap: 10px;
+    justify-content: space-between;
+    align-items: center;
+    background-color: transparent;
+    padding: 20px 30px;
+    border-radius: 31px;
+    border: 1px solid var(--base-dark);
+    font-weight: 600;
+    font-size: 16px;
+    color: var(--base-dark);
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.reviews-page-cta-button:hover {
+    color: var(--base-white);
+    background-color: var(--base-dark);
+    transition: all .5s ease;
+}
+
+.reviews-page-cta-button:not(:hover) {
+    transition: all .5s ease;
+}
+
+@media (min-width: 320px) and (max-width: 768px) {
+    .reviews-page-cta {
+        padding: 0 20px 80px;
+    }
+
+    .reviews-page-cta-button {
+        text-align: center;
+    }
+}

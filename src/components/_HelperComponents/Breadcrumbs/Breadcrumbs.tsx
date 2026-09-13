@@ -6,7 +6,12 @@ import { usePathname } from "next/navigation";
 import {breadcrumbLabels, NAVIGATION_URL} from "@/constants/navigation";
 import './styles.css';
 
-const Breadcrumbs = () => {
+interface BreadcrumbsProps {
+    /** Подпись текущей страницы, если её нет в breadcrumbLabels (например, страницы марок) */
+    currentLabel?: string;
+}
+
+const Breadcrumbs = ({currentLabel}: BreadcrumbsProps = {}) => {
     const pathname = usePathname();
 
     const pathnames = pathname
@@ -22,7 +27,9 @@ const Breadcrumbs = () => {
                 </li>
                 {pathnames.map((href, index) => {
                     const isLast = index === pathnames.length - 1;
-                    const label = breadcrumbLabels[href] || decodeURIComponent(href);
+                    const label = (isLast && currentLabel)
+                        || breadcrumbLabels[href]
+                        || decodeURIComponent(href);
 
                     return isLast ? (
                         <li key={href} className="current">

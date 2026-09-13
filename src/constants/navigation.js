@@ -3,6 +3,7 @@ export const NAVIGATION_URL = {
     newYearSale: '/new-year-sale',
     price: '/price',
     contacts: '/contacts',
+    reviews: '/otzyvy',
     uslugi: '/uslugi',
     polirovkaOkleyka: '/uslugi/polirovka-i-okleyka-far',
     remont: '/uslugi/remont-far',
@@ -33,12 +34,9 @@ export const breadcrumbLabels = {
 
     [NAVIGATION_URL.price]: "Цены",
     [NAVIGATION_URL.contacts]: "Контакты",
+    [NAVIGATION_URL.reviews]: "Отзывы",
     [NAVIGATION_URL.biled]: "Установка Bi-Led модулей в фары",
-
-    // for add
-    [NAVIGATION_URL.works]: "Примеры работ",
-    [NAVIGATION_URL.polirovka]: "Полировка фар",
-    [NAVIGATION_URL.okleyka]: "Оклейка фар",
+    [NAVIGATION_URL.confidencePolicy]: "Политика конфиденциальности",
 };
 
 export const NAVIGATION = [
@@ -52,7 +50,7 @@ export const NAVIGATION = [
     },
     {
         title: 'Отзывы',
-        url: NAVIGATION_URL_ANCHORS.reviews,
+        url: NAVIGATION_URL.reviews,
     },
     {
         title: 'Работы',

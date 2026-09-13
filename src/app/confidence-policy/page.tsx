@@ -1,5 +1,14 @@
 import React from "react";
 import './styles.css';
+import {NAVIGATION_URL} from "@/constants/navigation";
+import {buildMetadata} from "@/utils/seo";
+
+export const metadata = buildMetadata({
+    title: 'Политика конфиденциальности — Prime Auto',
+    description: 'Как Prime Auto (Прайм Авто) собирает, использует и защищает персональные данные ' +
+        'посетителей сайта prime-auto.by.',
+    path: NAVIGATION_URL.confidencePolicy,
+});
 
 const ConfidencePolicy = () => {
     return (

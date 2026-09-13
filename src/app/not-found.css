@@ -1,0 +1,86 @@
+.not-found-wrapper {
+    min-height: 70vh;
+    background-color: var(--base-dark);
+    color: var(--base-white);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 200px 20px 100px;
+    box-sizing: border-box;
+}
+
+.not-found-code {
+    font-family: "Comforter Brush", sans-serif;
+    font-size: 120px;
+    line-height: 100%;
+    color: var(--base-green);
+}
+
+.not-found-title {
+    margin: 0 0 20px;
+    font-family: Montserrat, sans-serif;
+    font-size: 40px;
+    line-height: 120%;
+    font-weight: 800;
+}
+
+.not-found-description {
+    margin: 0 0 30px;
+    max-width: 602px;
+    font-family: Inter, sans-serif;
+    font-size: 16px;
+    line-height: 150%;
+    font-weight: 300;
+    color: var(--gray-light);
+}
+
+.not-found-links {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    list-style: none;
+    margin: 0 0 40px;
+    padding: 0;
+}
+
+.not-found-link {
+    display: inline-flex;
+    border: .5px solid rgba(168, 168, 168, 0.4);
+    border-radius: 31px;
+    padding: 10px 20px;
+    font-family: Inter, sans-serif;
+    font-size: 15px;
+    color: var(--base-white);
+    text-decoration: none;
+}
+
+.not-found-link:hover {
+    background-color: var(--base-white);
+    color: var(--base-dark);
+    transition: all .3s ease;
+}
+
+.not-found-phone {
+    margin: 0;
+    font-family: Inter, sans-serif;
+    font-size: 16px;
+    color: var(--gray-light);
+}
+
+.not-found-phone a {
+    color: var(--base-green);
+    text-decoration: none;
+}
+
+@media (min-width: 320px) and (max-width: 768px) {
+    .not-found-title {
+        font-size: 28px;
+    }
+
+    .not-found-code {
+        font-size: 90px;
+    }
+}

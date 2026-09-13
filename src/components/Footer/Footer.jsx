@@ -17,7 +17,7 @@ const Footer = () => {
                 <Link href={NAVIGATION_URL.home}>
                     <Image
                         src="/dark-logo.svg"
-                        alt=""
+                        alt={Alts.footer.logo}
                         width={132}
                         height={40}
                     />
