@@ -10,10 +10,12 @@ import LinksCloudBlock from "@/components/_HelperComponents/LinksCloudBlock/Link
 import Portfolio from "@/components/Portfolio/Portfolio";
 import FormBlock from "@/components/FormBlock/FormBlock";
 import JsonLd from "@/components/_HelperComponents/JsonLd/JsonLd";
+import BrandDetailsBlock from "@/components/_HelperComponents/BrandDetailsBlock/BrandDetailsBlock";
 import {BRAND_SERVICES, getBrandService} from "@/constants/brandServices";
 import {CAR_BRANDS, getBrand} from "@/constants/carBrands";
 import {serviceJsonLd} from "@/utils/seo";
-import {brandPagePath} from "@/utils/brandPages";
+import {getBrandServiceNote} from "@/constants/brandServiceNotes";
+import {brandPagePath, isBrandPageIndexed} from "@/utils/brandPages";
 
 interface BrandServicePageProps {
     serviceKey: string;
@@ -34,15 +36,34 @@ const BrandServicePage = ({serviceKey, brandSlug}: BrandServicePageProps) => {
 
     const path = brandPagePath(service.basePath, brand.slug);
 
+    /*
+      Текст, который есть только на этой странице. Он заведён для тех пар
+      «марка + услуга», что остаются в индексе; у остальных блока нет, и они
+      отдаются с noindex — именно потому, что уникального содержимого у них нет.
+    */
+    const details = getBrandServiceNote(service.key, brand.slug);
+
+    /*
+      Перелинковка ведёт только на индексируемые страницы.
+
+      Раньше с каждой страницы марки уходило 39 ссылок на страницы других марок
+      и 5 на другие услуги той же марки — почти все на шаблонные страницы,
+      которые сейчас отдаются с noindex. Это и размывало обход, и раздувало
+      общую для всех страниц часть текста: одинаковое облако анкоров делало
+      соседние страницы похожими само по себе.
+
+      Полный каталог марок остался на родительской странице услуги — как
+      справочник он там и уместен.
+    */
     const otherServices = BRAND_SERVICES
-        .filter((item) => item.key !== service.key)
+        .filter((item) => item.key !== service.key && isBrandPageIndexed(item.key, brand.slug))
         .map((item) => ({
             title: `${item.label} ${brand.name}`,
             href: brandPagePath(item.basePath, brand.slug),
         }));
 
     const otherBrands = CAR_BRANDS
-        .filter((item) => item.slug !== brand.slug)
+        .filter((item) => item.slug !== brand.slug && isBrandPageIndexed(service.key, item.slug))
         .map((item) => ({
             title: item.name,
             href: brandPagePath(service.basePath, item.slug),
@@ -75,6 +96,13 @@ const BrandServicePage = ({serviceKey, brandSlug}: BrandServicePageProps) => {
                 ]}
             />
 
+            {details && (
+                <BrandDetailsBlock
+                    title={`${service.label} ${brand.name}: особенности`}
+                    note={details}
+                />
+            )}
+
             <OurProposalBlock list={service.proposalList} />
 
             <PriceBlock
@@ -86,15 +114,18 @@ const BrandServicePage = ({serviceKey, brandSlug}: BrandServicePageProps) => {
 
             <FaqBlock items={service.faq(brand)} />
 
-            <LinksCloudBlock
-                upperTitle="Ещё для этой марки"
-                title={`Другие услуги для ${brand.name}`}
-                links={otherServices}
-            />
+            {otherServices.length > 0 && (
+                <LinksCloudBlock
+                    upperTitle="Ещё для этой марки"
+                    title={`Другие услуги для ${brand.name}`}
+                    links={otherServices}
+                />
+            )}
 
             <LinksCloudBlock
                 upperTitle="Работаем с любой маркой"
                 title={`${service.label} — другие марки`}
+                allBrandsHref={service.basePath}
                 description={`Не нашли свою модель? Мы берёмся за ${service.label.toLowerCase()} практически на любом автомобиле — позвоните, и мы подскажем по вашему случаю.`}
                 links={otherBrands}
                 tight

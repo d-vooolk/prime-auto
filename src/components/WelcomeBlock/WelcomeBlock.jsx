@@ -33,7 +33,7 @@ const WelcomeBlock = () => {
                 />
             </div>
             <div className="welcome-block">
-                <h1 className="desktop-h1">МАСТЕРСКАЯ АВТОСВЕТА В МИНСКЕ</h1>
+                <h1 className="desktop-h1">Мастерская автосвета в Минске</h1>
 
                 <ListComponent
                     list={list}

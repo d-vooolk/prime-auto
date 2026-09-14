@@ -16,7 +16,6 @@ import {buildMetadata} from "@/utils/seo";
 export const metadata = buildMetadata({
     title: META.uslugi.title,
     description: META.uslugi.description,
-    keywords: META.uslugi.keywords,
     path: NAVIGATION_URL.uslugi,
 });
 

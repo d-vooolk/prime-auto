@@ -9,8 +9,13 @@ const Portfolio = () => {
         <div className="portfolio-global-wrapper" id="portfolio">
             <div className="portfolio-wrapper">
                 <div className="portfolio-title-wrapper">
-                    <h2 className="portfolio-title-upper">Наши работы</h2>
-                    <h2 className="portfolio-title-under">ПРИМЕРЫ РАБОТ</h2>
+                    {/* Надпись над заголовком — декоративная. Раньше это был такой же
+                      h2/h3, и в оглавлении страницы появлялся бессмысленный
+                      обрывок: на главной 9 из 20 заголовков были такими. Класс
+                      задаёт размер, вес и отступы сам, поэтому смена тега
+                      внешний вид не меняет. */}
+                    <div className="portfolio-title-upper">Наши работы</div>
+                    <h2 className="portfolio-title-under">Примеры работ</h2>
                 </div>
 
                 <PortfolioImages/>
@@ -38,25 +43,30 @@ const Portfolio = () => {
                         </svg>
                     </Link>
                 </div>
-                <div className="portfolio-instagram-images-wrapper">
+                {/*
+                  Три декоративные иллюстрации блока: смысл целиком в тексте
+                  рядом, поэтому alt пустой. Раньше у всех трёх был одинаковый
+                  alt «Инстаграм» — три бессмысленных повтора подряд.
+                */}
+                <div className="portfolio-instagram-images-wrapper" aria-hidden="true">
                     <Image
                         className="portfolio-instagram-image"
                         src="/images/instagram-gray-bg.webp"
-                        alt="Инстаграм"
+                        alt=""
                         width={228}
                         height={172}
                     />
                     <Image
                         className="portfolio-dialog-image"
                         src="/images/dialog.webp"
-                        alt="Инстаграм"
+                        alt=""
                         width={87}
                         height={56}
                     />
                     <Image
                         className="portfolio-heart-image"
                         src="/images/heart.webp"
-                        alt="Инстаграм"
+                        alt=""
                         width={56}
                         height={45}
                     />

@@ -15,7 +15,6 @@ import {buildMetadata} from "../utils/seo.ts";
 export const metadata = buildMetadata({
     title: META.general.title,
     description: META.general.description,
-    keywords: META.general.keywords,
     path: NAVIGATION_URL.home,
 })
 

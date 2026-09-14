@@ -51,12 +51,19 @@ const AboutCompany = () => {
     return (
         <div className="about-wrapper" id="about">
             <div className="block-title-about">
-                <h2 className="block-title-upper-about">О нас</h2>
-                <h2 className="block-title-under-about">О КОМПАНИИ</h2>
+                {/* Надпись над заголовком — декоративная. Раньше это был такой же
+                      h2/h3, и в оглавлении страницы появлялся бессмысленный
+                      обрывок: на главной 9 из 20 заголовков были такими. Класс
+                      задаёт размер, вес и отступы сам, поэтому смена тега
+                      внешний вид не меняет. */}
+                <div className="block-title-upper-about">О нас</div>
+                <h2 className="block-title-under-about">О компании</h2>
             </div>
 
             <div className="about-section">
-                <h3 className="about-section-title">{textAbout.title}</h3>
+                {/* «PRIME AUTO —» — вводная строка к тексту ниже, а не заголовок раздела:
+                      как h3 она попадала в оглавление обрывком. */}
+                <div className="about-section-title">{textAbout.title}</div>
                 <div className="about-section-description-wrapper">
                     <div className="about-section-first">{textAbout.first}</div>
                     <div className="about-section-second">{textAbout.second}</div>

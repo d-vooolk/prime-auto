@@ -20,7 +20,11 @@
     font-weight: 300;
 }
 
+/* Капс перенесён из разметки в стили: в DOM заголовок лежит обычным
+   регистром. Где Google переписывает сниппет по H1/H2, он больше не
+   подставит текст КАПСОМ. Визуально ничего не меняется. */
 .price-block-under-title {
+    text-transform: uppercase;
     padding: 0;
     margin: 0;
     font-size: 40px;

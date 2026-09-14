@@ -64,10 +64,10 @@ export const BRAND_SERVICES: BrandServiceDefinition[] = [
         basePath: NAVIGATION_URL.remont,
         label: 'Ремонт фар',
         h1: (brand) => `Ремонт фар ${brand.name} в Минске`,
-        title: (brand) => `Ремонт фар ${brandFull(brand)} в Минске — цены и запись | Prime Auto`,
+        title: (brand) => `Ремонт фар ${brand.name} в Минске — цены | Prime Auto`,
         description: (brand) =>
-            `Ремонт фар ${brand.name} в Минске: замена стёкол и корпусов, ремонт ДХО, креплений и ` +
-            `электрики внутри фары. Работаем с ${topModels(brand)}. Гарантия на работы, запись по телефону ${PHONE}.`,
+            `Ремонт фар ${brand.name} в Минске: замена стёкол и корпусов, ремонт ДХО, креплений, ` +
+            `электрики. Работаем с ${topModels(brand, 3)}. Гарантия на работы.`,
         intro: (brand) =>
             `Ремонтируем фары ${brandFull(brand)} в Минске: восстанавливаем треснувшие корпуса, меняем ` +
             `стёкла, ремонтируем крепления и дневные ходовые огни. ${brand.note} В работе используем сварку ` +
@@ -126,10 +126,10 @@ export const BRAND_SERVICES: BrandServiceDefinition[] = [
         basePath: NAVIGATION_URL.polirovkaOkleyka,
         label: 'Полировка и оклейка фар',
         h1: (brand) => `Полировка и оклейка фар ${brand.name} в Минске`,
-        title: (brand) => `Полировка и бронирование фар ${brandFull(brand)} в Минске | Prime Auto`,
+        title: (brand) => `Полировка фар ${brand.name} в Минске — цены | Prime Auto`,
         description: (brand) =>
             `Полировка фар ${brand.name} в Минске и защита полиуретановой плёнкой: убираем желтизну, ` +
-            `царапины и матовость. Работаем с ${topModels(brand)}. Цены от 100 руб., запись по телефону ${PHONE}.`,
+            `царапины и матовость. Работаем с ${topModels(brand, 3)}. Цены от 100 руб..`,
         intro: (brand) =>
             `Возвращаем прозрачность фарам ${brandFull(brand)} и защищаем их от нового помутнения. ` +
             `${brand.note} Полируем химическим и мануальным методом, а сверху ставим премиальную ` +
@@ -181,10 +181,10 @@ export const BRAND_SERVICES: BrandServiceDefinition[] = [
         basePath: NAVIGATION_URL.tehObsluzhivaniye,
         label: 'Техническое обслуживание фар',
         h1: (brand) => `Техническое обслуживание фар ${brand.name} в Минске`,
-        title: (brand) => `Обслуживание и регулировка фар ${brandFull(brand)} в Минске | Prime Auto`,
+        title: (brand) => `Обслуживание фар ${brand.name} в Минске — цены | Prime Auto`,
         description: (brand) =>
             `Техобслуживание фар ${brand.name} в Минске: замена ламп, регулировка света по ГОСТ, ` +
-            `замена блоков розжига ксенона. Работаем с ${topModels(brand)}. Регулировка от 50 руб., тел. ${PHONE}.`,
+            `замена блоков розжига ксенона. Работаем с ${topModels(brand, 3)}. Регулировка от 50 руб..`,
         intro: (brand) =>
             `Обслуживаем фары ${brandFull(brand)}: меняем лампы и блоки розжига, настраиваем свет по ГОСТ ` +
             `на настроечной стене. ${brand.note} Правильно отрегулированный свет — это и безопасность, и ` +
@@ -236,10 +236,10 @@ export const BRAND_SERVICES: BrandServiceDefinition[] = [
         basePath: NAVIGATION_URL.zapotevaniye,
         label: 'Устранение запотевания фар',
         h1: (brand) => `Устранение запотевания фар ${brand.name} в Минске`,
-        title: (brand) => `Запотевают фары ${brandFull(brand)}? Устранение в Минске | Prime Auto`,
+        title: (brand) => `Запотевают фары ${brand.name}? Устранение в Минске | Prime Auto`,
         description: (brand) =>
             `Устраняем запотевание и конденсат в фарах ${brand.name} в Минске: переуплотнение, пайка ` +
-            `корпуса, очистка изнутри, проверка герметичности. ${topModels(brand)} и другие модели. Тел. ${PHONE}.`,
+            `корпуса, очистка изнутри, проверка герметичности. ${topModels(brand, 3)} и другие модели. Тел..`,
         intro: (brand) =>
             `Убираем конденсат в фарах ${brandFull(brand)} и устраняем его причину, а не только следствие. ` +
             `${brand.note} Разбираем фару, очищаем изнутри, пропаиваем трещины корпуса, меняем уплотнение ` +
@@ -291,10 +291,10 @@ export const BRAND_SERVICES: BrandServiceDefinition[] = [
         basePath: NAVIGATION_URL.uluchsheniyeKachestvaSveta,
         label: 'Улучшение качества света',
         h1: (brand) => `Улучшение качества света ${brand.name} в Минске`,
-        title: (brand) => `Улучшение света ${brandFull(brand)} в Минске — Bi-Led, би-линзы | Prime Auto`,
+        title: (brand) => `Улучшение света ${brand.name} в Минске — цены | Prime Auto`,
         description: (brand) =>
             `Улучшаем свет на ${brand.name} в Минске: установка Bi-Led модулей, би-линз и диодных ламп. ` +
-            `${topModels(brand)} и другие модели. Гарантия на модули от 2 лет, запись по телефону ${PHONE}.`,
+            `${topModels(brand, 3)} и другие модели. Гарантия на модули от 2 лет.`,
         intro: (brand) =>
             `Делаем свет ${brandFull(brand)} ярче и безопаснее: ставим Bi-Led модули, меняем выгоревшие ` +
             `би-линзы, подбираем диодные лампы. ${brand.note} Ключевое в ретрофите — не «яркость ради яркости», ` +
@@ -347,10 +347,10 @@ export const BRAND_SERVICES: BrandServiceDefinition[] = [
         basePath: NAVIGATION_URL.biled,
         label: 'Установка Bi-Led модулей',
         h1: (brand) => `Установка Bi-Led модулей в фары ${brand.name} в Минске`,
-        title: (brand) => `Установка Bi-Led модулей ${brandFull(brand)} в Минске | Prime Auto`,
+        title: (brand) => `Установка Bi-Led ${brand.name} в Минске — цена | Prime Auto`,
         description: (brand) =>
             `Установка Bi-Led (билед) модулей в фары ${brand.name} в Минске: подбор под фару, монтаж, ` +
-            `настройка по ГОСТ. ${topModels(brand)}. Гарантия от 2 лет, запись по телефону ${PHONE}.`,
+            `настройка по ГОСТ. ${topModels(brand, 3)}. Гарантия от 2 лет.`,
         intro: (brand) =>
             `Устанавливаем Bi-Led модули в фары ${brandFull(brand)} — это самый заметный апгрейд света, ` +
             `который можно сделать без замены фары целиком. ${brand.note} Подбираем модуль под геометрию ` +

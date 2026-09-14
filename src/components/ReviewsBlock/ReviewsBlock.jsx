@@ -9,8 +9,13 @@ const ReviewsBlock = () => {
     return (
         <div className="reviews-wrapper" id="reviews">
             <div className="reviews-title-wrapper">
-                <h2 className="reviews-title-upper">Наших клиентов</h2>
-                <h2 className="reviews-title-under">ОТЗЫВЫ</h2>
+                {/* Надпись над заголовком — декоративная. Раньше это был такой же
+                      h2/h3, и в оглавлении страницы появлялся бессмысленный
+                      обрывок: на главной 9 из 20 заголовков были такими. Класс
+                      задаёт размер, вес и отступы сам, поэтому смена тега
+                      внешний вид не меняет. */}
+                <div className="reviews-title-upper">Наших клиентов</div>
+                <h2 className="reviews-title-under">Отзывы</h2>
             </div>
 
             <div className="reviews-slider-wrapper">

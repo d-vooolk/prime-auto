@@ -16,13 +16,9 @@ import {REVIEWS_PAGE_FAQ, REVIEWS_PAGE_TEXT} from "@/app/otzyvy/constants";
 
 export const metadata = buildMetadata({
     title: 'Отзывы о Prime Auto — мастерская автосвета в Минске',
-    description: 'Реальные отзывы клиентов Prime Auto (Прайм Авто) о ремонте фар, установке Bi-Led ' +
-        'модулей, полировке и устранении запотевания в Минске. Отзывы с Яндекс.Карт и ссылки на источники.',
+    description: 'Отзывы клиентов о ремонте фар, установке Bi-Led модулей и полировке ' +
+        'в Минске — с Яндекс.Карт, со ссылками на источники.',
     path: NAVIGATION_URL.reviews,
-    keywords: [
-        'отзывы Prime Auto', 'отзывы Прайм Авто', 'отзывы автосвет Минск',
-        'отзывы ремонт фар Минск', 'отзывы установка Bi-Led Минск',
-    ],
 });
 
 const ReviewsPage = () => (

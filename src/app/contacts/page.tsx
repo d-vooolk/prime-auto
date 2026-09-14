@@ -16,7 +16,6 @@ import {buildMetadata} from "@/utils/seo";
 export const metadata = buildMetadata({
     title: META.contacts.title,
     description: META.contacts.description,
-    keywords: META.contacts.keywords,
     path: NAVIGATION_URL.contacts,
 });
 

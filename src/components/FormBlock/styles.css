@@ -7,7 +7,11 @@
     padding-top: 100px;
 }
 
+/* Капс перенесён из разметки в стили: в DOM заголовок лежит обычным
+   регистром. Где Google переписывает сниппет по H1/H2, он больше не
+   подставит текст КАПСОМ. Визуально ничего не меняется. */
 .form-block-title {
+    text-transform: uppercase;
     width: 806px;
     font-size: 60px;
     line-height: 120%;

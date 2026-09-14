@@ -26,8 +26,13 @@ const FaqBlock = ({items, upperTitle = 'Отвечаем', title = 'Вопрос
             <JsonLd data={faqJsonLd(items)} />
 
             <div className="faq-block-title-container">
-                <h2 className="faq-block-upper-title">{upperTitle}</h2>
-                <h2 className="faq-block-under-title" id="faq-block-title">{title.toUpperCase()}</h2>
+                {/* Надпись над заголовком — декоративная. Раньше это был такой же
+                      h2/h3, и в оглавлении страницы появлялся бессмысленный
+                      обрывок: на главной 9 из 20 заголовков были такими. Класс
+                      задаёт размер, вес и отступы сам, поэтому смена тега
+                      внешний вид не меняет. */}
+                <div className="faq-block-upper-title">{upperTitle}</div>
+                <h2 className="faq-block-under-title" id="faq-block-title">{title}</h2>
             </div>
 
             <div className="faq-block-list">

@@ -2,6 +2,7 @@ import type {MetadataRoute} from "next";
 import {SITE_URL} from "@/constants/site";
 import {NAVIGATION_URL} from "@/constants/navigation";
 import {allBrandPagePaths} from "@/utils/brandPages";
+import {articleSlugs} from "@/constants/articles";
 
 interface SitemapEntry {
     path: string;
@@ -20,6 +21,7 @@ const STATIC_PAGES: SitemapEntry[] = [
     {path: NAVIGATION_URL.zapotevaniye, priority: 0.9, changeFrequency: 'monthly'},
     {path: NAVIGATION_URL.price, priority: 0.8, changeFrequency: 'monthly'},
     {path: NAVIGATION_URL.reviews, priority: 0.7, changeFrequency: 'weekly'},
+    {path: NAVIGATION_URL.articles, priority: 0.7, changeFrequency: 'weekly'},
     {path: NAVIGATION_URL.contacts, priority: 0.7, changeFrequency: 'monthly'},
     {path: NAVIGATION_URL.confidencePolicy, priority: 0.2, changeFrequency: 'yearly'},
 ];
@@ -35,6 +37,12 @@ const sitemap = (): MetadataRoute.Sitemap => {
             lastModified,
             changeFrequency: page.changeFrequency,
             priority: page.priority,
+        })),
+        ...articleSlugs().map((slug) => ({
+            url: `${SITE_URL}${NAVIGATION_URL.articles}/${slug}`,
+            lastModified,
+            changeFrequency: 'monthly' as const,
+            priority: 0.6,
         })),
         ...allBrandPagePaths().map((path) => ({
             url: `${SITE_URL}${path}`,

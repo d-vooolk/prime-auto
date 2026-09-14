@@ -11,7 +11,6 @@ const META_PAGE = META.polirovkaOkleyka;
 export const metadata = buildMetadata({
     title: META_PAGE.title,
     description: META_PAGE.description,
-    keywords: META_PAGE.keywords,
     path: NAVIGATION_URL.polirovkaOkleyka,
 });
 

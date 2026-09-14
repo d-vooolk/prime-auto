@@ -68,7 +68,11 @@
     font-size: 60px;
 }
 
+/* Капс перенесён из разметки в стили: в DOM заголовок лежит обычным
+   регистром. Где Google переписывает сниппет по H1/H2, он больше не
+   подставит текст КАПСОМ. Визуально ничего не меняется. */
 .desktop-h1 {
+    text-transform: uppercase;
     font-size: 80px;
     color: var(--base-dark);
     margin-top: 0;

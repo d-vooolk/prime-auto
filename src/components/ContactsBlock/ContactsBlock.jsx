@@ -67,7 +67,7 @@ const ContactsBlock = () => {
         <div className="contacts-block-wrapper">
             <div className="contacts-title-wrapper">
                 <div className="contacts-title-upper">{contactsBlockText.title}</div>
-                <div className="contacts-title-under">{contactsBlockText.description.toUpperCase()}</div>
+                <div className="contacts-title-under">{contactsBlockText.description}</div>
             </div>
 
             <BenefitsDescription/>

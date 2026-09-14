@@ -76,3 +76,15 @@
         display: flex;
     }
 }
+
+/* Кнопка меню: раньше это была картинка с onClick — без роли, без фокуса
+   и без состояния. Сбрасываем оформление кнопки, чтобы внешний вид не изменился. */
+.mobile-menu-toggle {
+    display: flex;
+    align-items: center;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    cursor: pointer;
+    line-height: 0;
+}

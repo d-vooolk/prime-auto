@@ -11,9 +11,14 @@ import {NAVIGATION_URL_ANCHORS} from "@/constants/navigation";
 const InstallmentBlock = () => (
     <section className="installment-block-wrapper" aria-labelledby="installment-title">
         <div className="installment-title-container">
-            <h2 className="installment-upper-title">{INSTALLMENT_TEXT.upperTitle}</h2>
+            {/* Надпись над заголовком — декоративная. Раньше это был такой же
+                      h2/h3, и в оглавлении страницы появлялся бессмысленный
+                      обрывок: на главной 9 из 20 заголовков были такими. Класс
+                      задаёт размер, вес и отступы сам, поэтому смена тега
+                      внешний вид не меняет. */}
+            <div className="installment-upper-title">{INSTALLMENT_TEXT.upperTitle}</div>
             <h2 className="installment-under-title" id="installment-title">
-                {INSTALLMENT_TEXT.title.toUpperCase()}
+                {INSTALLMENT_TEXT.title}
             </h2>
         </div>
 

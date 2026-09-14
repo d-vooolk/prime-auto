@@ -1,3 +1,5 @@
+import {LINKS} from "@/constants/links.js";
+
 export const ChatConfig = [
     {
         id: 0,
@@ -47,7 +49,7 @@ export const ChatConfig = [
     {
         id: 5,
         visible: true,
-        link: 'https://yandex.by/maps/-/CTGdM6o9',
+        link: LINKS.yandexMap,
         img: '/chatIcons/map.svg',
         target: '_blank',
         tooltip: 'Яндекс Карта',

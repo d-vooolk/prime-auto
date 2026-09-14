@@ -13,8 +13,13 @@ const OurProposalBlock = ({list}: OurProposalBlockProps) => {
     return (
         <div className="our-proposal-block-wrapper">
             <div className="our-proposal-block-title-container">
-                <h3 className="our-proposal-block-title">{BLOCK_TEXT.title}</h3>
-                <h3 className="our-proposal-block-description">{BLOCK_TEXT.description.toUpperCase()}</h3>
+                {/* Надпись над заголовком — декоративная. Раньше это был такой же
+                      h2/h3, и в оглавлении страницы появлялся бессмысленный
+                      обрывок: на главной 9 из 20 заголовков были такими. Класс
+                      задаёт размер, вес и отступы сам, поэтому смена тега
+                      внешний вид не меняет. */}
+                <div className="our-proposal-block-title">{BLOCK_TEXT.title}</div>
+                <h2 className="our-proposal-block-description">{BLOCK_TEXT.description}</h2>
             </div>
 
             <div className="our-proposal-wrapper">

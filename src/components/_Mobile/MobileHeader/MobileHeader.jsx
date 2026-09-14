@@ -29,36 +29,31 @@ const MobileHeader = () => {
             </Link>
 
             <div className="mobile-header-buttons-wrapper">
-                <Link href={`tel:${CONTACTS_DATA.phone1}`}>
+                <Link href={`tel:${CONTACTS_DATA.phone1}`} aria-label={`Позвонить ${CONTACTS_DATA.phone1}`}>
                     <Image
                         src="/icons/phone.svg"
-                        alt="Номер телефона"
+                        alt=""
+                        aria-hidden="true"
                         width={40}
                         height={40}
                     />
                 </Link>
 
-                {
-                    isOpenMenu
-                        ? (
-                            <Image
-                                src="/icons/burger-close.svg"
-                                alt="Мобильное меню"
-                                width={40}
-                                height={40}
-                                onClick={() => setIsOpenMenu(!isOpenMenu)}
-                            />
-                        )
-                        : (
-                            <Image
-                                src="/icons/burger.svg"
-                                alt="Мобильное меню"
-                                width={40}
-                                height={40}
-                                onClick={() => setIsOpenMenu(!isOpenMenu)}
-                            />
-                        )
-                }
+                <button
+                    type="button"
+                    className="mobile-menu-toggle"
+                    aria-label={isOpenMenu ? Alts.header.burgerClose : Alts.header.burger}
+                    aria-expanded={isOpenMenu}
+                    onClick={() => setIsOpenMenu(!isOpenMenu)}
+                >
+                    <Image
+                        src={isOpenMenu ? "/icons/burger-close.svg" : "/icons/burger.svg"}
+                        alt=""
+                        aria-hidden="true"
+                        width={40}
+                        height={40}
+                    />
+                </button>
             </div>
 
             {

@@ -1,5 +1,6 @@
 import type {Metadata} from "next";
 import {SITE, SITE_URL} from "@/constants/site";
+import {LINKS} from "@/constants/links";
 
 export const absoluteUrl = (path: string): string =>
     `${SITE_URL}${path === '/' ? '/' : path}`;
@@ -9,7 +10,6 @@ interface BuildMetadataArgs {
     description: string;
     /** Путь страницы без домена, начиная со слэша */
     path: string;
-    keywords?: readonly string[];
     noIndex?: boolean;
     ogImage?: string;
 }
@@ -25,7 +25,6 @@ export const buildMetadata = ({
     title,
     description,
     path,
-    keywords,
     noIndex = false,
     ogImage = DEFAULT_OG_IMAGE,
 }: BuildMetadataArgs): Metadata => {
@@ -34,12 +33,17 @@ export const buildMetadata = ({
     return {
         title,
         description,
-        keywords: keywords ? [...keywords] : undefined,
         alternates: {
             canonical: url,
         },
+        /*
+          noindex, но follow. Страница уходит из выдачи, а ссылки на ней
+          продолжают работать: с неиндексируемых страниц марок стоят переходы
+          на родительскую услугу и на индексируемые марки, и обрывать их
+          через nofollow смысла нет.
+        */
         robots: noIndex
-            ? {index: false, follow: false}
+            ? {index: false, follow: true}
             : {
                 index: true,
                 follow: true,
@@ -103,6 +107,8 @@ export const localBusinessJsonLd = () => ({
     logo: absoluteUrl('/logo.svg'),
     currenciesAccepted: 'BYN',
     paymentAccepted: 'Наличные, банковская карта, карта рассрочки',
+    priceRange: SITE.priceRange,
+    hasMap: LINKS.yandexMap,
     address: {
         '@type': 'PostalAddress',
         streetAddress: SITE.street,
@@ -124,12 +130,20 @@ export const localBusinessJsonLd = () => ({
         opens: slot.opens,
         closes: slot.closes,
     })),
+    /*
+      Карточки в картах стоят первыми не случайно: для локального бизнеса связь
+      сайта с картографической сущностью весит больше соцсетей. Пустые значения
+      отфильтровываются — пока не заполнен LINKS.googleBusiness, в разметку
+      уходит только Яндекс.
+    */
     sameAs: [
+        LINKS.yandexMap,
+        LINKS.googleBusiness,
         'https://www.instagram.com/prime_auto_minsk/',
         'https://www.tiktok.com/@prime_auto_minsk',
         'https://www.youtube.com/@prime-auto-minsk',
         'https://www.facebook.com/profile.php?id=61558468265260',
-    ],
+    ].filter(Boolean),
 });
 
 export const webSiteJsonLd = () => ({
@@ -164,8 +178,40 @@ interface ServiceJsonLdArgs {
     path: string;
     /** Название типа услуги, например «Ремонт фар» */
     serviceType?: string;
+    /** Цены передаются как в прайсе — «150» или «от 50», разбор ниже */
     offers?: {name: string; price: string}[];
 }
+
+/**
+ * В schema.org Offer.price обязано быть числом без валюты и слов: на странице
+ * услуги в разметку уходило «от 50», то есть предложения были невалидными.
+ * Разбираем строку прайса здесь, а не на вызывающей стороне, чтобы все три
+ * места (прайс, страницы услуг, страницы марок) вели себя одинаково.
+ *
+ * «от N» отдаём через minPrice в PriceSpecification — это штатный способ
+ * сказать «цена начинается от», не выдавая минимум за точную цену.
+ */
+const priceOffer = (offer: {name: string; price: string}) => {
+    const amount = offer.price.replace(/[^\d]/g, '');
+    const itemOffered = {'@type': 'Service', name: offer.name};
+
+    if (!amount) {
+        return {'@type': 'Offer', priceCurrency: 'BYN', itemOffered};
+    }
+
+    return /от/i.test(offer.price)
+        ? {
+            '@type': 'Offer',
+            priceCurrency: 'BYN',
+            priceSpecification: {
+                '@type': 'PriceSpecification',
+                priceCurrency: 'BYN',
+                minPrice: amount,
+            },
+            itemOffered,
+        }
+        : {'@type': 'Offer', priceCurrency: 'BYN', price: amount, itemOffered};
+};
 
 export const serviceJsonLd = ({name, description, path, serviceType, offers}: ServiceJsonLdArgs) => ({
     '@context': 'https://schema.org',
@@ -185,15 +231,7 @@ export const serviceJsonLd = ({name, description, path, serviceType, offers}: Se
             hasOfferCatalog: {
                 '@type': 'OfferCatalog',
                 name,
-                itemListElement: offers.map((offer) => ({
-                    '@type': 'Offer',
-                    priceCurrency: 'BYN',
-                    price: offer.price,
-                    itemOffered: {
-                        '@type': 'Service',
-                        name: offer.name,
-                    },
-                })),
+                itemListElement: offers.map(priceOffer),
             },
         }
         : {}),
@@ -240,4 +278,32 @@ export const reviewsJsonLd = (reviews: {name: string; review: string}[], path: s
             itemReviewed: {'@id': ORGANIZATION_ID},
         },
     })),
+});
+
+interface ArticleJsonLdArgs {
+    title: string;
+    description: string;
+    path: string;
+    published: string;
+    updated: string;
+}
+
+/**
+ * Разметка статьи. author и publisher ссылаются на ту же организацию через
+ * @id — поисковик связывает материал с уже описанной сущностью, а не заводит
+ * отдельного безымянного автора.
+ */
+export const articleJsonLd = ({title, description, path, published, updated}: ArticleJsonLdArgs) => ({
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    '@id': `${absoluteUrl(path)}#article`,
+    headline: title,
+    description,
+    inLanguage: 'ru-RU',
+    datePublished: published,
+    dateModified: updated,
+    mainEntityOfPage: {'@type': 'WebPage', '@id': absoluteUrl(path)},
+    author: {'@id': ORGANIZATION_ID},
+    publisher: {'@id': ORGANIZATION_ID},
+    image: absoluteUrl('/images/first-car.webp'),
 });

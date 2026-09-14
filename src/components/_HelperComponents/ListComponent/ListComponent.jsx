@@ -1,5 +1,4 @@
 import Image from "next/image";
-import {Alts} from "@/meta/alts.js";
 import './styles.css';
 
 const ListComponent = ({list, className, wrapperClassname}) => {
@@ -8,9 +7,16 @@ const ListComponent = ({list, className, wrapperClassname}) => {
             {
                 list?.map((item, index) => (
                     <div className="item-wrapper" key={`${item}-${index + Math.random() * Math.random()}`}>
+                        {/*
+                          Маркер списка — декорация. Раньше у него был alt «Пункт», и на
+                          главной 24 иконки подряд сообщали скринридеру и поисковику одно
+                          и то же слово. Пустой alt — штатный способ сказать «изображение
+                          не несёт смысла, пропусти его».
+                        */}
                         <Image
                             src="/icons/plus.svg"
-                            alt={Alts.welcomeBlock.plus}
+                            alt=""
+                            aria-hidden="true"
                             width={20.58}
                             height={24.06}
                         />

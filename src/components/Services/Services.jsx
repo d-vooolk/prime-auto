@@ -37,8 +37,13 @@ const Services = ({withoutHeader = false}) => {
             {
                 !withoutHeader && (
                     <div className="block-title-services">
-                        <h2 className="h2-styled-font-services">Наши</h2>
-                        <h2 className="h2-base-font-services">УСЛУГИ</h2>
+                        {/* Надпись над заголовком — декоративная. Раньше это был такой же
+                      h2/h3, и в оглавлении страницы появлялся бессмысленный
+                      обрывок: на главной 9 из 20 заголовков были такими. Класс
+                      задаёт размер, вес и отступы сам, поэтому смена тега
+                      внешний вид не меняет. */}
+                        <div className="h2-styled-font-services">Наши</div>
+                        <h2 className="h2-base-font-services">Услуги</h2>
                     </div>
                 )
             }
@@ -47,7 +52,7 @@ const Services = ({withoutHeader = false}) => {
                 <Card3
                     svgName={SVG_NAMES.tuning}
                     svgClassName="svg-card-services"
-                    title={(CARD_INFO[SERVICE_TYPES.IMPROVEMENT_LIGHT_QUALITY].title).toUpperCase()}
+                    title={CARD_INFO[SERVICE_TYPES.IMPROVEMENT_LIGHT_QUALITY].title}
                     list={CARD_INFO[SERVICE_TYPES.IMPROVEMENT_LIGHT_QUALITY].list}
                     link={NAVIGATION_URL.uluchsheniyeKachestvaSveta}
                     cardCount={3}
@@ -55,7 +60,7 @@ const Services = ({withoutHeader = false}) => {
                 <Card3
                     svgName={SVG_NAMES.polirovka}
                     svgClassName="svg-card-services"
-                    title={(CARD_INFO[SERVICE_TYPES.POLISHING_POSTING].title).toUpperCase()}
+                    title={CARD_INFO[SERVICE_TYPES.POLISHING_POSTING].title}
                     list={CARD_INFO[SERVICE_TYPES.POLISHING_POSTING].list}
                     link={NAVIGATION_URL.polirovkaOkleyka}
                     cardCount={3}
@@ -63,7 +68,7 @@ const Services = ({withoutHeader = false}) => {
                 <Card3
                     svgName={SVG_NAMES.remontFar}
                     svgClassName="svg-card-services"
-                    title={(CARD_INFO[SERVICE_TYPES.HEADLIGHTS_REPAIR].title).toUpperCase()}
+                    title={CARD_INFO[SERVICE_TYPES.HEADLIGHTS_REPAIR].title}
                     list={CARD_INFO[SERVICE_TYPES.HEADLIGHTS_REPAIR].list}
                     link={NAVIGATION_URL.remont}
                     cardCount={3}
@@ -73,7 +78,7 @@ const Services = ({withoutHeader = false}) => {
                 <Card3
                     svgName={SVG_NAMES.zapotevaniye}
                     svgClassName="svg-card-services"
-                    title={(CARD_INFO[SERVICE_TYPES.HEADLIGHTS_PERSPIRATION].title).toUpperCase()}
+                    title={CARD_INFO[SERVICE_TYPES.HEADLIGHTS_PERSPIRATION].title}
                     list={CARD_INFO[SERVICE_TYPES.HEADLIGHTS_PERSPIRATION].list}
                     link={NAVIGATION_URL.zapotevaniye}
                     cardCount={2}
@@ -81,7 +86,7 @@ const Services = ({withoutHeader = false}) => {
                 <Card3
                     svgName={SVG_NAMES.remontFonarey}
                     svgClassName="svg-card-services"
-                    title={(CARD_INFO[SERVICE_TYPES.MAINTENANCE].title).toUpperCase()}
+                    title={CARD_INFO[SERVICE_TYPES.MAINTENANCE].title}
                     list={CARD_INFO[SERVICE_TYPES.MAINTENANCE].list}
                     link={NAVIGATION_URL.tehObsluzhivaniye}
                     cardCount={2}

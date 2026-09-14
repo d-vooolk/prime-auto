@@ -31,7 +31,11 @@
     color: var(--base-green);
 }
 
+/* Капс перенесён из разметки в стили: в DOM заголовок лежит обычным
+   регистром. Где Google переписывает сниппет по H1/H2, он больше не
+   подставит текст КАПСОМ. Визуально ничего не меняется. */
 .links-cloud-under-title {
+    text-transform: uppercase;
     margin: 0;
     padding: 0;
     font-size: 32px;
