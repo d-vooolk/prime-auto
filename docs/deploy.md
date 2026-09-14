@@ -16,7 +16,7 @@
 
 ## Как устроено сейчас
 
-Два процесса, `blue` (порт 3001) и `green` (порт 3002), каждый со своим
+Два процесса, `blue` (порт 3101) и `green` (порт 3102), каждый со своим
 каталогом сборки (`.next-blue` / `.next-green`) — за это отвечает
 `distDir: process.env.NEXT_DIST_DIR` в `next.config.mjs`. Под трафиком всегда
 ровно один; какой именно, решает `upstream` в nginx.
@@ -34,6 +34,25 @@ health-check'ом, что он отвечает, и только потом пе
 
 Всё ниже выполняется от root (в скриптах `sudo` нет — вы и так root).
 
+### 0. Проверить, что порты свободны
+
+На сервере живут и другие приложения, поэтому первым делом:
+
+```bash
+ss -ltnp | grep -E ':(3101|3102)'     # ожидаем пустой вывод
+```
+
+Если что-то занято — поменяйте `BLUE_PORT` / `GREEN_PORT` в
+`ecosystem.bluegreen.config.cjs`. Это единственное место, где порты заданы:
+`scripts/deploy.sh` и `scripts/rollback.sh` читают их оттуда, править их
+не нужно.
+
+**Про имя файла конфига.** pm2 считает файл ecosystem-конфигом только если в
+имени есть `.config.js` / `.config.cjs` / `.config.mjs` / `.json` / `.yaml`.
+Файл с другим именем pm2 молча запустит как обычный Node-скрипт: в списке
+появится процесс с именем по имени файла, а `prime-auto-blue` и
+`prime-auto-green` не поднимутся. Поэтому переименовывать нельзя.
+
 ### 1. Код и первая сборка
 
 ```bash
@@ -50,9 +69,15 @@ cp -rlf .next-blue/static/. shared/next-static/
 ### 2. Поднять blue и убедиться, что он отвечает
 
 ```bash
-pm2 start ecosystem.bluegreen.cjs --only prime-auto-blue --env production
-curl -I http://127.0.0.1:3001/        # ожидаем 200
+pm2 start ecosystem.bluegreen.config.cjs --only prime-auto-blue --env production
+pm2 list                              # в списке должен быть prime-auto-blue, а не имя файла
+curl -sI http://127.0.0.1:3101/       # ожидаем 200
+curl -s  http://127.0.0.1:3101/ | grep -o "$(cat .next-blue/BUILD_ID)"   # ожидаем BUILD_ID
 ```
+
+Вторая проверка важнее первой: она подтверждает, что на порту отвечает именно
+наше приложение и именно новой сборкой, а не какой-то другой сервис. Тот же
+самый health-check делает `deploy.sh` перед переключением трафика.
 
 Старый процесс на 3000 пока работает и обслуживает сайт — не трогаем.
 
@@ -63,7 +88,7 @@ curl -I http://127.0.0.1:3001/        # ожидаем 200
 ```bash
 cat > /etc/nginx/conf.d/prime-auto-upstream.conf <<'EOF'
 upstream prime_auto {
-    server 127.0.0.1:3001;
+    server 127.0.0.1:3101;
 }
 EOF
 ```
