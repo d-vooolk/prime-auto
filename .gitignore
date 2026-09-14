@@ -16,6 +16,8 @@ yarn.lock
 
 # next.js
 /.next/
+/.next-blue/
+/.next-green/
 /out/
 
 # production

@@ -9,8 +9,10 @@
     "start": "NODE_ENV=production node server.js",
     "lint": "eslint src --ext .js,.jsx,.ts,.tsx",
     "lint:fix": "eslint src --ext .js,.jsx,.ts,.tsx --fix",
-    "restart": "rm -rf .next && NODE_ENV=production npm run build && sudo rm -rf /var/cache/nginx/* && sudo systemctl restart nginx && pm2 stop prime-auto && pm2 delete prime-auto && pm2 start ecosystem.config.cjs --env production",
-    "deploy": "git pull && npm ci && npm run restart"
+    "restart": "rm -rf .next && NODE_ENV=production npm run build && pm2 startOrReload ecosystem.config.cjs --env production --update-env && sudo rm -rf /var/cache/nginx/* && sudo systemctl reload nginx",
+    "deploy": "git pull && npm ci && npm run restart",
+    "deploy:bluegreen": "bash scripts/deploy.sh",
+    "rollback": "bash scripts/rollback.sh"
   },
   "dependencies": {
     "imask": "^7.6.1",
