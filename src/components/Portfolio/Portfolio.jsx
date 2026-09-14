@@ -2,7 +2,7 @@ import './styles.css';
 import PortfolioImages from "@/components/_HelperComponents/PortfolioImages/PortfolioImages.jsx";
 import Link from "next/link";
 import Image from "next/image";
-import {LINKS} from "../../constants/links.js";
+import {LINKS} from "@/constants/links.js";
 
 const Portfolio = () => {
     return (
@@ -26,7 +26,7 @@ const Portfolio = () => {
 
                     <Link
                         href={LINKS.instagram}
-                        target="_blank noopener norefferer"
+                        target="_blank" rel="noopener noreferrer"
                         className="portfolio-get-instagram-button"
                     >
                         <span>Перейти в инстаграм</span>

@@ -54,7 +54,7 @@ footer .footer-contacts {
     justify-content: space-between;
     align-items: center;
     height: 57px;
-    color: var(--base-gray);
+    color: var(--gray-on-dark);
 }
 
 .footer-divider {
@@ -115,7 +115,7 @@ footer .footer-contacts {
 }
 
 .conf-polic {
-    color: var(--base-gray);
+    color: var(--gray-on-dark);
     text-decoration: none;
 }
 

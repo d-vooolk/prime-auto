@@ -16,11 +16,17 @@ const WelcomeBlock = () => {
     return (
         <div className="welcome-block-wrapper">
             <div className="welcome-car">
+                {/*
+                  Без sizes Next отдаёт srcset с 1x/2x-дескрипторами, и мобильный браузер
+                  брал вариант w=3840 (232 КБ) на контейнер шириной ~490 px. На мобильных
+                  картинка ограничена высотой 280 px → 280 * 1100/632.3 ≈ 490 px.
+                */}
                 <Image
                     src="/images/first-car.webp"
                     alt={Alts.welcomeBlock.car}
                     width={1100}
                     height={632.3}
+                    sizes="(max-width: 768px) 490px, 1100px"
                     className="welcome-car-image"
                     priority
                     fetchPriority="high"

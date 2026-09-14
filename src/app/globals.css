@@ -6,7 +6,11 @@
   --base-green: #A2DB00;
   --base-white: rgb(255, 255, 255);
   --error: #FF0000;
-  --base-gray: #777777;
+  /* #777777 давал 4.48:1 на белом — чуть ниже порога WCAG AA (4.5:1),
+     Lighthouse отмечал это в «Цвета фона и переднего плана недостаточно контрастны». */
+  --base-gray: #6B6B6B;
+  /* тот же приглушённый серый, но для тёмного фона футера: 5.2:1 к #262626 */
+  --gray-on-dark: #9E9E9E;
   --light-gray-background: #F5F5F5;
   --gray-light: rgb(168, 168, 168);
   --black-dark-cards: #1C1C1C;

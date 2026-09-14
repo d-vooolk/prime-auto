@@ -3,7 +3,7 @@
 import React, {useState} from "react";
 import './styles.css';
 import {Alts} from "../../../meta/alts.js";
-import Image from "next/image.js";
+import Image from "next/image";
 import Link from "next/link";
 import {CONTACTS_DATA} from "../../../constants/contactsData.js";
 import {LINKS} from "../../../constants/links.js";
@@ -78,7 +78,7 @@ const MobileHeader = () => {
                             <div className="mobile-phones-wrapper">
                                 <Link className="mobile-phone-link" href={`tel:${CONTACTS_DATA.phone1}`}>{ CONTACTS_DATA.phone1 }</Link>
                             </div>
-                            <Link href={LINKS.instagram} target="_blank noopener norefferer">
+                            <Link href={LINKS.instagram} target="_blank" rel="noopener noreferrer">
                                 <Image
                                     src="/icons/insta.svg"
                                     width={40}

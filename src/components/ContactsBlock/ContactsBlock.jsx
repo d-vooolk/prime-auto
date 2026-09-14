@@ -1,13 +1,18 @@
 import React from "react";
 import './styles.css';
 import ListComponent from "@/components/_HelperComponents/ListComponent/ListComponent.jsx";
-import dynamic from "next/dynamic.js";
-import {yandexApi} from "../../app/api/yandex/yandexApi.ts";
+import {yandexApi} from "@/app/api/yandex/yandexApi";
 import { CONTACTS_DATA } from "@/constants/contactsData.js";
-import Link from "next/link.js";
-const DynamicYandexMap = dynamic(() => import("../../components/YandexMap/YandexMap.tsx"), {
-    ssr: false,
-});
+import Link from "next/link";
+/*
+  Раньше карта подключалась через dynamic(..., {ssr: false}) — в Server Component
+  Next 16 такое запрещает, и работало это только потому, что импорт был записан как
+  "next/dynamic.js" и проверку не проходил. Обычный импорт здесь и правильнее:
+  YandexMap — клиентский компонент, на сервере он отдаёт пустой div, зато с высотой
+  из CSS, то есть место под карту зарезервировано в самом HTML. Тяжёлый скрипт ymaps
+  всё так же грузится лениво, по IntersectionObserver внутри самого компонента.
+*/
+import YandexMap from "@/components/YandexMap/YandexMap";
 
 const contactsBlockText = {
     title: 'Мы находимся',
@@ -67,7 +72,7 @@ const ContactsBlock = () => {
 
             <BenefitsDescription/>
 
-            <DynamicYandexMap
+            <YandexMap
                 center={yandexApi.center}
                 zoom={yandexApi.zoom}
             />

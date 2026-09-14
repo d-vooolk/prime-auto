@@ -45,7 +45,7 @@ const Footer = () => {
                 <div className="footer-full-info-email">
                     <div>Email</div>
                     <div>
-                        <Link href="mailto:info@prime-auto.by" target="_blank noopener norefferer">
+                        <Link href="mailto:info@prime-auto.by">
                             info@prime-auto.by
                         </Link>
                     </div>
@@ -54,17 +54,42 @@ const Footer = () => {
                     <div>ООО &#34;Первый Автосвет&#34;</div>
                     <div>УНП 193897412</div>
                 </div>
+                {/*
+                  Внутри ссылок только inline-svg, поэтому доступного имени у них не было —
+                  Lighthouse ругался на "Links must have discernible text". Плюс rel
+                  раньше по ошибке лежал внутри target и не работал.
+                */}
                 <div className="footer-full-info-social">
-                    <Link href={LINKS.instagram} target="_blank noopener norefferer">
+                    <Link
+                        href={LINKS.instagram}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label="Prime Auto в Instagram"
+                    >
                         <SvgComponent name={SVG_NAMES.instagram}/>
                     </Link>
-                    <Link href={LINKS.tiktok} target="_blank noopener norefferer">
+                    <Link
+                        href={LINKS.tiktok}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label="Prime Auto в TikTok"
+                    >
                         <SvgComponent name={SVG_NAMES.tiktok}/>
                     </Link>
-                    <Link href={LINKS.youTube} target="_blank noopener norefferer">
+                    <Link
+                        href={LINKS.youTube}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label="Prime Auto на YouTube"
+                    >
                         <SvgComponent name={SVG_NAMES.youTube}/>
                     </Link>
-                    <Link href={LINKS.facebook} target="_blank noopener norefferer">
+                    <Link
+                        href={LINKS.facebook}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label="Prime Auto в Facebook"
+                    >
                         <SvgComponent name={SVG_NAMES.facebook}/>
                     </Link>
                 </div>
@@ -77,6 +102,7 @@ const Footer = () => {
                         className="conf-polic"
                         href={NAVIGATION_URL.confidencePolicy}
                         target="_blank"
+                        rel="noopener noreferrer"
                     >
                         Политика конфиденциальности
                     </Link>

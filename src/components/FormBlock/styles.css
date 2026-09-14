@@ -226,3 +226,6 @@
         height: auto;
     }
 }
+.form-confidence-label {
+    cursor: pointer;
+}

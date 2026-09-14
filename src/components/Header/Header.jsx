@@ -32,7 +32,7 @@ const Header = () => {
                 <div className="phones-wrapper">
                     <Link className="phone-link" href={`tel:${CONTACTS_DATA.phone1}`}>{ CONTACTS_DATA.phone1 }</Link>
                 </div>
-                <Link href={LINKS.instagram} target="_blank noopener norefferer">
+                <Link href={LINKS.instagram} target="_blank" rel="noopener noreferrer">
                     <Image
                         src="/icons/insta.svg"
                         width={40}

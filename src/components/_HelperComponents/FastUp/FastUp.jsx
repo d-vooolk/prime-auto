@@ -7,19 +7,46 @@ const FastUp = () => {
     const [isVisible, setIsVisible] = useState(false);
 
     useEffect(() => {
+        /*
+          Раньше offsetHeight читался на каждом событии scroll: браузер был обязан
+          пересчитать раскладку синхронно, и PageSpeed показывал это в «Принудительная
+          компоновка». Высота блока не меняется при скролле, поэтому читаем её один раз
+          и обновляем только на resize; сам обработчик скролла дросселируем через rAF.
+        */
+        let firstBlockHeight = 0;
+        let frame = 0;
+
+        const measure = () => {
+            firstBlockHeight = document.getElementById("services")?.offsetHeight || 0;
+        };
+
+        const update = () => {
+            frame = 0;
+            setIsVisible(window.scrollY > firstBlockHeight);
+        };
+
         const handleScroll = () => {
-            const firstBlockHeight = document.getElementById("services")?.offsetHeight || 0;
-            if (window.scrollY > firstBlockHeight) {
-                setIsVisible(true);
-            } else {
-                setIsVisible(false);
+            if (!frame) {
+                frame = window.requestAnimationFrame(update);
             }
         };
 
-        window.addEventListener("scroll", handleScroll);
+        const handleResize = () => {
+            measure();
+            handleScroll();
+        };
+
+        measure();
+
+        window.addEventListener("scroll", handleScroll, {passive: true});
+        window.addEventListener("resize", handleResize);
 
         return () => {
+            if (frame) {
+                window.cancelAnimationFrame(frame);
+            }
             window.removeEventListener("scroll", handleScroll);
+            window.removeEventListener("resize", handleResize);
         };
     }, []);
 

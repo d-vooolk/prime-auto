@@ -91,9 +91,6 @@
     font-weight: 600;
 }
 
-.about-car-image-wrapper {
-    margin-bottom: 20px;
-}
 
 .about-benefits-title {
     font-family: Montserrat, sans-serif;
@@ -167,16 +164,6 @@
         white-space: wrap;
     }
 
-    .about-car-image-wrapper {
-        width: 100%;
-        height: auto;
-        overflow: hidden;
-    }
-
-    .about-car-image {
-        object-fit: cover;
-        object-position: center center;
-    }
 
     .about-benefits-wrapper {
         flex-direction: column;
