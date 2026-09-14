@@ -31,8 +31,6 @@ const ContactsPage = () => (
             ]}
         />
 
-        aksdk
-
         <ContactsBlock />
         <OurProposalBlock list={lightQualityProposalList} />
 
