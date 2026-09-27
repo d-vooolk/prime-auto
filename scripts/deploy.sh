@@ -25,6 +25,22 @@ die() { printf '\n\033[31mОШИБКА: %s\033[0m\n' "$*" >&2; exit 1; }
 
 cd "$APP_DIR"
 
+# --- 0. Версия Node --------------------------------------------------------
+# Системный node на сервере — 18, а Next 16 и better-sqlite3 требуют 20+.
+# Нужная версия лежит в nvm; берём ту, что указана в .nvmrc. Собирать надо
+# той же версией, на которой работает pm2: иначе нативный модуль
+# better-sqlite3 соберётся не под тот Node и процесс не поднимется.
+if [ -s "${NVM_DIR:-$HOME/.nvm}/nvm.sh" ]; then
+    set +u
+    # shellcheck disable=SC1091
+    . "${NVM_DIR:-$HOME/.nvm}/nvm.sh"
+    [ ! -f .nvmrc ] || nvm use >/dev/null || die "nvm не нашёл версию Node из .nvmrc ($(cat .nvmrc 2>/dev/null)). Установите: nvm install"
+    set -u
+fi
+NODE_MAJOR=$(node -p 'process.versions.node.split(".")[0]')
+[ "$NODE_MAJOR" -ge 20 ] || die "нужен Node 20+, сейчас $(node -v). Поставьте через nvm и повторите."
+log "node $(node -v)"
+
 # Порты живут только в ecosystem-конфиге, здесь их не дублируем: разъехавшиеся
 # копии в трёх файлах — надёжный способ переключить трафик не туда.
 port_of() {
