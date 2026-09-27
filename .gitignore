@@ -41,3 +41,6 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# база статей и админки (живёт на сервере, в репозиторий не попадает)
+/var/

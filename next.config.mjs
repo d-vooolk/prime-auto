@@ -17,6 +17,9 @@ const nextConfig = {
         // PageSpeed показывал 930 мс блокирующих отрисовку запросов и цепочку
         // документ → css → шрифт из четырёх хопов: инлайн убирает и то, и другое.
         inlineCss: true,
+        // У сайта и админки разные корневые layout, и 404 для несуществующих
+        // адресов рисует src/app/global-not-found.js.
+        globalNotFound: true,
     },
     images: {
         // оптимизированные картинки живут в кэше месяц вместо часа — меньше пересжатий на сервере
@@ -31,6 +34,19 @@ const nextConfig = {
     },
     async headers() {
         return [
+            {
+                /*
+                  Админка не должна попасть в кеш nginx ни при каких его
+                  настройках: иначе её страницы увидел бы следующий посетитель.
+                  X-Accel-Expires nginx читает раньше Cache-Control.
+                */
+                source: '/admin/:path*',
+                headers: [
+                    {key: 'Cache-Control', value: 'private, no-store'},
+                    {key: 'X-Accel-Expires', value: '0'},
+                    {key: 'X-Robots-Tag', value: 'noindex, nofollow'},
+                ],
+            },
             {
                 /*
                   Заголовки безопасности из раздела «Надежность и безопасность» Lighthouse.

@@ -7,8 +7,8 @@ const robots = (): MetadataRoute.Robots => ({
         {
             userAgent: '*',
             allow: '/',
-            // /api — служебные обработчики формы, в индексе им делать нечего
-            disallow: ['/api/'],
+            // /api — служебные обработчики формы, /admin — админка статей
+            disallow: ['/api/', '/admin/'],
         },
     ],
     sitemap: `${SITE_URL}/sitemap.xml`,

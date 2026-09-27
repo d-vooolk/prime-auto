@@ -4,12 +4,12 @@ import type {PriceDataSourceInterface} from "@/components/_HelperComponents/Cust
 import type {OurProposalBlockList} from "@/components/_HelperComponents/OurProposalBlock/types";
 import {NAVIGATION_URL} from "@/constants/navigation";
 import {CONTACTS_DATA} from "@/constants/contactsData";
-import {priceDataSource as remontPrices, proposalList as remontProposals} from "@/app/uslugi/remont-far/constants";
-import {priceDataSource as polirovkaPrices, lightQualityProposalList as polirovkaProposals} from "@/app/uslugi/polirovka-i-okleyka-far/constants";
-import {priceDataSource as tehPrices, proposalList as tehProposals} from "@/app/uslugi/tehnicheskoye-obsluzhivaniye-far/constants";
-import {priceDataSource as zapotevaniyePrices, proposalList as zapotevaniyeProposals} from "@/app/uslugi/ustraneniye-zapotevaniya/constants";
-import {priceDataSource as lightPrices, lightQualityProposalList as lightProposals} from "@/app/uslugi/uluchshenie-kachestva-sveta/constants";
-import {priceDataSource as biledPrices, lightQualityProposalList as biledProposals} from "@/app/uslugi/uluchshenie-kachestva-sveta/ustanovka-biled-moduley-minsk/constants";
+import {priceDataSource as remontPrices, proposalList as remontProposals} from "@/app/(site)/uslugi/remont-far/constants";
+import {priceDataSource as polirovkaPrices, lightQualityProposalList as polirovkaProposals} from "@/app/(site)/uslugi/polirovka-i-okleyka-far/constants";
+import {priceDataSource as tehPrices, proposalList as tehProposals} from "@/app/(site)/uslugi/tehnicheskoye-obsluzhivaniye-far/constants";
+import {priceDataSource as zapotevaniyePrices, proposalList as zapotevaniyeProposals} from "@/app/(site)/uslugi/ustraneniye-zapotevaniya/constants";
+import {priceDataSource as lightPrices, lightQualityProposalList as lightProposals} from "@/app/(site)/uslugi/uluchshenie-kachestva-sveta/constants";
+import {priceDataSource as biledPrices, lightQualityProposalList as biledProposals} from "@/app/(site)/uslugi/uluchshenie-kachestva-sveta/ustanovka-biled-moduley-minsk/constants";
 
 export interface BrandServiceDefinition {
     /** Ключ услуги */

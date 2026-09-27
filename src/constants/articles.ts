@@ -15,6 +15,11 @@
  *
  * Поле updated имеет смысл править при каждой правке текста: оно уходит в
  * dateModified микроразметки Article.
+ *
+ * СЕЙЧАС ЭТО ТОЛЬКО ИСХОДНИК ДЛЯ ПЕРЕНОСА. Статьи живут в базе и правятся в
+ * админке (/admin); при первом запуске src/lib/legacy-articles.ts один раз
+ * переносит отсюда статьи в базу. Правки в этом файле на сайт больше не
+ * попадают.
  */
 
 export interface ArticleSection {
@@ -517,7 +522,3 @@ export const ARTICLES: Article[] = [
     },
 ];
 
-export const getArticle = (slug: string): Article | undefined =>
-    ARTICLES.find((article) => article.slug === slug);
-
-export const articleSlugs = (): string[] => ARTICLES.map((article) => article.slug);

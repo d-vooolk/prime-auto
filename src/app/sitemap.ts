@@ -2,7 +2,7 @@ import type {MetadataRoute} from "next";
 import {SITE_URL} from "@/constants/site";
 import {NAVIGATION_URL} from "@/constants/navigation";
 import {allBrandPagePaths} from "@/utils/brandPages";
-import {articleSlugs} from "@/constants/articles";
+import {getPublishedArticles} from "@/lib/articles";
 
 interface SitemapEntry {
     path: string;
@@ -26,6 +26,9 @@ const STATIC_PAGES: SitemapEntry[] = [
     {path: NAVIGATION_URL.confidencePolicy, priority: 0.2, changeFrequency: 'yearly'},
 ];
 
+/* Статьи публикуются из админки — карта пересобирается вместе с ними */
+export const revalidate = 3600;
+
 /** Отдаётся по адресу /sitemap.xml */
 const sitemap = (): MetadataRoute.Sitemap => {
     const lastModified = new Date();
@@ -38,9 +41,10 @@ const sitemap = (): MetadataRoute.Sitemap => {
             changeFrequency: page.changeFrequency,
             priority: page.priority,
         })),
-        ...articleSlugs().map((slug) => ({
-            url: `${SITE_URL}${NAVIGATION_URL.articles}/${slug}`,
-            lastModified,
+        ...getPublishedArticles().map((article) => ({
+            url: `${SITE_URL}${NAVIGATION_URL.articles}/${article.slug}`,
+            // у статей дата настоящая: поисковик по ней решает, стоит ли перечитать страницу
+            lastModified: new Date(article.updatedAt),
             changeFrequency: 'monthly' as const,
             priority: 0.6,
         })),
