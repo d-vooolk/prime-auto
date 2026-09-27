@@ -85,6 +85,11 @@ npm ci   # строго по lock-файлу и, в отличие от npm inst
 # именно здесь раньше возникал простой на всё время сборки.
 log "сборка в .next-$IDLE"
 rm -rf ".next-$IDLE"
+# tsconfig подключает типы всех каталогов сборки, а в чужих каталогах они
+# описывают прошлую версию маршрутов — после переименования страниц проверка
+# типов падает на несуществующих файлах. Для работы процессов types не нужны
+# (это только объявления для tsc), новая сборка создаст свои.
+rm -rf .next/types .next/dev/types .next-blue/types .next-blue/dev/types .next-green/types .next-green/dev/types
 NODE_ENV=production NEXT_DIST_DIR=".next-$IDLE" npm run build
 
 BUILD_ID=$(cat ".next-$IDLE/BUILD_ID") || die "сборка не дала BUILD_ID"
