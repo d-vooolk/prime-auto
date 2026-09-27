@@ -8,7 +8,7 @@ export const dynamic = "force-dynamic";
 const PanelLayout = async ({children}: {children: React.ReactNode}) => {
     await requireAdmin();
     return (
-        <>
+        <div className="admin">
             <header className="a-top">
                 <Link href="/admin" className="a-top-brand">Prime Auto · статьи</Link>
                 <Link href="/admin/new">Написать статью</Link>
@@ -20,7 +20,7 @@ const PanelLayout = async ({children}: {children: React.ReactNode}) => {
                 </form>
             </header>
             <main className="a-main">{children}</main>
-        </>
+        </div>
     );
 };
 

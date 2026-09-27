@@ -1,7 +1,8 @@
 import {completeStreaming, longAiOptions} from "./ai";
 import {getConfig, getConfigNumber} from "./config";
-import {articlePlainText, bodyChunks, inlineText} from "./article-body";
+import {articlePlainText, bodyChunks, IMAGE_LINE, inlineText} from "./article-body";
 import {markerPattern, sanitizeArticleBody} from "./article-ai";
+import {SHINGLE, shingles, words} from "./shingles";
 
 /**
  * Уникальность текста.
@@ -22,27 +23,9 @@ import {markerPattern, sanitizeArticleBody} from "./article-ai";
  * остаётся черновиком с отчётом, а решение за человеком.
  */
 
-const SHINGLE = 5;
-
 export const uniqueMin = (): number => getConfigNumber("TEXTRU_MIN_UNIQUE");
 export const uniqueRounds = (): number => getConfigNumber("UNIQUE_MAX_ROUNDS");
 export const textruConfigured = (): boolean => Boolean(getConfig("TEXTRU_API_KEY"));
-
-const words = (text: string): string[] =>
-    text
-        .toLowerCase()
-        .replace(/ё/g, "е")
-        .split(/[^a-zа-я0-9]+/i)
-        .filter(Boolean);
-
-const shingles = (text: string): string[] => {
-    const list = words(text);
-    const result: string[] = [];
-    for (let index = 0; index + SHINGLE <= list.length; index += 1) {
-        result.push(list.slice(index, index + SHINGLE).join(" "));
-    }
-    return result;
-};
 
 const chunkText = (chunk: string): string => articlePlainText(chunk) || inlineText(chunk);
 
@@ -260,7 +243,9 @@ export const rewriteChunks = async (
         const end = rest.search(/^[\s*#]*=+\s*ФРАГМЕНТ\s+\d+\s*=+/im);
         const text = (end < 0 ? rest : rest.slice(0, end)).trim();
         if (text.length < chunks[index].length * 0.5) return;
-        chunks[index] = text;
+        // фото из куска модель могла потерять — возвращаем их отдельными абзацами
+        const images = chunks[index].split("\n").filter((line) => IMAGE_LINE.test(line.trim()) && !text.includes(line.trim()));
+        chunks[index] = [text, ...images.map((line) => line.trim())].join("\n\n");
         rewritten += 1;
     });
     return {body: sanitizeArticleBody(chunks.join("\n\n"), context.title), rewritten};

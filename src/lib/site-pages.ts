@@ -53,12 +53,17 @@ export const brandPages = (): SitePage[] =>
 export const SHOP_LINKS_KEY = "shop:links";
 export const MAX_SHOP_LINKS = 2;
 
+/* Разделы сверены с https://vdf.by/sitemap.xml — ссылки проверяются и при генерации */
 export const DEFAULT_SHOP_LINKS: SitePage[] = [
     {path: "https://vdf.by/", title: "Магазин автосвета VDF.BY"},
-    {path: "https://vdf.by/catalog/linzy/", title: "Би-LED и би-ксеноновые линзы"},
+    {path: "https://vdf.by/catalog/linzy/", title: "Линзы для фар"},
+    {path: "https://vdf.by/catalog/bi-led-moduli/", title: "Светодиодные Bi-LED линзы"},
     {path: "https://vdf.by/catalog/stekla-far/", title: "Стёкла фар"},
-    {path: "https://vdf.by/catalog/lampy/", title: "Автомобильные лампы"},
-    {path: "https://vdf.by/catalog/bloki-rozzhiga/", title: "Блоки розжига"},
+    {path: "https://vdf.by/catalog/korpusa-far/", title: "Корпуса фар"},
+    {path: "https://vdf.by/catalog/svetodiodnye-lampy/", title: "Светодиодные лампы"},
+    {path: "https://vdf.by/catalog/linzy-dlya-ptf/", title: "Линзы для ПТФ"},
+    {path: "https://vdf.by/catalog/maski-dlya-linz/", title: "Маски для линз"},
+    {path: "https://vdf.by/catalog/tovary-dlya-ustanovki/", title: "Товары для установки: герметики и расходники"},
 ];
 
 /** Строки «https://vdf.by/... | Название» из настроек */

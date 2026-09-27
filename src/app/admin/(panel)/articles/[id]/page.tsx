@@ -3,6 +3,7 @@ import {notFound} from "next/navigation";
 import {aiConfigured} from "@/lib/ai";
 import {articleChecks} from "@/lib/article-review";
 import {getArticle} from "@/lib/articles";
+import {describeProblem, findLinkProblems} from "@/lib/link-check";
 import {textruConfigured, uniqueMin} from "@/lib/uniqueness";
 import {ArticleEditor} from "@/components/admin/ArticleEditor";
 import {formatDateTime, ScoreBadge, StatusBadge, UniquenessBadge} from "@/components/admin/badges";
@@ -13,8 +14,15 @@ const ArticlePage = async ({params}: {params: Promise<{id: string}>}) => {
     const article = getArticle(Number((await params).id));
     if (!article) notFound();
 
-    const checks = article.body.trim() ? articleChecks(article, article.keyword) : [];
+    const linkProblems = article.body.trim() ? await findLinkProblems(article.body) : [];
+    const checks = article.body.trim()
+        ? [
+            ...articleChecks(article, article.keyword),
+            ...linkProblems.map((problem) => `${problem.state === "dead" ? "Битая ссылка" : "Ссылку не удалось проверить"}: ${describeProblem(problem)}`),
+        ]
+        : [];
     const {review, uniqueness} = article;
+    const web = uniqueness ? uniqueness.web ?? uniqueness.textru ?? null : null;
 
     return (
         <>
@@ -60,8 +68,13 @@ const ArticlePage = async ({params}: {params: Promise<{id: string}>}) => {
                                 {uniqueness.passed ? " Порог пройден." : " Порог не пройден — посмотрите совпадения ниже."}
                             </p>
                             <ul className="a-list">
-                                {uniqueness.textru && <li>text.ru: <strong>{uniqueness.textru.percent}%</strong> (порог {uniqueMin()}%)</li>}
-                                {uniqueness.textruError && <li>{uniqueness.textruError}</li>}
+                                {web && (
+                                    <li>
+                                        text.ru:{" "}
+                                        <strong>{web.percent}%</strong> (порог {uniqueMin()}%)
+                                    </li>
+                                )}
+                                {(uniqueness.webError ?? uniqueness.textruError) && <li>{uniqueness.webError ?? uniqueness.textruError}</li>}
                                 {uniqueness.source && (
                                     <li>
                                         Совпадения с текстом конкурента: {uniqueness.source.percent}%
@@ -69,11 +82,11 @@ const ArticlePage = async ({params}: {params: Promise<{id: string}>}) => {
                                     </li>
                                 )}
                             </ul>
-                            {uniqueness.textru && uniqueness.textru.urls.length > 0 && (
+                            {web && web.urls.length > 0 && (
                                 <>
                                     <h3 className="a-label" style={{marginTop: 12}}>Где найдены совпадения</h3>
                                     <ul className="a-list">
-                                        {uniqueness.textru.urls.map((item) => (
+                                        {web.urls.map((item) => (
                                             <li key={item.url}>
                                                 <a href={item.url} target="_blank" rel="noreferrer">{item.url}</a> — {item.percent}%
                                             </li>
@@ -107,6 +120,8 @@ const ArticlePage = async ({params}: {params: Promise<{id: string}>}) => {
                     metaDescription: article.metaDescription,
                     excerpt: article.excerpt,
                     body: article.body,
+                    cover: article.cover,
+                    coverAlt: article.coverAlt,
                     faq: article.faq,
                     related: article.related,
                     keyword: article.keyword,

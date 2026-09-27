@@ -5,6 +5,8 @@ import "./admin.css";
 /*
   Отдельный корневой layout админки: без шапки и подвала сайта, чата и
   аналитики — визиты владельца не должны попадать в Метрику и вебвизор.
+  Класс .admin со стилями админки ставят сами страницы панели и входа, а не
+  body: предпросмотр статьи живёт здесь же и должен выглядеть как сайт.
 */
 
 export const metadata: Metadata = {
@@ -14,7 +16,7 @@ export const metadata: Metadata = {
 
 const AdminRootLayout = ({children}: {children: React.ReactNode}) => (
     <html lang="ru">
-    <body className="admin">{children}</body>
+    <body>{children}</body>
     </html>
 );
 

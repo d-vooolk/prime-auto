@@ -4,6 +4,8 @@ import './styles.css';
 import Breadcrumbs from "@/components/_HelperComponents/Breadcrumbs/Breadcrumbs";
 import FormBlock from "@/components/FormBlock/FormBlock";
 import JsonLd from "@/components/_HelperComponents/JsonLd/JsonLd";
+import {formatArticleDate} from "@/components/ArticleView/ArticleView";
+import {imageSize} from "@/lib/article-body";
 import {getPublishedArticles, type ArticleRecord} from "@/lib/articles";
 import {NAVIGATION_URL} from "@/constants/navigation";
 import {absoluteUrl, breadcrumbJsonLd, buildMetadata} from "@/utils/seo";
@@ -39,38 +41,70 @@ const listJsonLd = (articles: ArticleRecord[]) => ({
     })),
 });
 
+/** Плитка статьи. Первые картинки грузятся сразу — они на первом экране */
+const ArticleTile = ({article, eager}: {article: ArticleRecord; eager: boolean}) => {
+    const size = article.cover ? imageSize(article.cover) : null;
+    return (
+        <Link href={`${NAVIGATION_URL.articles}/${article.slug}`} className="article-tile">
+            {article.cover ? (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img
+                    className="article-tile-cover"
+                    src={article.cover}
+                    alt={article.coverAlt || article.title}
+                    width={size?.width}
+                    height={size?.height}
+                    loading={eager ? "eager" : "lazy"}
+                    decoding="async"
+                />
+            ) : (
+                <div className="article-tile-placeholder" aria-hidden="true">Prime Auto</div>
+            )}
+            <div className="article-tile-body">
+                <time className="article-tile-date" dateTime={new Date(article.publishedAt ?? article.createdAt).toISOString()}>
+                    {formatArticleDate(article.publishedAt ?? article.createdAt)}
+                </time>
+                <h2 className="article-tile-title">{article.title}</h2>
+                {article.excerpt && <p className="article-tile-excerpt">{article.excerpt}</p>}
+                <span className="article-tile-more">Читать →</span>
+            </div>
+        </Link>
+    );
+};
+
 const ArticlesPage = () => {
     const articles = getPublishedArticles();
 
     return (
-        <main className="articles-page-wrapper">
-            <JsonLd
-                data={[
-                    listJsonLd(articles),
-                    breadcrumbJsonLd([
-                        {name: 'Главная', path: NAVIGATION_URL.home},
-                        {name: 'Статьи', path: NAVIGATION_URL.articles},
-                    ]),
-                ]}
-            />
+        <main>
+            <div className="articles-page-wrapper">
+                <JsonLd
+                    data={[
+                        listJsonLd(articles),
+                        breadcrumbJsonLd([
+                            {name: 'Главная', path: NAVIGATION_URL.home},
+                            {name: 'Статьи', path: NAVIGATION_URL.articles},
+                        ]),
+                    ]}
+                />
 
-            <Breadcrumbs />
+                <div className="articles-container">
+                    <Breadcrumbs />
 
-            <div className="articles-intro">
-                <h1 className="articles-h1">{PAGE.title}</h1>
-                <p className="articles-lead">{PAGE.lead}</p>
+                    <div className="articles-intro">
+                        <h1 className="articles-h1">{PAGE.title}</h1>
+                        <p className="articles-lead">{PAGE.lead}</p>
+                    </div>
+
+                    <ul className="articles-grid">
+                        {articles.map((article, index) => (
+                            <li key={article.slug}>
+                                <ArticleTile article={article} eager={index < 5} />
+                            </li>
+                        ))}
+                    </ul>
+                </div>
             </div>
-
-            <ul className="articles-list">
-                {articles.map((article) => (
-                    <li key={article.slug}>
-                        <Link href={`${NAVIGATION_URL.articles}/${article.slug}`} className="article-card">
-                            <h2 className="article-card-title">{article.title}</h2>
-                            <p className="article-card-excerpt">{article.excerpt}</p>
-                        </Link>
-                    </li>
-                ))}
-            </ul>
 
             <FormBlock />
         </main>

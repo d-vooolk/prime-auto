@@ -8,6 +8,7 @@ import {toSlug} from "./slug";
  *   абзацы через пустую строку  **жирный**, [ссылка](/uslugi/remont-far)
  *   - пункт списка              1. шаг инструкции
  *   | таблица | ... |           > совет или предупреждение
+ *   ![что на фото](/uploads/2026/09/…-1600x900.webp "подпись под фото")
  *
  * Полноценный Markdown-парсер здесь не нужен: разметку пишет нейросеть по
  * жёсткому шаблону, а всё, чего в шаблоне нет, должно показываться текстом,
@@ -19,7 +20,8 @@ export type ArticleBlock =
     | {type: "p"; text: string}
     | {type: "tip"; text: string}
     | {type: "ul" | "ol"; items: string[]}
-    | {type: "table"; head: string[]; rows: string[][]};
+    | {type: "table"; head: string[]; rows: string[][]}
+    | {type: "image"; src: string; alt: string; caption: string};
 
 export type InlinePart =
     | {type: "text"; text: string}
@@ -27,6 +29,8 @@ export type InlinePart =
     | {type: "link"; text: string; href: string};
 
 const HEADING_LINE = /^(#{2,3})\s+(.+)$/;
+/* Картинки — только свои, из /uploads: чужой адрес в статье — хотлинк, который однажды отвалится */
+export const IMAGE_LINE = /^!\[([^\]]*)\]\((\/uploads\/[^\s)"]+)(?:\s+"([^"]*)")?\)$/;
 const LIST_ITEM = /^(?:[-*•]|\d+[.)])\s+(.+)$/;
 const ORDERED_ITEM = /^\d+[.)]\s+/;
 const TABLE_DIVIDER = /^\|?\s*:?-{2,}:?\s*(\|\s*:?-{2,}:?\s*)*\|?$/;
@@ -58,6 +62,13 @@ export const parseArticleBody = (body: string): ArticleBlock[] => {
         const line = lines[index].trim();
         if (!line) {
             flush();
+            continue;
+        }
+
+        const image = line.match(IMAGE_LINE);
+        if (image) {
+            flush();
+            blocks.push({type: "image", alt: image[1].trim(), src: image[2], caption: (image[3] ?? "").trim()});
             continue;
         }
 
@@ -141,6 +152,8 @@ const blockTexts = (blocks: ArticleBlock[]): string[] =>
                 return block.items;
             case "table":
                 return [...block.head, ...block.rows.flat()];
+            case "image":
+                return [];
             default:
                 return [block.text];
         }
@@ -165,3 +178,17 @@ export const readingMinutes = (body: string): number => {
  */
 export const bodyChunks = (body: string): string[] =>
     body.replace(/\r\n/g, "\n").split(/\n{2,}/).map((chunk) => chunk.trim()).filter(Boolean);
+
+export const imageMarkdown = (src: string, alt: string, caption = ""): string => {
+    const clean = (text: string) => text.replace(/[[\]"\n]/g, " ").replace(/\s+/g, " ").trim().slice(0, 200);
+    return `![${clean(alt)}](${src}${caption.trim() ? ` "${clean(caption)}"` : ""})`;
+};
+
+export const articleImages = (body: string): string[] =>
+    parseArticleBody(body).flatMap((block) => (block.type === "image" ? [block.src] : []));
+
+/** Размеры фото из имени файла (…-1600x900.webp): по ним страница заранее резервирует место */
+export const imageSize = (url: string): {width: number; height: number} | null => {
+    const match = url.match(/-(\d{2,5})x(\d{2,5})\.webp$/);
+    return match ? {width: Number(match[1]), height: Number(match[2])} : null;
+};

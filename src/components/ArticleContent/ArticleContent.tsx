@@ -1,10 +1,10 @@
 import React from "react";
 import Link from "next/link";
-import {parseArticleBody, parseInline} from "@/lib/article-body";
+import {imageSize, parseArticleBody, parseInline} from "@/lib/article-body";
 
 /**
  * Текст статьи из упрощённого Markdown (см. src/lib/article-body.ts).
- * Классы — те же, что были у статей до админки, стили в stati/styles.css.
+ * Стили — в stati/styles.css.
  */
 
 const Inline = ({text}: {text: string}) => (
@@ -22,6 +22,24 @@ const ArticleContent = ({body}: {body: string}) => (
     <>
         {parseArticleBody(body).map((block, index) => {
             switch (block.type) {
+                case "image": {
+                    const size = imageSize(block.src);
+                    return (
+                        <figure key={index} className="article-figure">
+                            {/* Фото уже пережаты при загрузке в WebP до 1600 px — оптимизатор next/image здесь лишний */}
+                            {/* eslint-disable-next-line @next/next/no-img-element */}
+                            <img
+                                src={block.src}
+                                alt={block.alt}
+                                width={size?.width}
+                                height={size?.height}
+                                loading="lazy"
+                                decoding="async"
+                            />
+                            {block.caption && <figcaption>{block.caption}</figcaption>}
+                        </figure>
+                    );
+                }
                 case "h2":
                     return <h2 key={index} id={block.id} className="article-section-title"><Inline text={block.text} /></h2>;
                 case "h3":

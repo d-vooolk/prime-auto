@@ -30,8 +30,11 @@ export interface ArticleReview {
 /** Итог проверки уникальности */
 export interface ArticleUniqueness {
     at: number;
-    /** Процент по text.ru; null — сервис не подключён или не ответил */
-    textru: {percent: number; urls: {url: string; percent: number}[]} | null;
+    /** Проверка по интернету через text.ru; null — ключ не задан или сервис не ответил */
+    web?: {provider: "textru"; percent: number; urls: {url: string; percent: number}[]} | null;
+    webError?: string;
+    /** Прежний формат, только text.ru — у отчётов, сохранённых до бесплатной проверки */
+    textru?: {percent: number; urls: {url: string; percent: number}[]} | null;
     textruError?: string;
     /** Доля текста, совпадающая с текстом конкурента дословно, % */
     source: {percent: number; fragments: number} | null;
@@ -51,12 +54,16 @@ export interface ArticleRecord {
     metaDescription: string;
     excerpt: string;
     body: string;
+    /** Обложка: адрес картинки из /uploads и её описание */
+    cover: string;
+    coverAlt: string;
     faq: FaqEntry[];
     related: RelatedLink[];
     topic: string;
     keyword: string;
     notes: string;
     sourceUrl: string;
+    sourceTitle: string;
     sourceText: string;
     review: ArticleReview | null;
     uniqueness: ArticleUniqueness | null;
@@ -74,12 +81,15 @@ interface Row {
     meta_description: string;
     excerpt: string;
     body: string;
+    cover: string;
+    cover_alt: string;
     faq: string;
     related: string;
     topic: string;
     keyword: string;
     notes: string;
     source_url: string;
+    source_title: string;
     source_text: string;
     review: string | null;
     uniqueness: string | null;
@@ -106,12 +116,15 @@ const fromRow = (row: Row): ArticleRecord => ({
     metaDescription: row.meta_description,
     excerpt: row.excerpt,
     body: row.body,
+    cover: row.cover,
+    coverAlt: row.cover_alt,
     faq: json<FaqEntry[]>(row.faq, []),
     related: json<RelatedLink[]>(row.related, []),
     topic: row.topic,
     keyword: row.keyword,
     notes: row.notes,
     sourceUrl: row.source_url,
+    sourceTitle: row.source_title,
     sourceText: row.source_text,
     review: json<ArticleReview | null>(row.review, null),
     uniqueness: json<ArticleUniqueness | null>(row.uniqueness, null),
@@ -161,12 +174,15 @@ const COLUMNS: Record<keyof ArticleInput, string> = {
     metaDescription: "meta_description",
     excerpt: "excerpt",
     body: "body",
+    cover: "cover",
+    coverAlt: "cover_alt",
     faq: "faq",
     related: "related",
     topic: "topic",
     keyword: "keyword",
     notes: "notes",
     sourceUrl: "source_url",
+    sourceTitle: "source_title",
     sourceText: "source_text",
     review: "review",
     uniqueness: "uniqueness",

@@ -89,6 +89,13 @@ const MIGRATIONS = [
     );
     CREATE INDEX ai_requests_created ON ai_requests (created_at);
     `,
+    // 2 — обложка статьи (адрес картинки из /uploads) и заголовок статьи конкурента:
+    //     по нему проверяется, что наш заголовок не повторяет чужой
+    `
+    ALTER TABLE articles ADD COLUMN cover TEXT NOT NULL DEFAULT '';
+    ALTER TABLE articles ADD COLUMN cover_alt TEXT NOT NULL DEFAULT '';
+    ALTER TABLE articles ADD COLUMN source_title TEXT NOT NULL DEFAULT '';
+    `,
 ];
 
 /**

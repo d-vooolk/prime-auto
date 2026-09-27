@@ -9,6 +9,7 @@ import {
     type ActionResult,
     type ArticleForm,
 } from "@/app/admin/actions";
+import {BodyEditor, CoverField} from "@/components/admin/ArticleImages";
 import {requestJob} from "@/components/admin/NewArticleForm";
 
 interface ArticleEditorProps {
@@ -99,7 +100,7 @@ export const ArticleEditor = ({id, published, initial, aiReady}: ArticleEditorPr
                     <button type="button" className="a-btn" onClick={onStatus} disabled={pending}>
                         {published ? "Снять с публикации" : "Опубликовать"}
                     </button>
-                    <a className="a-btn" href={published ? `/stati/${form.slug}` : `/admin/articles/${id}/preview`} target="_blank" rel="noreferrer">
+                    <a className="a-btn" href={published ? `/stati/${form.slug}` : `/admin/preview/${id}`} target="_blank" rel="noreferrer">
                         {published ? "Открыть на сайте ↗" : "Предпросмотр ↗"}
                     </a>
                     <span style={{flex: 1}} />
@@ -152,16 +153,16 @@ export const ArticleEditor = ({id, published, initial, aiReady}: ArticleEditorPr
                 </label>
             </section>
 
-            <section className="a-card">
-                <label className="a-field">
-                    <span className="a-label">Текст статьи</span>
-                    <textarea className="a-textarea a-mono" rows={32} value={form.body} onChange={(event) => set("body", event.target.value)} />
-                    <span className="a-hint">
-                        ## раздел, ### подраздел, пустая строка между абзацами, - список, 1. шаги, | таблица |, &gt; совет,
-                        **жирный**, [ссылка](/uslugi/remont-far). {form.body.length.toLocaleString("ru-RU")} знаков с разметкой.
-                    </span>
-                </label>
-            </section>
+            <CoverField
+                cover={form.cover}
+                alt={form.coverAlt}
+                onChange={(cover, coverAlt) => {
+                    setForm((current) => ({...current, cover, coverAlt}));
+                    setDirty(true);
+                }}
+            />
+
+            <BodyEditor value={form.body} onChange={(body) => set("body", body)} />
 
             <section className="a-card">
                 <h2 className="a-h2">Вопросы и ответы</h2>

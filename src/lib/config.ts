@@ -91,7 +91,7 @@ export const CONFIG_FIELDS: ConfigField[] = [
     {
         name: "TEXTRU_API_KEY", group: "unique", type: "secret", fallback: "",
         label: "API-ключ text.ru",
-        hint: "Из личного кабинета text.ru. Без него уникальность проверяется только против текста конкурента.",
+        hint: "Проверка по всему интернету. API text.ru платный: статья на 10 000 знаков — около 20–40 ₽ за проверку (пакеты от 400 ₽). Без ключа статья сравнивается только с текстом конкурента.",
     },
     {
         name: "TEXTRU_MIN_UNIQUE", group: "unique", type: "number", fallback: "100", min: 50, max: 100,

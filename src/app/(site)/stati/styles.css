@@ -1,14 +1,39 @@
-.articles-page-wrapper {
+/*
+  Раздел статей. Шапка сайта фиксированная (87 px на компьютере, ~80 px на
+  телефоне) и лежит поверх страницы — отсюда большой верхний отступ у обёрток:
+  без него хлебные крошки уезжали под меню.
+*/
+
+.articles-page-wrapper,
+.article-wrapper {
     background-image: url("../../../../public/images/noise-background.webp");
     background-color: var(--light-gray-background);
-    padding: 40px 353px 100px;
     box-sizing: border-box;
     width: 100%;
+    padding: 140px 120px 100px;
+}
+
+/* крошки сверстаны под тёмные страницы (белые ссылки) — у статей фон светлый */
+.articles-page-wrapper .breadcrumbs li a,
+.article-wrapper .breadcrumbs li a {
+    color: var(--base-dark);
+}
+
+.articles-page-wrapper .breadcrumbs,
+.article-wrapper .breadcrumbs {
+    margin: 0;
+}
+
+/* --- список статей: плитки --- */
+
+.articles-container {
+    max-width: 1680px;
+    margin: 0 auto;
 }
 
 .articles-intro {
     max-width: 820px;
-    margin: 0 0 50px;
+    margin: 24px 0 44px;
 }
 
 .articles-h1 {
@@ -18,7 +43,7 @@
     line-height: 115%;
     font-weight: 800;
     color: var(--base-dark);
-    margin: 30px 0 20px;
+    margin: 0 0 20px;
 }
 
 .articles-lead {
@@ -30,59 +55,122 @@
     margin: 0;
 }
 
-.articles-list {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
+.articles-grid {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 24px;
     margin: 0;
     padding: 0;
     list-style: none;
 }
 
-.article-card {
-    display: block;
+.article-tile {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
     background-color: var(--base-white);
     border: .5px solid rgba(168, 168, 168, 0.3);
     border-radius: 20px;
-    padding: 30px;
+    overflow: hidden;
     text-decoration: none;
-    transition: border-color .3s ease;
+    color: var(--base-dark);
+    transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
 }
 
-.article-card:hover {
+.article-tile:hover {
+    transform: translateY(-4px);
     border-color: var(--base-green);
+    box-shadow: 0 14px 30px rgba(0, 0, 0, .08);
 }
 
-.article-card-title {
+.article-tile-cover {
+    display: block;
+    width: 100%;
+    /* height: auto обязателен: иначе высота берётся из атрибута картинки и пропорция не работает */
+    height: auto;
+    aspect-ratio: 16 / 10;
+    object-fit: cover;
+    background-color: var(--base-dark);
+}
+
+/* Статья без обложки: тёмная плашка в цветах сайта вместо пустого места */
+.article-tile-placeholder {
+    display: flex;
+    align-items: flex-end;
+    aspect-ratio: 16 / 10;
+    padding: 18px;
+    box-sizing: border-box;
+    background:
+        radial-gradient(circle at 85% 20%, rgba(162, 219, 0, .4), transparent 45%),
+        linear-gradient(135deg, #2b2b2b, #1c1c1c);
+    color: var(--base-green);
     font-family: "Montserrat", sans-serif;
-    font-size: 22px;
+    font-size: 13px;
+    font-weight: 800;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+}
+
+.article-tile-body {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    gap: 10px;
+    padding: 18px 20px 22px;
+}
+
+.article-tile-date {
+    font-family: Inter, sans-serif;
+    font-size: 13px;
+    color: var(--base-gray);
+}
+
+.article-tile-title {
+    font-family: "Montserrat", sans-serif;
+    font-size: 18px;
     line-height: 130%;
     font-weight: 700;
-    color: var(--base-dark);
-    margin: 0 0 10px;
+    margin: 0;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
 }
 
-.article-card-excerpt {
+.article-tile-excerpt {
     font-family: Inter, sans-serif;
-    font-size: 16px;
+    font-size: 14px;
     line-height: 155%;
     font-weight: 300;
-    color: var(--base-dark);
     margin: 0;
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.article-tile-more {
+    margin-top: auto;
+    padding-top: 6px;
+    font-family: Inter, sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--base-dark);
+}
+
+.article-tile:hover .article-tile-more {
+    color: var(--base-green);
 }
 
 /* --- страница статьи --- */
 
-.article-wrapper {
-    background-image: url("../../../../public/images/noise-background.webp");
-    background-color: var(--light-gray-background);
-    padding: 40px 353px 100px;
-    box-sizing: border-box;
-    width: 100%;
+.article-container {
+    max-width: 820px;
+    margin: 0 auto;
 }
 
 .article-body {
-    max-width: 780px;
+    margin-top: 24px;
 }
 
 .article-h1 {
@@ -91,14 +179,27 @@
     line-height: 120%;
     font-weight: 800;
     color: var(--base-dark);
-    margin: 30px 0 12px;
+    margin: 0 0 12px;
 }
 
 .article-meta {
     font-family: Inter, sans-serif;
     font-size: 14px;
     color: var(--base-gray);
-    margin: 0 0 30px;
+    margin: 0 0 28px;
+}
+
+.article-cover {
+    margin: 0 0 32px;
+}
+
+.article-cover img,
+.article-figure img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 20px;
+    background-color: #e6e6e6;
 }
 
 .article-excerpt {
@@ -112,41 +213,19 @@
     border-left: 3px solid var(--base-green);
 }
 
+/* якоря разделов не должны прятаться под фиксированной шапкой */
+.article-section-title,
+.article-subtitle {
+    scroll-margin-top: 110px;
+}
+
 .article-section-title {
     font-family: "Montserrat", sans-serif;
     font-size: 26px;
     line-height: 130%;
     font-weight: 700;
     color: var(--base-dark);
-    margin: 40px 0 16px;
-}
-
-.article-paragraph {
-    font-family: Inter, sans-serif;
-    font-size: 16px;
-    line-height: 170%;
-    font-weight: 300;
-    color: var(--base-dark);
-    margin: 0 0 16px;
-}
-
-.article-list {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    margin: 0 0 16px;
-    padding: 0 0 0 22px;
-}
-
-.article-list li {
-    font-family: Inter, sans-serif;
-    font-size: 16px;
-    line-height: 155%;
-    color: var(--base-dark);
-}
-
-.article-list li::marker {
-    color: var(--base-green);
+    margin: 44px 0 16px;
 }
 
 .article-subtitle {
@@ -158,14 +237,45 @@
     margin: 28px 0 12px;
 }
 
-.article-body ol.article-list {
+.article-paragraph {
+    font-family: Inter, sans-serif;
+    font-size: 17px;
+    line-height: 170%;
+    font-weight: 300;
+    color: var(--base-dark);
+    margin: 0 0 16px;
+}
+
+.article-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin: 0 0 18px;
+    padding: 0 0 0 22px;
+}
+
+ol.article-list {
     padding-left: 26px;
+}
+
+.article-list li {
+    font-family: Inter, sans-serif;
+    font-size: 17px;
+    line-height: 160%;
+    font-weight: 300;
+    color: var(--base-dark);
+}
+
+.article-list li::marker {
+    color: var(--base-green);
+    font-weight: 600;
 }
 
 .article-paragraph a,
 .article-list a,
 .article-tip a,
-.article-table a {
+.article-table a,
+.article-faq-answer a {
     color: var(--base-dark);
     text-decoration: underline;
     text-decoration-color: var(--base-green);
@@ -177,6 +287,11 @@
 .article-tip a:hover,
 .article-table a:hover {
     color: var(--base-green);
+}
+
+.article-paragraph strong,
+.article-list strong {
+    font-weight: 600;
 }
 
 .article-tip {
@@ -191,10 +306,23 @@
     border-radius: 0 12px 12px 0;
 }
 
+.article-figure {
+    margin: 32px 0;
+}
+
+.article-figure figcaption {
+    margin-top: 10px;
+    font-family: Inter, sans-serif;
+    font-size: 14px;
+    line-height: 150%;
+    color: var(--base-gray);
+    text-align: center;
+}
+
 /* широкая таблица на телефоне прокручивается сама, а не растягивает страницу */
 .article-table-wrapper {
     overflow-x: auto;
-    margin: 0 0 20px;
+    margin: 8px 0 24px;
     background-color: var(--base-white);
     border: .5px solid rgba(168, 168, 168, 0.3);
     border-radius: 16px;
@@ -219,15 +347,92 @@
 
 .article-table th {
     font-weight: 600;
+    background-color: rgba(162, 219, 0, .12);
 }
 
 .article-table tr:last-child td {
     border-bottom: none;
 }
 
+/* --- вопросы и ответы: в колонке статьи, в её же стиле --- */
+
+.article-faq {
+    margin: 56px 0 0;
+}
+
+.article-faq-title {
+    font-family: "Montserrat", sans-serif;
+    font-size: 26px;
+    line-height: 130%;
+    font-weight: 700;
+    color: var(--base-dark);
+    margin: 0 0 18px;
+}
+
+.article-faq-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.article-faq-item {
+    background-color: var(--base-white);
+    border: .5px solid rgba(168, 168, 168, 0.3);
+    border-radius: 16px;
+    transition: border-color .25s ease;
+}
+
+.article-faq-item[open] {
+    border-color: var(--base-green);
+}
+
+.article-faq-question {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    padding: 18px 22px;
+    cursor: pointer;
+    list-style: none;
+    font-family: "Montserrat", sans-serif;
+    font-size: 17px;
+    line-height: 140%;
+    font-weight: 600;
+    color: var(--base-dark);
+}
+
+.article-faq-question::-webkit-details-marker {
+    display: none;
+}
+
+.article-faq-question::after {
+    content: "+";
+    flex-shrink: 0;
+    font-size: 26px;
+    font-weight: 400;
+    line-height: 1;
+    color: var(--base-green);
+    transition: transform .25s ease;
+}
+
+.article-faq-item[open] .article-faq-question::after {
+    transform: rotate(45deg);
+}
+
+.article-faq-answer {
+    padding: 0 22px 20px;
+    font-family: Inter, sans-serif;
+    font-size: 16px;
+    line-height: 165%;
+    font-weight: 300;
+    color: var(--base-dark);
+}
+
+/* --- ссылки по теме --- */
+
 .article-related {
-    margin: 50px 0 0;
-    padding: 30px;
+    margin: 48px 0 0;
+    padding: 28px 30px;
     background-color: var(--base-white);
     border: .5px solid rgba(168, 168, 168, 0.3);
     border-radius: 20px;
@@ -267,10 +472,36 @@
     color: var(--base-white);
 }
 
-@media (min-width: 320px) and (max-width: 768px) {
+/* --- адаптив --- */
+
+@media (max-width: 1599px) {
+    .articles-grid {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 1199px) {
     .articles-page-wrapper,
     .article-wrapper {
-        padding: 20px 20px 60px;
+        padding: 130px 40px 90px;
+    }
+
+    .articles-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 899px) {
+    .articles-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 16px;
+    }
+}
+
+@media (max-width: 768px) {
+    .articles-page-wrapper,
+    .article-wrapper {
+        padding: 100px 20px 60px;
     }
 
     .articles-h1 {
@@ -285,7 +516,8 @@
         font-size: 16px;
     }
 
-    .article-section-title {
+    .article-section-title,
+    .article-faq-title {
         font-size: 22px;
     }
 
@@ -293,22 +525,41 @@
         font-size: 18px;
     }
 
+    .article-paragraph,
+    .article-list li {
+        font-size: 16px;
+    }
+
     .article-table {
         font-size: 14px;
     }
 
-    .article-card {
-        padding: 20px;
+    .article-cover img,
+    .article-figure img {
+        border-radius: 14px;
     }
 
-    .article-card-title {
-        font-size: 19px;
+    .article-faq-question {
+        font-size: 16px;
+        padding: 16px 18px;
     }
 }
 
-@media (min-width: 769px) and (max-width: 1700px) {
-    .articles-page-wrapper,
-    .article-wrapper {
-        padding: 40px 120px 100px;
+@media (max-width: 559px) {
+    .articles-grid {
+        grid-template-columns: minmax(0, 1fr);
     }
+}
+
+/* длинный заголовок статьи в крошках переносится, а не уезжает за край экрана */
+.article-wrapper .breadcrumbs li.current {
+    white-space: normal;
+}
+
+/* квадратное или вертикальное фото не должно занимать весь экран — ограничиваем высоту, сохраняя пропорции */
+.article-figure img {
+    width: auto;
+    max-width: 100%;
+    max-height: 640px;
+    margin: 0 auto;
 }

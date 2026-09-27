@@ -4,7 +4,7 @@ import '../styles.css';
 import Breadcrumbs from "@/components/_HelperComponents/Breadcrumbs/Breadcrumbs";
 import FormBlock from "@/components/FormBlock/FormBlock";
 import JsonLd from "@/components/_HelperComponents/JsonLd/JsonLd";
-import ArticleView, {ArticleFaq} from "@/components/ArticleView/ArticleView";
+import ArticleView from "@/components/ArticleView/ArticleView";
 import {getPublishedArticle, getPublishedArticles, isoDate} from "@/lib/articles";
 import {NAVIGATION_URL} from "@/constants/navigation";
 import {articleJsonLd, breadcrumbJsonLd, buildMetadata} from "@/utils/seo";
@@ -37,6 +37,7 @@ export const generateMetadata = async ({params}: PageProps) => {
         title: `${article.metaTitle || article.title} | Prime Auto`,
         description: article.metaDescription || article.excerpt,
         path: `${NAVIGATION_URL.articles}/${article.slug}`,
+        ...(article.cover ? {ogImage: article.cover} : {}),
     });
 };
 
@@ -61,6 +62,7 @@ const ArticlePage = async ({params}: PageProps) => {
                             path,
                             published: isoDate(article.publishedAt ?? article.createdAt),
                             updated: isoDate(article.updatedAt),
+                            image: article.cover || undefined,
                         }),
                         breadcrumbJsonLd([
                             {name: 'Главная', path: NAVIGATION_URL.home},
@@ -70,16 +72,13 @@ const ArticlePage = async ({params}: PageProps) => {
                     ]}
                 />
 
-                <Breadcrumbs currentLabel={article.title} />
-
-                <ArticleView article={article} />
+                <div className="article-container">
+                    <Breadcrumbs currentLabel={article.title} />
+                    <ArticleView article={article} />
+                </div>
             </div>
 
-            <ArticleFaq article={article} />
-
-            <div className="article-wrapper">
-                <FormBlock />
-            </div>
+            <FormBlock />
         </main>
     );
 };

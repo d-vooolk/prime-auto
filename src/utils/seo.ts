@@ -286,6 +286,8 @@ interface ArticleJsonLdArgs {
     path: string;
     published: string;
     updated: string;
+    /** Обложка статьи; без неё — общая картинка сайта */
+    image?: string;
 }
 
 /**
@@ -293,7 +295,7 @@ interface ArticleJsonLdArgs {
  * @id — поисковик связывает материал с уже описанной сущностью, а не заводит
  * отдельного безымянного автора.
  */
-export const articleJsonLd = ({title, description, path, published, updated}: ArticleJsonLdArgs) => ({
+export const articleJsonLd = ({title, description, path, published, updated, image}: ArticleJsonLdArgs) => ({
     '@context': 'https://schema.org',
     '@type': 'Article',
     '@id': `${absoluteUrl(path)}#article`,
@@ -305,5 +307,5 @@ export const articleJsonLd = ({title, description, path, published, updated}: Ar
     mainEntityOfPage: {'@type': 'WebPage', '@id': absoluteUrl(path)},
     author: {'@id': ORGANIZATION_ID},
     publisher: {'@id': ORGANIZATION_ID},
-    image: absoluteUrl('/images/first-car.webp'),
+    image: absoluteUrl(image || '/images/first-car.webp'),
 });

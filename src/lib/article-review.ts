@@ -1,4 +1,4 @@
-import {articleLinks, articlePlainText, parseArticleBody} from "./article-body";
+import {articleImages, articleLinks, articlePlainText, parseArticleBody} from "./article-body";
 import {
     cleanPlainText,
     describeArticleRequest,
@@ -96,13 +96,15 @@ export const parseReview = (
     if (marker < 0) return {article: draft, review: {...base, revised: false}};
 
     const revised = parseGeneratedArticle(cleaned.slice(marker).replace(/^[^\n]*\n/, ""), draft.title);
-    if (articlePlainText(revised.body).length < articlePlainText(draft.body).length * 0.8) {
+    const lostText = articlePlainText(revised.body).length < articlePlainText(draft.body).length * 0.8;
+    const lostImages = !articleImages(draft.body).every((src) => revised.body.includes(src));
+    if (lostText || lostImages) {
         return {
             article: draft,
             review: {
                 ...base,
                 revised: false,
-                notes: [...notes, "Исправленная версия потеряла часть текста — оставлен исходный вариант"],
+                notes: [...notes, `Исправленная версия потеряла ${lostImages ? "фото" : "часть текста"} — оставлен исходный вариант`],
             },
         };
     }

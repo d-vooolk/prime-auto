@@ -8,8 +8,10 @@ import {
     type GeneratedArticle,
 } from "./article-ai";
 import {describeReview, MIN_BODY_LENGTH, parseReview, reviewSystemPrompt} from "./article-review";
-import {createArticle, getArticle, updateArticle, type ArticleRecord, type ArticleUniqueness} from "./articles";
+import {ensureDistinctTitle, titlesSimilar} from "./article-title";
+import {createArticle, getArticle, updateArticle, type ArticleRecord, type ArticleReview, type ArticleUniqueness} from "./articles";
 import {getConfigNumber} from "./config";
+import {describeProblem, findLinkProblems, removeDeadLinks} from "./link-check";
 import {getDb} from "./db";
 import {fetchSourceArticle, SourcePageError} from "./source-page";
 import {
@@ -22,7 +24,6 @@ import {
     uniqueMin,
     uniqueRounds,
     TextRuError,
-    type TextRuResult,
 } from "./uniqueness";
 
 /**
@@ -161,6 +162,11 @@ class JobContext {
         );
     }
 
+    /** Текущий шаг без записи в журнал — для частых мелких шагов вроде «фраза 3 из 12» */
+    status = (text: string) => {
+        getDb().prepare("UPDATE jobs SET step = ?, updated_at = ? WHERE id = ?").run(text, Date.now(), this.id);
+    };
+
     /** Текст, который прямо сейчас пишет нейросеть, — не чаще раза в 1,5 секунды */
     preview = (text: string) => {
         if (Date.now() - this.lastPreview < PREVIEW_EVERY_MS) return;
@@ -202,11 +208,15 @@ const requestOf = (article: ArticleRecord): ArticleRequest => ({
     keyword: article.keyword,
     notes: article.notes,
     sourceText: article.sourceText,
+    sourceTitle: article.sourceTitle,
 });
 
 /** Второй проход: нейросеть-редактор оценивает черновик и исправляет его */
 const review = async (ctx: JobContext, draft: GeneratedArticle, request: ArticleRequest) => {
     const extra: string[] = [];
+    if (request.sourceTitle && titlesSimilar(draft.title, request.sourceTitle, request.keyword)) {
+        extra.push(`ЗАГОЛОВОК почти повторяет заголовок статьи конкурента «${request.sourceTitle}» — придумать свой`);
+    }
     if (request.sourceText) {
         const match = compareWithSource(draft.body, request.sourceText);
         if (match.chunks.length) {
@@ -224,11 +234,40 @@ const review = async (ctx: JobContext, draft: GeneratedArticle, request: Article
     return parseReview(answer, draft);
 };
 
+/** Проверка по интернету через text.ru */
+interface WebResult {
+    provider: "textru";
+    percent: number;
+    urls: {url: string; percent: number}[];
+    /** Куски тела статьи с найденными совпадениями */
+    targets: number[];
+    /** Совпавшие фразы — подсказка для переписывания */
+    phrases: string[];
+}
+
+/*
+  Бесплатной проверки по интернету нет намеренно. Пробовали искать фразы
+  статьи в DuckDuckGo, Bing, Brave и Mojeek: после нескольких запросов все
+  они включают капчу, а дословно скопированный абзац конкурента не нашёл ни
+  один — проверка показывала ложные 100%. Честное «не проверено» лучше.
+*/
+const webCheck = async (ctx: JobContext, article: ArticleRecord): Promise<WebResult | {error: string} | null> => {
+    if (!textruConfigured()) return null;
+    try {
+        ctx.step("Проверяю уникальность в text.ru — обычно это занимает 1–10 минут");
+        const result = await checkTextRu(articleTextForCheck(article), () => ctx.preview(""));
+        return {provider: "textru", percent: result.percent, urls: result.urls, targets: chunksWithPhrases(article.body, result.phrases), phrases: result.phrases};
+    } catch (error) {
+        if (error instanceof TextRuError) return {error: error.message};
+        throw error;
+    }
+};
+
 /**
  * Доводка уникальности. Сначала бесплатное сравнение с текстом конкурента —
- * его совпадения переписываются без обращения к text.ru. Потом text.ru;
- * если процент ниже порога, переписываются куски с найденными фразами и
- * проверка повторяется.
+ * его совпадения переписываются без обращения к text.ru. Потом
+ * проверка по интернету; если процент ниже порога, переписываются куски с
+ * найденными совпадениями и проверка повторяется.
  */
 const ensureUnique = async (ctx: JobContext, articleId: number): Promise<ArticleUniqueness> => {
     const maxRounds = uniqueRounds();
@@ -248,46 +287,80 @@ const ensureUnique = async (ctx: JobContext, articleId: number): Promise<Article
             continue;
         }
 
-        let textru: TextRuResult | null = null;
-        let textruError: string | undefined;
-        if (textruConfigured()) {
-            ctx.step("Проверяю уникальность в text.ru — обычно это занимает 1–10 минут");
-            try {
-                textru = await checkTextRu(articleTextForCheck(article), () => ctx.preview(""));
-                ctx.step(`text.ru: уникальность ${textru.percent}% (нужно не меньше ${min}%)`);
-            } catch (error) {
-                if (!(error instanceof TextRuError)) throw error;
-                textruError = error.message;
-                ctx.step(error.message);
-            }
-        } else {
-            textruError = "text.ru не подключён — проверено только сравнение с исходником";
-        }
+        const checked = await webCheck(ctx, article);
+        const web = checked && "percent" in checked ? checked : null;
+        const webError = checked && "error" in checked ? checked.error : undefined;
+        if (!checked) ctx.step("По интернету не проверялась: ключ text.ru не задан. Сравнение с текстом конкурента — выше");
+        if (web) ctx.step(`Уникальность ${web.percent}% (нужно не меньше ${min}%)${web.urls.length ? `, совпадения на ${web.urls.length} стр.` : ""}`);
+        if (webError) ctx.step(webError);
 
-        const sourceOk = !source || source.chunks.length === 0;
-        const textruOk = textru ? textru.percent >= min : !textruConfigured();
         const report: ArticleUniqueness = {
             at: Date.now(),
-            textru: textru ? {percent: textru.percent, urls: textru.urls} : null,
-            ...(textruError ? {textruError} : {}),
+            web: web ? {provider: web.provider, percent: web.percent, urls: web.urls} : null,
+            ...(webError ? {webError} : {}),
             source: source ? {percent: source.percent, fragments: source.chunks.length} : null,
             rounds,
-            passed: sourceOk && textruOk,
+            passed: (!source || source.chunks.length === 0) && (web ? web.percent >= min : !checked),
         };
         updateArticle(articleId, {uniqueness: report});
 
-        if (report.passed || !textru || rounds >= maxRounds) return report;
-
-        const targets = chunksWithPhrases(article.body, textru.phrases);
-        if (!targets.length) {
-            ctx.step("text.ru не показал, какие именно фразы совпали, — переписывать нечего, решение за вами");
+        if (report.passed || !web || rounds >= maxRounds) return report;
+        if (!web.targets.length) {
+            ctx.step("Проверка не показала, какие именно абзацы совпали, — переписывать нечего, решение за вами");
             return report;
         }
         rounds += 1;
-        ctx.step(`Переписываю ${targets.length} фрагм. с совпадениями, круг ${rounds} из ${maxRounds}`);
-        const result = await rewriteChunks(article.body, targets, {title: article.title, phrases: textru.phrases}, ctx.preview);
+        ctx.step(`Переписываю ${web.targets.length} фрагм. с совпадениями, круг ${rounds} из ${maxRounds}`);
+        const result = await rewriteChunks(article.body, web.targets, {title: article.title, phrases: web.phrases}, ctx.preview);
         updateArticle(articleId, {body: result.body});
     }
+};
+
+/**
+ * Финальная сверка перед сохранением: заголовок не повторяет конкурента,
+ * все ссылки ведут на существующие страницы. Возвращает исправленную статью
+ * и заметки для отчёта редактора.
+ */
+const finalChecks = async (
+    ctx: JobContext,
+    article: GeneratedArticle,
+    context: {sourceTitle?: string; keyword?: string},
+): Promise<{article: GeneratedArticle; notes: string[]}> => {
+    const notes: string[] = [];
+    let result = article;
+
+    if (context.sourceTitle) {
+        ctx.step("Сверяю заголовок с заголовком статьи конкурента");
+        const checked = await ensureDistinctTitle(result, context.sourceTitle, context.keyword);
+        result = checked.article;
+        if (checked.note) {
+            notes.push(checked.note);
+            ctx.step(checked.note);
+        }
+    }
+
+    ctx.step("Проверяю ссылки: существуют ли страницы, на которые ведёт статья");
+    const problems = await findLinkProblems(result.body);
+    if (problems.length) {
+        result = {...result, body: removeDeadLinks(result.body, problems)};
+        for (const problem of problems) {
+            const note = `${problem.state === "dead" ? "Убрана ссылка" : "Не удалось проверить ссылку"} ${describeProblem(problem)}`;
+            notes.push(note);
+            ctx.step(note);
+        }
+    } else {
+        ctx.step("Все ссылки ведут на существующие страницы");
+    }
+    return {article: result, notes};
+};
+
+const withNotes = (review: ArticleReview | null, notes: string[]): ArticleReview | null =>
+    notes.length ? {...(review ?? {score: 0, revised: false, at: Date.now(), notes: []}), notes: [...(review?.notes ?? []), ...notes]} : review;
+
+/** Заголовок из вставленного текста конкурента: первая короткая строка */
+const titleFromText = (text: string): string => {
+    const first = text.split("\n").map((line) => line.replace(/^#+\s*/, "").trim()).find(Boolean) ?? "";
+    return first.length <= 160 ? first : "";
 };
 
 const generate = async (ctx: JobContext, input: JobInput) => {
@@ -297,10 +370,13 @@ const generate = async (ctx: JobContext, input: JobInput) => {
         ctx.step(`Загружаю статью конкурента: ${input.sourceUrl}`);
         const source = await fetchSourceArticle(input.sourceUrl);
         request.sourceText = source.text;
+        request.sourceTitle = source.title;
         if (!request.topic) request.topic = source.title;
         ctx.step(`Статья конкурента загружена: «${source.title}», ${source.text.length.toLocaleString("ru-RU")} знаков`);
+    } else if (request.sourceText) {
+        request.sourceTitle = titleFromText(request.sourceText);
     }
-    if (!request.topic) request.topic = request.sourceText?.split("\n").find((line) => line.trim())?.slice(0, 200) ?? "";
+    if (!request.topic) request.topic = request.sourceTitle || (request.sourceText?.split("\n").find((line) => line.trim())?.slice(0, 200) ?? "");
 
     ctx.step(request.sourceText ? "Пишу новую статью на основе статьи конкурента" : "Пишу черновик статьи");
     const answer = await completeStreaming(
@@ -315,7 +391,7 @@ const generate = async (ctx: JobContext, input: JobInput) => {
     ctx.step(`Черновик готов: ${draft.body.length.toLocaleString("ru-RU")} знаков`);
 
     let article = draft;
-    let reviewResult = null;
+    let reviewResult: ArticleReview | null = null;
     try {
         const reviewed = await review(ctx, draft, request);
         article = reviewed.article;
@@ -326,6 +402,9 @@ const generate = async (ctx: JobContext, input: JobInput) => {
         ctx.step(`Проверка качества не удалась (${error.message}) — сохраняю черновик без правок`);
     }
 
+    const checked = await finalChecks(ctx, article, {sourceTitle: request.sourceTitle, keyword: request.keyword});
+    article = checked.article;
+
     const id = createArticle({
         ...article,
         slug: article.title,
@@ -334,8 +413,9 @@ const generate = async (ctx: JobContext, input: JobInput) => {
         keyword: request.keyword ?? "",
         notes: request.notes ?? "",
         sourceUrl: input.sourceUrl ?? "",
+        sourceTitle: request.sourceTitle ?? "",
         sourceText: request.sourceText ?? "",
-        review: reviewResult,
+        review: withNotes(reviewResult, checked.notes),
     });
     ctx.article(id);
     ctx.step("Черновик сохранён — его уже можно открыть. Дальше проверка уникальности");
@@ -348,12 +428,13 @@ const improve = async (ctx: JobContext, articleId: number) => {
     if (!article) throw new AiError("Статья не найдена");
     ctx.article(articleId);
     const {article: revised, review: result} = await review(ctx, toGenerated(article), requestOf(article));
-    updateArticle(articleId, {
-        ...revised,
-        related: result.revised ? relatedFromBody(revised.body) : article.related,
-        review: result,
-    });
     ctx.step(`Оценка редактора: ${result.score}/100${result.revised ? ", исправления внесены" : ""}`);
+    const checked = await finalChecks(ctx, revised, {sourceTitle: article.sourceTitle, keyword: article.keyword});
+    updateArticle(articleId, {
+        ...checked.article,
+        related: result.revised ? relatedFromBody(checked.article.body) : article.related,
+        review: withNotes(result, checked.notes),
+    });
     await ensureUnique(ctx, articleId);
 };
 
