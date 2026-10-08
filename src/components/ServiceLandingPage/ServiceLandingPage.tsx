@@ -11,7 +11,7 @@ import FormBlock from "@/components/FormBlock/FormBlock";
 import JsonLd from "@/components/_HelperComponents/JsonLd/JsonLd";
 import {getBrandService} from "@/constants/brandServices";
 import {CAR_BRANDS} from "@/constants/carBrands";
-import {brandPagePath} from "@/utils/brandPages";
+import {brandPagePath, isBrandPageIndexed} from "@/utils/brandPages";
 import {serviceJsonLd, type FaqItem} from "@/utils/seo";
 import type {PriceDataSourceInterface} from "@/components/_HelperComponents/CustomTable/types";
 import type {OurProposalBlockList} from "@/components/_HelperComponents/OurProposalBlock/types";
@@ -60,9 +60,14 @@ const ServiceLandingPage = ({
         faq: brandService!.faq(),
     };
 
-    // ссылки на марки — только там, где страницы марок существуют
+    /*
+      Ссылки только на страницы марок, открытые для индексации. Раньше облако
+      вело на все 40 марок на каждой из шести услуг — 216 из 240 таких страниц
+      отдаются с noindex, и Яндекс тратил на них обход (86 исключил 5.10.2026).
+      Сами страницы остаются для тех, кто попадёт на них по старым ссылкам.
+    */
     const brandLinks = brandService
-        ? CAR_BRANDS.map((brand) => ({
+        ? CAR_BRANDS.filter((brand) => isBrandPageIndexed(brandService.key, brand.slug)).map((brand) => ({
             title: `${service.label} ${brand.name}`,
             href: brandPagePath(service.basePath, brand.slug),
         }))

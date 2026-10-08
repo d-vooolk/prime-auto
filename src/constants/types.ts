@@ -23,6 +23,8 @@ export interface MetaParamsInterface {
     remont: MetaParams,
     tehObsluzhivaniye: MetaParams,
     regulirovka: MetaParams,
+    zamenaStekla: MetaParams,
+    remontLed: MetaParams,
     zapotevaniye: MetaParams,
     biled: MetaParams,
 }

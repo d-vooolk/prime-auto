@@ -27,8 +27,10 @@ const serviceLinks = [
         title: service.label,
         href: service.basePath,
     })),
-    // у регулировки нет страниц марок, поэтому в BRAND_SERVICES её нет
+    // у этих услуг нет страниц марок, поэтому в BRAND_SERVICES их нет
     {title: 'Регулировка фар', href: NAVIGATION_URL.regulirovka},
+    {title: 'Замена стекла фары', href: NAVIGATION_URL.zamenaStekla},
+    {title: 'Ремонт LED-фар и ДХО', href: NAVIGATION_URL.remontLed},
 ];
 
 /*
