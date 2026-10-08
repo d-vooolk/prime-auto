@@ -38,7 +38,7 @@ interface ServiceLandingPageProps {
     /** Описание для микроразметки Service (обычно meta description страницы) */
     metaDescription: string;
     /** Фото «до и после» этой услуги — блок выводится, только если они есть */
-    beforeAfter?: {title: string; photos: WorkPhoto[]};
+    beforeAfter?: {title: string; photos: WorkPhoto[]; eyebrow?: string};
 }
 
 /**
@@ -101,7 +101,7 @@ const ServiceLandingPage = ({
             <OurProposalBlock list={proposalList} />
 
             {beforeAfter && beforeAfter.photos.length > 0 && (
-                <BeforeAfterBlock title={beforeAfter.title} photos={beforeAfter.photos} />
+                <BeforeAfterBlock title={beforeAfter.title} photos={beforeAfter.photos} eyebrow={beforeAfter.eyebrow} />
             )}
 
             <PriceBlock

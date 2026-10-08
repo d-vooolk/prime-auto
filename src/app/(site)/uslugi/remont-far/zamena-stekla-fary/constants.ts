@@ -117,3 +117,15 @@ export const SERVICE: StandaloneService = {
         },
     ],
 };
+
+export const BEFORE_AFTER = {
+    title: "Замена стекла фары: до и после",
+    photos: [
+        {
+            src: "/images/works/zamena-stekla-fary-do-posle.webp",
+            width: 1200,
+            height: 1200,
+            caption: "Мутные пожелтевшие стёкла фар до работы и прозрачные после замены",
+        },
+    ],
+};

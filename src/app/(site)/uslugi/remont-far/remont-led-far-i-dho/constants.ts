@@ -134,3 +134,15 @@ export const SERVICE: StandaloneService = {
         },
     ],
 };
+
+export const BEFORE_AFTER = {
+    title: "Ремонт ДХО: до и после",
+    photos: [
+        {
+            src: "/images/works/remont-dho-do-posle.webp",
+            width: 1200,
+            height: 800,
+            caption: "Секция ДХО светила жёлтым — после ремонта свечение ровное и одного цвета по всей фаре",
+        },
+    ],
+};

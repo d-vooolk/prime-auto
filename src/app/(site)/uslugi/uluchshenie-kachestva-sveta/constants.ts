@@ -68,7 +68,7 @@ export const priceDataSource = [
     },
     {
         serviceName: 'Снятие и установка фар со снятием колес и подкрылков с обеих сторон',
-        price: '100',
+        price: '200',
     },
     {
         serviceName: 'Разборка/сборка стекла фары (полиуретановый герметик)',
@@ -119,3 +119,15 @@ export const priceDataSource = [
         price: 'От 50',
     },
 ];
+export const BEFORE_AFTER = {
+    eyebrow: "Результат",
+    title: "Как светят фары после ретрофита",
+    photos: [
+        {
+            src: "/images/works/retrofit-svet-posle.webp",
+            width: 1200,
+            height: 750,
+            caption: "Свет после установки Bi-Led модулей: ровный пучок на дороге и чёткая светотеневая граница на стене",
+        },
+    ],
+};

@@ -41,3 +41,14 @@ export const priceDataSource = [
         price: '4 руб за 1 см шва',
     },
 ];
+export const BEFORE_AFTER = {
+    title: "Запотевание фары: до и после",
+    photos: [
+        {
+            src: "/images/works/remont-fary-zapotevanie-do-posle.webp",
+            width: 1200,
+            height: 675,
+            caption: "Фара с конденсатом внутри до работы и после переуплотнения: стекло чистое, влаги нет",
+        },
+    ],
+};

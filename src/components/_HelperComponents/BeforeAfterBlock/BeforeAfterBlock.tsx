@@ -14,6 +14,8 @@ export interface WorkPhoto {
 interface BeforeAfterBlockProps {
     title: string;
     photos: WorkPhoto[];
+    /** Рукописная надпись над заголовком; для фото только «после» — «Результат» */
+    eyebrow?: string;
 }
 
 /**
@@ -21,10 +23,10 @@ interface BeforeAfterBlockProps {
  * всех страницах, а этот — свой у каждой услуги: показывает результат именно
  * этой работы и даёт странице собственные картинки с подписями.
  */
-const BeforeAfterBlock = ({title, photos}: BeforeAfterBlockProps) => (
+const BeforeAfterBlock = ({title, photos, eyebrow = "До и после"}: BeforeAfterBlockProps) => (
     <section className="before-after-wrapper">
         <div className="before-after-inner">
-            <div className="before-after-eyebrow">До и после</div>
+            <div className="before-after-eyebrow">{eyebrow}</div>
             <h2 className="before-after-title">{title}</h2>
 
             <div className="before-after-list">
