@@ -9,6 +9,7 @@ import LinksCloudBlock from "@/components/_HelperComponents/LinksCloudBlock/Link
 import Portfolio from "@/components/Portfolio/Portfolio";
 import FormBlock from "@/components/FormBlock/FormBlock";
 import JsonLd from "@/components/_HelperComponents/JsonLd/JsonLd";
+import BeforeAfterBlock, {type WorkPhoto} from "@/components/_HelperComponents/BeforeAfterBlock/BeforeAfterBlock";
 import {getBrandService} from "@/constants/brandServices";
 import {CAR_BRANDS} from "@/constants/carBrands";
 import {brandPagePath, isBrandPageIndexed} from "@/utils/brandPages";
@@ -36,6 +37,8 @@ interface ServiceLandingPageProps {
     priceDataSource: PriceDataSourceInterface[];
     /** Описание для микроразметки Service (обычно meta description страницы) */
     metaDescription: string;
+    /** Фото «до и после» этой услуги — блок выводится, только если они есть */
+    beforeAfter?: {title: string; photos: WorkPhoto[]};
 }
 
 /**
@@ -51,6 +54,7 @@ const ServiceLandingPage = ({
     proposalList,
     priceDataSource,
     metaDescription,
+    beforeAfter,
 }: ServiceLandingPageProps) => {
     const brandService = serviceKey ? getBrandService(serviceKey) : null;
     const service: StandaloneService = standalone ?? {
@@ -95,6 +99,10 @@ const ServiceLandingPage = ({
             />
 
             <OurProposalBlock list={proposalList} />
+
+            {beforeAfter && beforeAfter.photos.length > 0 && (
+                <BeforeAfterBlock title={beforeAfter.title} photos={beforeAfter.photos} />
+            )}
 
             <PriceBlock
                 title={priceTitle}

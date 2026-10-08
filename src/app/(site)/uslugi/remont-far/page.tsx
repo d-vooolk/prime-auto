@@ -4,7 +4,7 @@ import {META} from "@/constants/metadata";
 import ServiceLandingPage from "@/components/ServiceLandingPage/ServiceLandingPage";
 import {buildMetadata} from "@/utils/seo";
 import {NAVIGATION_URL} from "@/constants/navigation";
-import {proposalList, PAGE_TITLE_TEXT, priceDataSource} from "@/app/(site)/uslugi/remont-far/constants";
+import {proposalList, PAGE_TITLE_TEXT, priceDataSource, BEFORE_AFTER} from "@/app/(site)/uslugi/remont-far/constants";
 
 const META_PAGE = META.remont;
 
@@ -23,6 +23,7 @@ const Page = () => (
         proposalList={proposalList}
         priceDataSource={priceDataSource}
         metaDescription={META_PAGE.description}
+        beforeAfter={BEFORE_AFTER}
     />
 );
 

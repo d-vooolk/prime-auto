@@ -4,7 +4,7 @@ import {META} from "@/constants/metadata";
 import ServiceLandingPage from "@/components/ServiceLandingPage/ServiceLandingPage";
 import {buildMetadata} from "@/utils/seo";
 import {NAVIGATION_URL} from "@/constants/navigation";
-import {lightQualityProposalList, PAGE_TITLE_TEXT, priceDataSource} from "@/app/(site)/uslugi/polirovka-i-okleyka-far/constants";
+import {lightQualityProposalList, PAGE_TITLE_TEXT, priceDataSource, BEFORE_AFTER} from "@/app/(site)/uslugi/polirovka-i-okleyka-far/constants";
 
 const META_PAGE = META.polirovkaOkleyka;
 
@@ -23,6 +23,7 @@ const Page = () => (
         proposalList={lightQualityProposalList}
         priceDataSource={priceDataSource}
         metaDescription={META_PAGE.description}
+        beforeAfter={BEFORE_AFTER}
     />
 );
 

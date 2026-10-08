@@ -76,3 +76,15 @@ export const priceDataSource = [
         price: '100',
     },
 ];
+
+export const BEFORE_AFTER = {
+    title: "Полировка фары: до и после",
+    photos: [
+        {
+            src: "/images/works/polirovka-fary-do-posle.webp",
+            width: 1000,
+            height: 1000,
+            caption: "Пожелтевшая мутная фара до полировки и после: стекло снова прозрачное",
+        },
+    ],
+};
