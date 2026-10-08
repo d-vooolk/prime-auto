@@ -14,8 +14,8 @@ interface SitemapEntry {
 
 const STATIC_PAGES: SitemapEntry[] = [
     {path: NAVIGATION_URL.home, priority: 1, changeFrequency: 'weekly', updated: '2026-09-27'},
-    {path: NAVIGATION_URL.uslugi, priority: 0.9, changeFrequency: 'monthly', updated: '2026-09-27'},
-    {path: NAVIGATION_URL.uluchsheniyeKachestvaSveta, priority: 0.9, changeFrequency: 'monthly', updated: '2026-09-27'},
+    {path: NAVIGATION_URL.uslugi, priority: 0.9, changeFrequency: 'monthly', updated: '2026-10-08'},
+    {path: NAVIGATION_URL.uluchsheniyeKachestvaSveta, priority: 0.9, changeFrequency: 'monthly', updated: '2026-10-08'},
     {path: NAVIGATION_URL.biled, priority: 0.9, changeFrequency: 'monthly', updated: '2026-09-27'},
     {path: NAVIGATION_URL.remont, priority: 0.9, changeFrequency: 'monthly', updated: '2026-10-08'},
     {path: NAVIGATION_URL.zamenaStekla, priority: 0.8, changeFrequency: 'monthly', updated: '2026-10-08'},

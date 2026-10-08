@@ -26,7 +26,7 @@ const UslugiPage = () => (
             description={PAGE_TITLE_TEXT.description}
             breadcrumbs={[
                 {name: 'Главная', path: NAVIGATION_URL.home},
-                {name: 'Услуги по ретрофиту фар', path: NAVIGATION_URL.uslugi},
+                {name: 'Услуги', path: NAVIGATION_URL.uslugi},
             ]}
         />
 

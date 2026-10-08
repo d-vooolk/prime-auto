@@ -55,7 +55,7 @@ const modelsHint = (brand?: CarBrand): string =>
 
 const USLUGI_TRAIL = [
     {name: 'Главная', path: NAVIGATION_URL.home},
-    {name: 'Услуги по ретрофиту фар', path: NAVIGATION_URL.uslugi},
+    {name: 'Услуги', path: NAVIGATION_URL.uslugi},
 ];
 
 export const BRAND_SERVICES: BrandServiceDefinition[] = [
@@ -302,11 +302,11 @@ export const BRAND_SERVICES: BrandServiceDefinition[] = [
     {
         key: 'uluchsheniyeKachestvaSveta',
         basePath: NAVIGATION_URL.uluchsheniyeKachestvaSveta,
-        label: 'Улучшение качества света',
-        h1: (brand) => `Улучшение качества света ${brand.name} в Минске`,
-        title: (brand) => `Улучшение света ${brand.name} в Минске — цены | Prime Auto`,
+        label: 'Ретрофит фар',
+        h1: (brand) => `Ретрофит фар ${brand.name} в Минске`,
+        title: (brand) => `Ретрофит фар ${brand.name} в Минске — цены | Prime Auto`,
         description: (brand) =>
-            `Улучшаем свет на ${brand.name} в Минске: установка Bi-Led модулей, би-линз и диодных ламп. ` +
+            `Ретрофит фар ${brand.name} в Минске: установка Bi-Led модулей, би-линз и диодных ламп. ` +
             `${topModels(brand, 3)} и другие модели. Гарантия на модули от 2 лет.`,
         intro: (brand) =>
             `Делаем свет ${brandFull(brand)} ярче и безопаснее: ставим Bi-Led модули, меняем выгоревшие ` +
@@ -320,7 +320,7 @@ export const BRAND_SERVICES: BrandServiceDefinition[] = [
             'Подбор модулей под конкретную фару',
             'Настройка светотеневой границы по ГОСТ',
         ],
-        priceTitle: 'Цены на улучшение качества света',
+        priceTitle: 'Цены на ретрофит фар',
         priceDataSource: lightPrices,
         proposalList: lightProposals,
         faq: (brand) => [
@@ -339,7 +339,7 @@ export const BRAND_SERVICES: BrandServiceDefinition[] = [
                     'из диодных лампочек.',
             },
             {
-                question: `Сколько стоит улучшение света на ${target(brand)}?`,
+                question: `Сколько стоит ретрофит фар на ${target(brand)}?`,
                 answer:
                     'Установка или замена модуля освещения — от 50 руб. за фару, для фар с адаптивной системой — ' +
                     'от 100 руб. Плюс разборка и сборка фары (150–200 руб.) и стоимость самих модулей. ' +
@@ -416,7 +416,7 @@ export const BRAND_SERVICES: BrandServiceDefinition[] = [
         ],
         trail: [
             ...USLUGI_TRAIL,
-            {name: 'Улучшение качества света', path: NAVIGATION_URL.uluchsheniyeKachestvaSveta},
+            {name: 'Ретрофит фар', path: NAVIGATION_URL.uluchsheniyeKachestvaSveta},
         ],
     },
 ];

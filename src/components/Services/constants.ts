@@ -10,7 +10,7 @@ export const SERVICE_TYPES = {
 
 export const CARD_INFO: CardInfoInterface = {
     [SERVICE_TYPES.IMPROVEMENT_LIGHT_QUALITY]: {
-        title: 'Улучшение качества света',
+        title: 'Ретрофит фар',
         list: [
             'Установка Bi-Led (билед) модулей',
             'Установка би-линз',

@@ -127,7 +127,7 @@ export const ARTICLES: Article[] = [
         ],
         related: [
             {title: 'Установка Bi-Led модулей', href: '/uslugi/uluchshenie-kachestva-sveta/ustanovka-biled-moduley-minsk'},
-            {title: 'Улучшение качества света', href: '/uslugi/uluchshenie-kachestva-sveta'},
+            {title: 'Ретрофит фар', href: '/uslugi/uluchshenie-kachestva-sveta'},
             {title: 'Цены на работы', href: '/price'},
         ],
     },

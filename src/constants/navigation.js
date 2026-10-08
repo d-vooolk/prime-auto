@@ -35,8 +35,8 @@ export const breadcrumbLabels = {
     [NAVIGATION_URL.regulirovka]: "Регулировка фар",
     [NAVIGATION_URL.zamenaStekla]: "Замена стекла фары",
     [NAVIGATION_URL.remontLed]: "Ремонт LED-фар и ДХО",
-    [NAVIGATION_URL.uluchsheniyeKachestvaSveta]: "Улучшение качества света",
-    [NAVIGATION_URL.uslugi]: "Услуги по ретрофиту фар",
+    [NAVIGATION_URL.uluchsheniyeKachestvaSveta]: "Ретрофит фар",
+    [NAVIGATION_URL.uslugi]: "Услуги",
     [NAVIGATION_URL.zapotevaniye]: "Устранение запотевания фар",
 
     [NAVIGATION_URL.price]: "Цены",

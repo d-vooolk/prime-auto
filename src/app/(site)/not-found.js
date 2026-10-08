@@ -11,7 +11,7 @@ export const metadata = {
 
 const LINKS_404 = [
     {title: 'Услуги', href: NAVIGATION_URL.uslugi},
-    {title: 'Улучшение качества света', href: NAVIGATION_URL.uluchsheniyeKachestvaSveta},
+    {title: 'Ретрофит фар', href: NAVIGATION_URL.uluchsheniyeKachestvaSveta},
     {title: 'Ремонт фар', href: NAVIGATION_URL.remont},
     {title: 'Полировка и оклейка', href: NAVIGATION_URL.polirovkaOkleyka},
     {title: 'Цены', href: NAVIGATION_URL.price},

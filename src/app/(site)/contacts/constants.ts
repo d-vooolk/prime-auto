@@ -72,7 +72,7 @@ export const priceDataSource = [
     },
     {
         serviceName: 'Полировка и химическое восстановление стекол двух фар',
-        price: 'От 100',
+        price: 'От 150',
     },
     {
         serviceName: 'Оклейка защитной пленкой стекол двух фар',

@@ -81,7 +81,7 @@ export const SERVICE: StandaloneService = {
     basePath: NAVIGATION_URL.regulirovka,
     trail: [
         {name: "Главная", path: NAVIGATION_URL.home},
-        {name: "Услуги по ретрофиту фар", path: NAVIGATION_URL.uslugi},
+        {name: "Услуги", path: NAVIGATION_URL.uslugi},
     ],
     faq: [
         {
