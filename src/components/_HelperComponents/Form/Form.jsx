@@ -3,6 +3,7 @@
 import React, {useCallback, useEffect, useRef, useState} from "react";
 import {formBlockText} from "@/components/FormBlock/FormBlock.jsx";
 import {sendLeadToBot} from "@/app/api/tg-bot/leads";
+import {GOALS, reachGoal} from "@/utils/analytics";
 
 const PHONE_MASK = '+375 (00) 000-00-00';
 const PHONE_PLACEHOLDER = '+375 (__) ___-__-__';
@@ -106,6 +107,7 @@ const Form = () => {
             const response = await sendLeadToBot(formData);
 
             if (response.success) {
+                reachGoal(GOALS.lead);
                 setStatus('Данные успешно отправлены!');
                 resetPhoneField();
                 setFormData({ name: '', phone: '', message: '', agreement: false });

@@ -1,6 +1,7 @@
 'use client'
 
 import {useEffect} from "react";
+import {METRIKA_ID, goalForLink, reachGoal} from "@/utils/analytics";
 
 /**
  * GTM (345 КБ) и Метрика (90 КБ) вместе давали ~620 мс блокировки основного потока
@@ -13,7 +14,6 @@ import {useEffect} from "react";
  */
 
 const GTM_ID = 'GTM-PKL79DZC';
-const METRIKA_ID = 103843698;
 const METRIKA_SRC = 'https://mc.yandex.ru/metrika/tag.js';
 
 // mousemove/scroll ловят почти любой реальный визит; Lighthouse не делает ничего
@@ -52,8 +52,10 @@ const DeferredAnalytics = () => {
             window.ym.l = Date.now();
         }
 
+        // Без ssr: true. Этот флаг рассчитан на счётчик, разметка которого уже
+        // отрисована сервером. Здесь такой разметки нет, и tag.js молча
+        // пропускал init: с 2025 года в счётчике были единицы визитов.
         window.ym(METRIKA_ID, 'init', {
-            ssr: true,
             webvisor: true,
             clickmap: true,
             ecommerce: 'dataLayer',
@@ -61,8 +63,19 @@ const DeferredAnalytics = () => {
             trackLinks: true,
         });
 
+        // Клики по телефону и мессенджерам — цели Метрики. Ссылки разбросаны по
+        // шапке, подвалу и плавающему чату, поэтому слушаем документ целиком.
+        const onLinkClick = (event) => {
+            const href = event.target.closest?.('a[href]')?.getAttribute('href');
+            const goal = href && goalForLink(href);
+            if (goal) {
+                reachGoal(goal);
+            }
+        };
+        document.addEventListener('click', onLinkClick, {capture: true});
+
         if (window.__analyticsStarted) {
-            return;
+            return () => document.removeEventListener('click', onLinkClick, {capture: true});
         }
 
         const onInteraction = () => {
@@ -75,6 +88,7 @@ const DeferredAnalytics = () => {
         });
 
         return () => {
+            document.removeEventListener('click', onLinkClick, {capture: true});
             INTERACTION_EVENTS.forEach((event) => window.removeEventListener(event, onInteraction));
         };
     }, []);

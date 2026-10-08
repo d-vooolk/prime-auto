@@ -8,40 +8,58 @@ interface SitemapEntry {
     path: string;
     priority: number;
     changeFrequency: 'daily' | 'weekly' | 'monthly' | 'yearly';
+    /** Дата последней правки текста страницы. Меняйте вместе с текстом */
+    updated: string;
 }
 
 const STATIC_PAGES: SitemapEntry[] = [
-    {path: NAVIGATION_URL.home, priority: 1, changeFrequency: 'weekly'},
-    {path: NAVIGATION_URL.uslugi, priority: 0.9, changeFrequency: 'monthly'},
-    {path: NAVIGATION_URL.uluchsheniyeKachestvaSveta, priority: 0.9, changeFrequency: 'monthly'},
-    {path: NAVIGATION_URL.biled, priority: 0.9, changeFrequency: 'monthly'},
-    {path: NAVIGATION_URL.remont, priority: 0.9, changeFrequency: 'monthly'},
-    {path: NAVIGATION_URL.polirovkaOkleyka, priority: 0.9, changeFrequency: 'monthly'},
-    {path: NAVIGATION_URL.tehObsluzhivaniye, priority: 0.9, changeFrequency: 'monthly'},
-    {path: NAVIGATION_URL.zapotevaniye, priority: 0.9, changeFrequency: 'monthly'},
-    {path: NAVIGATION_URL.price, priority: 0.8, changeFrequency: 'monthly'},
-    {path: NAVIGATION_URL.reviews, priority: 0.7, changeFrequency: 'weekly'},
-    {path: NAVIGATION_URL.articles, priority: 0.7, changeFrequency: 'weekly'},
-    {path: NAVIGATION_URL.contacts, priority: 0.7, changeFrequency: 'monthly'},
-    {path: NAVIGATION_URL.confidencePolicy, priority: 0.2, changeFrequency: 'yearly'},
+    {path: NAVIGATION_URL.home, priority: 1, changeFrequency: 'weekly', updated: '2026-09-27'},
+    {path: NAVIGATION_URL.uslugi, priority: 0.9, changeFrequency: 'monthly', updated: '2026-09-27'},
+    {path: NAVIGATION_URL.uluchsheniyeKachestvaSveta, priority: 0.9, changeFrequency: 'monthly', updated: '2026-09-27'},
+    {path: NAVIGATION_URL.biled, priority: 0.9, changeFrequency: 'monthly', updated: '2026-09-27'},
+    {path: NAVIGATION_URL.remont, priority: 0.9, changeFrequency: 'monthly', updated: '2026-09-27'},
+    {path: NAVIGATION_URL.polirovkaOkleyka, priority: 0.9, changeFrequency: 'monthly', updated: '2026-09-27'},
+    {path: NAVIGATION_URL.tehObsluzhivaniye, priority: 0.9, changeFrequency: 'monthly', updated: '2026-09-27'},
+    {path: NAVIGATION_URL.zapotevaniye, priority: 0.9, changeFrequency: 'monthly', updated: '2026-09-27'},
+    {path: NAVIGATION_URL.price, priority: 0.8, changeFrequency: 'monthly', updated: '2026-09-27'},
+    {path: NAVIGATION_URL.reviews, priority: 0.7, changeFrequency: 'weekly', updated: '2026-09-27'},
+    {path: NAVIGATION_URL.articles, priority: 0.7, changeFrequency: 'weekly', updated: '2026-09-27'},
+    {path: NAVIGATION_URL.contacts, priority: 0.7, changeFrequency: 'monthly', updated: '2026-09-27'},
+    {path: NAVIGATION_URL.confidencePolicy, priority: 0.2, changeFrequency: 'yearly', updated: '2026-09-27'},
 ];
+
+/*
+  Тексты страниц марок живут в src/constants (carBrands, brandServices,
+  brandServiceNotes). Дату меняйте, когда правите эти файлы.
+*/
+const BRAND_PAGES_UPDATED = '2026-09-27';
 
 /* Статьи публикуются из админки — карта пересобирается вместе с ними */
 export const revalidate = 3600;
 
-/** Отдаётся по адресу /sitemap.xml */
+/**
+ * Отдаётся по адресу /sitemap.xml.
+ *
+ * lastmod — настоящая дата правки, а не время сборки. Если дата у всех страниц
+ * каждый раз новая, поисковики перестают ей верить и перечитывать по ней
+ * страницы, в том числе свежие статьи.
+ */
 const sitemap = (): MetadataRoute.Sitemap => {
-    const lastModified = new Date();
+    const articles = getPublishedArticles();
+    // список статей меняется вместе с самой свежей из них
+    const newestArticle = Math.max(0, ...articles.map((article) => new Date(article.updatedAt).getTime()));
 
     return [
         ...STATIC_PAGES.map((page) => ({
             // главная в canonical отдаётся без завершающего слэша — держим одинаково
             url: page.path === '/' ? SITE_URL : `${SITE_URL}${page.path}`,
-            lastModified,
+            lastModified: page.path === NAVIGATION_URL.articles
+                ? new Date(Math.max(newestArticle, Date.parse(page.updated)))
+                : new Date(page.updated),
             changeFrequency: page.changeFrequency,
             priority: page.priority,
         })),
-        ...getPublishedArticles().map((article) => ({
+        ...articles.map((article) => ({
             url: `${SITE_URL}${NAVIGATION_URL.articles}/${article.slug}`,
             // у статей дата настоящая: поисковик по ней решает, стоит ли перечитать страницу
             lastModified: new Date(article.updatedAt),
@@ -50,7 +68,7 @@ const sitemap = (): MetadataRoute.Sitemap => {
         })),
         ...allBrandPagePaths().map((path) => ({
             url: `${SITE_URL}${path}`,
-            lastModified,
+            lastModified: new Date(BRAND_PAGES_UPDATED),
             changeFrequency: 'monthly' as const,
             priority: 0.6,
         })),
