@@ -25,7 +25,7 @@ export const works = [
     },
     {
         title: 'Регулировка света',
-        link: NAVIGATION_URL.tehObsluzhivaniye,
+        link: NAVIGATION_URL.regulirovka,
     }
 ];
 

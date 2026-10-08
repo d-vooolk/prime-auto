@@ -12,13 +12,23 @@ import JsonLd from "@/components/_HelperComponents/JsonLd/JsonLd";
 import {getBrandService} from "@/constants/brandServices";
 import {CAR_BRANDS} from "@/constants/carBrands";
 import {brandPagePath} from "@/utils/brandPages";
-import {serviceJsonLd} from "@/utils/seo";
+import {serviceJsonLd, type FaqItem} from "@/utils/seo";
 import type {PriceDataSourceInterface} from "@/components/_HelperComponents/CustomTable/types";
 import type {OurProposalBlockList} from "@/components/_HelperComponents/OurProposalBlock/types";
 
+/** Услуга без страниц марок: всё, что для таких услуг берётся из BRAND_SERVICES */
+export interface StandaloneService {
+    label: string;
+    basePath: string;
+    trail: {name: string; path: string}[];
+    faq: FaqItem[];
+}
+
 interface ServiceLandingPageProps {
-    /** Ключ услуги из BRAND_SERVICES */
-    serviceKey: string;
+    /** Ключ услуги из BRAND_SERVICES — у таких услуг есть страницы марок */
+    serviceKey?: string;
+    /** Услуга без страниц марок: облака марок на странице нет */
+    service?: StandaloneService;
     headText: string;
     description: string;
     priceTitle: string;
@@ -34,6 +44,7 @@ interface ServiceLandingPageProps {
  */
 const ServiceLandingPage = ({
     serviceKey,
+    service: standalone,
     headText,
     description,
     priceTitle,
@@ -41,12 +52,21 @@ const ServiceLandingPage = ({
     priceDataSource,
     metaDescription,
 }: ServiceLandingPageProps) => {
-    const service = getBrandService(serviceKey);
+    const brandService = serviceKey ? getBrandService(serviceKey) : null;
+    const service: StandaloneService = standalone ?? {
+        label: brandService!.label,
+        basePath: brandService!.basePath,
+        trail: brandService!.trail,
+        faq: brandService!.faq(),
+    };
 
-    const brandLinks = CAR_BRANDS.map((brand) => ({
-        title: `${service.label} ${brand.name}`,
-        href: brandPagePath(service.basePath, brand.slug),
-    }));
+    // ссылки на марки — только там, где страницы марок существуют
+    const brandLinks = brandService
+        ? CAR_BRANDS.map((brand) => ({
+            title: `${service.label} ${brand.name}`,
+            href: brandPagePath(service.basePath, brand.slug),
+        }))
+        : [];
 
     return (
         <main className="light-quality-page-wrapper">
@@ -78,14 +98,16 @@ const ServiceLandingPage = ({
 
             <InstallmentBlock />
 
-            <FaqBlock items={service.faq()} />
+            <FaqBlock items={service.faq} />
 
-            <LinksCloudBlock
-                upperTitle="Подберите свою марку"
-                title={`${service.label} по маркам авто`}
-                description="У каждой марки свои особенности оптики. Выберите свою — расскажем, что обычно приходится делать именно на ней, и покажем цены."
-                links={brandLinks}
-            />
+            {brandLinks.length > 0 && (
+                <LinksCloudBlock
+                    upperTitle="Подберите свою марку"
+                    title={`${service.label} по маркам авто`}
+                    description="У каждой марки свои особенности оптики. Выберите свою — расскажем, что обычно приходится делать именно на ней, и покажем цены."
+                    links={brandLinks}
+                />
+            )}
 
             <Portfolio />
             <FormBlock />

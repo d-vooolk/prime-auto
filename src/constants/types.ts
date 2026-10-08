@@ -22,6 +22,7 @@ export interface MetaParamsInterface {
     polirovkaOkleyka: MetaParams,
     remont: MetaParams,
     tehObsluzhivaniye: MetaParams,
+    regulirovka: MetaParams,
     zapotevaniye: MetaParams,
     biled: MetaParams,
 }

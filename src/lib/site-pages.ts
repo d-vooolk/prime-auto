@@ -24,6 +24,7 @@ const SERVICE_PATHS = [
     NAVIGATION_URL.remont,
     NAVIGATION_URL.polirovkaOkleyka,
     NAVIGATION_URL.tehObsluzhivaniye,
+    NAVIGATION_URL.regulirovka,
     NAVIGATION_URL.zapotevaniye,
 ];
 

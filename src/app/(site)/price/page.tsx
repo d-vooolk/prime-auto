@@ -22,10 +22,14 @@ export const metadata = buildMetadata({
     path: NAVIGATION_URL.price,
 });
 
-const serviceLinks = BRAND_SERVICES.map((service) => ({
-    title: service.label,
-    href: service.basePath,
-}));
+const serviceLinks = [
+    ...BRAND_SERVICES.map((service) => ({
+        title: service.label,
+        href: service.basePath,
+    })),
+    // у регулировки нет страниц марок, поэтому в BRAND_SERVICES её нет
+    {title: 'Регулировка фар', href: NAVIGATION_URL.regulirovka},
+];
 
 /*
   Прайс — самая коммерческая страница сайта, но разметки предложений на ней не

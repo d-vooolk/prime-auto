@@ -1,4 +1,5 @@
 import {OurProposalBlockList} from "@/components/_HelperComponents/OurProposalBlock/types";
+import {NAVIGATION_URL} from "@/constants/navigation";
 
 export const PAGE_TITLE_TEXT = {
     title: "Техническое обслуживание фар в Минске",
@@ -18,6 +19,7 @@ export const proposalList: OurProposalBlockList[] = [
         description: 'Регулировка света фар по ГОСТ в Prime Auto в Минске обеспечивает соответствие стандартам, ' +
             'улучшая видимость и исключая ослепление других водителей. Профессиональная настройка гарантирует ' +
             'комфорт и безопасность на дороге.',
+        link: NAVIGATION_URL.regulirovka,
     },
     {
         title: 'Замена блоков розжига ксенона',
