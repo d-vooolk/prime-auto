@@ -730,3 +730,14 @@ ol.article-list {
         white-space: nowrap;
     }
 }
+
+/* плашка «Новое» — статьи младше месяца, стоят в начале списка */
+.article-tile-new {
+    font-family: Inter, sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--base-dark);
+    background-color: var(--base-green);
+    padding: 3px 8px;
+    border-radius: 10px;
+}

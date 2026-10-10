@@ -12,6 +12,7 @@ const PanelLayout = async ({children}: {children: React.ReactNode}) => {
             <header className="a-top">
                 <Link href="/admin" className="a-top-brand">Prime Auto · статьи</Link>
                 <Link href="/admin/new">Написать статью</Link>
+                <Link href="/admin/stats">Популярное</Link>
                 <Link href="/admin/settings">Настройки</Link>
                 <span className="a-top-spacer" />
                 <a href="/stati" target="_blank" rel="noreferrer">Раздел на сайте ↗</a>

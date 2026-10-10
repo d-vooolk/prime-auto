@@ -24,7 +24,8 @@
     visibility: hidden;
     pointer-events: none;
     margin-bottom: calc(-1 * (var(--chat-size) + 8px));
-    transition: opacity .25s ease, transform .25s ease, margin .25s ease, visibility 0s linear .25s;
+    /* задержки — инлайном из ChatFloatingBlock.jsx, по одной на каждое свойство */
+    transition: opacity .28s ease, transform .28s ease, margin .28s ease, visibility 0s linear;
 }
 
 .chat-block-wrapper--open .chat-item {
@@ -33,7 +34,6 @@
     visibility: visible;
     pointer-events: auto;
     margin-bottom: 0;
-    transition: opacity .25s ease, transform .25s ease, margin .25s ease, visibility 0s;
 }
 
 /* закрытая кнопка мягко пульсирует, пока панель свёрнута */

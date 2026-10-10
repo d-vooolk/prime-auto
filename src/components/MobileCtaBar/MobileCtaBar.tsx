@@ -2,11 +2,12 @@ import React from "react";
 import './styles.css';
 import LeadButton from "@/components/LeadModal/LeadButton";
 import TelegramIcon from "@/components/LeadModal/TelegramIcon";
+import ViberIcon from "@/components/LeadModal/ViberIcon";
 import {CONTACTS_DATA} from "@/constants/contactsData";
 import {LINKS} from "@/constants/links";
 
 /**
- * Панель внизу экрана на телефоне: «Оставить заявку», звонок и Telegram —
+ * Панель внизу экрана на телефоне: «Оставить заявку», звонок, Telegram и Viber —
  * всегда под пальцем, где бы человек ни читал страницу. На компьютере
  * не показывается: там есть телефон в шапке и кнопки на первом экране.
  */
@@ -20,6 +21,9 @@ const MobileCtaBar = () => (
         </a>
         <a href={LINKS.telegram} target="_blank" rel="noopener noreferrer" className="mobile-cta-icon mobile-cta-icon--tg" aria-label="Написать в Telegram">
             <TelegramIcon />
+        </a>
+        <a href={LINKS.viber} className="mobile-cta-icon mobile-cta-icon--viber" aria-label="Написать в Viber">
+            <ViberIcon />
         </a>
     </div>
 );

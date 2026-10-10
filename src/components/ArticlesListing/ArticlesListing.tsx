@@ -7,6 +7,7 @@ import JsonLd from "@/components/_HelperComponents/JsonLd/JsonLd";
 import {formatArticleDate} from "@/components/ArticleView/ArticleView";
 import {imageSize} from "@/lib/article-body";
 import {getPublishedArticles, type ArticleRecord} from "@/lib/articles";
+import {articleViewCounts} from "@/lib/stats";
 import {ARTICLE_CATEGORIES, categoryCover, categoryOf, categoryPath, type ArticleCategory} from "@/constants/articleCategories";
 import {NAVIGATION_URL} from "@/constants/navigation";
 import {absoluteUrl, breadcrumbJsonLd, buildMetadata} from "@/utils/seo";
@@ -48,8 +49,34 @@ const listPath = ({page, category}: ListingArgs) => {
     return page > 1 ? `${base}/stranica/${page}` : base;
 };
 
+/* Сколько дней статья считается новой и стоит в начале списка с плашкой */
+const NEW_DAYS = 30;
+const publishedOf = (article: ArticleRecord) => article.publishedAt ?? article.createdAt;
+export const isNewArticle = (article: ArticleRecord, now = Date.now()) =>
+    now - publishedOf(article) < NEW_DAYS * 86400000;
+
+/*
+  Порядок статей: сначала новые (свежие выше), дальше — по числу просмотров
+  за всё время (свой счётчик, src/lib/stats.ts), при равенстве — свежие выше.
+  Через месяц после публикации статья встаёт на место по просмотрам.
+  Список пересобирается раз в час (revalidate страниц /stati).
+*/
+const sortArticles = (articles: ArticleRecord[]): ArticleRecord[] => {
+    const views = articleViewCounts();
+    const now = Date.now();
+    return [...articles].sort((a, b) => {
+        const newA = isNewArticle(a, now), newB = isNewArticle(b, now);
+        if (newA !== newB) return newA ? -1 : 1;
+        if (!newA) {
+            const diff = (views.get(b.slug) ?? 0) - (views.get(a.slug) ?? 0);
+            if (diff) return diff;
+        }
+        return publishedOf(b) - publishedOf(a);
+    });
+};
+
 const articlesOf = (category?: ArticleCategory) => {
-    const articles = getPublishedArticles();
+    const articles = sortArticles(getPublishedArticles());
     return category ? articles.filter((article) => categoryOf(article).slug === category.slug) : articles;
 };
 
@@ -100,6 +127,7 @@ const ArticleTile = ({article, eager}: {article: ArticleRecord; eager: boolean})
             )}
             <div className="article-tile-body">
                 <span className="article-tile-meta">
+                    {isNewArticle(article) && <span className="article-tile-new">Новое</span>}
                     <span className="article-tile-category">{categoryOf(article).name}</span>
                     <time className="article-tile-date" dateTime={new Date(article.publishedAt ?? article.createdAt).toISOString()}>
                         {formatArticleDate(article.publishedAt ?? article.createdAt)}

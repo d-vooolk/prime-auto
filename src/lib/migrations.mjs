@@ -101,6 +101,33 @@ const MIGRATIONS = [
     `
     ALTER TABLE articles ADD COLUMN category TEXT NOT NULL DEFAULT '';
     `,
+    // 4 — свой счётчик просмотров (src/lib/stats.ts) и оценки «полезна ли статья».
+    //     Сырые события, без cookies: посетитель — хеш IP + браузера + дня с солью.
+    `
+    CREATE TABLE page_views (
+        id       INTEGER PRIMARY KEY,
+        ts       INTEGER NOT NULL,
+        day      TEXT NOT NULL,
+        path     TEXT NOT NULL,
+        visitor  TEXT NOT NULL,
+        entry    INTEGER NOT NULL DEFAULT 0,
+        source   TEXT NOT NULL,
+        referrer TEXT NOT NULL DEFAULT '',
+        utm      TEXT NOT NULL DEFAULT '',
+        device   TEXT NOT NULL
+    );
+    CREATE INDEX page_views_day ON page_views (day);
+    CREATE INDEX page_views_path ON page_views (path, day);
+
+    CREATE TABLE article_votes (
+        id      INTEGER PRIMARY KEY,
+        ts      INTEGER NOT NULL,
+        slug    TEXT NOT NULL,
+        useful  INTEGER NOT NULL,
+        visitor TEXT NOT NULL,
+        UNIQUE (slug, visitor)
+    );
+    `,
 ];
 
 /**

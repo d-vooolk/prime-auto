@@ -26,6 +26,22 @@ const CloseCircleIcon = () => (
 );
 
 const AUTO_OPEN_MS = 800;
+const STEP_MS = 45;
+const DURATION_MS = 280;
+
+/*
+  Задержки по свойствам — в порядке transition в styles.css: opacity, transform,
+  margin, visibility. Раскрываются снизу вверх, сворачиваются сверху вниз — как
+  будто панель «втягивается» в кнопку. visibility при закрытии переключается
+  только после анимации, иначе иконка пропадала мгновенно.
+*/
+const itemDelay = (index, open) => {
+    const order = open ? ChatConfig.length - 1 - index : index;
+    const delay = order * STEP_MS;
+    return open
+        ? `${delay}ms, ${delay}ms, ${delay}ms, ${delay}ms`
+        : `${delay}ms, ${delay}ms, ${delay}ms, ${delay + DURATION_MS}ms`;
+};
 const AUTO_CLOSE_MS = 5000;
 
 /*
@@ -58,7 +74,7 @@ const ChatFloatingBlock = () => {
                     <div
                         key={item.id}
                         className="chat-item"
-                        style={{transitionDelay: isBarVisible ? `${(ChatConfig.length - index) * 40}ms` : '0ms'}}
+                        style={{transitionDelay: itemDelay(index, isBarVisible)}}
                     >
                         <Link
                             href={item.link}

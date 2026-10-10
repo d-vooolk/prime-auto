@@ -5,6 +5,7 @@ import Breadcrumbs from "@/components/_HelperComponents/Breadcrumbs/Breadcrumbs"
 import FormBlock from "@/components/FormBlock/FormBlock";
 import JsonLd from "@/components/_HelperComponents/JsonLd/JsonLd";
 import ArticleView from "@/components/ArticleView/ArticleView";
+import ArticleVote from "@/components/ArticleVote/ArticleVote";
 import {getPublishedArticle, getPublishedArticles, isoDate} from "@/lib/articles";
 import {NAVIGATION_URL} from "@/constants/navigation";
 import {categoryCover, categoryOf, categoryPath} from "@/constants/articleCategories";
@@ -87,6 +88,7 @@ const ArticlePage = async ({params}: PageProps) => {
                 <div className="article-container">
                     <Breadcrumbs items={crumbs} />
                     <ArticleView article={article} />
+                    <ArticleVote slug={article.slug} />
                 </div>
             </div>
 
