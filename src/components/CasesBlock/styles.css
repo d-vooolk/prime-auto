@@ -329,3 +329,32 @@
         top: -18px;
     }
 }
+
+.cases-more {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.cases-more-button {
+    padding: 16px 28px;
+    border-radius: 28px;
+    border: 1px solid var(--base-dark);
+    background: var(--base-white);
+    color: var(--base-dark);
+    font-family: Inter, sans-serif;
+    font-weight: 600;
+    font-size: 15px;
+    cursor: pointer;
+    transition: all .25s ease;
+}
+
+.cases-more-button:hover {
+    background: var(--base-dark);
+    color: var(--base-white);
+}
+
+.cases-more-rest {
+    font-weight: 400;
+    opacity: .7;
+}

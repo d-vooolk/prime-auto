@@ -86,5 +86,11 @@ export const BEFORE_AFTER = {
             height: 1000,
             caption: "Пожелтевшая мутная фара до полировки и после: стекло снова прозрачное",
         },
+        {
+            src: "/images/works/polirovka-himicheskaya-process.webp",
+            width: 1200,
+            height: 675,
+            caption: "Химическая полировка фары: процесс",
+        },
     ],
 };

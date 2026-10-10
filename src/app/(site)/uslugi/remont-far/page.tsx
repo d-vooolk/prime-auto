@@ -6,7 +6,7 @@ import {buildMetadata} from "@/utils/seo";
 import {NAVIGATION_URL} from "@/constants/navigation";
 import {proposalList, PAGE_TITLE_TEXT, priceDataSource, BEFORE_AFTER} from "@/app/(site)/uslugi/remont-far/constants";
 import RemontExtra from "@/app/(site)/uslugi/remont-far/RemontExtra";
-import {formatRating, getYandexStats, plural} from "@/constants/yandexReviews";
+import {withRating} from "@/constants/yandexReviews";
 
 const META_PAGE = META.remont;
 
@@ -15,15 +15,11 @@ const META_PAGE = META.remont;
   CTR был 0,2%, звёзды и число оценок в сниппете — самый простой способ
   выделиться среди агрегаторов. Берётся из того же файла, что и плашка.
 */
-export const generateMetadata = () => {
-    const stats = getYandexStats();
-    return buildMetadata({
-        title: META_PAGE.title,
-        description: `${META_PAGE.description} Рейтинг ${formatRating(stats.rating)} на Яндекс Картах — ` +
-            `${plural(stats.ratings, ["оценка", "оценки", "оценок"])}.`,
-        path: NAVIGATION_URL.remont,
-    });
-};
+export const generateMetadata = () => buildMetadata({
+    title: META_PAGE.title,
+    description: withRating(META_PAGE.description),
+    path: NAVIGATION_URL.remont,
+});
 
 const Page = () => (
     <ServiceLandingPage

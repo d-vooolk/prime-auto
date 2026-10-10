@@ -134,3 +134,15 @@ export const SERVICE: StandaloneService = {
         },
     ],
 };
+
+
+/* Фото — из библиотеки (docs/photo-library.md) */
+export const BEFORE_AFTER = {
+    title: "Регулировка фар: как это выглядит",
+    eyebrow: "Фото",
+    photos: [
+        {src: "/images/works/regulirovka-regloskop.webp", width: 1024, height: 683, caption: "Проверка и регулировка света фары на оборудовании"},
+        {src: "/images/works/regulirovka-shema.webp", width: 1200, height: 614, caption: "Как должна светить фара относительно дороги: граница не поднимается выше своей полосы"},
+        {src: "/images/works/regulirovka-rezultat.webp", width: 1200, height: 750, caption: "Свет на дороге после правильной настройки фар"},
+    ],
+};

@@ -97,3 +97,13 @@ export const priceDataSource = [
         price: 'От 50',
     },
 ];
+
+/* Фото работ — из библиотеки (docs/photo-library.md) */
+export const BEFORE_AFTER = {
+    title: "Bi-Led: свет до и после",
+    eyebrow: "Результат",
+    photos: [
+        {src: "/images/works/biled-svet-do-posle-doroga.webp", width: 1200, height: 1199, caption: "Свет на дороге до и после установки Bi-Led модулей"},
+        {src: "/images/works/biled-modul-v-razobrannoy-fare.webp", width: 1200, height: 800, caption: "Bi-Led модуль, установленный в разобранную фару"},
+    ],
+};

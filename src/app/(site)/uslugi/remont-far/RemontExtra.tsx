@@ -1,6 +1,6 @@
 import React from "react";
 import Link from "next/link";
-import './extra.css';
+import '@/components/_HelperComponents/ServiceExtra/styles.css';
 import LeadButton from "@/components/LeadModal/LeadButton";
 import {NAVIGATION_URL} from "@/constants/navigation";
 

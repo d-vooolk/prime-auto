@@ -5,6 +5,7 @@ import './styles.css';
 import Breadcrumbs from "@/components/_HelperComponents/Breadcrumbs/Breadcrumbs";
 import JsonLd from "@/components/_HelperComponents/JsonLd/JsonLd";
 import CaseCard from "@/components/CasesBlock/CaseCard";
+import ClusterMore from "@/components/CasesBlock/ClusterMore";
 import ReviewsBlock from "@/components/ReviewsBlock/ReviewsBlock";
 import FormBlock from "@/components/FormBlock/FormBlock";
 import LeadButton from "@/components/LeadModal/LeadButton";
@@ -76,9 +77,10 @@ const RabotyPage = () => {
                                 <Link href={group.href} className="cases-cluster-link">Об услуге и цены →</Link>
                                 <p className="cases-cluster-description">{group.description}</p>
                             </div>
-                            <div className="cases-grid">
+                            {/* по 8 работ, остальные — по кнопке «Показать ещё» */}
+                            <ClusterMore total={group.items.length} initial={8} step={8}>
                                 {group.items.map((item) => <CaseCard key={item.id} item={item} />)}
-                            </div>
+                            </ClusterMore>
                         </section>
                     ))}
                 </div>

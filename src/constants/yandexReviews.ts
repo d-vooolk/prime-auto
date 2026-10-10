@@ -126,15 +126,21 @@ export const reviewsFor = (topics: ReviewTopic[] = [], limit = 8, mention?: stri
 export const formatRating = (value: number) =>
     value.toLocaleString("ru-RU", {minimumFractionDigits: 1, maximumFractionDigits: 1});
 
-/** 172 → «172 оценки», 109 → «109 отзывов» */
-export const plural = (n: number, forms: [string, string, string]) => {
-    const mod10 = n % 10;
-    const mod100 = n % 100;
-    if (mod10 === 1 && mod100 !== 11) return `${n} ${forms[0]}`;
-    if (mod10 >= 2 && mod10 <= 4 && (mod100 < 12 || mod100 > 14)) return `${n} ${forms[1]}`;
-    return `${n} ${forms[2]}`;
-};
+/* склонение — в отдельном модуле без node:fs, его используют и клиентские компоненты */
+import {plural} from "@/utils/plural";
+export {plural};
 
 export const formatReviewDate = (iso: string) =>
     new Date(`${iso}T12:00:00Z`).toLocaleDateString("ru-RU", {day: "numeric", month: "long", year: "numeric"})
         .replace(/\s?г\.$/, "");
+
+/**
+ * Хвост description страницы с рейтингом Яндекса: звёзды и число оценок в
+ * сниппете — самый простой способ выделиться среди агрегаторов. Цифры — из
+ * того же файла, что и плашка, обновляются раз в неделю.
+ */
+export const withRating = (description: string): string => {
+    const stats = getYandexStats();
+    return `${description} Рейтинг ${formatRating(stats.rating)} на Яндекс Картах — ` +
+        `${plural(stats.ratings, ["оценка", "оценки", "оценок"])}.`;
+};
