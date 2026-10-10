@@ -224,3 +224,31 @@
         padding: 0 var(--gutter);
     }
 }
+/* На телефоне декоративная иконка Instagram занимала полэкрана — уменьшаем всю композицию вдвое */
+@media (max-width: 768px) {
+    .portfolio-instagram-images-wrapper {
+        margin-bottom: 50px;
+        align-self: center;
+        align-items: center;
+        width: 160px;
+    }
+
+    .portfolio-instagram-image {
+        width: 110px;
+        height: auto;
+    }
+
+    .portfolio-dialog-image {
+        width: 44px;
+        height: auto;
+        top: -14px;
+        left: 18px;
+    }
+
+    .portfolio-heart-image {
+        width: 28px;
+        height: auto;
+        right: -60px;
+        top: 26px;
+    }
+}

@@ -43,8 +43,8 @@
 /* на телефоне внизу закреплена панель «Оставить заявку» — поднимаемся над ней */
 @media (max-width: 768px) {
     .scrollToTopBtn {
-        bottom: 84px;
-        right: 68px;
+        position: static; /* в .floating-dock над нижней панелью — см. layout.js */
+        flex: none;
         width: 44px;
         height: 44px;
     }

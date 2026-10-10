@@ -80,7 +80,6 @@ export default function RootLayout({children}) {
                 <img src="https://mc.yandex.ru/watch/103843698" style={{position:'absolute', left:'-9999px'}} alt="" />
             </div>
         </noscript>
-        <FastUp />
 
         {/*
           Обе шапки рендерятся на сервере, нужная выбирается медиазапросом.
@@ -94,9 +93,21 @@ export default function RootLayout({children}) {
         {children}
         <Footer/>
 
-        <ChatFloatingBlock />
+        {/*
+          Плавающие кнопки. На компьютере у каждой своё fixed-положение
+          (обёртка — display: contents). На телефоне обёртка сама закреплена
+          внизу: кнопки «наверх» и связи стоят над панелью «Оставить заявку»
+          в одном контейнере и при прокрутке не наезжают на неё, даже когда
+          браузер прячет адресную строку и меняет высоту экрана.
+        */}
+        <div className="floating-dock">
+            <div className="floating-dock-buttons">
+                <FastUp />
+                <ChatFloatingBlock />
+            </div>
+            <MobileCtaBar />
+        </div>
         <LeadModal />
-        <MobileCtaBar />
         </body>
         </html>
     );

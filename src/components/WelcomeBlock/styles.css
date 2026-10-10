@@ -112,6 +112,20 @@
     color: var(--base-white);
 }
 
+.welcome-messengers {
+    display: flex;
+    gap: 12px;
+}
+
+.welcome-viber-button svg {
+    color: #7360F2;
+}
+
+.welcome-viber-button:hover {
+    background-color: #7360F2;
+    border-color: #7360F2;
+}
+
 /* --- строка доверия --- */
 
 .welcome-trust {
@@ -238,9 +252,17 @@
         flex-direction: column;
     }
 
-    .get-lead-button,
-    .welcome-tg-button {
+    .get-lead-button {
         width: 100%;
+    }
+
+    .welcome-messengers {
+        width: 100%;
+    }
+
+    .welcome-messengers .welcome-tg-button {
+        flex: 1 1 0;
+        padding: 18px 12px;
     }
 
     .welcome-trust {

@@ -6,6 +6,7 @@ import {NAVIGATION_URL} from "@/constants/navigation";
 import {LINKS} from "@/constants/links";
 import LeadButton from "@/components/LeadModal/LeadButton";
 import TelegramIcon from "@/components/LeadModal/TelegramIcon";
+import ViberIcon from "@/components/LeadModal/ViberIcon";
 import YandexRatingBadge from "@/components/_HelperComponents/YandexRatingBadge/YandexRatingBadge";
 
 /* Услуги — ссылками: это и короткий путь для человека, и перелинковка с главной */
@@ -49,10 +50,17 @@ const WelcomeBlock = () => (
                         <path d="M7 7H17M17 7V17M17 7L7 17" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                     </svg>
                 </LeadButton>
-                <a href={LINKS.telegram} target="_blank" rel="noopener noreferrer" className="welcome-tg-button">
-                    <span>Написать в Telegram</span>
-                    <TelegramIcon />
-                </a>
+                {/* три кнопки в ряд; на телефоне «Оставить заявку» во всю ширину, а Telegram и Viber делят строку пополам */}
+                <div className="welcome-messengers">
+                    <a href={LINKS.telegram} target="_blank" rel="noopener noreferrer" className="welcome-tg-button" aria-label="Написать в Telegram">
+                        <span>Telegram</span>
+                        <TelegramIcon />
+                    </a>
+                    <a href={LINKS.viber} className="welcome-tg-button welcome-viber-button" aria-label="Написать в Viber">
+                        <span>Viber</span>
+                        <ViberIcon />
+                    </a>
+                </div>
             </div>
 
             <div className="welcome-trust">

@@ -119,3 +119,24 @@
     height: 500px;
     background-color: #e8e8e8;
 }
+
+/*
+  Адаптивность: три карточки были фиксированной ширины (в сумме ~1180 px) и
+  на планшете раздвигали страницу — на iPad появлялась горизонтальная прокрутка.
+*/
+.contacts-benefits-wrapper {
+    padding: 0 var(--gutter);
+    box-sizing: border-box;
+    flex-wrap: wrap;
+}
+
+.contacts-card {
+    flex: 1 1 280px;
+    min-width: 0;
+    box-sizing: border-box;
+}
+
+.contacts-card-description {
+    width: auto;
+    max-width: 100%;
+}

@@ -2,13 +2,39 @@
     display: none;
 }
 
+/* общий контейнер плавающих кнопок: на компьютере не влияет на раскладку */
+.floating-dock,
+.floating-dock-buttons {
+    display: contents;
+}
+
 @media (max-width: 768px) {
-    .mobile-cta-bar {
+    .floating-dock {
         position: fixed;
         left: 0;
         right: 0;
         bottom: 0;
         z-index: 8400;
+        display: flex;
+        flex-direction: column;
+        pointer-events: none;
+    }
+
+    .floating-dock-buttons {
+        display: flex;
+        justify-content: flex-end;
+        align-items: flex-end;
+        gap: 12px;
+        padding: 0 14px 12px;
+        pointer-events: none;
+    }
+
+    .floating-dock-buttons > * {
+        pointer-events: auto;
+    }
+
+    .mobile-cta-bar {
+        pointer-events: auto;
         display: flex;
         gap: 8px;
         padding: 10px 12px calc(10px + env(safe-area-inset-bottom));

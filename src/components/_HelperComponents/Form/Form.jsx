@@ -4,6 +4,9 @@ import React, {useCallback, useEffect, useId, useRef, useState} from "react";
 import {formBlockText} from "@/components/FormBlock/FormBlock.jsx";
 import {sendLeadToBot} from "@/app/api/tg-bot/leads";
 import {GOALS, reachGoal} from "@/utils/analytics";
+import {CONTACTS_DATA} from "@/constants/contactsData";
+
+const ERROR_TEXT = `Не получилось отправить заявку. Позвоните нам: ${CONTACTS_DATA.phone1} — или напишите в Telegram.`;
 
 const PHONE_MASK = '+375 (00) 000-00-00';
 const PHONE_PLACEHOLDER = '+375 (__) ___-__-__';
@@ -108,17 +111,17 @@ const Form = () => {
         try {
             const response = await sendLeadToBot(formData);
 
-            if (response.success) {
+            if (response?.success) {
                 reachGoal(GOALS.lead);
                 setStatus('Данные успешно отправлены!');
                 resetPhoneField();
                 setFormData({ name: '', phone: '', message: '', agreement: false });
             } else {
-                setStatus('Ошибка при отправке данных.');
+                setStatus(ERROR_TEXT);
             }
         } catch (error) {
             console.error('Error:', error);
-            setStatus('Ошибка при отправке данных.');
+            setStatus(ERROR_TEXT);
         }
     };
 
@@ -194,7 +197,7 @@ const Form = () => {
             </div>
 
             <div className="form-block-button-wrapper">
-                <button type="submit" className="form-get-lead-button">
+                <button type="submit" className="form-get-lead-button" disabled={status === 'Отправка...'}>
                     <span>Отправить</span>
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                         <path d="M7 7H17M17 7V17M17 7L7 17" stroke="currentColor" strokeWidth="2"

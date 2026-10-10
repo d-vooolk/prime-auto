@@ -1,6 +1,6 @@
 "use client"
 
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import './styles.css';
 import Image from "next/image";
 import Link from "next/link";
@@ -25,40 +25,30 @@ const CloseCircleIcon = () => (
     </svg>
 );
 
-const STORAGE_KEY = 'prime-chat-open';
-const AUTO_OPEN_MS = 2500;
-const MOBILE_AUTO_CLOSE_MS = 4500;
+const AUTO_OPEN_MS = 800;
+const AUTO_CLOSE_MS = 5000;
 
 /*
-  Кнопки связи. При заходе свёрнуты в одну кнопку, через пару секунд сами
-  раскрываются — человек видит и мессенджеры, и крестик, то есть понимает,
-  что панель можно закрыть. На телефоне через несколько секунд снова
-  сворачиваются: столбик из семи иконок закрывал бы текст. Раскрываются сами
-  один раз за визит; если человек открыл или закрыл панель руками, его выбор
-  запоминается до конца визита (sessionStorage).
+  Кнопки связи. На каждой загрузке страницы панель через долю секунды сама
+  раскрывается, висит 5 секунд и сворачивается в одну пульсирующую кнопку —
+  человек видит и мессенджеры, и что панель закрывается. Ничего не
+  запоминаем. Если человек сам нажал на кнопку, автозакрытие отменяется.
 */
 const ChatFloatingBlock = () => {
     const [isBarVisible, setIsBarVisible] = useState(false);
+    const timers = useRef([]);
 
     useEffect(() => {
-        const saved = sessionStorage.getItem(STORAGE_KEY);
-        if (saved !== null) {
-            setIsBarVisible(saved === '1');
-            return;
-        }
-        const timers = [setTimeout(() => setIsBarVisible(true), AUTO_OPEN_MS)];
-        if (window.matchMedia('(max-width: 768px)').matches) {
-            timers.push(setTimeout(() => setIsBarVisible(false), AUTO_OPEN_MS + MOBILE_AUTO_CLOSE_MS));
-        }
-        sessionStorage.setItem(STORAGE_KEY, '0');
-        return () => timers.forEach(clearTimeout);
+        timers.current = [
+            setTimeout(() => setIsBarVisible(true), AUTO_OPEN_MS),
+            setTimeout(() => setIsBarVisible(false), AUTO_OPEN_MS + AUTO_CLOSE_MS),
+        ];
+        return () => timers.current.forEach(clearTimeout);
     }, []);
 
     const toggle = () => {
-        setIsBarVisible((open) => {
-            sessionStorage.setItem(STORAGE_KEY, open ? '0' : '1');
-            return !open;
-        });
+        timers.current.forEach(clearTimeout);
+        setIsBarVisible((open) => !open);
     };
 
     return (

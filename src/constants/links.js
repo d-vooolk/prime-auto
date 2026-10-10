@@ -1,6 +1,7 @@
 export const LINKS = {
     instagram: 'https://www.instagram.com/prime_auto_minsk/',
     telegram: 'https://t.me/primeautominsk',
+    viber: 'viber://chat?number=%2B375336655449',
     facebook: 'https://www.facebook.com/profile.php?id=61558468265260',
     tiktok: 'https://www.tiktok.com/@prime_auto_minsk',
     youTube: 'https://www.youtube.com/@prime-auto-minsk',
