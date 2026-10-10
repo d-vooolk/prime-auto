@@ -47,6 +47,8 @@ interface ServiceLandingPageProps {
     metaDescription: string;
     /** Фото «до и после» этой услуги — блок выводится, только если они есть */
     beforeAfter?: {title: string; photos: WorkPhoto[]; eyebrow?: string};
+    /** Дополнительные разделы страницы — после «Об услуге» */
+    extra?: React.ReactNode;
 }
 
 /**
@@ -63,6 +65,7 @@ const ServiceLandingPage = ({
     priceDataSource,
     metaDescription,
     beforeAfter,
+    extra,
 }: ServiceLandingPageProps) => {
     const brandService = serviceKey ? getBrandService(serviceKey) : null;
     const service: StandaloneService = standalone ?? {
@@ -88,7 +91,7 @@ const ServiceLandingPage = ({
     const hero = SERVICE_HERO[service.basePath];
     // ключ услуги в кейсах — имя адреса в NAVIGATION_URL (biled, remont, zamenaStekla…)
     const caseKey = Object.entries(NAVIGATION_URL).find(([, url]) => url === service.basePath)?.[0];
-    const cases = caseKey ? casesForService(caseKey, 3) : [];
+    const cases = caseKey ? casesForService(caseKey, 6) : [];
     const breadcrumbs = [...service.trail, {name: service.label, path: service.basePath}];
 
     return (
@@ -123,6 +126,8 @@ const ServiceLandingPage = ({
             <OurProposalBlock list={proposalList} />
 
             {hero && <ServiceAbout text={description} />}
+
+            {extra}
 
             {beforeAfter && beforeAfter.photos.length > 0 && (
                 <BeforeAfterBlock title={beforeAfter.title} photos={beforeAfter.photos} eyebrow={beforeAfter.eyebrow} />

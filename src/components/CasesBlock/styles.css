@@ -67,9 +67,101 @@
     display: block;
     width: 100%;
     height: auto;
-    /* фото работ квадратные, с подписью машины сверху — не обрезаем */
-    aspect-ratio: 1 / 1;
+    /* свежие фото работ вертикальные, портфолио — квадратные; 4:5 подходит обоим */
+    aspect-ratio: 4 / 5;
     object-fit: cover;
+}
+
+.case-card-media {
+    position: relative;
+}
+
+.case-card-badge {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    padding: 4px 10px;
+    border-radius: 12px;
+    background: rgba(0, 0, 0, 0.65);
+    color: var(--base-white);
+    font-family: Inter, sans-serif;
+    font-size: 12px;
+}
+
+/* --- разделы по типам работ на «Наших работах» --- */
+.cases-clusters-nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 0 0 40px;
+    padding: 0;
+    list-style: none;
+}
+
+.cases-clusters-nav a {
+    display: inline-flex;
+    padding: 10px 16px;
+    border-radius: 22px;
+    border: .5px solid rgba(38, 38, 38, 0.25);
+    background: var(--base-white);
+    color: var(--base-dark);
+    font-family: Inter, sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    text-decoration: none;
+}
+
+.cases-clusters-nav a:hover {
+    background: var(--base-dark);
+    color: var(--base-white);
+}
+
+.cases-cluster {
+    margin: 0 0 56px;
+    scroll-margin-top: 110px;
+}
+
+.cases-cluster-head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 8px 20px;
+    margin-bottom: 18px;
+}
+
+.cases-cluster-title {
+    margin: 0;
+    font-family: Montserrat, sans-serif;
+    font-weight: 800;
+    font-size: 28px;
+    text-transform: uppercase;
+    color: var(--base-dark);
+}
+
+.cases-cluster-title small {
+    font-weight: 600;
+    font-size: 16px;
+    color: var(--base-gray);
+    text-transform: none;
+}
+
+.cases-cluster-description {
+    width: 100%;
+    margin: 0;
+    font-family: Inter, sans-serif;
+    font-size: 15px;
+    line-height: 150%;
+    font-weight: 300;
+    color: var(--base-dark);
+}
+
+.cases-cluster-link {
+    font-family: Inter, sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--base-dark);
+    text-underline-offset: 3px;
 }
 
 .case-card-nophoto {

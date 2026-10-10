@@ -1,0 +1,167 @@
+.remont-extra {
+    background-color: var(--light-gray-background);
+    padding: 80px var(--gutter);
+    box-sizing: border-box;
+    color: var(--base-dark);
+    font-family: Inter, sans-serif;
+}
+
+.remont-extra--light {
+    background-color: var(--base-white);
+}
+
+.remont-extra-title {
+    margin: 0 0 16px;
+    font-family: Montserrat, sans-serif;
+    font-weight: 800;
+    font-size: 30px;
+    line-height: 120%;
+    text-transform: uppercase;
+}
+
+.remont-extra-lead,
+.remont-extra p {
+    margin: 0 0 16px;
+    font-size: 16px;
+    line-height: 165%;
+    font-weight: 300;
+    max-width: 860px;
+}
+
+.remont-extra a {
+    color: var(--base-dark);
+    font-weight: 500;
+    text-decoration-color: var(--base-green);
+    text-decoration-thickness: 2px;
+    text-underline-offset: 3px;
+}
+
+.remont-extra-table-wrap {
+    overflow-x: auto;
+    margin: 8px 0 24px;
+    border-radius: 16px;
+    border: .5px solid rgba(38, 38, 38, 0.15);
+}
+
+.remont-extra-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 15px;
+    line-height: 145%;
+}
+
+.remont-extra-table th,
+.remont-extra-table td {
+    padding: 14px 16px;
+    text-align: left;
+    vertical-align: top;
+    border-bottom: .5px solid rgba(38, 38, 38, 0.12);
+}
+
+.remont-extra-table th {
+    background: var(--base-dark);
+    color: var(--base-white);
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.remont-extra-table tr:last-child td {
+    border-bottom: none;
+}
+
+.remont-extra-table td:nth-child(3) {
+    font-weight: 600;
+}
+
+.remont-extra-nowrap {
+    white-space: nowrap;
+}
+
+.remont-extra-button {
+    padding: 18px 28px;
+    border-radius: 31px;
+    border: none;
+    background: var(--base-green);
+    color: var(--base-dark);
+    font-family: Inter, sans-serif;
+    font-weight: 700;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.remont-extra-button:hover {
+    background: var(--base-dark);
+    color: var(--base-white);
+}
+
+.remont-extra-steps {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 14px;
+}
+
+.remont-extra-steps li {
+    display: flex;
+    gap: 14px;
+    padding: 20px;
+    border-radius: 16px;
+    background: var(--base-white);
+    border: .5px solid rgba(38, 38, 38, 0.12);
+}
+
+.remont-extra-steps p {
+    margin: 0;
+    font-size: 15px;
+}
+
+.remont-extra-step-number {
+    flex: none;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: var(--base-green);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: Montserrat, sans-serif;
+    font-weight: 800;
+}
+
+.remont-extra-step-title {
+    margin: 6px 0 6px;
+    font-family: Montserrat, sans-serif;
+    font-weight: 800;
+    font-size: 17px;
+}
+
+.remont-extra-columns {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 48px;
+}
+
+@media (max-width: 900px) {
+    .remont-extra {
+        padding: 56px var(--gutter);
+    }
+
+    .remont-extra-title {
+        font-size: 24px;
+    }
+
+    .remont-extra-columns {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 24px;
+    }
+
+    .remont-extra-nowrap {
+        white-space: normal;
+    }
+
+    .remont-extra-button {
+        width: 100%;
+    }
+}

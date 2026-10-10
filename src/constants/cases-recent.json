@@ -1,0 +1,825 @@
+[
+ {
+  "id": "audi-100-biled",
+  "car": "Audi 100",
+  "brand": "audi",
+  "cluster": "biled",
+  "services": [
+   "biled",
+   "zamenaStekla",
+   "polirovkaOkleyka"
+  ],
+  "text": "Установили Bi-Led модули, поставили новые стёкла, оклеили фары защитной плёнкой.",
+  "photo": "/images/works/cases/audi-100-biled.webp",
+  "w": 947,
+  "h": 1280,
+  "alt": "Audi 100: установили bi-led модули, поставили новые стёкла, оклеили фары защитной плёнкой"
+ },
+ {
+  "id": "audi-a4-b6-biled",
+  "car": "Audi A4 B6",
+  "brand": "audi",
+  "cluster": "biled",
+  "services": [
+   "biled",
+   "zamenaStekla",
+   "polirovkaOkleyka"
+  ],
+  "text": "Установили Bi-Led модули, поставили новые стёкла, оклеили фары защитной плёнкой.",
+  "photo": "/images/works/cases/audi-a4-b6-biled.webp",
+  "w": 950,
+  "h": 1280,
+  "alt": "Audi A4 B6: установили bi-led модули, поставили новые стёкла, оклеили фары защитной плёнкой"
+ },
+ {
+  "id": "audi-a6-c6-biled",
+  "car": "Audi A6 C6",
+  "brand": "audi",
+  "cluster": "biled",
+  "services": [
+   "biled",
+   "zamenaStekla",
+   "polirovkaOkleyka"
+  ],
+  "text": "Установили Bi-Led модули, поставили новые стёкла, оклеили фары защитной плёнкой.",
+  "photo": "/images/works/cases/audi-a6-c6-biled.webp",
+  "w": 721,
+  "h": 1280,
+  "alt": "Audi A6 C6: установили bi-led модули, поставили новые стёкла, оклеили фары защитной плёнкой"
+ },
+ {
+  "id": "audi-a4-biled",
+  "car": "Audi A4",
+  "brand": "audi",
+  "cluster": "biled",
+  "services": [
+   "biled",
+   "zamenaStekla",
+   "polirovkaOkleyka"
+  ],
+  "text": "Установили Bi-Led модули, поставили новые стёкла, оклеили фары защитной плёнкой.",
+  "photo": "/images/works/cases/audi-a4-biled.webp",
+  "w": 958,
+  "h": 1280,
+  "alt": "Audi A4: установили bi-led модули, поставили новые стёкла, оклеили фары защитной плёнкой"
+ },
+ {
+  "id": "audi-a6-c5-biled",
+  "car": "Audi A6 C5",
+  "brand": "audi",
+  "cluster": "biled",
+  "services": [
+   "biled",
+   "zamenaStekla",
+   "polirovkaOkleyka"
+  ],
+  "text": "Установили Bi-Led модули, поставили новые стёкла, оклеили фары защитной плёнкой.",
+  "photo": "/images/works/cases/audi-a6-c5-biled.webp",
+  "w": 949,
+  "h": 1280,
+  "alt": "Audi A6 C5: установили bi-led модули, поставили новые стёкла, оклеили фары защитной плёнкой"
+ },
+ {
+  "id": "belgee-x50-biled",
+  "car": "Belgee X50",
+  "brand": "belgee",
+  "cluster": "biled",
+  "services": [
+   "biled",
+   "polirovkaOkleyka"
+  ],
+  "text": "Установили Bi-Led модули, отполировали и оклеили фары защитной плёнкой.",
+  "photo": "/images/works/cases/belgee-x50-biled.webp",
+  "w": 719,
+  "h": 1280,
+  "alt": "Belgee X50: установили bi-led модули, отполировали и оклеили фары защитной плёнкой"
+ },
+ {
+  "id": "bmw-4-dho",
+  "car": "BMW 4 серии",
+  "brand": "bmw",
+  "cluster": "dho",
+  "services": [
+   "remontLed"
+  ],
+  "text": "Отремонтировали ДХО.",
+  "photo": "/images/works/cases/bmw-4-dho.webp",
+  "w": 960,
+  "h": 1255,
+  "alt": "BMW 4 серии: отремонтировали дхо"
+ },
+ {
+  "id": "bmw-f30-dho",
+  "car": "BMW F30",
+  "brand": "bmw",
+  "cluster": "dho",
+  "services": [
+   "remontLed"
+  ],
+  "text": "Отремонтировали ДХО.",
+  "photo": "/images/works/cases/bmw-f30-dho.webp",
+  "w": 960,
+  "h": 1264,
+  "alt": "BMW F30: отремонтировали дхо"
+ },
+ {
+  "id": "bmw-e90-biled",
+  "car": "BMW E90",
+  "brand": "bmw",
+  "cluster": "biled",
+  "services": [
+   "biled",
+   "zamenaStekla",
+   "polirovkaOkleyka"
+  ],
+  "text": "Установили Bi-Led модули, поставили новые стёкла, отполировали и оклеили противотуманки, оклеили фары защитной плёнкой.",
+  "photo": "/images/works/cases/bmw-e90-biled.webp",
+  "w": 719,
+  "h": 1280,
+  "alt": "BMW E90: установили bi-led модули, поставили новые стёкла, отполировали и оклеили противотуманки, оклеили фары защитной плёнкой"
+ },
+ {
+  "id": "bmw-g20-dho",
+  "car": "BMW G20",
+  "brand": "bmw",
+  "cluster": "dho",
+  "services": [
+   "remontLed"
+  ],
+  "text": "Пересветили ДХО в лимонный цвет.",
+  "photo": "/images/works/cases/bmw-g20-dho.webp",
+  "w": 719,
+  "h": 1280,
+  "alt": "BMW G20: пересветили дхо в лимонный цвет"
+ },
+ {
+  "id": "bmw-g30-dho",
+  "car": "BMW G30",
+  "brand": "bmw",
+  "cluster": "dho",
+  "services": [
+   "remontLed"
+  ],
+  "text": "Отремонтировали ДХО.",
+  "photo": "/images/works/cases/bmw-g30-dho.webp",
+  "w": 722,
+  "h": 1280,
+  "alt": "BMW G30: отремонтировали дхо"
+ },
+ {
+  "id": "bmw-g30-dho-2",
+  "car": "BMW G30",
+  "brand": "bmw",
+  "cluster": "dho",
+  "services": [
+   "remontLed"
+  ],
+  "text": "Отремонтировали ДХО.",
+  "photo": "/images/works/cases/bmw-g30-dho-2.webp",
+  "w": 950,
+  "h": 1280,
+  "alt": "BMW G30: отремонтировали дхо"
+ },
+ {
+  "id": "bmw-x2-zapotevanie",
+  "car": "BMW X2",
+  "brand": "bmw",
+  "cluster": "zapotevanie",
+  "services": [
+   "zapotevaniye"
+  ],
+  "text": "Устранили запотевание фары.",
+  "photo": "/images/works/cases/bmw-x2-zapotevanie.webp",
+  "w": 736,
+  "h": 1280,
+  "alt": "BMW X2: устранили запотевание фары"
+ },
+ {
+  "id": "bmw-x3-g01-dho",
+  "car": "BMW X3 G01",
+  "brand": "bmw",
+  "cluster": "dho",
+  "services": [
+   "remontLed"
+  ],
+  "text": "Восстановили сгоревшие ДХО.",
+  "photo": "/images/works/cases/bmw-x3-g01-dho.webp",
+  "w": 723,
+  "h": 1280,
+  "alt": "BMW X3 G01: восстановили сгоревшие дхо"
+ },
+ {
+  "id": "bmw-x5-e70-biled",
+  "car": "BMW X5 E70",
+  "brand": "bmw",
+  "cluster": "biled",
+  "services": [
+   "biled",
+   "zamenaStekla",
+   "polirovkaOkleyka"
+  ],
+  "text": "Установили Bi-Led модули, поставили новые стёкла, оклеили фары защитной плёнкой.",
+  "photo": "/images/works/cases/bmw-x5-e70-biled.webp",
+  "w": 960,
+  "h": 1280,
+  "alt": "BMW X5 E70: установили bi-led модули, поставили новые стёкла, оклеили фары защитной плёнкой"
+ },
+ {
+  "id": "chevrolet-camaro-biled",
+  "car": "Chevrolet Camaro",
+  "brand": "chevrolet",
+  "cluster": "biled",
+  "services": [
+   "biled",
+   "polirovkaOkleyka"
+  ],
+  "text": "Установили Bi-Led модули, отполировали и оклеили фары защитной плёнкой.",
+  "photo": "/images/works/cases/chevrolet-camaro-biled.webp",
+  "w": 960,
+  "h": 1254,
+  "alt": "Chevrolet Camaro: установили bi-led модули, отполировали и оклеили фары защитной плёнкой"
+ },
+ {
+  "id": "chevrolet-equinox-biled",
+  "car": "Chevrolet Equinox",
+  "brand": "chevrolet",
+  "cluster": "biled",
+  "services": [
+   "biled",
+   "polirovkaOkleyka"
+  ],
+  "text": "Установили Bi-Led модули, отполировали и оклеили фары защитной плёнкой.",
+  "photo": "/images/works/cases/chevrolet-equinox-biled.webp",
+  "w": 719,
+  "h": 1280,
+  "alt": "Chevrolet Equinox: установили bi-led модули, отполировали и оклеили фары защитной плёнкой"
+ },
+ {
+  "id": "citroen-berlingo-biled",
+  "car": "Citroen Berlingo",
+  "brand": "citroen",
+  "cluster": "biled",
+  "services": [
+   "biled",
+   "polirovkaOkleyka"
+  ],
+  "text": "Установили Bi-Led модули, отполировали и оклеили фары защитной плёнкой.",
+  "photo": "/images/works/cases/citroen-berlingo-biled.webp",
+  "w": 745,
+  "h": 1280,
+  "alt": "Citroen Berlingo: установили bi-led модули, отполировали и оклеили фары защитной плёнкой"
+ },
+ {
+  "id": "daewoo-nubira-biled",
+  "car": "Daewoo Nubira",
+  "brand": null,
+  "cluster": "biled",
+  "services": [
+   "biled",
+   "polirovkaOkleyka",
+   "uluchsheniyeKachestvaSveta"
+  ],
+  "text": "Установили Bi-Led модули, отполировали и оклеили фары защитной плёнкой, установили маски с ДХО.",
+  "photo": "/images/works/cases/daewoo-nubira-biled.webp",
+  "w": 719,
+  "h": 1280,
+  "alt": "Daewoo Nubira: установили bi-led модули, отполировали и оклеили фары защитной плёнкой, установили маски с дхо"
+ },
+ {
+  "id": "dodge-caravan-biled",
+  "car": "Dodge Caravan",
+  "brand": null,
+  "cluster": "biled",
+  "services": [
+   "biled",
+   "polirovkaOkleyka"
+  ],
+  "text": "Установили Bi-Led модули, отполировали и оклеили фары защитной плёнкой.",
+  "photo": "/images/works/cases/dodge-caravan-biled.webp",
+  "w": 743,
+  "h": 1280,
+  "alt": "Dodge Caravan: установили bi-led модули, отполировали и оклеили фары защитной плёнкой"
+ },
+ {
+  "id": "dodge-challenger-biled",
+  "car": "Dodge Challenger",
+  "brand": null,
+  "cluster": "biled",
+  "services": [
+   "biled",
+   "polirovkaOkleyka"
+  ],
+  "text": "Установили Bi-Led модули, отполировали и оклеили фары защитной плёнкой.",
+  "photo": "/images/works/cases/dodge-challenger-biled.webp",
+  "w": 955,
+  "h": 1280,
+  "alt": "Dodge Challenger: установили bi-led модули, отполировали и оклеили фары защитной плёнкой"
+ },
+ {
+  "id": "dodge-challenger-biled-2",
+  "car": "Dodge Challenger",
+  "brand": null,
+  "cluster": "biled",
+  "services": [
+   "biled",
+   "polirovkaOkleyka"
+  ],
+  "text": "Установили Bi-Led модули, отполировали и оклеили фары защитной плёнкой.",
+  "photo": "/images/works/cases/dodge-challenger-biled-2.webp",
+  "w": 950,
+  "h": 1280,
+  "alt": "Dodge Challenger: установили bi-led модули, отполировали и оклеили фары защитной плёнкой"
+ },
+ {
+  "id": "dodge-journey-biled",
+  "car": "Dodge Journey",
+  "brand": null,
+  "cluster": "biled",
+  "services": [
+   "biled",
+   "polirovkaOkleyka"
+  ],
+  "text": "Установили Bi-Led модули, отполировали и оклеили фары защитной плёнкой.",
+  "photo": "/images/works/cases/dodge-journey-biled.webp",
+  "w": 719,
+  "h": 1280,
+  "alt": "Dodge Journey: установили bi-led модули, отполировали и оклеили фары защитной плёнкой"
+ },
+ {
+  "id": "fiat-ducato-biled",
+  "car": "Fiat Ducato",
+  "brand": "fiat",
+  "cluster": "biled",
+  "services": [
+   "biled",
+   "polirovkaOkleyka"
+  ],
+  "text": "Установили Bi-Led модули, отполировали и оклеили фары защитной плёнкой.",
+  "photo": "/images/works/cases/fiat-ducato-biled.webp",
+  "w": 959,
+  "h": 1280,
+  "alt": "Fiat Ducato: установили bi-led модули, отполировали и оклеили фары защитной плёнкой"
+ },
+ {
+  "id": "ford-galaxy-biled",
+  "car": "Ford Galaxy",
+  "brand": "ford",
+  "cluster": "biled",
+  "services": [
+   "biled",
+   "polirovkaOkleyka"
+  ],
+  "text": "Установили Bi-Led модули, отполировали и оклеили фары защитной плёнкой.",
+  "photo": "/images/works/cases/ford-galaxy-biled.webp",
+  "w": 723,
+  "h": 1280,
+  "alt": "Ford Galaxy: установили bi-led модули, отполировали и оклеили фары защитной плёнкой"
+ },
+ {
+  "id": "ford-mondeo-biled",
+  "car": "Ford Mondeo",
+  "brand": "ford",
+  "cluster": "biled",
+  "services": [
+   "biled",
+   "polirovkaOkleyka"
+  ],
+  "text": "Установили Bi-Led модули, отполировали и оклеили фары защитной плёнкой.",
+  "photo": "/images/works/cases/ford-mondeo-biled.webp",
+  "w": 958,
+  "h": 1280,
+  "alt": "Ford Mondeo: установили bi-led модули, отполировали и оклеили фары защитной плёнкой"
+ },
+ {
+  "id": "geely-atlas-biled",
+  "car": "Geely Atlas",
+  "brand": "geely",
+  "cluster": "biled",
+  "services": [
+   "biled",
+   "polirovkaOkleyka"
+  ],
+  "text": "Установили Bi-Led модули, отполировали и оклеили фары защитной плёнкой.",
+  "photo": "/images/works/cases/geely-atlas-biled.webp",
+  "w": 955,
+  "h": 1280,
+  "alt": "Geely Atlas: установили bi-led модули, отполировали и оклеили фары защитной плёнкой"
+ },
+ {
+  "id": "gmc-terrain-dho",
+  "car": "GMC Terrain",
+  "brand": null,
+  "cluster": "dho",
+  "services": [
+   "remontLed"
+  ],
+  "text": "Отремонтировали ДХО.",
+  "photo": "/images/works/cases/gmc-terrain-dho.webp",
+  "w": 951,
+  "h": 1280,
+  "alt": "GMC Terrain: отремонтировали дхо"
+ },
+ {
+  "id": "honda-civic-zapotevanie",
+  "car": "Honda Civic",
+  "brand": "honda",
+  "cluster": "zapotevanie",
+  "services": [
+   "zapotevaniye"
+  ],
+  "text": "Устранили запотевание фары.",
+  "photo": "/images/works/cases/honda-civic-zapotevanie.webp",
+  "w": 722,
+  "h": 1280,
+  "alt": "Honda Civic: устранили запотевание фары"
+ },
+ {
+  "id": "hyundai-tucson-zapotevanie",
+  "car": "Hyundai Tucson",
+  "brand": "hyundai",
+  "cluster": "zapotevanie",
+  "services": [
+   "zapotevaniye"
+  ],
+  "text": "Устранили запотевание фары.",
+  "photo": "/images/works/cases/hyundai-tucson-zapotevanie.webp",
+  "w": 719,
+  "h": 1280,
+  "alt": "Hyundai Tucson: устранили запотевание фары"
+ },
+ {
+  "id": "honda-crosstour-biled",
+  "car": "Honda Crosstour",
+  "brand": "honda",
+  "cluster": "biled",
+  "services": [
+   "biled",
+   "polirovkaOkleyka"
+  ],
+  "text": "Установили Bi-Led модули, отполировали и оклеили фары защитной плёнкой.",
+  "photo": "/images/works/cases/honda-crosstour-biled.webp",
+  "w": 954,
+  "h": 1280,
+  "alt": "Honda Crosstour: установили bi-led модули, отполировали и оклеили фары защитной плёнкой"
+ },
+ {
+  "id": "infiniti-g-biled",
+  "car": "Infiniti G",
+  "brand": "infiniti",
+  "cluster": "biled",
+  "services": [
+   "biled",
+   "polirovkaOkleyka"
+  ],
+  "text": "Установили Bi-Led модули, отполировали и оклеили фары защитной плёнкой.",
+  "photo": "/images/works/cases/infiniti-g-biled.webp",
+  "w": 935,
+  "h": 1280,
+  "alt": "Infiniti G: установили bi-led модули, отполировали и оклеили фары защитной плёнкой"
+ },
+ {
+  "id": "kia-ceed-biled",
+  "car": "Kia Ceed",
+  "brand": "kia",
+  "cluster": "biled",
+  "services": [
+   "biled",
+   "polirovkaOkleyka"
+  ],
+  "text": "Установили Bi-Led модули, отполировали и оклеили фары защитной плёнкой.",
+  "photo": "/images/works/cases/kia-ceed-biled.webp",
+  "w": 960,
+  "h": 1256,
+  "alt": "Kia Ceed: установили bi-led модули, отполировали и оклеили фары защитной плёнкой"
+ },
+ {
+  "id": "kia-sportage-biled",
+  "car": "Kia Sportage",
+  "brand": "kia",
+  "cluster": "biled",
+  "services": [
+   "biled",
+   "polirovkaOkleyka",
+   "uluchsheniyeKachestvaSveta"
+  ],
+  "text": "Установили Bi-Led модули, отполировали и оклеили фары защитной плёнкой, установили маски с ДХО.",
+  "photo": "/images/works/cases/kia-sportage-biled.webp",
+  "w": 719,
+  "h": 1280,
+  "alt": "Kia Sportage: установили bi-led модули, отполировали и оклеили фары защитной плёнкой, установили маски с дхо"
+ },
+ {
+  "id": "kia-carnival-dho",
+  "car": "Kia Carnival",
+  "brand": "kia",
+  "cluster": "dho",
+  "services": [
+   "remontLed"
+  ],
+  "text": "Отремонтировали ДХО.",
+  "photo": "/images/works/cases/kia-carnival-dho.webp",
+  "w": 729,
+  "h": 1280,
+  "alt": "Kia Carnival: отремонтировали дхо"
+ },
+ {
+  "id": "lada-vesta-biled",
+  "car": "Lada Vesta",
+  "brand": "lada",
+  "cluster": "biled",
+  "services": [
+   "biled",
+   "polirovkaOkleyka"
+  ],
+  "text": "Установили Bi-Led модули, отполировали и оклеили фары защитной плёнкой.",
+  "photo": "/images/works/cases/lada-vesta-biled.webp",
+  "w": 719,
+  "h": 1280,
+  "alt": "Lada Vesta: установили bi-led модули, отполировали и оклеили фары защитной плёнкой"
+ },
+ {
+  "id": "mazda-6-biled",
+  "car": "Mazda 6",
+  "brand": "mazda",
+  "cluster": "biled",
+  "services": [
+   "biled",
+   "zamenaStekla",
+   "polirovkaOkleyka"
+  ],
+  "text": "Установили Bi-Led модули, поставили новые стёкла, оклеили фары защитной плёнкой.",
+  "photo": "/images/works/cases/mazda-6-biled.webp",
+  "w": 736,
+  "h": 1280,
+  "alt": "Mazda 6: установили bi-led модули, поставили новые стёкла, оклеили фары защитной плёнкой"
+ },
+ {
+  "id": "mazda-cx-7-dho",
+  "car": "Mazda CX-7",
+  "brand": "mazda",
+  "cluster": "dho",
+  "services": [
+   "remontLed"
+  ],
+  "text": "Отремонтировали ДХО.",
+  "photo": "/images/works/cases/mazda-cx-7-dho.webp",
+  "w": 947,
+  "h": 1280,
+  "alt": "Mazda CX-7: отремонтировали дхо"
+ },
+ {
+  "id": "mercedes-gle-biled",
+  "car": "Mercedes GLE",
+  "brand": "mercedes-benz",
+  "cluster": "biled",
+  "services": [
+   "biled",
+   "polirovkaOkleyka"
+  ],
+  "text": "Установили Bi-Led модули, отполировали и оклеили фары защитной плёнкой.",
+  "photo": "/images/works/cases/mercedes-gle-biled.webp",
+  "w": 869,
+  "h": 1280,
+  "alt": "Mercedes GLE: установили bi-led модули, отполировали и оклеили фары защитной плёнкой"
+ },
+ {
+  "id": "mercedes-sprinter-biled",
+  "car": "Mercedes Sprinter",
+  "brand": "mercedes-benz",
+  "cluster": "biled",
+  "services": [
+   "biled",
+   "polirovkaOkleyka"
+  ],
+  "text": "Установили Bi-Led модули, отполировали и оклеили фары защитной плёнкой.",
+  "photo": "/images/works/cases/mercedes-sprinter-biled.webp",
+  "w": 726,
+  "h": 1280,
+  "alt": "Mercedes Sprinter: установили bi-led модули, отполировали и оклеили фары защитной плёнкой"
+ },
+ {
+  "id": "mercedes-glc-remont",
+  "car": "Mercedes GLC",
+  "brand": "mercedes-benz",
+  "cluster": "remont",
+  "services": [
+   "remont"
+  ],
+  "text": "Разобрали фару и почистили стекло изнутри.",
+  "photo": "/images/works/cases/mercedes-glc-remont.webp",
+  "w": 948,
+  "h": 1280,
+  "alt": "Mercedes GLC: разобрали фару и почистили стекло изнутри"
+ },
+ {
+  "id": "mitsubishi-outlander-biled",
+  "car": "Mitsubishi Outlander",
+  "brand": "mitsubishi",
+  "cluster": "biled",
+  "services": [
+   "biled",
+   "zamenaStekla",
+   "polirovkaOkleyka"
+  ],
+  "text": "Установили Bi-Led модули, поставили новые стёкла, оклеили фары защитной плёнкой.",
+  "photo": "/images/works/cases/mitsubishi-outlander-biled.webp",
+  "w": 947,
+  "h": 1280,
+  "alt": "Mitsubishi Outlander: установили bi-led модули, поставили новые стёкла, оклеили фары защитной плёнкой"
+ },
+ {
+  "id": "opel-insignia-zapotevanie",
+  "car": "Opel Insignia",
+  "brand": "opel",
+  "cluster": "zapotevanie",
+  "services": [
+   "zapotevaniye"
+  ],
+  "text": "Устранили запотевание фары.",
+  "photo": "/images/works/cases/opel-insignia-zapotevanie.webp",
+  "w": 725,
+  "h": 1280,
+  "alt": "Opel Insignia: устранили запотевание фары"
+ },
+ {
+  "id": "peugeot-406-biled",
+  "car": "Peugeot 406",
+  "brand": "peugeot",
+  "cluster": "biled",
+  "services": [
+   "biled",
+   "polirovkaOkleyka"
+  ],
+  "text": "Установили Bi-Led модули, отполировали и оклеили фары защитной плёнкой.",
+  "photo": "/images/works/cases/peugeot-406-biled.webp",
+  "w": 719,
+  "h": 1280,
+  "alt": "Peugeot 406: установили bi-led модули, отполировали и оклеили фары защитной плёнкой"
+ },
+ {
+  "id": "peugeot-5008-biled",
+  "car": "Peugeot 5008",
+  "brand": "peugeot",
+  "cluster": "biled",
+  "services": [
+   "biled",
+   "polirovkaOkleyka"
+  ],
+  "text": "Установили Bi-Led модули, отполировали и оклеили фары защитной плёнкой.",
+  "photo": "/images/works/cases/peugeot-5008-biled.webp",
+  "w": 719,
+  "h": 1280,
+  "alt": "Peugeot 5008: установили bi-led модули, отполировали и оклеили фары защитной плёнкой"
+ },
+ {
+  "id": "renault-clio-biled",
+  "car": "Renault Clio",
+  "brand": "renault",
+  "cluster": "biled",
+  "services": [
+   "biled",
+   "polirovkaOkleyka"
+  ],
+  "text": "Установили Bi-Led модули, отполировали и оклеили фары защитной плёнкой.",
+  "photo": "/images/works/cases/renault-clio-biled.webp",
+  "w": 949,
+  "h": 1280,
+  "alt": "Renault Clio: установили bi-led модули, отполировали и оклеили фары защитной плёнкой"
+ },
+ {
+  "id": "citroen-xantia-biled",
+  "car": "Citroen Xantia",
+  "brand": "citroen",
+  "cluster": "biled",
+  "services": [
+   "biled",
+   "uluchsheniyeKachestvaSveta",
+   "polirovkaOkleyka"
+  ],
+  "text": "Установили Bi-Led модули, подогнали маску под линзу, оклеили фары защитной плёнкой, установили маски с ДХО.",
+  "photo": "/images/works/cases/citroen-xantia-biled.webp",
+  "w": 956,
+  "h": 1280,
+  "alt": "Citroen Xantia: установили bi-led модули, подогнали маску под линзу, оклеили фары защитной плёнкой, установили маски с дхо"
+ },
+ {
+  "id": "subaru-outback-biled",
+  "car": "Subaru Outback",
+  "brand": "subaru",
+  "cluster": "biled",
+  "services": [
+   "biled",
+   "zamenaStekla",
+   "polirovkaOkleyka",
+   "uluchsheniyeKachestvaSveta"
+  ],
+  "text": "Установили Bi-Led модули, поставили новые стёкла, оклеили фары защитной плёнкой, сделали антихром масок.",
+  "photo": "/images/works/cases/subaru-outback-biled.webp",
+  "w": 943,
+  "h": 1280,
+  "alt": "Subaru Outback: установили bi-led модули, поставили новые стёкла, оклеили фары защитной плёнкой, сделали антихром масок"
+ },
+ {
+  "id": "toyota-prius-polirovka",
+  "car": "Toyota Prius",
+  "brand": "toyota",
+  "cluster": "polirovka",
+  "services": [
+   "polirovkaOkleyka"
+  ],
+  "text": "Отполировали и оклеили фары защитной плёнкой.",
+  "photo": "/images/works/cases/toyota-prius-polirovka.webp",
+  "w": 945,
+  "h": 1280,
+  "alt": "Toyota Prius: отполировали и оклеили фары защитной плёнкой"
+ },
+ {
+  "id": "volkswagen-jetta-biled",
+  "car": "Volkswagen Jetta",
+  "brand": "volkswagen",
+  "cluster": "biled",
+  "services": [
+   "biled",
+   "polirovkaOkleyka"
+  ],
+  "text": "Установили Bi-Led модули, отполировали и оклеили фары защитной плёнкой.",
+  "photo": "/images/works/cases/volkswagen-jetta-biled.webp",
+  "w": 960,
+  "h": 1251,
+  "alt": "Volkswagen Jetta: установили bi-led модули, отполировали и оклеили фары защитной плёнкой"
+ },
+ {
+  "id": "volvo-xc70-biled",
+  "car": "Volvo XC70",
+  "brand": "volvo",
+  "cluster": "biled",
+  "services": [
+   "biled",
+   "zamenaStekla",
+   "polirovkaOkleyka",
+   "uluchsheniyeKachestvaSveta"
+  ],
+  "text": "Установили Bi-Led модули, поставили новые стёкла, оклеили фары защитной плёнкой, доустановили ДХО.",
+  "photo": "/images/works/cases/volvo-xc70-biled.webp",
+  "w": 719,
+  "h": 1280,
+  "alt": "Volvo XC70: установили bi-led модули, поставили новые стёкла, оклеили фары защитной плёнкой, доустановили дхо"
+ },
+ {
+  "id": "volkswagen-passat-polirovka",
+  "car": "Volkswagen Passat",
+  "brand": "volkswagen",
+  "cluster": "polirovka",
+  "services": [
+   "polirovkaOkleyka"
+  ],
+  "text": "Отполировали и оклеили фары защитной плёнкой.",
+  "photo": "/images/works/cases/volkswagen-passat-polirovka.webp",
+  "w": 719,
+  "h": 1280,
+  "alt": "Volkswagen Passat: отполировали и оклеили фары защитной плёнкой"
+ },
+ {
+  "id": "bmw-g20-zapotevanie-2",
+  "car": "BMW G20",
+  "brand": "bmw",
+  "cluster": "zapotevanie",
+  "services": [
+   "zapotevaniye"
+  ],
+  "text": "Устранили запотевание фары.",
+  "photo": "/images/works/cases/bmw-g20-zapotevanie-2.webp",
+  "w": 960,
+  "h": 960,
+  "alt": "BMW G20: устранили запотевание фары"
+ },
+ {
+  "id": "bmw-g30-dho-3",
+  "car": "BMW G30",
+  "brand": "bmw",
+  "cluster": "dho",
+  "services": [
+   "remontLed"
+  ],
+  "text": "Пересветили ДХО в оранжевый цвет.",
+  "photo": "/images/works/cases/bmw-g30-dho-3.webp",
+  "w": 590,
+  "h": 1280,
+  "alt": "BMW G30: пересветили дхо в оранжевый цвет"
+ },
+ {
+  "id": "dodge-challenger-biled-3",
+  "car": "Dodge Challenger",
+  "brand": null,
+  "cluster": "biled",
+  "services": [
+   "biled",
+   "polirovkaOkleyka"
+  ],
+  "text": "Установили Bi-Led модули, отполировали и оклеили фары защитной плёнкой.",
+  "photo": "/images/works/cases/dodge-challenger-biled-3.webp",
+  "w": 719,
+  "h": 1280,
+  "alt": "Dodge Challenger: установили bi-led модули, отполировали и оклеили фары защитной плёнкой"
+ }
+]

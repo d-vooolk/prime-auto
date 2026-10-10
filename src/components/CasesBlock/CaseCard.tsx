@@ -11,7 +11,10 @@ const CaseCard = ({item, headingLevel = 3}: {item: WorkCase; headingLevel?: 2 | 
     return (
         <article className="case-card" data-services={item.services.join(" ")}>
             {photo ? (
-                <Image src={photo.src} alt={photo.alt} width={800} height={800} sizes="(max-width: 768px) 100vw, 400px" className="case-card-photo" />
+                <div className="case-card-media">
+                    <Image src={photo.src} alt={photo.alt} width={800} height={1000} sizes="(max-width: 768px) 100vw, 400px" className="case-card-photo" />
+                    {item.illustration && <span className="case-card-badge">Иллюстрация</span>}
+                </div>
             ) : (
                 <div className="case-card-nophoto" aria-hidden="true">
                     <span>{item.car}</span>

@@ -1,6 +1,6 @@
 'use client'
 
-import React from "react";
+import React, {useState} from "react";
 import Link from "next/link";
 import {usePathname} from "next/navigation";
 import {NAVIGATION, NAVIGATION_URL} from "../../../constants/navigation.js";
@@ -39,6 +39,17 @@ const ServicesPanel = ({className, closeMenu}) => (
 
 const NavigateBar = ({closeMenu, variant = 'plain'}) => {
     const pathname = usePathname() ?? '';
+    /*
+      Панель «Услуги» открывается по наведению и фокусу. После клика по пункту
+      страница меняется без перезагрузки, а курсор и фокус остаются на месте —
+      панель висела открытой. Поэтому после клика прячем её, пока курсор не уйдёт.
+    */
+    const [suppressed, setSuppressed] = useState(false);
+    const closeDropdown = () => {
+        setSuppressed(true);
+        document.activeElement?.blur?.();
+        closeMenu?.();
+    };
 
     return (
         <ul>
@@ -48,12 +59,13 @@ const NavigateBar = ({closeMenu, variant = 'plain'}) => {
                 return (
                     <li
                         key={navItem.url}
-                        className={[hasPanel ? 'nav-has-dropdown' : '', active ? 'nav-active' : ''].join(' ').trim() || undefined}
+                        className={[hasPanel ? 'nav-has-dropdown' : '', active ? 'nav-active' : '', hasPanel && suppressed ? 'nav-suppressed' : ''].join(' ').trim() || undefined}
+                        onMouseLeave={hasPanel ? () => setSuppressed(false) : undefined}
                     >
                         <Link
                             href={navItem.url}
                             aria-current={pathname === navItem.url ? 'page' : undefined}
-                            onClick={() => closeMenu?.()}
+                            onClick={() => (hasPanel && variant === 'desktop' ? closeDropdown() : closeMenu?.())}
                         >
                             {navItem.title}
                             {hasPanel && variant === 'desktop' && (
@@ -65,7 +77,7 @@ const NavigateBar = ({closeMenu, variant = 'plain'}) => {
                         {hasPanel && (
                             <ServicesPanel
                                 className={variant === 'desktop' ? 'nav-dropdown' : 'mobile-subnav'}
-                                closeMenu={closeMenu}
+                                closeMenu={variant === 'desktop' ? closeDropdown : closeMenu}
                             />
                         )}
                     </li>

@@ -119,6 +119,13 @@
     transition: opacity .2s ease, transform .2s ease, visibility 0s;
 }
 
+/* после клика по пункту — спрятана, пока курсор не уйдёт (NavigateBar.jsx) */
+.nav-has-dropdown.nav-suppressed .nav-dropdown {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+
 .nav-dropdown .nav-group {
     padding: 24px 26px 18px;
     min-width: 200px;
