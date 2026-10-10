@@ -1,6 +1,6 @@
 'use client'
 
-import React, {useEffect, useRef} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import './styles.css';
 import '@/components/FormBlock/styles.css';
 import Form from "@/components/_HelperComponents/Form/Form.jsx";
@@ -8,8 +8,12 @@ import {trackConversion} from "@/utils/conversions";
 
 export const OPEN_LEAD_EVENT = 'prime:open-lead';
 
-/** Открыть попап заявки из любого места (кнопки на первом экране, в шапке услуги, внизу на телефоне) */
-export const openLeadModal = () => window.dispatchEvent(new Event(OPEN_LEAD_EVENT));
+/**
+ * Открыть попап заявки из любого места (кнопки на первом экране, в шапке услуги,
+ * внизу на телефоне). message — готовый текст комментария (подбор «Что с фарой?»).
+ */
+export const openLeadModal = (message?: string) =>
+    window.dispatchEvent(new CustomEvent(OPEN_LEAD_EVENT, {detail: {message: message ?? ""}}));
 
 /**
  * Попап с формой заявки. Один на весь сайт — лежит в layout и открывается по
@@ -19,9 +23,13 @@ export const openLeadModal = () => window.dispatchEvent(new Event(OPEN_LEAD_EVEN
  */
 const LeadModal = () => {
     const ref = useRef<HTMLDialogElement>(null);
+    // ключ пересоздаёт форму, чтобы подставить новый текст; без текста форма не сбрасывается
+    const [prefill, setPrefill] = useState({key: 0, message: ""});
 
     useEffect(() => {
-        const open = () => {
+        const open = (event: Event) => {
+            const message = (event as CustomEvent<{message?: string}>).detail?.message ?? "";
+            if (message) setPrefill((current) => ({key: current.key + 1, message}));
             ref.current?.showModal();
             trackConversion("lead_open");
         };
@@ -46,7 +54,7 @@ const LeadModal = () => {
                 <p className="lead-modal-text">
                     Опишите, что с фарами, — перезвоним, подскажем по работе и цене и запишем на удобное время.
                 </p>
-                <Form />
+                <Form key={prefill.key} initialMessage={prefill.message} />
             </div>
         </dialog>
     );

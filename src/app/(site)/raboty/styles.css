@@ -1,0 +1,58 @@
+.cases-page {
+    background-image: url("../../../../public/images/noise-background.webp");
+    background-color: var(--light-gray-background);
+    padding: 140px var(--gutter) 100px;
+    box-sizing: border-box;
+}
+
+.cases-page .breadcrumbs li a {
+    color: var(--base-dark);
+}
+
+.cases-page .breadcrumbs {
+    margin: 0;
+}
+
+.cases-page-h1 {
+    margin: 20px 0 16px;
+    text-transform: uppercase;
+    font-family: Montserrat, sans-serif;
+    font-weight: 800;
+    font-size: clamp(30px, 3.6vw, 48px);
+    line-height: 115%;
+    color: var(--base-dark);
+}
+
+.cases-page-lead {
+    max-width: 820px;
+    margin: 0 0 20px;
+    font-family: Inter, sans-serif;
+    font-size: 17px;
+    line-height: 160%;
+    font-weight: 300;
+    color: var(--base-dark);
+}
+
+.cases-page-cta {
+    margin: 0 0 32px;
+    padding: 18px 28px;
+    border-radius: 31px;
+    border: none;
+    background-color: var(--base-green);
+    color: var(--base-dark);
+    font-family: Inter, sans-serif;
+    font-weight: 700;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.cases-page-cta:hover {
+    background-color: var(--base-dark);
+    color: var(--base-white);
+}
+
+@media (max-width: 768px) {
+    .cases-page {
+        padding: 100px 20px 60px;
+    }
+}

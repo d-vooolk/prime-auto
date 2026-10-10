@@ -277,3 +277,83 @@
     display: flex;
     justify-content: center;
 }
+
+/* --- фото фары в заявке --- */
+.form-photos {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.form-photos-input {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.form-photos-add {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    align-self: flex-start;
+    padding: 14px 18px;
+    border-radius: 10px;
+    border: 1px dashed rgba(38, 38, 38, 0.4);
+    background: var(--base-white);
+    font-family: Inter, sans-serif;
+    font-size: 15px;
+    color: var(--base-dark);
+    cursor: pointer;
+}
+
+.form-photos-add:hover {
+    border-color: var(--base-dark);
+}
+
+.form-photos-add[aria-disabled="true"] {
+    opacity: .5;
+    cursor: default;
+}
+
+.form-photos-input:focus-visible + .form-photos-list,
+.form-photos-add:focus-within {
+    outline: 2px solid var(--base-green);
+}
+
+.form-photos-list {
+    display: flex;
+    gap: 10px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.form-photos-list li {
+    position: relative;
+}
+
+.form-photos-list img {
+    width: 84px;
+    height: 84px;
+    object-fit: cover;
+    border-radius: 10px;
+    display: block;
+}
+
+.form-photos-list button {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    border: none;
+    background: var(--base-dark);
+    color: var(--base-white);
+    font-size: 16px;
+    line-height: 1;
+    cursor: pointer;
+}

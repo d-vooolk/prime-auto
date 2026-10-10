@@ -13,6 +13,8 @@ import JsonLd from "@/components/_HelperComponents/JsonLd/JsonLd";
 import ServiceHero from "@/components/_HelperComponents/ServiceHero/ServiceHero";
 import ServiceAbout from "@/components/_HelperComponents/ServiceAbout/ServiceAbout";
 import {SERVICE_HERO} from "@/constants/serviceHero";
+import CasesBlock from "@/components/CasesBlock/CasesBlock";
+import {casesForBrand} from "@/constants/cases";
 import ReviewsBlock from "@/components/ReviewsBlock/ReviewsBlock";
 import {REVIEW_TOPICS_BY_PATH} from "@/constants/yandexReviews";
 import BrandDetailsBlock from "@/components/_HelperComponents/BrandDetailsBlock/BrandDetailsBlock";
@@ -134,6 +136,12 @@ const BrandServicePage = ({serviceKey, brandSlug}: BrandServicePageProps) => {
             <PriceBlock
                 title={service.priceTitle}
                 priceDataSource={service.priceDataSource}
+            />
+
+            <CasesBlock
+                cases={casesForBrand(brand.slug, service.key)}
+                title={`Наши работы на ${brand.name}`}
+                description={`Машины ${brand.name}, которые были у нас: что было с фарами и что сделали.`}
             />
 
             <ReviewsBlock topics={REVIEW_TOPICS_BY_PATH[service.basePath]} mention={brand.name} />

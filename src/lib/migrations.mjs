@@ -145,6 +145,15 @@ const MIGRATIONS = [
     );
     CREATE INDEX conversions_day ON conversions (day);
     `,
+    // 6 — снимки поисковой статистики (Search Console, Вебмастер, Метрика) раз в сутки:
+    //     scripts/search-collect.mjs, вкладка «Поиск» в админке
+    `
+    CREATE TABLE search_snapshots (
+        day          TEXT PRIMARY KEY,
+        collected_at INTEGER NOT NULL,
+        data         TEXT NOT NULL
+    );
+    `,
 ];
 
 /**

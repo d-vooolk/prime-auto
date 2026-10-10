@@ -61,18 +61,9 @@ export default function RootLayout({children}) {
         <body id="page-start">
         <JsonLd data={[localBusinessJsonLd(), webSiteJsonLd()]} />
 
-        {/* GTM и Метрика поднимаются после первого действия пользователя — см. компонент */}
+        {/* GA4 и Метрика поднимаются после первого действия пользователя — см. компонент */}
         <DeferredAnalytics />
 
-        <noscript>
-            <iframe
-                src="https://www.googletagmanager.com/ns.html?id=GTM-PKL79DZC"
-                height="0"
-                width="0"
-                style={{display: 'none', visibility: 'hidden'}}
-                title="Google Tag Manager"
-            />
-        </noscript>
         <noscript>
             <div>
                 {/* Трекинг-пиксель Метрики для клиентов без JS: next/image прогнал бы его

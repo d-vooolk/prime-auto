@@ -6,6 +6,9 @@ import {imageSize} from "@/lib/article-body";
 import type {ArticleRecord} from "@/lib/articles";
 import {faqJsonLd} from "@/utils/seo";
 import {categoryCover, categoryOf, categoryPath} from "@/constants/articleCategories";
+import {parseArticleBody} from "@/lib/article-body";
+import {SERVICE_HERO} from "@/constants/serviceHero";
+import LeadButton from "@/components/LeadModal/LeadButton";
 
 /** Дата в подписи под заголовком — человекочитаемо, в разметке остаётся ISO */
 export const formatArticleDate = (ms: number) =>
@@ -34,9 +37,49 @@ const ArticleFaq = ({items}: {items: ArticleRecord['faq']}) => {
     );
 };
 
+/* Оглавление: разделы статьи (h2) ссылками на якоря; можно свернуть */
+const ArticleToc = ({body}: {body: string}) => {
+    const items = parseArticleBody(body).filter((block) => block.type === "h2") as {type: "h2"; text: string; id: string}[];
+    if (items.length < 4) return null;
+    return (
+        <details className="article-toc" open>
+            <summary className="article-toc-title">Содержание</summary>
+            <ol>
+                {items.map((item) => (
+                    <li key={item.id}><a href={`#${item.id}`}>{item.text.replace(/\*\*/g, "")}</a></li>
+                ))}
+            </ol>
+        </details>
+    );
+};
+
+/* Карточка услуги рубрики в середине статьи: цена «от», срок и запись */
+const ArticleServiceCard = ({href, title}: {href: string; title: string}) => {
+    const hero = SERVICE_HERO[href];
+    return (
+        <aside className="article-service-card">
+            <div className="article-service-card-label">Не хотите разбираться сами?</div>
+            <div className="article-service-card-title">{title} в Prime Auto</div>
+            {hero && <p className="article-service-card-text">{hero.lead}</p>}
+            {hero && (
+                <ul className="article-service-card-facts">
+                    {hero.facts.slice(0, 2).map((fact) => <li key={fact.label}><b>{fact.value}</b> {fact.label}</li>)}
+                </ul>
+            )}
+            <div className="article-service-card-actions">
+                <LeadButton className="article-service-card-button" message={`Прочитал статью на сайте, интересует: ${title.toLowerCase()}.`}>
+                    Записаться
+                </LeadButton>
+                <Link href={href} className="article-service-card-link">Цены и подробности →</Link>
+            </div>
+        </aside>
+    );
+};
+
 /**
- * Статья: заголовок, обложка, аннотация, текст, вопросы-ответы и ссылки по
- * теме. Одна и та же на сайте и в предпросмотре админки.
+ * Статья: заголовок, обложка, аннотация, оглавление, текст с карточкой услуги
+ * в середине, вопросы-ответы и ссылки по теме. Одна и та же на сайте и в
+ * предпросмотре админки.
  */
 const ArticleView = ({article}: {article: ArticleRecord}) => {
     const category = categoryOf(article);
@@ -70,7 +113,12 @@ const ArticleView = ({article}: {article: ArticleRecord}) => {
 
             {article.excerpt && <p className="article-excerpt">{article.excerpt}</p>}
 
-            <ArticleContent body={article.body} />
+            <ArticleToc body={article.body} />
+
+            <ArticleContent
+                body={article.body}
+                middle={<ArticleServiceCard href={category.service.href} title={category.service.title} />}
+            />
 
             <ArticleFaq items={article.faq} />
 

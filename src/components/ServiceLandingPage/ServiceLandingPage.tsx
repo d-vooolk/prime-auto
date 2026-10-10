@@ -4,6 +4,9 @@ import ServicePageTitleContainer
 import ServiceHero from "@/components/_HelperComponents/ServiceHero/ServiceHero";
 import ServiceAbout from "@/components/_HelperComponents/ServiceAbout/ServiceAbout";
 import {SERVICE_HERO} from "@/constants/serviceHero";
+import CasesBlock from "@/components/CasesBlock/CasesBlock";
+import {casesForService} from "@/constants/cases";
+import {NAVIGATION_URL} from "@/constants/navigation";
 import OurProposalBlock from "@/components/_HelperComponents/OurProposalBlock/OurProposalBlock";
 import PriceBlock from "@/components/_HelperComponents/PriceBlock/PriceBlock";
 import InstallmentBlock from "@/components/InstallmentBlock/InstallmentBlock";
@@ -83,6 +86,9 @@ const ServiceLandingPage = ({
         : [];
 
     const hero = SERVICE_HERO[service.basePath];
+    // ключ услуги в кейсах — имя адреса в NAVIGATION_URL (biled, remont, zamenaStekla…)
+    const caseKey = Object.entries(NAVIGATION_URL).find(([, url]) => url === service.basePath)?.[0];
+    const cases = caseKey ? casesForService(caseKey, 3) : [];
     const breadcrumbs = [...service.trail, {name: service.label, path: service.basePath}];
 
     return (
@@ -125,6 +131,12 @@ const ServiceLandingPage = ({
             <PriceBlock
                 title={priceTitle}
                 priceDataSource={priceDataSource}
+            />
+
+            <CasesBlock
+                cases={cases}
+                title={`${service.label}: наши работы`}
+                description="Конкретные машины — что было и что сделали. Больше примеров — на странице «Наши работы»."
             />
 
             <ReviewsBlock topics={REVIEW_TOPICS_BY_PATH[service.basePath]} />

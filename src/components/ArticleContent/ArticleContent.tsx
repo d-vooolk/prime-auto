@@ -18,9 +18,25 @@ const Inline = ({text}: {text: string}) => (
     </>
 );
 
-const ArticleContent = ({body}: {body: string}) => (
+/**
+ * middle — вставка перед разделом в середине статьи (карточка услуги):
+ * дочитавший до середины уже понял проблему, тут и уместно предложить решение.
+ */
+const ArticleContent = ({body, middle}: {body: string; middle?: React.ReactNode}) => {
+    const blocks = parseArticleBody(body);
+    const h2 = blocks.map((block, index) => (block.type === "h2" ? index : -1)).filter((index) => index >= 0);
+    const middleAt = middle && h2.length >= 4 ? h2[Math.floor(h2.length / 2)] : -1;
+    return (
     <>
-        {parseArticleBody(body).map((block, index) => {
+        {blocks.map((block, index) => {
+            const content = renderBlock(block, index);
+            return index === middleAt ? <React.Fragment key={index}>{middle}{content}</React.Fragment> : content;
+        })}
+    </>
+    );
+};
+
+const renderBlock = (block: ReturnType<typeof parseArticleBody>[number], index: number) => {
             switch (block.type) {
                 case "image": {
                     const size = imageSize(block.src);
@@ -75,8 +91,7 @@ const ArticleContent = ({body}: {body: string}) => (
                         </div>
                     );
             }
-        })}
-    </>
-);
+            return null;
+};
 
 export default ArticleContent;

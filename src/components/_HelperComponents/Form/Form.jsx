@@ -6,22 +6,45 @@ import {sendLeadToBot} from "@/app/api/tg-bot/leads";
 import {GOALS, reachGoal} from "@/utils/analytics";
 import {CONTACTS_DATA} from "@/constants/contactsData";
 import {trackConversion} from "@/utils/conversions";
+import {leadContext, shrinkImage} from "@/utils/leadContext";
+
+const MAX_PHOTOS = 3;
 
 const ERROR_TEXT = `Не получилось отправить заявку. Позвоните нам: ${CONTACTS_DATA.phone1} — или напишите в Telegram.`;
 
 const PHONE_MASK = '+375 (00) 000-00-00';
 const PHONE_PLACEHOLDER = '+375 (__) ___-__-__';
 
-const Form = () => {
+/*
+  initialMessage — текст, которым заполняется комментарий (подбор «Что с фарой?»
+  открывает попап с уже описанной проблемой). Фото фары сжимаются в браузере
+  и уходят вместе с заявкой; к заявке добавляются страница и источник визита.
+*/
+const Form = ({initialMessage = ''}) => {
     // форм на странице может быть две (внизу и в попапе) — id полей должны различаться
     const uid = useId();
     const [formData, setFormData] = useState({
         name: '',
         phone: '',
-        message: '',
+        message: initialMessage,
         agreement: true,
     });
     const [status, setStatus] = useState('');
+    const [photos, setPhotos] = useState([]);
+
+    const addPhotos = async (event) => {
+        const files = [...(event.target.files ?? [])].slice(0, MAX_PHOTOS - photos.length);
+        event.target.value = '';
+        const shrunk = [];
+        for (const file of files) {
+            try {
+                shrunk.push(await shrinkImage(file));
+            } catch {
+                /* не картинка — пропускаем */
+            }
+        }
+        setPhotos((current) => [...current, ...shrunk].slice(0, MAX_PHOTOS));
+    };
 
     const formRef = useRef(null);
     const phoneRef = useRef(null);
@@ -110,7 +133,7 @@ const Form = () => {
         e.preventDefault();
         setStatus('Отправка...');
         try {
-            const response = await sendLeadToBot(formData);
+            const response = await sendLeadToBot({...formData, ...leadContext(), photos});
 
             if (response?.success) {
                 reachGoal(GOALS.lead);
@@ -118,6 +141,7 @@ const Form = () => {
                 setStatus('Данные успешно отправлены!');
                 resetPhoneField();
                 setFormData({ name: '', phone: '', message: '', agreement: false });
+                setPhotos([]);
             } else {
                 setStatus(ERROR_TEXT);
             }
@@ -169,6 +193,33 @@ const Form = () => {
                 value={formData.message}
                 onChange={handleChange}
             />
+
+            <div className="form-photos">
+                <label className="form-photos-add" htmlFor={`${uid}-photos`} aria-disabled={photos.length >= MAX_PHOTOS}>
+                    <span aria-hidden="true">📷</span>
+                    {photos.length ? `Добавить ещё фото (${photos.length}/${MAX_PHOTOS})` : 'Прикрепить фото фары — оценим по фото'}
+                </label>
+                <input
+                    id={`${uid}-photos`}
+                    type="file"
+                    accept="image/*"
+                    multiple
+                    className="form-photos-input"
+                    onChange={addPhotos}
+                    disabled={photos.length >= MAX_PHOTOS}
+                />
+                {photos.length > 0 && (
+                    <ul className="form-photos-list">
+                        {photos.map((src, index) => (
+                            <li key={index}>
+                                {/* eslint-disable-next-line @next/next/no-img-element */}
+                                <img src={src} alt={`Фото ${index + 1}`} />
+                                <button type="button" aria-label="Убрать фото" onClick={() => setPhotos((list) => list.filter((_, i) => i !== index))}>×</button>
+                            </li>
+                        ))}
+                    </ul>
+                )}
+            </div>
 
             <div className="form-confidence-wrapper">
                 <div className="gd">

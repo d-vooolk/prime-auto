@@ -28,6 +28,7 @@ const STATIC_PAGES: SitemapEntry[] = [
     {path: NAVIGATION_URL.price, priority: 0.8, changeFrequency: 'monthly', updated: '2026-09-27'},
     {path: NAVIGATION_URL.reviews, priority: 0.7, changeFrequency: 'weekly', updated: '2026-09-27'},
     {path: NAVIGATION_URL.articles, priority: 0.7, changeFrequency: 'weekly', updated: '2026-09-27'},
+    {path: NAVIGATION_URL.raboty, priority: 0.8, changeFrequency: 'monthly', updated: '2026-10-10'},
     {path: NAVIGATION_URL.contacts, priority: 0.7, changeFrequency: 'monthly', updated: '2026-09-27'},
     {path: NAVIGATION_URL.confidencePolicy, priority: 0.2, changeFrequency: 'yearly', updated: '2026-09-27'},
 ];

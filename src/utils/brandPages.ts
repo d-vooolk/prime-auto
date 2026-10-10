@@ -2,6 +2,7 @@ import type {Metadata} from "next";
 import {CAR_BRANDS, getBrand} from "@/constants/carBrands";
 import {BRAND_SERVICES, getBrandService} from "@/constants/brandServices";
 import {buildMetadata} from "@/utils/seo";
+import {hasPhotoCase} from "@/constants/cases";
 
 export interface BrandRouteParams {
     brand: string;
@@ -35,8 +36,13 @@ const indexedBrandSlugs = new Set(
     CAR_BRANDS.slice(0, INDEXED_BRAND_LIMIT).map((brand) => brand.slug),
 );
 
+/*
+  Плюс пары «услуга + марка», у которых есть кейс с фото (src/constants/cases.ts):
+  настоящая работа на этой марке — то уникальное содержимое, ради которого
+  страницу стоит показывать в поиске.
+*/
 export const isBrandPageIndexed = (serviceKey: string, brandSlug: string): boolean =>
-    INDEXED_SERVICE_KEYS.includes(serviceKey) && indexedBrandSlugs.has(brandSlug);
+    (INDEXED_SERVICE_KEYS.includes(serviceKey) && indexedBrandSlugs.has(brandSlug)) || hasPhotoCase(serviceKey, brandSlug);
 
 export const brandPagePath = (basePath: string, brandSlug: string): string =>
     `${basePath}/${brandSlug}`;

@@ -4,6 +4,7 @@ import {META} from "@/constants/metadata";
 import ServiceHero from "@/components/_HelperComponents/ServiceHero/ServiceHero";
 import ServiceAbout from "@/components/_HelperComponents/ServiceAbout/ServiceAbout";
 import ServicesCatalog from "@/components/ServicesCatalog/ServicesCatalog";
+import HeadlightQuiz from "@/components/HeadlightQuiz/HeadlightQuiz";
 import {PAGE_TITLE_TEXT} from "@/app/(site)/uslugi/constants";
 import {USLUGI_HERO_IMAGE} from "@/constants/serviceHero";
 import InstallmentBlock from "@/components/InstallmentBlock/InstallmentBlock";
@@ -40,6 +41,8 @@ const UslugiPage = () => (
         />
 
         <ServicesCatalog />
+
+        <HeadlightQuiz />
 
         <ServiceAbout title="О мастерской" text={PAGE_TITLE_TEXT.description} />
 

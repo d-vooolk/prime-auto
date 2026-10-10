@@ -175,3 +175,24 @@ export const changePasswordAction = async (current: string, next: string, repeat
     const result = await changePassword(String(current ?? ""), String(next ?? ""));
     return result.ok ? {ok: true, message: "Пароль изменён, остальные сессии закрыты"} : result;
 };
+
+/*
+  «Обновить сейчас» на вкладке «Поиск»: внеочередной запуск того же скрипта,
+  что и cron. Отдельным процессом — сбор идёт до минуты и не должен держать
+  воркер Next. process.execPath — тот же node, что и у сайта (на нём собран
+  better-sqlite3).
+*/
+export const refreshSearchAction = async (): Promise<void> => {
+    await requireAdmin();
+    const {execFile} = await import("node:child_process");
+    const path = await import("node:path");
+    await new Promise<void>((resolve) => {
+        execFile(process.execPath, [path.join(process.cwd(), "scripts", "search-collect.mjs")], {timeout: 180_000}, (error, stdout, stderr) => {
+            if (error) console.error("[search-collect]", error.message, stderr);
+            else console.log("[search-collect]", stdout.trim());
+            resolve();
+        });
+    });
+    const {revalidatePath} = await import("next/cache");
+    revalidatePath("/admin/stats/search");
+};

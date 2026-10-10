@@ -6,6 +6,8 @@ import FormBlock from "@/components/FormBlock/FormBlock";
 import JsonLd from "@/components/_HelperComponents/JsonLd/JsonLd";
 import ArticleView from "@/components/ArticleView/ArticleView";
 import ArticleVote from "@/components/ArticleVote/ArticleVote";
+import Link from "next/link";
+import {articleViewCounts} from "@/lib/stats";
 import {getPublishedArticle, getPublishedArticles, isoDate} from "@/lib/articles";
 import {NAVIGATION_URL} from "@/constants/navigation";
 import {categoryCover, categoryOf, categoryPath} from "@/constants/articleCategories";
@@ -51,6 +53,42 @@ export const generateMetadata = async ({params}: PageProps) => {
     });
 };
 
+/*
+  «Читайте также» — три статьи той же рубрики, самые читаемые (свой счётчик).
+  Если в рубрике мало статей — добираем самыми читаемыми из остальных.
+  Раньше дочитавший до конца упирался в форму заявки и уходил.
+*/
+const ReadMore = ({slug, categorySlug}: {slug: string; categorySlug: string}) => {
+    const views = articleViewCounts();
+    const others = getPublishedArticles()
+        .filter((item) => item.slug !== slug)
+        .sort((a, b) => (views.get(b.slug) ?? 0) - (views.get(a.slug) ?? 0));
+    const picked = [
+        ...others.filter((item) => categoryOf(item).slug === categorySlug),
+        ...others.filter((item) => categoryOf(item).slug !== categorySlug),
+    ].slice(0, 3);
+    if (!picked.length) return null;
+    return (
+        <aside className="article-readmore">
+            <h2 className="article-readmore-title">Читайте также</h2>
+            <ul>
+                {picked.map((item) => {
+                    const cover = item.cover || categoryCover(categoryOf(item).slug);
+                    return (
+                        <li key={item.slug}>
+                            <Link href={`${NAVIGATION_URL.articles}/${item.slug}`} className="article-readmore-card">
+                                {/* eslint-disable-next-line @next/next/no-img-element */}
+                                <img src={cover} alt="" loading="lazy" decoding="async" />
+                                <span>{item.title}</span>
+                            </Link>
+                        </li>
+                    );
+                })}
+            </ul>
+        </aside>
+    );
+};
+
 const ArticlePage = async ({params}: PageProps) => {
     const {slug} = await params;
     const article = getPublishedArticle(slug);
@@ -89,6 +127,7 @@ const ArticlePage = async ({params}: PageProps) => {
                     <Breadcrumbs items={crumbs} />
                     <ArticleView article={article} />
                     <ArticleVote slug={article.slug} />
+                    <ReadMore slug={article.slug} categorySlug={category.slug} />
                 </div>
             </div>
 

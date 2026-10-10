@@ -7,6 +7,7 @@ import InstallmentBlock from "@/components/InstallmentBlock/InstallmentBlock.tsx
 import FaqBlock from "@/components/_HelperComponents/FaqBlock/FaqBlock.tsx";
 import FormBlock from "@/components/FormBlock/FormBlock.jsx";
 import ContactsBlock from "@/components/ContactsBlock/ContactsBlock.jsx";
+import HeadlightQuiz from "@/components/HeadlightQuiz/HeadlightQuiz";
 import {META} from "@/constants/metadata.ts";
 import {HOME_FAQ} from "@/constants/faq.ts";
 import {NAVIGATION_URL} from "@/constants/navigation.js";
@@ -23,6 +24,7 @@ export default function Home() {
       <main>
           <WelcomeBlock/>
           <Services/>
+          <HeadlightQuiz/>
           <AboutCompany/>
           <ReviewsBlock/>
           <Portfolio/>

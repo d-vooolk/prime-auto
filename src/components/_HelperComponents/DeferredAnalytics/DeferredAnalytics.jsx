@@ -1,10 +1,14 @@
 'use client'
 
 import {useEffect} from "react";
-import {METRIKA_ID, goalForLink, reachGoal} from "@/utils/analytics";
+import {GA_ID, METRIKA_ID, goalForLink, reachGoal} from "@/utils/analytics";
 
 /**
- * GTM (345 КБ) и Метрика (90 КБ) вместе давали ~620 мс блокировки основного потока
+ * GTM убран (10.10.2026): в контейнере был чужой счётчик Метрики 99258775, к
+ * которому нет доступа, и GA4. GA4 теперь подключён напрямую тегом gtag —
+ * он втрое легче контейнера, а события те же (см. reachGoal в utils/analytics).
+ *
+ * Раньше GTM (345 КБ) и Метрика (90 КБ) вместе давали ~620 мс блокировки основного потока
  * из ~1200 мс TBT и были главной причиной мобильной оценки в 60 баллов.
  *
  * Поэтому сами скрипты грузятся только после первого действия пользователя.
@@ -13,7 +17,6 @@ import {METRIKA_ID, goalForLink, reachGoal} from "@/utils/analytics";
  * очередь при инициализации.
  */
 
-const GTM_ID = 'GTM-PKL79DZC';
 const METRIKA_SRC = 'https://mc.yandex.ru/metrika/tag.js';
 
 // mousemove/scroll ловят почти любой реальный визит; Lighthouse не делает ничего
@@ -33,8 +36,7 @@ const startAnalytics = () => {
     }
     window.__analyticsStarted = true;
 
-    window.dataLayer.push({'gtm.start': Date.now(), event: 'gtm.js'});
-    injectScript(`https://www.googletagmanager.com/gtm.js?id=${GTM_ID}`);
+    injectScript(`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`);
 
     injectScript(METRIKA_SRC);
 };
@@ -44,6 +46,13 @@ const DeferredAnalytics = () => {
         // Очереди до загрузки: dataLayer — обычный массив, ym — стандартная
         // заглушка из сниппета Метрики.
         window.dataLayer = window.dataLayer || [];
+        if (!window.gtag) {
+            window.gtag = function () {
+                window.dataLayer.push(arguments);
+            };
+            window.gtag('js', new Date());
+            window.gtag('config', GA_ID);
+        }
 
         if (!window.ym) {
             window.ym = function () {

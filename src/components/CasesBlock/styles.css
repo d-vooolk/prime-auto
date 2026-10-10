@@ -1,0 +1,239 @@
+.cases-block {
+    background-image: url("../../../public/images/noise-background.webp");
+    background-color: var(--light-gray-background);
+    padding: 100px var(--gutter) 100px;
+    box-sizing: border-box;
+}
+
+.cases-block-head {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.cases-block-eyebrow {
+    font-family: "Comforter Brush", sans-serif;
+    font-size: 60px;
+    line-height: 100%;
+    color: var(--base-green);
+}
+
+.cases-block-title {
+    text-transform: uppercase;
+    font-family: Montserrat, sans-serif;
+    font-weight: 800;
+    font-size: 40px;
+    line-height: 120%;
+    color: var(--base-dark);
+    margin: 0;
+    position: relative;
+    top: -26px;
+}
+
+.cases-block-description {
+    max-width: 760px;
+    margin: -10px 0 0;
+    font-family: Inter, sans-serif;
+    font-size: 16px;
+    line-height: 155%;
+    font-weight: 300;
+    color: var(--base-dark);
+}
+
+.cases-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+    gap: 18px;
+    align-items: start;
+}
+
+.case-card {
+    display: flex;
+    flex-direction: column;
+    border-radius: 20px;
+    overflow: hidden;
+    background-color: var(--base-white);
+    border: .5px solid rgba(38, 38, 38, 0.12);
+    color: var(--base-dark);
+}
+
+.case-card[hidden] {
+    display: none;
+}
+
+.case-card-photo {
+    display: block;
+    width: 100%;
+    height: auto;
+    /* фото работ квадратные, с подписью машины сверху — не обрезаем */
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+}
+
+.case-card-nophoto {
+    aspect-ratio: 16 / 9;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    box-sizing: border-box;
+    background:
+        radial-gradient(circle at 80% 20%, rgba(162, 219, 0, .35), transparent 50%),
+        linear-gradient(135deg, #2b2b2b, #1c1c1c);
+}
+
+.case-card-nophoto span {
+    font-family: Montserrat, sans-serif;
+    font-weight: 900;
+    font-size: 26px;
+    line-height: 120%;
+    text-align: center;
+    text-transform: uppercase;
+    color: var(--base-white);
+}
+
+.case-card-body {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 20px 22px 22px;
+}
+
+.case-card-car {
+    margin: 0;
+    font-family: Montserrat, sans-serif;
+    font-weight: 800;
+    font-size: 20px;
+    line-height: 125%;
+}
+
+.case-card-title {
+    font-family: Inter, sans-serif;
+    font-weight: 600;
+    font-size: 15px;
+    color: #4d6b00;
+}
+
+.case-card-text {
+    margin: 0;
+    font-family: Inter, sans-serif;
+    font-size: 15px;
+    line-height: 155%;
+    font-weight: 300;
+}
+
+.case-card-services {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin: 4px 0 0;
+    padding: 0;
+    list-style: none;
+}
+
+.case-card-services a {
+    display: inline-flex;
+    padding: 5px 10px;
+    border-radius: 14px;
+    background-color: rgba(162, 219, 0, 0.18);
+    color: var(--base-dark);
+    font-family: Inter, sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    text-decoration: none;
+}
+
+.case-card-services a:hover {
+    background-color: var(--base-green);
+}
+
+.case-card-quote {
+    margin: 6px 0 0;
+    padding: 12px 14px;
+    border-left: 3px solid var(--base-green);
+    background-color: var(--light-gray-background);
+    border-radius: 0 12px 12px 0;
+}
+
+.case-card-quote p {
+    margin: 0 0 6px;
+    font-family: Inter, sans-serif;
+    font-size: 14px;
+    line-height: 150%;
+    font-style: italic;
+}
+
+.case-card-quote-author {
+    font-family: Inter, sans-serif;
+    font-size: 12px;
+    color: var(--base-gray);
+}
+
+.cases-block-more {
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+}
+
+.cases-block-button {
+    display: inline-flex;
+    padding: 18px 30px;
+    border-radius: 31px;
+    border: 1px solid var(--base-dark);
+    color: var(--base-dark);
+    font-family: Inter, sans-serif;
+    font-weight: 600;
+    font-size: 16px;
+    text-decoration: none;
+    transition: all .3s ease;
+}
+
+.cases-block-button:hover {
+    background-color: var(--base-dark);
+    color: var(--base-white);
+}
+
+/* фильтр на странице «Наши работы» */
+.cases-filter {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 0 0 24px;
+    padding: 0;
+    list-style: none;
+}
+
+.cases-filter button {
+    padding: 10px 16px;
+    border-radius: 22px;
+    border: .5px solid rgba(38, 38, 38, 0.25);
+    background: var(--base-white);
+    color: var(--base-dark);
+    font-family: Inter, sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.cases-filter button[aria-pressed="true"] {
+    background: var(--base-dark);
+    border-color: var(--base-dark);
+    color: var(--base-white);
+}
+
+@media (max-width: 768px) {
+    .cases-block {
+        padding: 60px 20px 70px;
+    }
+
+    .cases-block-eyebrow {
+        font-size: 44px;
+    }
+
+    .cases-block-title {
+        font-size: 28px;
+        top: -18px;
+    }
+}

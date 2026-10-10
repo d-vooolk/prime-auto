@@ -3,6 +3,7 @@
 import {useEffect, useRef} from "react";
 import {usePathname} from "next/navigation";
 import {conversionForLink, trackConversion} from "@/utils/conversions";
+import {rememberEntry} from "@/utils/leadContext";
 
 const ENTRY_KEY = 'prime-pv-entry';
 
@@ -32,6 +33,9 @@ const PageViewTracker = () => {
                 utmCampaign: params.get('utm_campaign') ?? '',
             } : {}),
         };
+        if (entry) {
+            rememberEntry(document.referrer, [params.get('utm_source'), params.get('utm_medium'), params.get('utm_campaign')].filter(Boolean).join(' / '));
+        }
         sessionStorage.setItem(ENTRY_KEY, '1');
         previous.current = pathname;
 

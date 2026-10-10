@@ -6,6 +6,7 @@ export const NAVIGATION_URL = {
     reviews: '/otzyvy',
     uslugi: '/uslugi',
     articles: '/stati',
+    raboty: '/raboty',
     polirovkaOkleyka: '/uslugi/polirovka-i-okleyka-far',
     remont: '/uslugi/remont-far',
     zamenaStekla: '/uslugi/remont-far/zamena-stekla-fary',
@@ -43,6 +44,7 @@ export const breadcrumbLabels = {
     [NAVIGATION_URL.contacts]: "Контакты",
     [NAVIGATION_URL.reviews]: "Отзывы",
     [NAVIGATION_URL.articles]: "Статьи",
+    [NAVIGATION_URL.raboty]: "Наши работы",
     [NAVIGATION_URL.biled]: "Установка Bi-Led модулей в фары",
     [NAVIGATION_URL.confidencePolicy]: "Политика конфиденциальности",
 };
@@ -66,7 +68,7 @@ export const NAVIGATION = [
     },
     {
         title: 'Работы',
-        url: NAVIGATION_URL_ANCHORS.portfolio,
+        url: NAVIGATION_URL.raboty,
     },
     {
         title: 'Контакты',

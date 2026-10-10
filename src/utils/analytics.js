@@ -1,4 +1,6 @@
 export const METRIKA_ID = 103843698;
+/* GA4 — подключается напрямую (раньше через GTM) */
+export const GA_ID = 'G-GLSYGY5T6Y';
 
 /*
   Идентификаторы целей типа «JavaScript-событие». В счётчике цели заводятся
@@ -22,12 +24,27 @@ const LINK_GOALS = [
     [/^https?:\/\/(www\.)?instagram\.com\//i, GOALS.instagram],
 ];
 
-/* До загрузки tag.js вызов ложится в очередь заглушки ym и уходит после init */
+/* События GA4 — те же имена, что были настроены в GTM, чтобы отчёты не разорвались */
+const GA_EVENTS = {
+    [GOALS.lead]: 'form_send',
+    [GOALS.phone]: 'click_number',
+    [GOALS.telegram]: 'click_messengers',
+    [GOALS.viber]: 'click_messengers',
+    [GOALS.whatsapp]: 'click_messengers',
+    [GOALS.instagram]: 'click_social',
+};
+
+/* До загрузки tag.js вызов ложится в очередь заглушки ym и уходит после init; с gtag так же */
 export const reachGoal = (goal) => {
-    if (typeof window === 'undefined' || typeof window.ym !== 'function') {
+    if (typeof window === 'undefined') {
         return;
     }
-    window.ym(METRIKA_ID, 'reachGoal', goal);
+    if (typeof window.ym === 'function') {
+        window.ym(METRIKA_ID, 'reachGoal', goal);
+    }
+    if (typeof window.gtag === 'function' && GA_EVENTS[goal]) {
+        window.gtag('event', GA_EVENTS[goal], {event_label: goal});
+    }
 };
 
 export const goalForLink = (href) => LINK_GOALS.find(([pattern]) => pattern.test(href))?.[1] ?? null;

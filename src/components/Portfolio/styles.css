@@ -252,3 +252,28 @@
         top: 26px;
     }
 }
+
+.portfolio-more {
+    position: relative;
+    z-index: 6;
+    display: flex;
+    justify-content: center;
+    padding: 24px 0 0;
+}
+
+.portfolio-more-link {
+    display: inline-flex;
+    padding: 16px 26px;
+    border-radius: 31px;
+    background-color: var(--base-green);
+    color: var(--base-dark);
+    font-family: Inter, sans-serif;
+    font-weight: 700;
+    font-size: 15px;
+    text-decoration: none;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+}
+
+.portfolio-more-link:hover {
+    background-color: var(--base-white);
+}

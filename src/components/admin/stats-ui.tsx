@@ -40,23 +40,27 @@ export const Bar = ({value, max}: {value: number; max: number}) => (
 );
 
 /** Заголовок раздела статистики: вкладки «Просмотры / Конверсии» и период */
-export const StatsHeader = ({tab, days}: {tab: "views" | "conversions"; days: number}) => {
-    const base = tab === "views" ? "/admin/stats" : "/admin/stats/conversions";
+const TAB_TITLES = {views: "Популярное", conversions: "Конверсии", search: "Поиск"} as const;
+
+export const StatsHeader = ({tab, days}: {tab: keyof typeof TAB_TITLES; days?: number}) => {
+    const base = tab === "views" ? "/admin/stats" : `/admin/stats/${tab}`;
+    const d = days ?? 30;
     return (
         <>
             <div className="a-tabs" style={{marginBottom: 12}}>
-                <Link href={`/admin/stats?d=${days}`} className={`a-tab${tab === "views" ? " a-tab-active" : ""}`}>Просмотры</Link>
-                <Link href={`/admin/stats/conversions?d=${days}`} className={`a-tab${tab === "conversions" ? " a-tab-active" : ""}`}>Конверсии</Link>
+                <Link href={`/admin/stats?d=${d}`} className={`a-tab${tab === "views" ? " a-tab-active" : ""}`}>Просмотры</Link>
+                <Link href={`/admin/stats/conversions?d=${d}`} className={`a-tab${tab === "conversions" ? " a-tab-active" : ""}`}>Конверсии</Link>
+                <Link href="/admin/stats/search" className={`a-tab${tab === "search" ? " a-tab-active" : ""}`}>Поиск</Link>
             </div>
             <div className="a-row" style={{justifyContent: "space-between", marginBottom: 16}}>
-                <h1 className="a-h1" style={{margin: 0}}>{tab === "views" ? "Популярное" : "Конверсии"}</h1>
-                <div className="a-tabs">
+                <h1 className="a-h1" style={{margin: 0}}>{TAB_TITLES[tab]}</h1>
+                {days !== undefined && <div className="a-tabs">
                     {PERIODS.map((period) => (
                         <Link key={period} href={`${base}?d=${period}`} className={`a-tab${period === days ? " a-tab-active" : ""}`}>
                             {period === 365 ? "Год" : `${period} дней`}
                         </Link>
                     ))}
-                </div>
+                </div>}
             </div>
         </>
     );
