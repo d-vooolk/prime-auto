@@ -1,7 +1,7 @@
 .brand-details-wrapper {
     background-image: url("../../../../public/images/noise-background.webp");
     background-color: var(--base-white);
-    padding: 100px 353px 120px;
+    padding: 100px var(--gutter) 120px;
     box-sizing: border-box;
     width: 100%;
 }
@@ -81,6 +81,6 @@
 
 @media (min-width: 769px) and (max-width: 1700px) {
     .brand-details-wrapper {
-        padding: 100px 220px 120px;
+        padding: 100px var(--gutter) 120px;
     }
 }

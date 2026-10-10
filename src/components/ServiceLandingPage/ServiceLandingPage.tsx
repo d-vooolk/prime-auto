@@ -1,6 +1,9 @@
 import React from "react";
 import ServicePageTitleContainer
     from "@/components/_HelperComponents/ServicePageTitleContainer/ServicePageTitleContainer";
+import ServiceHero from "@/components/_HelperComponents/ServiceHero/ServiceHero";
+import ServiceAbout from "@/components/_HelperComponents/ServiceAbout/ServiceAbout";
+import {SERVICE_HERO} from "@/constants/serviceHero";
 import OurProposalBlock from "@/components/_HelperComponents/OurProposalBlock/OurProposalBlock";
 import PriceBlock from "@/components/_HelperComponents/PriceBlock/PriceBlock";
 import InstallmentBlock from "@/components/InstallmentBlock/InstallmentBlock";
@@ -79,6 +82,9 @@ const ServiceLandingPage = ({
         }))
         : [];
 
+    const hero = SERVICE_HERO[service.basePath];
+    const breadcrumbs = [...service.trail, {name: service.label, path: service.basePath}];
+
     return (
         <main className="light-quality-page-wrapper">
             <JsonLd
@@ -94,13 +100,23 @@ const ServiceLandingPage = ({
                 })}
             />
 
-            <ServicePageTitleContainer
-                headText={headText}
-                description={description}
-                breadcrumbs={[...service.trail, {name: service.label, path: service.basePath}]}
-            />
+            {hero ? (
+                <ServiceHero
+                    title={headText}
+                    lead={hero.lead}
+                    facts={hero.facts}
+                    image={hero.image}
+                    imageAlt={hero.imageAlt}
+                    breadcrumbs={breadcrumbs}
+                    servicePath={service.basePath}
+                />
+            ) : (
+                <ServicePageTitleContainer headText={headText} description={description} breadcrumbs={breadcrumbs} />
+            )}
 
             <OurProposalBlock list={proposalList} />
+
+            {hero && <ServiceAbout text={description} />}
 
             {beforeAfter && beforeAfter.photos.length > 0 && (
                 <BeforeAfterBlock title={beforeAfter.title} photos={beforeAfter.photos} eyebrow={beforeAfter.eyebrow} />

@@ -28,6 +28,13 @@ export interface ArticleCategory {
     match: RegExp;
 }
 
+/*
+  Обложка рубрики — у статей без своей обложки (в списке, на странице статьи
+  и в превью для соцсетей). Картинки сгенерированы, лежат в public/images/stati,
+  размер — в имени файла, его читает imageSize().
+*/
+export const categoryCover = (slug: string) => `/images/stati/${slug}-1200x678.webp`;
+
 export const ARTICLE_CATEGORIES: ArticleCategory[] = [
     {
         slug: 'zapotevanie-i-germetichnost',

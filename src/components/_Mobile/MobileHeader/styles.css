@@ -5,9 +5,12 @@
     padding: 20px;
     box-sizing: border-box;
     position: fixed;
-    width: 100vw;
-    z-index: 999;
-    background-color: rgba(255, 255, 255, 0.3);
+    width: 100%;
+    left: 0;
+    top: 0;
+    backdrop-filter: blur(8px);
+    z-index: 9000; /* открытое меню — поверх кнопок связи и нижней панели */
+    background-color: rgba(245, 245, 245, 0.88); /* плотнее, чем было (0.3): на тёмных страницах услуг шапка серела и телефон не читался */
 }
 
 .mobile-header-buttons-wrapper {
@@ -25,14 +28,17 @@
     width: 100%;
     box-sizing: border-box;
     z-index: 999;
-    height: 100vh;
+    height: calc(100vh - 70px);
+    height: calc(100dvh - 70px);
+    overflow-y: auto;
+    overscroll-behavior: contain;
 }
 
 .mobile-nav {
     box-sizing: border-box;
 }
 
-.mobile-nav ul {
+.mobile-nav > ul {
     list-style: none;
     padding: 0;
     margin: 0;
@@ -40,7 +46,7 @@
     flex-direction: column;
 }
 
-.mobile-nav ul li {
+.mobile-nav > ul > li {
     padding: 20px;
     box-sizing: border-box;
     border-width: 0 0 .5px;
@@ -51,6 +57,47 @@
 .mobile-nav ul li a {
     color: var(--base-white);
     text-decoration: none;
+}
+
+.mobile-nav > ul > li.nav-active > a {
+    color: var(--base-green);
+    font-weight: 600;
+}
+
+/* услуги списком под пунктом «Услуги» */
+.mobile-subnav {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-top: 16px;
+    padding-left: 14px;
+    border-left: 2px solid rgba(162, 219, 0, 0.5);
+}
+
+.mobile-subnav .nav-group-title {
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: .05em;
+    color: var(--gray-on-dark);
+    margin-bottom: 8px;
+}
+
+.mobile-subnav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.mobile-subnav ul a {
+    font-size: 15px;
+}
+
+.mobile-subnav .nav-group-all {
+    color: var(--base-green) !important;
+    font-size: 14px;
 }
 
 .mobile-header-contacts {
@@ -71,7 +118,8 @@
     color: var(--base-white);
     text-decoration: none;
 }
-@media (max-width: 768px) {
+/* мобильная шапка с бургером — до 1100 px, см. Header/styles.css */
+@media (max-width: 1100px) {
     .mobile-header {
         display: flex;
     }

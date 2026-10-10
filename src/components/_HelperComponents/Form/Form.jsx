@@ -1,6 +1,6 @@
 'use client'
 
-import React, {useCallback, useEffect, useRef, useState} from "react";
+import React, {useCallback, useEffect, useId, useRef, useState} from "react";
 import {formBlockText} from "@/components/FormBlock/FormBlock.jsx";
 import {sendLeadToBot} from "@/app/api/tg-bot/leads";
 import {GOALS, reachGoal} from "@/utils/analytics";
@@ -9,6 +9,8 @@ const PHONE_MASK = '+375 (00) 000-00-00';
 const PHONE_PLACEHOLDER = '+375 (__) ___-__-__';
 
 const Form = () => {
+    // форм на странице может быть две (внизу и в попапе) — id полей должны различаться
+    const uid = useId();
     const [formData, setFormData] = useState({
         name: '',
         phone: '',
@@ -129,7 +131,7 @@ const Form = () => {
             <input
                 className="form-input"
                 type="text"
-                id="lead-name"
+                id={`${uid}-name`}
                 aria-label="Ваше имя"
                 placeholder="Представьтесь, пожалуйста"
                 name="name"
@@ -143,7 +145,7 @@ const Form = () => {
                 type="tel"
                 inputMode="tel"
                 autoComplete="tel"
-                id="lead-phone"
+                id={`${uid}-phone`}
                 aria-label="Номер телефона"
                 placeholder={PHONE_PLACEHOLDER}
                 name="phone"
@@ -155,7 +157,7 @@ const Form = () => {
             <textarea
                 className="form-input"
                 rows={5}
-                id="lead-message"
+                id={`${uid}-message`}
                 aria-label="Ваш комментарий"
                 placeholder="Ваш комментарий"
                 name="message"
@@ -164,14 +166,14 @@ const Form = () => {
             />
 
             <div className="form-confidence-wrapper">
-                <div id="container" className="gd">
+                <div className="gd">
                     <div className="toggle-button-container">
                         <div className="toggle-button gd">
-                            <div className="btn btn-pill" id="button-1">
+                            <div className="btn btn-pill btn-toggle">
                                 <input
                                     type="checkbox"
                                     className="checkbox"
-                                    id="agreement-checkbox"
+                                    id={`${uid}-agreement`}
                                     name="agreement"
                                     checked={formData.agreement}
                                     onChange={handleChange}
@@ -186,7 +188,7 @@ const Form = () => {
 
                 {/* Переключатель нарисован через :before у .knob, поэтому у самого
                     input нет видимой подписи — привязываем к нему текст согласия. */}
-                <label className="form-confidence-label" htmlFor="agreement-checkbox">
+                <label className="form-confidence-label" htmlFor={`${uid}-agreement`}>
                     {formBlockText.confidence}
                 </label>
             </div>

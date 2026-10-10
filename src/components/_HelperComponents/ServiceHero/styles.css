@@ -1,0 +1,270 @@
+.service-hero {
+    background-color: var(--base-dark);
+    background-image: radial-gradient(ellipse at 85% 30%, rgba(162, 219, 0, 0.12), transparent 55%);
+    color: var(--base-white);
+    padding: 130px var(--gutter) 0;
+    box-sizing: border-box;
+}
+
+.service-hero-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+    gap: 48px;
+    align-items: center;
+    padding-bottom: 48px;
+}
+
+.service-hero-text {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+}
+
+.service-hero .breadcrumbs {
+    margin: 0;
+}
+
+.service-hero .breadcrumbs li a {
+    color: var(--base-white);
+}
+
+.service-hero .breadcrumbs li.current {
+    white-space: normal;
+}
+
+.service-hero-title {
+    margin: 0;
+    font-family: Montserrat, sans-serif;
+    font-weight: 800;
+    font-size: clamp(30px, 3.2vw, 48px);
+    line-height: 115%;
+}
+
+.service-hero-lead {
+    margin: 0;
+    font-family: Inter, sans-serif;
+    font-size: 18px;
+    line-height: 155%;
+    font-weight: 300;
+    color: #d6d6d6;
+    max-width: 600px;
+}
+
+.service-hero-facts {
+    list-style: none;
+    margin: 4px 0 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 10px;
+    width: 100%;
+    max-width: 620px;
+}
+
+.service-hero-fact {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 16px;
+    border-radius: 16px;
+    background-color: var(--black-dark-cards);
+    border: .5px solid rgba(168, 168, 168, 0.3);
+}
+
+.service-hero-fact-value {
+    font-family: Montserrat, sans-serif;
+    font-weight: 800;
+    font-size: 20px;
+    line-height: 120%;
+    color: var(--base-green);
+}
+
+.service-hero-fact-label {
+    font-family: Inter, sans-serif;
+    font-size: 13px;
+    line-height: 140%;
+    font-weight: 300;
+    color: var(--gray-light);
+}
+
+.service-hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 4px;
+}
+
+.service-hero-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 18px 28px;
+    border-radius: 31px;
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    background: transparent;
+    color: var(--base-white);
+    font-family: Inter, sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all .3s ease;
+}
+
+.service-hero-button:hover {
+    background-color: var(--base-white);
+    color: var(--base-dark);
+}
+
+.service-hero-button--primary {
+    background-color: var(--base-green);
+    border-color: var(--base-green);
+    color: var(--base-dark);
+}
+
+.service-hero-button--primary:hover {
+    background-color: var(--base-white);
+    border-color: var(--base-white);
+}
+
+.service-hero-image {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    border-radius: 24px;
+    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.5), 0 0 0 .5px rgba(168, 168, 168, 0.3);
+}
+
+/* --- вкладки услуг группы --- */
+
+.service-tabs {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 18px 0;
+    border-top: .5px solid rgba(168, 168, 168, 0.25);
+}
+
+.service-tabs-title {
+    flex: none;
+    font-family: Inter, sans-serif;
+    font-size: 14px;
+    color: var(--gray-light);
+}
+
+.service-tabs ul {
+    display: flex;
+    gap: 8px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    overflow-x: auto;
+    scrollbar-width: none;
+}
+
+.service-tabs ul::-webkit-scrollbar {
+    display: none;
+}
+
+.service-tab {
+    display: inline-flex;
+    white-space: nowrap;
+    padding: 10px 16px;
+    border-radius: 22px;
+    border: .5px solid rgba(168, 168, 168, 0.4);
+    font-family: Inter, sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--base-white);
+    text-decoration: none;
+    transition: all .25s ease;
+}
+
+a.service-tab:hover {
+    border-color: var(--base-green);
+    color: var(--base-green);
+}
+
+.service-tab--active {
+    background-color: var(--base-green);
+    border-color: var(--base-green);
+    color: var(--base-dark);
+}
+
+.service-tab--all {
+    border-color: transparent;
+    color: var(--gray-light);
+}
+
+/* планшет: колонка, фото под текстом, не во всю ширину */
+@media (max-width: 1100px) {
+    .service-hero-grid {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 28px;
+    }
+
+    .service-hero-media {
+        max-width: 640px;
+    }
+}
+
+@media (max-width: 768px) {
+    .service-hero {
+        padding-top: 100px;
+    }
+
+    .service-hero-grid {
+        padding-bottom: 28px;
+    }
+
+    .service-hero-lead {
+        font-size: 16px;
+    }
+
+    .service-hero-facts {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 8px;
+    }
+
+    .service-hero-fact {
+        flex-direction: row;
+        align-items: baseline;
+        gap: 10px;
+        padding: 12px 14px;
+    }
+
+    .service-hero-fact-value {
+        flex: none;
+        font-size: 17px;
+    }
+
+    .service-hero-actions {
+        width: 100%;
+        flex-direction: column;
+    }
+
+    .service-hero-button {
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .service-hero-image {
+        aspect-ratio: 16 / 10;
+        border-radius: 18px;
+    }
+
+    .service-tabs {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+        margin: 0 -20px;
+        padding: 16px 20px;
+    }
+
+    .service-tabs ul {
+        width: 100%;
+    }
+}

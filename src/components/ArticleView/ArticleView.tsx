@@ -5,7 +5,7 @@ import JsonLd from "@/components/_HelperComponents/JsonLd/JsonLd";
 import {imageSize} from "@/lib/article-body";
 import type {ArticleRecord} from "@/lib/articles";
 import {faqJsonLd} from "@/utils/seo";
-import {categoryOf, categoryPath} from "@/constants/articleCategories";
+import {categoryCover, categoryOf, categoryPath} from "@/constants/articleCategories";
 
 /** Дата в подписи под заголовком — человекочитаемо, в разметке остаётся ISO */
 export const formatArticleDate = (ms: number) =>
@@ -39,8 +39,10 @@ const ArticleFaq = ({items}: {items: ArticleRecord['faq']}) => {
  * теме. Одна и та же на сайте и в предпросмотре админки.
  */
 const ArticleView = ({article}: {article: ArticleRecord}) => {
-    const cover = article.cover ? imageSize(article.cover) : null;
     const category = categoryOf(article);
+    // без своей обложки — обложка рубрики (декоративная, поэтому пустой alt)
+    const coverSrc = article.cover || categoryCover(category.slug);
+    const cover = imageSize(coverSrc);
     return (
         <article className="article-body">
             <h1 className="article-h1">{article.title}</h1>
@@ -52,13 +54,13 @@ const ArticleView = ({article}: {article: ArticleRecord}) => {
                 <Link href={categoryPath(category.slug)} className="article-meta-category">{category.name}</Link>
             </p>
 
-            {article.cover && (
+            {coverSrc && (
                 <figure className="article-cover">
                     {/* обложка — первый экран, поэтому без lazy и с высоким приоритетом */}
                     {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img
-                        src={article.cover}
-                        alt={article.coverAlt || article.title}
+                        src={coverSrc}
+                        alt={article.cover ? (article.coverAlt || article.title) : ''}
                         width={cover?.width}
                         height={cover?.height}
                         fetchPriority="high"

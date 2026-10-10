@@ -10,6 +10,9 @@ import LinksCloudBlock from "@/components/_HelperComponents/LinksCloudBlock/Link
 import Portfolio from "@/components/Portfolio/Portfolio";
 import FormBlock from "@/components/FormBlock/FormBlock";
 import JsonLd from "@/components/_HelperComponents/JsonLd/JsonLd";
+import ServiceHero from "@/components/_HelperComponents/ServiceHero/ServiceHero";
+import ServiceAbout from "@/components/_HelperComponents/ServiceAbout/ServiceAbout";
+import {SERVICE_HERO} from "@/constants/serviceHero";
 import ReviewsBlock from "@/components/ReviewsBlock/ReviewsBlock";
 import {REVIEW_TOPICS_BY_PATH} from "@/constants/yandexReviews";
 import BrandDetailsBlock from "@/components/_HelperComponents/BrandDetailsBlock/BrandDetailsBlock";
@@ -71,6 +74,13 @@ const BrandServicePage = ({serviceKey, brandSlug}: BrandServicePageProps) => {
             href: brandPagePath(service.basePath, item.slug),
         }));
 
+    const hero = SERVICE_HERO[service.basePath];
+    const breadcrumbs = [
+        ...service.trail,
+        {name: service.label, path: service.basePath},
+        {name: brand.name, path},
+    ];
+
     return (
         <main className="light-quality-page-wrapper">
             <JsonLd
@@ -86,17 +96,31 @@ const BrandServicePage = ({serviceKey, brandSlug}: BrandServicePageProps) => {
                 })}
             />
 
-            <ServicePageTitleContainer
-                headText={service.h1(brand)}
-                description={service.intro(brand)}
-                list={service.bullets}
-                currentLabel={brand.name}
-                breadcrumbs={[
-                    ...service.trail,
-                    {name: service.label, path: service.basePath},
-                    {name: brand.name, path},
-                ]}
-            />
+            {hero ? (
+                <>
+                    {/* фото и факты — общие с родительской услугой, текст — свой для марки */}
+                    <ServiceHero
+                        title={service.h1(brand)}
+                        lead={service.intro(brand)}
+                        facts={hero.facts}
+                        image={hero.image}
+                        imageAlt={hero.imageAlt}
+                        breadcrumbs={breadcrumbs}
+                        servicePath={service.basePath}
+                    />
+                    {service.bullets?.length ? (
+                        <ServiceAbout title={`Что входит: ${service.label.toLowerCase()} ${brand.name}`} list={service.bullets} />
+                    ) : null}
+                </>
+            ) : (
+                <ServicePageTitleContainer
+                    headText={service.h1(brand)}
+                    description={service.intro(brand)}
+                    list={service.bullets}
+                    currentLabel={brand.name}
+                    breadcrumbs={breadcrumbs}
+                />
+            )}
 
             {details && (
                 <BrandDetailsBlock

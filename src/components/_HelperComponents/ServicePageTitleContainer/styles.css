@@ -7,7 +7,7 @@
     gap: 20px;
     background-color: var(--base-dark);
     color: var(--base-white);
-    padding: 200px 353px 80px;
+    padding: 200px var(--gutter) 80px;
     box-sizing: border-box;
 }
 

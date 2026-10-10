@@ -6,6 +6,8 @@ import Header from "@/components/Header/Header.jsx";
 import MobileHeader from "@/components/_Mobile/MobileHeader/MobileHeader.jsx";
 import FastUp from "@/components/_HelperComponents/FastUp/FastUp.jsx";
 import ChatFloatingBlock from "@/components/ChatFloatingBlock/ChatFloatingBlock.jsx";
+import LeadModal from "@/components/LeadModal/LeadModal";
+import MobileCtaBar from "@/components/MobileCtaBar/MobileCtaBar";
 import JsonLd from "@/components/_HelperComponents/JsonLd/JsonLd";
 import DeferredAnalytics from "@/components/_HelperComponents/DeferredAnalytics/DeferredAnalytics.jsx";
 import { SITE_URL } from "@/constants/site.ts";
@@ -93,6 +95,8 @@ export default function RootLayout({children}) {
         <Footer/>
 
         <ChatFloatingBlock />
+        <LeadModal />
+        <MobileCtaBar />
         </body>
         </html>
     );

@@ -1,7 +1,7 @@
 .price-block-wrapper {
     background-color: var(--base-dark);
     color: var(--base-white);
-    padding: 100px 353px 120px;
+    padding: 100px var(--gutter) 120px;
     display: flex;
     flex-direction: column;
     justify-content: center;

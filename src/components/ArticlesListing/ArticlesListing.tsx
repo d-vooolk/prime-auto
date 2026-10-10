@@ -7,7 +7,7 @@ import JsonLd from "@/components/_HelperComponents/JsonLd/JsonLd";
 import {formatArticleDate} from "@/components/ArticleView/ArticleView";
 import {imageSize} from "@/lib/article-body";
 import {getPublishedArticles, type ArticleRecord} from "@/lib/articles";
-import {ARTICLE_CATEGORIES, categoryOf, categoryPath, type ArticleCategory} from "@/constants/articleCategories";
+import {ARTICLE_CATEGORIES, categoryCover, categoryOf, categoryPath, type ArticleCategory} from "@/constants/articleCategories";
 import {NAVIGATION_URL} from "@/constants/navigation";
 import {absoluteUrl, breadcrumbJsonLd, buildMetadata} from "@/utils/seo";
 
@@ -79,15 +79,17 @@ export const listingMetadata = ({page, category}: ListingArgs) => {
 
 /** Плитка статьи. Первые картинки грузятся сразу — они на первом экране */
 const ArticleTile = ({article, eager}: {article: ArticleRecord; eager: boolean}) => {
-    const size = article.cover ? imageSize(article.cover) : null;
+    // своей обложки нет — берём обложку рубрики
+    const cover = article.cover || categoryCover(categoryOf(article).slug);
+    const size = imageSize(cover);
     return (
         <Link href={`${NAVIGATION_URL.articles}/${article.slug}`} className="article-tile">
-            {article.cover ? (
+            {cover ? (
                 // eslint-disable-next-line @next/next/no-img-element
                 <img
                     className="article-tile-cover"
-                    src={article.cover}
-                    alt={article.coverAlt || article.title}
+                    src={cover}
+                    alt={article.cover ? (article.coverAlt || article.title) : ''}
                     width={size?.width}
                     height={size?.height}
                     loading={eager ? "eager" : "lazy"}

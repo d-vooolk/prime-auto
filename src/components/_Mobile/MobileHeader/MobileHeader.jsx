@@ -60,7 +60,7 @@ const MobileHeader = () => {
                 isOpenMenu && (
                     <div className="mobile-nav-wrapper">
                         <nav className="mobile-nav">
-                            <NavigateBar closeMenu={handleCloseMenu} />
+                            <NavigateBar closeMenu={handleCloseMenu} variant="mobile" />
                         </nav>
 
                         <div className="mobile-header-contacts">

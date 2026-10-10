@@ -1,6 +1,6 @@
 footer {
     background-color: var(--base-dark);
-    padding: 40px 353px 0;
+    padding: 40px var(--gutter) 0;
     box-sizing: border-box;
     color: var(--base-white);
 }
@@ -168,6 +168,6 @@ footer .footer-contacts {
 
 @media (min-width: 769px) and (max-width: 1700px) {
     footer {
-        padding: 40px 120px 0;
+        padding: 40px var(--gutter) 0;
     }
 }

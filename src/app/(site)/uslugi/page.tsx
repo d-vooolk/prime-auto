@@ -1,10 +1,11 @@
 import React from "react";
 import './styles.css';
 import {META} from "@/constants/metadata";
-import ServicePageTitleContainer
-    from "@/components/_HelperComponents/ServicePageTitleContainer/ServicePageTitleContainer";
+import ServiceHero from "@/components/_HelperComponents/ServiceHero/ServiceHero";
+import ServiceAbout from "@/components/_HelperComponents/ServiceAbout/ServiceAbout";
+import ServicesCatalog from "@/components/ServicesCatalog/ServicesCatalog";
 import {PAGE_TITLE_TEXT} from "@/app/(site)/uslugi/constants";
-import Services from "@/components/Services/Services";
+import {USLUGI_HERO_IMAGE} from "@/constants/serviceHero";
 import InstallmentBlock from "@/components/InstallmentBlock/InstallmentBlock";
 import FaqBlock from "@/components/_HelperComponents/FaqBlock/FaqBlock";
 import Portfolio from "@/components/Portfolio/Portfolio";
@@ -21,16 +22,26 @@ export const metadata = buildMetadata({
 
 const UslugiPage = () => (
     <main className="light-quality-page-wrapper">
-        <ServicePageTitleContainer
-            headText={PAGE_TITLE_TEXT.title}
-            description={PAGE_TITLE_TEXT.description}
+        <ServiceHero
+            title={PAGE_TITLE_TEXT.title}
+            lead="Ремонт, полировка, ретрофит и регулировка фар в одной мастерской. Выберите услугу — на её странице цены, сроки, фото работ и ответы на частые вопросы."
+            facts={[
+                {value: 'от 50 руб.', label: 'регулировка и замена ламп'},
+                {value: '1–2 дня', label: 'работы с разборкой фары'},
+                {value: 'от 2 лет', label: 'гарантия на модули'},
+            ]}
+            image={USLUGI_HERO_IMAGE}
+            imageAlt="Мастерская автосвета: автомобиль с включёнными фарами"
             breadcrumbs={[
                 {name: 'Главная', path: NAVIGATION_URL.home},
                 {name: 'Услуги', path: NAVIGATION_URL.uslugi},
             ]}
+            servicePath={NAVIGATION_URL.uslugi}
         />
 
-        <Services withoutHeader />
+        <ServicesCatalog />
+
+        <ServiceAbout title="О мастерской" text={PAGE_TITLE_TEXT.description} />
 
         <InstallmentBlock />
 

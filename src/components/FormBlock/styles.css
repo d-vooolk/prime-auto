@@ -126,7 +126,7 @@
     z-index: 1;
 }
 
-#button-1 .knob:before {
+.btn-toggle .knob:before {
     content: "нет";
     position: absolute;
     top: 4px;
@@ -144,19 +144,19 @@
     transition: 0.3s cubic-bezier(0.18, 0.89, 0.35, 1.15) all;
 }
 
-#button-1 .checkbox:checked + .knob:before {
+.btn-toggle .checkbox:checked + .knob:before {
     content: "да";
     left: 42px;
     background-color: var(--base-green);
 }
 
-#button-1 .checkbox:checked ~ .btn-bg {
+.btn-toggle .checkbox:checked ~ .btn-bg {
     background-color: var(--base-white);
 }
 
-#button-1 .knob,
-#button-1 .knob:before,
-#button-1 .btn-bg {
+.btn-toggle .knob,
+.btn-toggle .knob:before,
+.btn-toggle .btn-bg {
     transition: 0.3s ease all;
 }
 
@@ -232,4 +232,37 @@
 }
 .form-confidence-label {
     cursor: pointer;
+}
+
+/* Адаптивность: блок формы фиксированной ширины не должен вылезать за экран планшета */
+.form-block-title {
+    width: min(806px, calc(100% - 40px));
+}
+
+.form-block-description {
+    width: min(602px, calc(100% - 40px));
+}
+
+.form-block-form {
+    width: min(602px, calc(100% - 40px));
+    box-sizing: border-box;
+}
+
+.form-block-car-image {
+    max-width: 100%;
+    height: auto;
+}
+
+@media (max-width: 768px) {
+    .form-block-form {
+        width: 100%;
+    }
+
+    .toggle-button {
+        margin: 10px 0;
+    }
+
+    .form-confidence-wrapper {
+        align-items: center;
+    }
 }

@@ -14,17 +14,17 @@ interface SitemapEntry {
 }
 
 const STATIC_PAGES: SitemapEntry[] = [
-    {path: NAVIGATION_URL.home, priority: 1, changeFrequency: 'weekly', updated: '2026-09-27'},
-    {path: NAVIGATION_URL.uslugi, priority: 0.9, changeFrequency: 'monthly', updated: '2026-10-08'},
-    {path: NAVIGATION_URL.uluchsheniyeKachestvaSveta, priority: 0.9, changeFrequency: 'monthly', updated: '2026-10-08'},
-    {path: NAVIGATION_URL.biled, priority: 0.9, changeFrequency: 'monthly', updated: '2026-09-27'},
-    {path: NAVIGATION_URL.remont, priority: 0.9, changeFrequency: 'monthly', updated: '2026-10-08'},
-    {path: NAVIGATION_URL.zamenaStekla, priority: 0.8, changeFrequency: 'monthly', updated: '2026-10-08'},
-    {path: NAVIGATION_URL.remontLed, priority: 0.8, changeFrequency: 'monthly', updated: '2026-10-08'},
-    {path: NAVIGATION_URL.polirovkaOkleyka, priority: 0.9, changeFrequency: 'monthly', updated: '2026-10-08'},
-    {path: NAVIGATION_URL.tehObsluzhivaniye, priority: 0.9, changeFrequency: 'monthly', updated: '2026-10-08'},
-    {path: NAVIGATION_URL.regulirovka, priority: 0.9, changeFrequency: 'monthly', updated: '2026-10-08'},
-    {path: NAVIGATION_URL.zapotevaniye, priority: 0.9, changeFrequency: 'monthly', updated: '2026-09-27'},
+    {path: NAVIGATION_URL.home, priority: 1, changeFrequency: 'weekly', updated: '2026-10-10'},
+    {path: NAVIGATION_URL.uslugi, priority: 0.9, changeFrequency: 'monthly', updated: '2026-10-10'},
+    {path: NAVIGATION_URL.uluchsheniyeKachestvaSveta, priority: 0.9, changeFrequency: 'monthly', updated: '2026-10-10'},
+    {path: NAVIGATION_URL.biled, priority: 0.9, changeFrequency: 'monthly', updated: '2026-10-10'},
+    {path: NAVIGATION_URL.remont, priority: 0.9, changeFrequency: 'monthly', updated: '2026-10-10'},
+    {path: NAVIGATION_URL.zamenaStekla, priority: 0.8, changeFrequency: 'monthly', updated: '2026-10-10'},
+    {path: NAVIGATION_URL.remontLed, priority: 0.8, changeFrequency: 'monthly', updated: '2026-10-10'},
+    {path: NAVIGATION_URL.polirovkaOkleyka, priority: 0.9, changeFrequency: 'monthly', updated: '2026-10-10'},
+    {path: NAVIGATION_URL.tehObsluzhivaniye, priority: 0.9, changeFrequency: 'monthly', updated: '2026-10-10'},
+    {path: NAVIGATION_URL.regulirovka, priority: 0.9, changeFrequency: 'monthly', updated: '2026-10-10'},
+    {path: NAVIGATION_URL.zapotevaniye, priority: 0.9, changeFrequency: 'monthly', updated: '2026-10-10'},
     {path: NAVIGATION_URL.price, priority: 0.8, changeFrequency: 'monthly', updated: '2026-09-27'},
     {path: NAVIGATION_URL.reviews, priority: 0.7, changeFrequency: 'weekly', updated: '2026-09-27'},
     {path: NAVIGATION_URL.articles, priority: 0.7, changeFrequency: 'weekly', updated: '2026-09-27'},
@@ -36,7 +36,7 @@ const STATIC_PAGES: SitemapEntry[] = [
   Тексты страниц марок живут в src/constants (carBrands, brandServices,
   brandServiceNotes). Дату меняйте, когда правите эти файлы.
 */
-const BRAND_PAGES_UPDATED = '2026-10-08';
+const BRAND_PAGES_UPDATED = '2026-10-10';
 
 /* Статьи публикуются из админки — карта пересобирается вместе с ними */
 export const revalidate = 3600;

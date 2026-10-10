@@ -5,11 +5,12 @@
     height: 87px;
     width: 100%;
     justify-content: space-between;
-    padding: 0 353px;
+    padding: 0 var(--gutter);
     box-sizing: border-box;
     position: fixed;
     z-index: 100;
-    background-color: rgba(255, 255, 255, 0.3);
+    background-color: rgba(245, 245, 245, 0.88); /* плотнее, чем было (0.3): на тёмных страницах услуг шапка серела и телефон не читался */
+    backdrop-filter: blur(8px);
 }
 
 .desktop-header-contacts {
@@ -26,73 +27,162 @@
 
 .phones-wrapper a:hover {
     color: var(--base-green);
-    transition:all .5s ease;
-}
-
-.phones-wrapper a:not(:hover) {
-    transition:all .5s ease;
-}
-
-.desktop-nav ul {
-    display: flex;
-    gap: 40px;
-    background-color: var(--base-white);
-    padding: 14px 20px;
-    border-radius: 42px;
-}
-
-.desktop-nav ul li {
-    list-style: none;
-}
-
-.desktop-nav ul li a {
-    color: var(--base-dark);
-    text-decoration: none;
-}
-
-.desktop-nav ul li a:hover {
-    color: var(--base-green);
-    cursor: pointer;
-    transition:all .5s ease;
-}
-
-.desktop-nav ul li a:not(:hover) {
-    transition:all .5s ease;
+    transition: all .5s ease;
 }
 
 .phone-link {
     color: var(--base-dark);
     text-decoration: none;
+    white-space: nowrap;
 }
 
 .instagram-icon:hover {
     cursor: pointer;
 }
 
-@media (min-width: 769px) {
+/* --- меню --- */
+
+.desktop-nav > ul {
+    display: flex;
+    gap: 32px;
+    margin: 0;
+    background-color: var(--base-white);
+    padding: 14px 22px;
+    border-radius: 42px;
+}
+
+.desktop-nav > ul > li {
+    list-style: none;
+    position: relative;
+}
+
+.desktop-nav > ul > li > a {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    color: var(--base-dark);
+    text-decoration: none;
+    transition: color .3s ease;
+}
+
+.desktop-nav > ul > li > a:hover {
+    color: #6f9900;
+}
+
+/* текущий раздел — зелёная черта под пунктом */
+.desktop-nav > ul > li.nav-active > a {
+    font-weight: 600;
+    box-shadow: inset 0 -2px 0 var(--base-green);
+}
+
+.nav-caret {
+    transition: transform .25s ease;
+}
+
+.nav-has-dropdown:hover .nav-caret,
+.nav-has-dropdown:focus-within .nav-caret {
+    transform: rotate(180deg);
+}
+
+/* --- выпадающая панель «Услуги» --- */
+
+.nav-dropdown {
+    position: absolute;
+    top: 100%;
+    left: -22px;
+    padding-top: 18px; /* «мостик», чтобы курсор не терял наведение по пути к панели */
+    display: grid;
+    grid-template-columns: repeat(3, max-content);
+    gap: 0;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(6px);
+    transition: opacity .2s ease, transform .2s ease, visibility 0s linear .2s;
+    z-index: 200;
+}
+
+.nav-dropdown::before {
+    content: "";
+    position: absolute;
+    inset: 18px 0 0;
+    background-color: var(--base-white);
+    border-radius: 20px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+    z-index: -1;
+}
+
+.nav-has-dropdown:hover .nav-dropdown,
+.nav-has-dropdown:focus-within .nav-dropdown {
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+    transition: opacity .2s ease, transform .2s ease, visibility 0s;
+}
+
+.nav-dropdown .nav-group {
+    padding: 24px 26px 18px;
+    min-width: 200px;
+}
+
+.nav-dropdown .nav-group + .nav-group {
+    border-left: .5px solid rgba(38, 38, 38, 0.1);
+}
+
+.nav-dropdown .nav-group-title {
+    font-family: Montserrat, sans-serif;
+    font-weight: 800;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: .04em;
+    color: var(--base-gray);
+    margin-bottom: 12px;
+}
+
+.nav-dropdown ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.nav-dropdown ul a {
+    color: var(--base-dark);
+    text-decoration: none;
+    font-size: 15px;
+    white-space: nowrap;
+}
+
+.nav-dropdown ul a:hover {
+    color: #6f9900;
+}
+
+.nav-dropdown .nav-group-all {
+    grid-column: 1 / -1;
+    padding: 14px 26px 20px;
+    border-top: .5px solid rgba(38, 38, 38, 0.1);
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--base-dark);
+    text-decoration: none;
+}
+
+.nav-dropdown .nav-group-all:hover {
+    color: #6f9900;
+}
+
+/* Десктопная шапка — от 1101 px. Уже на 769–1100 логотип, шесть пунктов меню
+   и телефон в одну строку не помещались: телефон переносился в три строки. */
+@media (min-width: 1101px) {
     .desktop-header {
         display: flex;
     }
 }
 
-@media (min-width: 769px) and (max-width: 1700px) {
-    .desktop-header {
-        padding: 0 120px;
-    }
-}
-
-/*
-  В меню добавился шестой пункт («Статьи»), а на узких десктопах шапка была
-  тесной ещё с пятью: логотип, меню и телефон стоят в одну строку через
-  space-between. Поджимаем промежутки в меню, чтобы строка не разъезжалась.
-*/
-@media (min-width: 769px) and (max-width: 1280px) {
-    .desktop-nav ul {
-        gap: 22px;
+@media (min-width: 1101px) and (max-width: 1320px) {
+    .desktop-nav > ul {
+        gap: 20px;
         padding: 14px 16px;
-    }
-
-    .desktop-header {
-        padding: 0 40px;
     }
 }

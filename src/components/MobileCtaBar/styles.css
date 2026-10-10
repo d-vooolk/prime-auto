@@ -1,0 +1,54 @@
+.mobile-cta-bar {
+    display: none;
+}
+
+@media (max-width: 768px) {
+    .mobile-cta-bar {
+        position: fixed;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 8400;
+        display: flex;
+        gap: 8px;
+        padding: 10px 12px calc(10px + env(safe-area-inset-bottom));
+        background-color: rgba(38, 38, 38, 0.92);
+        backdrop-filter: blur(10px);
+        box-shadow: 0 -6px 24px rgba(0, 0, 0, 0.2);
+    }
+
+    .mobile-cta-main {
+        flex: 1;
+        height: 48px;
+        border: none;
+        border-radius: 24px;
+        background-color: var(--base-green);
+        color: var(--base-dark);
+        font-family: Inter, sans-serif;
+        font-weight: 700;
+        font-size: 16px;
+        cursor: pointer;
+    }
+
+    .mobile-cta-icon {
+        flex: none;
+        width: 48px;
+        height: 48px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid rgba(255, 255, 255, 0.4);
+        color: var(--base-white);
+    }
+
+    .mobile-cta-icon--tg {
+        background-color: #229ED9;
+        border-color: #229ED9;
+    }
+
+    /* чтобы панель не закрывала низ подвала */
+    body {
+        padding-bottom: 68px;
+    }
+}

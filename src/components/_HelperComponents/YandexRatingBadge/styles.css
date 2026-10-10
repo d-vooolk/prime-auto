@@ -89,3 +89,64 @@
     line-height: 140%;
     color: #FFC107;
 }
+
+/* --- компактная: одна строка на первом экране --- */
+
+.yandex-badge-compact {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+    font-family: Inter, sans-serif;
+}
+
+.yandex-badge-compact--light {
+    color: var(--base-dark);
+}
+
+.yandex-badge-compact--dark {
+    color: var(--base-white);
+}
+
+.yandex-badge-logo--small {
+    width: 36px;
+    height: 36px;
+    font-size: 18px;
+}
+
+.yandex-badge-compact-text {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.yandex-badge-compact-top {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.yandex-badge-compact-top b {
+    font-family: Montserrat, sans-serif;
+    font-weight: 900;
+    font-size: 20px;
+    line-height: 100%;
+}
+
+.yandex-badge-compact-count {
+    font-size: 13px;
+    font-weight: 300;
+    line-height: 130%;
+    text-decoration: underline;
+    text-decoration-color: rgba(38, 38, 38, 0.25);
+    text-underline-offset: 3px;
+}
+
+.yandex-badge-compact--dark .yandex-badge-compact-count {
+    color: var(--gray-light);
+    text-decoration-color: rgba(255, 255, 255, 0.25);
+}
+
+.yandex-badge-compact:hover .yandex-badge-compact-count {
+    text-decoration-color: currentColor;
+}

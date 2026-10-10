@@ -1,6 +1,6 @@
 "use client"
 
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import './styles.css';
 import Image from "next/image";
 import Link from "next/link";
@@ -25,14 +25,51 @@ const CloseCircleIcon = () => (
     </svg>
 );
 
+const STORAGE_KEY = 'prime-chat-open';
+const AUTO_OPEN_MS = 2500;
+const MOBILE_AUTO_CLOSE_MS = 4500;
+
+/*
+  Кнопки связи. При заходе свёрнуты в одну кнопку, через пару секунд сами
+  раскрываются — человек видит и мессенджеры, и крестик, то есть понимает,
+  что панель можно закрыть. На телефоне через несколько секунд снова
+  сворачиваются: столбик из семи иконок закрывал бы текст. Раскрываются сами
+  один раз за визит; если человек открыл или закрыл панель руками, его выбор
+  запоминается до конца визита (sessionStorage).
+*/
 const ChatFloatingBlock = () => {
-    const [isBarVisible, setIsBarVisible] = useState(true);
+    const [isBarVisible, setIsBarVisible] = useState(false);
+
+    useEffect(() => {
+        const saved = sessionStorage.getItem(STORAGE_KEY);
+        if (saved !== null) {
+            setIsBarVisible(saved === '1');
+            return;
+        }
+        const timers = [setTimeout(() => setIsBarVisible(true), AUTO_OPEN_MS)];
+        if (window.matchMedia('(max-width: 768px)').matches) {
+            timers.push(setTimeout(() => setIsBarVisible(false), AUTO_OPEN_MS + MOBILE_AUTO_CLOSE_MS));
+        }
+        sessionStorage.setItem(STORAGE_KEY, '0');
+        return () => timers.forEach(clearTimeout);
+    }, []);
+
+    const toggle = () => {
+        setIsBarVisible((open) => {
+            sessionStorage.setItem(STORAGE_KEY, open ? '0' : '1');
+            return !open;
+        });
+    };
 
     return (
-        <div className="chat-block-wrapper">
+        <div className={`chat-block-wrapper${isBarVisible ? ' chat-block-wrapper--open' : ''}`}>
             {
-                ChatConfig.map((item) => (
-                    <div key={item.id} className={isBarVisible ? "flex" : "none"}>
+                ChatConfig.map((item, index) => (
+                    <div
+                        key={item.id}
+                        className="chat-item"
+                        style={{transitionDelay: isBarVisible ? `${(ChatConfig.length - index) * 40}ms` : '0ms'}}
+                    >
                         <Link
                             href={item.link}
                             target={item.target}
@@ -40,10 +77,12 @@ const ChatFloatingBlock = () => {
                             className="chat-tooltip"
                             data-tooltip={item.tooltip}
                             aria-label={item.tooltip}
+                            tabIndex={isBarVisible ? 0 : -1}
+                            aria-hidden={!isBarVisible}
                         >
                             <Image
                                 src={item.img}
-                                alt={item.tooltip}
+                                alt=""
                                 width={54}
                                 height={54}
                                 className="chat-img"
@@ -56,10 +95,10 @@ const ChatFloatingBlock = () => {
             <button
                 type="button"
                 className="chat-tooltip chat-toggle-button"
-                data-tooltip={isBarVisible ? "Закрыть" : "Связаться"}
-                aria-label={isBarVisible ? "Закрыть" : "Связаться"}
+                data-tooltip={isBarVisible ? "Свернуть" : "Связаться"}
+                aria-label={isBarVisible ? "Свернуть кнопки связи" : "Показать кнопки связи"}
                 aria-expanded={isBarVisible}
-                onClick={() => setIsBarVisible(!isBarVisible)}
+                onClick={toggle}
             >
                 {
                     isBarVisible
@@ -70,7 +109,7 @@ const ChatFloatingBlock = () => {
                                 alt=""
                                 width={54}
                                 height={54}
-                                className="chat-base-img"
+                                className="chat-base-img chat-pulse"
                             />
                         )
                 }

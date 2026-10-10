@@ -7,7 +7,7 @@ import JsonLd from "@/components/_HelperComponents/JsonLd/JsonLd";
 import ArticleView from "@/components/ArticleView/ArticleView";
 import {getPublishedArticle, getPublishedArticles, isoDate} from "@/lib/articles";
 import {NAVIGATION_URL} from "@/constants/navigation";
-import {categoryOf, categoryPath} from "@/constants/articleCategories";
+import {categoryCover, categoryOf, categoryPath} from "@/constants/articleCategories";
 import {imageSize} from "@/lib/article-body";
 import {articleJsonLd, breadcrumbJsonLd, buildMetadata} from "@/utils/seo";
 
@@ -39,7 +39,9 @@ export const generateMetadata = async ({params}: PageProps) => {
         title: `${article.metaTitle || article.title} | Prime Auto`,
         description: article.metaDescription || article.excerpt,
         path: `${NAVIGATION_URL.articles}/${article.slug}`,
-        ...(article.cover ? {ogImage: article.cover, ogImageSize: imageSize(article.cover)} : {}),
+        // без своей обложки в превью соцсетей уходит обложка рубрики
+        ogImage: article.cover || categoryCover(categoryOf(article).slug),
+        ogImageSize: imageSize(article.cover || categoryCover(categoryOf(article).slug)),
         article: {
             published: isoDate(article.publishedAt ?? article.createdAt),
             modified: isoDate(article.updatedAt),
@@ -75,7 +77,7 @@ const ArticlePage = async ({params}: PageProps) => {
                             path,
                             published: isoDate(article.publishedAt ?? article.createdAt),
                             updated: isoDate(article.updatedAt),
-                            image: article.cover || undefined,
+                            image: article.cover || categoryCover(category.slug),
                             section: category.name,
                         }),
                         breadcrumbJsonLd([{name: 'Главная', path: NAVIGATION_URL.home}, ...crumbs]),

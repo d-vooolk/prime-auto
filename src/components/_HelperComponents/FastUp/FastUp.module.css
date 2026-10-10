@@ -39,3 +39,13 @@
 .scrollToTopBtn:hover .icon {
     transform: translateY(-2px);
 }
+
+/* на телефоне внизу закреплена панель «Оставить заявку» — поднимаемся над ней */
+@media (max-width: 768px) {
+    .scrollToTopBtn {
+        bottom: 84px;
+        right: 68px;
+        width: 44px;
+        height: 44px;
+    }
+}

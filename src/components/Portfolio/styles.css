@@ -6,7 +6,7 @@
 .portfolio-wrapper {
     background-image: url("../../../public/images/noise-background.webp");
     box-sizing: border-box;
-    padding: 0 353px;
+    padding: 0 var(--gutter);
     margin: 0;
     position: relative;
     z-index: 5;
@@ -78,7 +78,7 @@
     position: relative;
     top: -150px;
     margin: 0 0 -151px;
-    padding: 250px 353px 120px;
+    padding: 250px var(--gutter) 120px;
     z-index: 0;
     color: var(--base-white);
     display: flex;
@@ -221,6 +221,6 @@
 
 @media (min-width: 769px) and (max-width: 1700px) {
     .portfolio-wrapper {
-        padding: 0 220px;
+        padding: 0 var(--gutter);
     }
 }

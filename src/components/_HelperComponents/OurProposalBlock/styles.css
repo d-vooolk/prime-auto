@@ -1,25 +1,19 @@
 .our-proposal-block-wrapper {
     background-image: url("../../../../public/images/noise-background.webp");
-    background-color: var(--base-white);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 100px 0 120px;
+    background-color: var(--light-gray-background);
+    padding: 100px var(--gutter) 110px;
+    box-sizing: border-box;
 }
 
 .our-proposal-block-title-container {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
-    margin: 0 0 40px;
-    padding: 0;
+    margin: 0 0 24px;
 }
 
 .our-proposal-block-title {
     margin: 0;
-    padding: 0;
     font-size: 60px;
     line-height: 100%;
     font-family: "Comforter Brush", sans-serif;
@@ -27,13 +21,10 @@
     color: var(--base-green);
 }
 
-/* Капс перенесён из разметки в стили: в DOM заголовок лежит обычным
-   регистром. Где Google переписывает сниппет по H1/H2, он больше не
-   подставит текст КАПСОМ. Визуально ничего не меняется. */
+/* Капс — в стилях, в DOM заголовок обычным регистром */
 .our-proposal-block-description {
     text-transform: uppercase;
     margin: 0;
-    padding: 0;
     font-size: 40px;
     line-height: 120%;
     font-family: "Montserrat", sans-serif;
@@ -41,74 +32,109 @@
     color: var(--base-dark);
     position: relative;
     top: -30px;
-}
-
-.our-proposal-title {
-    font-family: Montserrat, sans-serif;
-    font-size: 20px;
-    line-height: 140%;
-    font-weight: 700;
-}
-
-.our-proposal {
-    display: flex;
-    flex-direction: column;
-    width: 398px;
-    height: 208px;
-    border-radius: 20px;
-    background-color: var(--base-white);
-    justify-content: center;
-    align-items: center;
-    padding: 30px;
-    color: var(--base-dark);
-    text-decoration: none;
+    text-align: center;
 }
 
 .our-proposal-wrapper {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 16px;
+}
+
+.our-proposal-wrapper > li {
     display: flex;
-    justify-content: center;
+}
+
+.our-proposal {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 28px 24px 24px;
+    border-radius: 20px;
+    background-color: var(--base-white);
+    border: .5px solid rgba(38, 38, 38, 0.12);
+    color: var(--base-dark);
+    text-decoration: none;
+    transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+}
+
+.our-proposal--link:hover {
+    transform: translateY(-3px);
+    border-color: var(--base-green);
+    box-shadow: 0 14px 36px rgba(0, 0, 0, 0.08);
+}
+
+.our-proposal-marker {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background-color: rgba(162, 219, 0, 0.2);
+    color: var(--base-dark);
+    display: flex;
     align-items: center;
-    gap: 10px;
-    flex-wrap: wrap;
+    justify-content: center;
+    font-family: Montserrat, sans-serif;
+    font-weight: 800;
+    font-size: 20px;
+}
+
+.our-proposal-title {
+    margin: 0;
+    font-family: Montserrat, sans-serif;
+    font-size: 18px;
+    line-height: 130%;
+    font-weight: 800;
+    text-transform: uppercase;
 }
 
 .our-proposal-description {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    padding-left: 20px;
+    margin: 0;
+    font-family: Inter, sans-serif;
+    font-size: 15px;
+    line-height: 150%;
+    font-weight: 300;
+    flex-grow: 1;
 }
 
-@media (min-width: 320px) and (max-width: 768px) {
+.our-proposal-more {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-family: Inter, sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.our-proposal--link:hover .our-proposal-more {
+    color: #6f9900;
+}
+
+@media (max-width: 768px) {
+    .our-proposal-block-wrapper {
+        padding: 60px 20px 70px;
+    }
+
     .our-proposal-block-title {
         font-size: 40px;
     }
 
     .our-proposal-block-description {
-        font-size: 40px;
-        text-align: center;
-        top: -25px;
+        font-size: 30px;
+        top: -20px;
     }
 
     .our-proposal-wrapper {
-        flex-direction: column;
-        margin-bottom: 16px;
+        grid-template-columns: minmax(0, 1fr);
+        gap: 10px;
     }
 
     .our-proposal {
-        width: 100%;
-        height: 208px;
-        padding: 20px;
-        box-sizing: border-box;
+        padding: 22px 20px 20px;
     }
-
-    .our-proposal-title {
-        display: flex;
-        justify-content: center;
-    }
-}
-
-@media (min-width: 769px) and (max-width: 1700px) {
-
 }

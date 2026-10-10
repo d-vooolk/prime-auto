@@ -20,7 +20,7 @@ const Header = () => {
                 />
             </Link>
             <nav className="desktop-nav">
-                <NavigateBar />
+                <NavigateBar variant="desktop" />
             </nav>
             <div className="desktop-header-contacts">
                 <Image

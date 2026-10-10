@@ -1,158 +1,275 @@
 .welcome-block-wrapper {
-    padding: 100px 353px 120px;
-    box-sizing: border-box;
-    background-image: url("../../../public/images/noise-background.webp");
     position: relative;
     overflow: hidden;
-}
-
-.list-element {
-    color: var(--base-dark)
-}
-
-.get-lead-button {
-    display: flex;
-    gap: 10px;
-    justify-content: space-around;
-    align-items: center;
-    background-color: transparent;
-    padding: 20px 30px;
-    border-radius: 31px;
-    border: 1px solid var(--base-dark);
-    font-weight: 600;
-    font-size: 16px;
-    margin-bottom: 183px;
-    color: var(--base-dark);
-    max-width: 228px;
-    text-decoration: none;
-}
-
-.get-lead-button:hover {
-    cursor: pointer;
-    color: var(--base-white);
-    background-color: var(--base-dark);
-    transition:all .5s ease;
-}
-
-.get-lead-button:not(:hover) {
-    transition:all .5s ease;
-}
-
-.statistic-wrapper {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: var(--base-dark);
-    color: var(--base-white);
-    padding: 30px 60px;
-    border-radius: 20px;
-}
-
-.statistic-element {
+    box-sizing: border-box;
+    min-height: 860px;
+    padding: 120px var(--gutter) 80px;
+    background-image: url("../../../public/images/noise-background.webp");
     display: flex;
     flex-direction: column;
-    gap: 8px;
-}
-
-.statistic-divider {
-    width: 1px;
-    height: 90px;
-    border-width: 0 1px 0 0;
-    border-style: solid;
-    border-image: linear-gradient(#4E4E4E 0%, #C7C7C7 50%, #4E4E4E 100%) 1;
-}
-
-.big-numbers {
-    font-family: "Comforter Brush", sans-serif;
-    color: var(--base-green);
-    font-size: 60px;
-}
-
-/* Капс перенесён из разметки в стили: в DOM заголовок лежит обычным
-   регистром. Где Google переписывает сниппет по H1/H2, он больше не
-   подставит текст КАПСОМ. Визуально ничего не меняется. */
-.desktop-h1 {
-    text-transform: uppercase;
-    font-size: 80px;
-    color: var(--base-dark);
-    margin-top: 0;
-    font-weight: 800;
 }
 
 .welcome-block {
-    max-width: 704px;
+    position: relative;
+    z-index: 1;
+    max-width: 640px;
 }
 
-.welcome-car {
-    margin: 0;
+/* Капс — в стилях, в DOM заголовок обычным регистром */
+.desktop-h1 {
+    text-transform: uppercase;
+    font-size: clamp(40px, 4.4vw, 76px);
+    line-height: 108%;
+    color: var(--base-dark);
+    margin: 0 0 32px;
+    font-weight: 800;
+}
+
+.welcome-services {
+    list-style: none;
+    margin: 0 0 36px;
     padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.welcome-service-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-family: Inter, sans-serif;
+    font-size: 17px;
+    color: var(--base-dark);
+    text-decoration: none;
+}
+
+.welcome-service-link span {
+    border-bottom: 1px solid transparent;
+    transition: border-color .25s ease;
+}
+
+.welcome-service-link:hover span {
+    border-bottom-color: var(--base-green);
+}
+
+/* --- кнопки --- */
+
+.welcome-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 32px;
+}
+
+.get-lead-button,
+.welcome-tg-button {
+    display: inline-flex;
+    gap: 12px;
+    justify-content: center;
+    align-items: center;
+    padding: 20px 30px;
+    border-radius: 31px;
+    font-family: Inter, sans-serif;
+    font-weight: 600;
+    font-size: 16px;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all .3s ease;
+    box-sizing: border-box;
+}
+
+.get-lead-button {
+    border: 1px solid var(--base-dark);
+    background-color: var(--base-dark);
+    color: var(--base-white);
+}
+
+.get-lead-button:hover {
+    background-color: var(--base-green);
+    border-color: var(--base-green);
+    color: var(--base-dark);
+}
+
+.welcome-tg-button {
+    border: 1px solid var(--base-dark);
+    background-color: transparent;
+    color: var(--base-dark);
+}
+
+.welcome-tg-button svg {
+    color: #229ED9;
+    transition: color .3s ease;
+}
+
+.welcome-tg-button:hover {
+    background-color: #229ED9;
+    border-color: #229ED9;
+    color: var(--base-white);
+}
+
+.welcome-tg-button:hover svg {
+    color: var(--base-white);
+}
+
+/* --- строка доверия --- */
+
+.welcome-trust {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 16px 28px;
+    margin-bottom: 20px;
+}
+
+.welcome-trust-item {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    padding-left: 28px;
+    border-left: 1px solid rgba(38, 38, 38, 0.15);
+}
+
+.welcome-trust-value {
+    font-family: Montserrat, sans-serif;
+    font-weight: 900;
+    font-size: 20px;
+    line-height: 100%;
+    color: var(--base-dark);
+}
+
+.welcome-trust-label {
+    font-family: Inter, sans-serif;
+    font-size: 13px;
+    font-weight: 300;
+    color: var(--base-gray);
+}
+
+.welcome-address {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    font-style: normal;
+    font-family: Inter, sans-serif;
+    font-size: 14px;
+    line-height: 150%;
+    color: var(--base-gray);
+}
+
+.welcome-address svg {
+    flex: none;
+    margin-top: 2px;
+    color: var(--base-dark);
+}
+
+.welcome-address a {
+    color: var(--base-dark);
+    text-underline-offset: 3px;
+}
+
+/* --- машина --- */
+
+.welcome-car {
     position: absolute;
     top: 200px;
     right: 0;
+    margin: 0;
+    padding: 0;
+    z-index: 0;
 }
 
-@media (min-width: 320px) and (max-width: 768px) {
-    .welcome-block-wrapper {
-        padding: 60px 0 40px;
-    }
+.welcome-car-image {
+    display: block;
+}
 
-    .desktop-h1 {
-        font-size: 40px;
-    }
-
-    .list-element-wrapper {
-        gap: 10px;
-    }
-
+/* ноутбуки и планшеты: машина уходит вправо, чтобы не наезжать на текст */
+@media (min-width: 769px) and (max-width: 1500px) {
     .welcome-car {
-        top: 460px;
-        right: -110px;
-        overflow: hidden;
+        top: 240px;
+        right: -260px;
     }
 
     .welcome-car-image {
-        height: 280px;
-        width: auto;
-    }
-
-    .welcome-block {
-        max-width: 100%;
-        padding: 20px;
-    }
-
-    .get-lead-button {
-        margin-bottom: 280px;
-    }
-
-    .statistic-wrapper {
-        border-radius: 0;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-    }
-
-    .statistic-divider {
-        width: 100%;
-        height: 6px;
-        border-top: .5px solid red;
-        border-image: linear-gradient(90deg, rgba(78, 78, 78, 0) 0%, #C7C7C7 50%, rgba(78, 78, 78, 0) 100%) 1;
-        margin-top: 30px;
-    }
-
-    .statistic-element {
-        align-items: center;
+        width: 900px;
+        height: auto;
     }
 }
 
-@media (min-width: 769px) and (max-width: 1700px) {
+@media (min-width: 769px) and (max-width: 1100px) {
     .welcome-block-wrapper {
-        padding: 100px 220px 120px;
+        min-height: 0;
+        padding-bottom: 0;
+    }
+
+    /* на узком экране машина — под текстом, а не за ним */
+    .welcome-car {
+        position: relative;
+        top: 0;
+        right: auto;
+        align-self: flex-end;
+        margin: -40px -120px 0 0;
+    }
+
+    .welcome-car-image {
+        width: 720px;
+    }
+}
+
+@media (max-width: 768px) {
+    .welcome-block-wrapper {
+        min-height: 0;
+        padding: 100px 20px 0;
+    }
+
+    .desktop-h1 {
+        margin-bottom: 24px;
+    }
+
+    .welcome-services {
+        gap: 10px;
+        margin-bottom: 28px;
+    }
+
+    .welcome-service-link {
+        font-size: 16px;
+    }
+
+    .welcome-actions {
+        flex-direction: column;
+    }
+
+    .get-lead-button,
+    .welcome-tg-button {
+        width: 100%;
+    }
+
+    .welcome-trust {
+        gap: 14px 20px;
+    }
+
+    .welcome-trust > .yandex-badge-compact {
+        flex-basis: 100%;
+    }
+
+    .welcome-trust-item:first-of-type {
+        padding-left: 0;
+        border-left: none;
+    }
+
+    .welcome-trust-item {
+        padding-left: 20px;
     }
 
     .welcome-car {
-        top: 260px;
-        right: -210px;
-        overflow: hidden;
+        position: relative;
+        top: 0;
+        right: auto;
+        align-self: flex-end;
+        margin: 10px -110px 0 0;
+    }
+
+    .welcome-car-image {
+        width: 520px;
+        height: auto;
     }
 }

@@ -175,3 +175,53 @@
         padding-bottom: 80px;
     }
 }
+/*
+  Адаптивность. Карточки были фиксированной ширины (398 и 602 px) — на
+  ноутбуке и планшете ряд не помещался, на телефоне карточки прилипали к
+  краям экрана. Теперь они делят ширину ряда, на планшете — по две в ряд.
+*/
+.services-block {
+    padding-left: var(--gutter);
+    padding-right: var(--gutter);
+    box-sizing: border-box;
+}
+
+.card-3-wrapper,
+.card-2-wrapper {
+    max-width: 1214px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.card-3,
+.card-2 {
+    flex: 1 1 0;
+    width: auto;
+    min-width: 0;
+}
+
+@media (max-width: 1100px) {
+    .card-3-wrapper,
+    .card-2-wrapper {
+        height: auto;
+        flex-wrap: wrap;
+    }
+
+    .card-3,
+    .card-2 {
+        flex: 1 1 calc(50% - 5px);
+    }
+
+    /* футер карточки в потоке, а не прибит к низу: иначе длинный список налезал на него */
+    .card-3-footer {
+        position: relative;
+    }
+}
+
+@media (max-width: 768px) {
+    .card-3,
+    .card-2 {
+        flex-basis: 100%;
+        min-height: 0;
+    }
+}

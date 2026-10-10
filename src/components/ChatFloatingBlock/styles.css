@@ -1,11 +1,71 @@
 .chat-block-wrapper {
+    --chat-size: 52px;
     position: fixed;
     bottom: 20px;
-    right: 30px;
+    right: 24px;
     display: flex;
     flex-direction: column;
-    gap: 10px;
-    z-index: 9999;
+    align-items: center;
+    gap: 8px;
+    z-index: 8500; /* ниже открытого мобильного меню (9000), выше панели «Оставить заявку» */
+}
+
+.chat-block-wrapper img,
+.chat-block-wrapper svg {
+    width: var(--chat-size);
+    height: var(--chat-size);
+}
+
+/* свёрнутые иконки остаются в DOM, но не видны и не ловят клики */
+.chat-item {
+    display: flex;
+    opacity: 0;
+    transform: translateY(12px) scale(.6);
+    visibility: hidden;
+    pointer-events: none;
+    margin-bottom: calc(-1 * (var(--chat-size) + 8px));
+    transition: opacity .25s ease, transform .25s ease, margin .25s ease, visibility 0s linear .25s;
+}
+
+.chat-block-wrapper--open .chat-item {
+    opacity: 1;
+    transform: none;
+    visibility: visible;
+    pointer-events: auto;
+    margin-bottom: 0;
+    transition: opacity .25s ease, transform .25s ease, margin .25s ease, visibility 0s;
+}
+
+/* закрытая кнопка мягко пульсирует, пока панель свёрнута */
+.chat-pulse {
+    border-radius: 50%;
+    animation: chat-pulse 2.4s ease-out infinite;
+}
+
+@keyframes chat-pulse {
+    0% { box-shadow: 0 0 0 0 rgba(162, 219, 0, .55); }
+    70% { box-shadow: 0 0 0 14px rgba(162, 219, 0, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(162, 219, 0, 0); }
+}
+
+@media (max-width: 1440px) {
+    .chat-block-wrapper {
+        --chat-size: 46px;
+    }
+}
+
+@media (max-width: 768px) {
+    .chat-block-wrapper {
+        --chat-size: 42px;
+        right: 14px;
+        bottom: 84px; /* над закреплённой кнопкой «Записаться» на страницах услуг */
+        gap: 6px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .chat-item, .chat-block-wrapper--open .chat-item { transition: none; }
+    .chat-pulse { animation: none; }
 }
 
 .chat-base-img {
@@ -16,13 +76,6 @@
     cursor: pointer;
 }
 
-.flex {
-    display: flex;
-}
-
-.none {
-    display: none;
-}
 
 .chat-toggle-button {
     padding: 0;
