@@ -22,6 +22,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import {fileURLToPath} from "node:url";
+import {execFileSync} from "node:child_process";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const LIVE = process.argv.includes("--live");
@@ -31,17 +32,21 @@ const OUT = LIVE
 const ORG_URL = "https://yandex.by/maps/org/praym_avto/191443735649/";
 const MIN_LENGTH = 100;
 
-const response = await fetch(`${ORG_URL}reviews/`, {
-  headers: {
-    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0 Safari/537.36",
-    "Accept-Language": "ru-RU,ru;q=0.9",
-  },
-});
-const html = await response.text();
+/*
+  Страницу берём через curl, а не встроенным fetch: Яндекс узнаёт fetch Node
+  по отпечатку TLS-соединения и отдаёт ему капчу, а curl пропускает (проверено
+  с сервера 10.10.2026). curl есть и на сервере, и в Windows 10+.
+*/
+const html = execFileSync("curl", [
+  "-sL", "--compressed", "--max-time", "60",
+  "-A", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0 Safari/537.36",
+  "-H", "Accept-Language: ru-RU,ru;q=0.9",
+  `${ORG_URL}reviews/`,
+], {encoding: "utf8", maxBuffer: 50 * 1024 * 1024});
 
 const pick = (pattern) => {
   const match = html.match(pattern);
-  if (!match) throw new Error(`Не нашёл ${pattern} — возможно, Яндекс отдал капчу (HTTP ${response.status})`);
+  if (!match) throw new Error(`Не нашёл ${pattern} — возможно, Яндекс отдал капчу`);
   return Number(match[1]);
 };
 
