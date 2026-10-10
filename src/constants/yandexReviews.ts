@@ -1,14 +1,24 @@
 /**
  * Отзывы и рейтинг мастерской с Яндекс Карт.
  *
- * Данные лежат в yandexReviews.json и обновляются скриптом
- * node scripts/yandex-reviews.mjs — руками JSON не правим. Здесь только
+ * Откуда данные. На сервере cron раз в неделю запускает
+ * node scripts/yandex-reviews.mjs --live, и тот пишет свежие цифры и отзывы
+ * в var/yandex-reviews.json (вне репозитория). Страницы перегенерируются раз
+ * в сутки (revalidate в src/app/(site)/layout.js) и каждый раз перечитывают
+ * этот файл — поэтому здесь функции, а не константы: модуль живёт в процессе
+ * неделями, и значение, посчитанное при загрузке, так бы и осталось старым.
+ * Если файла нет или он битый — берётся yandexReviews.json из репозитория.
+ *
+ * Здесь же
  * разметка отзывов по услугам: на странице ремонта первыми идут отзывы про
  * ремонт, на странице Bi-Led — про модули. Отзыв без явной услуги
  * («ребята молодцы») подходит для любой страницы и стоит после профильных.
  */
-import data from "./yandexReviews.json";
+import fs from "node:fs";
+import path from "node:path";
+import bundled from "./yandexReviews.json";
 import {NAVIGATION_URL} from "./navigation";
+import {env} from "@/lib/env.mjs";
 
 export type ReviewTopic =
     | "remont"
@@ -42,21 +52,43 @@ const TOPIC_PATTERNS: Record<ReviewTopic, RegExp> = {
 const topicsOf = (text: string): ReviewTopic[] =>
     (Object.keys(TOPIC_PATTERNS) as ReviewTopic[]).filter((topic) => TOPIC_PATTERNS[topic].test(text));
 
-export const YANDEX_RATING = {
-    url: data.url,
-    reviewsUrl: `${data.url}reviews/`,
-    /** Яндекс открывает форму отзыва по этому параметру */
-    addReviewUrl: `${data.url}reviews/?add-review=true`,
-    checkedAt: data.checkedAt,
-    rating: data.rating,
-    ratings: data.ratings,
-    reviewsCount: data.reviewsCount,
+type ReviewsData = typeof bundled;
+
+const LIVE_FILE = env("YANDEX_REVIEWS_FILE", path.join(process.cwd(), "var", "yandex-reviews.json"));
+
+let cache: {mtime: number; data: ReviewsData} | null = null;
+
+/** Свежие данные с сервера, если они есть и не старше тех, что в репозитории */
+const loadData = (): ReviewsData => {
+    try {
+        const mtime = fs.statSync(LIVE_FILE).mtimeMs;
+        if (cache?.mtime !== mtime) {
+            const live = JSON.parse(fs.readFileSync(LIVE_FILE, "utf8")) as ReviewsData;
+            if (!live.rating || !Array.isArray(live.reviews) || !live.reviews.length) throw new Error("пустой файл");
+            cache = {mtime, data: live};
+        }
+        return cache.data.checkedAt >= bundled.checkedAt ? cache.data : bundled;
+    } catch {
+        return bundled;
+    }
 };
 
-export const YANDEX_REVIEWS: YandexReview[] = data.reviews.map((review) => ({
-    ...review,
-    topics: topicsOf(review.text),
-}));
+/** Адреса карточки — постоянные */
+export const YANDEX_RATING = {
+    url: bundled.url,
+    reviewsUrl: `${bundled.url}reviews/`,
+    /** Яндекс открывает форму отзыва по этому параметру */
+    addReviewUrl: `${bundled.url}reviews/?add-review=true`,
+};
+
+/** Рейтинг и счётчики — читаются при каждой отрисовке */
+export const getYandexStats = () => {
+    const data = loadData();
+    return {checkedAt: data.checkedAt, rating: data.rating, ratings: data.ratings, reviewsCount: data.reviewsCount};
+};
+
+export const getYandexReviews = (): YandexReview[] =>
+    loadData().reviews.map((review) => ({...review, topics: topicsOf(review.text)}));
 
 /** Какие отзывы поднимать на странице услуги (ключ — адрес страницы) */
 export const REVIEW_TOPICS_BY_PATH: Record<string, ReviewTopic[]> = {
@@ -77,14 +109,15 @@ export const REVIEW_TOPICS_BY_PATH: Record<string, ReviewTopic[]> = {
  * Без услуги — просто самые свежие.
  */
 export const reviewsFor = (topics: ReviewTopic[] = [], limit = 8, mention?: string): YandexReview[] => {
-    if (!topics.length && !mention) return YANDEX_REVIEWS.slice(0, limit);
+    const reviews = getYandexReviews();
+    if (!topics.length && !mention) return reviews.slice(0, limit);
     const mentionLower = mention?.toLowerCase();
     const score = (review: YandexReview) => {
         if (mentionLower && review.text.toLowerCase().includes(mentionLower)) return -1;
         if (review.topics.some((topic) => topics.includes(topic))) return 0;
         return review.topics.length === 0 ? 1 : 2;
     };
-    return [...YANDEX_REVIEWS]
+    return reviews
         .sort((a, b) => score(a) - score(b) || b.date.localeCompare(a.date))
         .slice(0, limit);
 };

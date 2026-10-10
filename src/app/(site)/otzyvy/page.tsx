@@ -9,7 +9,7 @@ import Portfolio from "@/components/Portfolio/Portfolio";
 import FormBlock from "@/components/FormBlock/FormBlock";
 import JsonLd from "@/components/_HelperComponents/JsonLd/JsonLd";
 import YandexRatingBadge from "@/components/_HelperComponents/YandexRatingBadge/YandexRatingBadge";
-import {YANDEX_RATING, YANDEX_REVIEWS} from "@/constants/yandexReviews";
+import {getYandexReviews, YANDEX_RATING} from "@/constants/yandexReviews";
 import {NAVIGATION_URL} from "@/constants/navigation";
 import {buildMetadata, reviewsJsonLd} from "@/utils/seo";
 import {REVIEWS_PAGE_FAQ, REVIEWS_PAGE_TEXT} from "@/app/(site)/otzyvy/constants";
@@ -21,9 +21,11 @@ export const metadata = buildMetadata({
     path: NAVIGATION_URL.reviews,
 });
 
-const ReviewsPage = () => (
+const ReviewsPage = () => {
+    const reviews = getYandexReviews();
+    return (
     <main className="reviews-page-wrapper">
-        <JsonLd data={reviewsJsonLd(YANDEX_REVIEWS, NAVIGATION_URL.reviews)} />
+        <JsonLd data={reviewsJsonLd(reviews, NAVIGATION_URL.reviews)} />
 
         <ServicePageTitleContainer
             headText={REVIEWS_PAGE_TEXT.title}
@@ -38,7 +40,7 @@ const ReviewsPage = () => (
             <YandexRatingBadge theme="light" />
         </div>
 
-        <ReviewsGrid reviews={YANDEX_REVIEWS} />
+        <ReviewsGrid reviews={reviews} />
 
         <div className="reviews-page-cta">
             <p className="reviews-page-cta-text">{REVIEWS_PAGE_TEXT.ctaText}</p>
@@ -69,6 +71,7 @@ const ReviewsPage = () => (
         <Portfolio />
         <FormBlock />
     </main>
-);
+    );
+};
 
 export default ReviewsPage;

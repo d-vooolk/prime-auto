@@ -22,24 +22,24 @@ const works = [
     {file: '8.webp', alt: 'Фара BMW G30 после полировки и оклейки защитной плёнкой'},
 ];
 
-const PortfolioImages = () => {
-    return (
+const PortfolioImages = () => (
+    <div className="portfolio-images-container">
         <div className="portfolio-images-wrapper">
-            {
-                works.map((work) => (
-                    <div className="portfolio-image-wrapper" key={work.file}>
-                        <Image
-                            src={`/images/portfolio/${work.file}`}
-                            alt={work.alt}
-                            width={250}
-                            height={250}
-                            className="portfolio-image"
-                        />
-                    </div>
-                ))
-            }
+            {works.map((work) => (
+                <div className="portfolio-image-wrapper" key={work.file}>
+                    {/* Плитка — от 1/4 до 1/2 ширины блока (см. styles.css), sizes под это */}
+                    <Image
+                        src={`/images/portfolio/${work.file}`}
+                        alt={work.alt}
+                        width={1088}
+                        height={1088}
+                        sizes="(max-width: 899px) 50vw, 300px"
+                        className="portfolio-image"
+                    />
+                </div>
+            ))}
         </div>
-    )
-}
+    </div>
+);
 
 export default PortfolioImages;

@@ -1,25 +1,33 @@
 #!/usr/bin/env node
 /*
-  Обновляет отзывы и рейтинг с Яндекс Карт: node scripts/yandex-reviews.mjs
+  Обновляет отзывы и рейтинг с Яндекс Карт.
+
+    node scripts/yandex-reviews.mjs          → src/constants/yandexReviews.json
+                                               (в репозиторий, запасные данные)
+    node scripts/yandex-reviews.mjs --live   → var/yandex-reviews.json
+                                               (на сервере, cron раз в неделю;
+                                               сайт подхватывает за сутки без деплоя)
 
   Забирает страницу отзывов карточки мастерской, достаёт из неё рейтинг,
-  число оценок и отзывов и последние ~50 отзывов, кладёт всё в
-  src/constants/yandexReviews.json. Сайт берёт отзывы оттуда при сборке —
+  число оценок и отзывов и последние ~50 отзывов. Сайт рендерит их на сервере —
   в браузере к Яндексу ничего не ходит, и текст отзывов лежит в HTML страницы.
 
   На сайт попадают только отзывы на 5 звёзд и длиннее 100 символов: короткое
   «всё супер» читателю ничего не говорит. Рейтинг при этом честный — общий, с
   карточки. Ответы мастерской не сохраняем.
 
-  Запускать раз в месяц-два, проверить diff и выкатить. Если Яндекс ответил
-  капчей, скрипт падает и файл не трогает.
+  Если Яндекс ответил капчей или прислал подозрительно мало данных, скрипт
+  падает и файл не трогает — на сайте остаются прошлые цифры.
 */
 import fs from "node:fs";
 import path from "node:path";
 import {fileURLToPath} from "node:url";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
-const OUT = path.join(ROOT, "src", "constants", "yandexReviews.json");
+const LIVE = process.argv.includes("--live");
+const OUT = LIVE
+  ? process.env.YANDEX_REVIEWS_FILE || path.join(ROOT, "var", "yandex-reviews.json")
+  : path.join(ROOT, "src", "constants", "yandexReviews.json");
 const ORG_URL = "https://yandex.by/maps/org/praym_avto/191443735649/";
 const MIN_LENGTH = 100;
 
@@ -71,6 +79,11 @@ const reviews = decoder.reviews
   }))
   .sort((a, b) => b.date.localeCompare(a.date));
 
+// защита от полупустого ответа: не меняем хорошие данные на мусор
+if (!(rating > 0 && rating <= 5) || ratings < 1 || reviews.length < 5) {
+  throw new Error(`Подозрительный ответ: рейтинг ${rating}, оценок ${ratings}, отзывов на сайт ${reviews.length} — файл не тронут`);
+}
+
 const data = {
   url: ORG_URL,
   checkedAt: new Date().toISOString().slice(0, 10),
@@ -80,5 +93,8 @@ const data = {
   reviews,
 };
 
-fs.writeFileSync(OUT, JSON.stringify(data, null, 2) + "\n");
-console.log(`Рейтинг ${rating}, оценок ${ratings}, отзывов ${reviewsCount}; на сайт — ${reviews.length} отзывов → ${path.relative(ROOT, OUT)}`);
+// через временный файл: сайт не прочитает наполовину записанный JSON
+fs.mkdirSync(path.dirname(OUT), {recursive: true});
+fs.writeFileSync(`${OUT}.tmp`, JSON.stringify(data, null, 2) + "\n");
+fs.renameSync(`${OUT}.tmp`, OUT);
+console.log(`${new Date().toISOString()} Рейтинг ${rating}, оценок ${ratings}, отзывов ${reviewsCount}; на сайт — ${reviews.length} отзывов → ${path.relative(ROOT, OUT)}`);

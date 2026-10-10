@@ -1,6 +1,6 @@
 import React from "react";
 import './styles.css';
-import {formatRating, plural, YANDEX_RATING} from "@/constants/yandexReviews";
+import {formatRating, getYandexStats, plural, YANDEX_RATING} from "@/constants/yandexReviews";
 
 interface YandexRatingBadgeProps {
     /** dark — на тёмном фоне (подвал, блок отзывов), light — на светлом */
@@ -10,15 +10,15 @@ interface YandexRatingBadgeProps {
 
 /**
  * Плашка «Яндекс Карты · 5,0 ★★★★★ · 172 оценки» со ссылкой на карточку.
- * Цифры берутся из yandexReviews.json, обновляются скриптом
- * node scripts/yandex-reviews.mjs. Микроразметки рейтинга здесь нет намеренно:
+ * Цифры обновляются сами раз в неделю — см. src/constants/yandexReviews.ts. Микроразметки рейтинга здесь нет намеренно:
  * Google не показывает звёзды организаций по их собственной разметке, а за
  * чужой рейтинг в разметке можно получить ручные санкции.
  */
 const YandexRatingBadge = ({theme = "dark", className = ""}: YandexRatingBadgeProps) => {
-    const rating = formatRating(YANDEX_RATING.rating);
-    const ratings = plural(YANDEX_RATING.ratings, ["оценка", "оценки", "оценок"]);
-    const reviews = plural(YANDEX_RATING.reviewsCount, ["отзыв", "отзыва", "отзывов"]);
+    const stats = getYandexStats();
+    const rating = formatRating(stats.rating);
+    const ratings = plural(stats.ratings, ["оценка", "оценки", "оценок"]);
+    const reviews = plural(stats.reviewsCount, ["отзыв", "отзыва", "отзывов"]);
 
     return (
         <a

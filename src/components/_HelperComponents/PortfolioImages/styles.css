@@ -1,35 +1,55 @@
+/*
+  Восемь квадратных фото — ровная сетка 4 × 2, на узком блоке 2 × 4.
+  Раньше это был flex-wrap с плитками по 250 px: на широком экране влезало
+  7 в ряд и одна переносилась, на ноутбуке выходило 3 + 3 + 2, на телефоне —
+  восемь фото во всю ширину одно под другим. Колонки считаются от ширины
+  самого блока (container query), а не экрана: у блока разные боковые
+  отступы на разных страницах и экранах.
+*/
+.portfolio-images-container {
+    container-type: inline-size;
+    width: 100%;
+    max-width: 1214px;
+    margin: 0 auto;
+}
+
 .portfolio-images-wrapper {
-    display: flex;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 10px;
-    flex-wrap: wrap;
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
-    align-items: center;
-    justify-content: center;
 }
 
-.portfolio-image-wrapper:hover {
-    transform: scale(103%);
-    transition:all .5s ease;
+@container (min-width: 700px) {
+    .portfolio-images-wrapper {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 16px;
+    }
 }
 
-.portfolio-image-wrapper:not(:hover) {
-    transition:all .5s ease;
+.portfolio-image-wrapper {
+    border-radius: 20px;
+    overflow: hidden;
+    aspect-ratio: 1 / 1;
 }
 
 .portfolio-image {
-    border-radius: 20px;
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform .5s ease;
 }
 
-@media (min-width: 320px) and (max-width: 768px) {
-    .portfolio-image {
-        width: 100%;
-        height: auto;
+@media (hover: hover) {
+    .portfolio-image-wrapper:hover .portfolio-image {
+        transform: scale(1.05);
     }
+}
 
-    .portfolio-image-wrapper:hover {
-        transform: scale(103%);
-        transition:all .5s ease;
+@media (max-width: 768px) {
+    .portfolio-image-wrapper {
+        border-radius: 14px;
     }
 }

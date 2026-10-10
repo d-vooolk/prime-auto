@@ -27,6 +27,14 @@ export const metadata = {
     },
 };
 
+/*
+  Раз в сутки страницы перегенерируются: так до них доходят рейтинг и отзывы
+  с Яндекс Карт, которые cron обновляет на сервере раз в неделю (см.
+  src/constants/yandexReviews.ts). У статей свой, более частый revalidate —
+  действует меньшее значение.
+*/
+export const revalidate = 86400;
+
 export const viewport = {
     width: 'device-width',
     initialScale: 1,
