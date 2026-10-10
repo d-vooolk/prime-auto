@@ -153,6 +153,7 @@ export const localBusinessJsonLd = () => ({
     sameAs: [
         LINKS.yandexMap,
         LINKS.googleBusiness,
+        LINKS.onlix,
         'https://www.instagram.com/prime_auto_minsk/',
         'https://www.tiktok.com/@prime_auto_minsk',
         'https://www.youtube.com/@prime-auto-minsk',

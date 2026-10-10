@@ -139,8 +139,7 @@ cron), плашка рейтинга; попап заявки, Telegram и Viber
     2ГИС, iDriver, spr.by, spravka.by, forsage.by, drive2, Kufar.
 [~] vdf.by ↔ prime-auto.by (11.10): на vdf.by у ~1340 товаров и 13
     разделов блок «Нужна установка?» со ссылкой на нужную услугу (коммит
-    dec3053, src/lib/workshop-links.ts) — ЖДЁТ ДЕПЛОЯ: из Desktop/shop
-    `npm run deploy` (вы). С prime-auto: замена стекла → каталог стёкол,
+    dec3053, src/lib/workshop-links.ts) — выкачено 11.10. С prime-auto: замена стекла → каталог стёкол,
     Bi-Led → модули и рамки; статьи и так ссылаются на vdf.by (битую
     /catalog/linzy/ исправил). Страниц-дублей услуг на vdf.by нет.
 [ ] Instagram, TikTok, YouTube: в описании и под постами — ссылка на
