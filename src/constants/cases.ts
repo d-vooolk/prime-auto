@@ -392,6 +392,19 @@ export const casesForBrand = (brandSlug: string, brandServiceKey?: string): Work
 };
 
 /** Есть ли у пары «услуга марок + марка» кейс с фото — тогда страницу можно открыть для индекса */
+/*
+  Считается только главная работа кейса (его группа): установка Bi-Led с
+  попутной полировкой открывает «Bi-Led + марка», но не «Полировка + марка» —
+  иначе открывались десятки почти шаблонных страниц с одним чужим кейсом.
+*/
+const BRAND_SERVICE_OF_CLUSTER: Record<CaseCluster, string> = {
+    biled: "biled",
+    dho: "remont",
+    remont: "remont",
+    zapotevanie: "zapotevaniye",
+    polirovka: "polirovkaOkleyka",
+};
+
 export const hasPhotoCase = (brandServiceKey: string, brandSlug: string): boolean =>
     CASES.some((c) => c.brand === brandSlug && c.photos.length > 0 && !c.illustration
-        && c.services.some((s) => BRAND_SERVICE_OF[s] === brandServiceKey));
+        && BRAND_SERVICE_OF_CLUSTER[clusterOf(c)] === brandServiceKey);

@@ -72,9 +72,9 @@ export const buildBrandPageMetadata = (serviceKey: string, brandSlug: string): M
  * Страница с noindex в карте сайта — противоречивый сигнал: мы просим
  * её обойти и одновременно запрещаем показывать.
  */
+/** Все индексируемые страницы марок — для sitemap (включая открытые фото-кейсами) */
 export const allBrandPagePaths = (): string[] =>
-    BRAND_SERVICES.filter((service) => INDEXED_SERVICE_KEYS.includes(service.key))
-        .flatMap((service) =>
-            CAR_BRANDS.filter((brand) => indexedBrandSlugs.has(brand.slug))
-                .map((brand) => brandPagePath(service.basePath, brand.slug)),
-        );
+    BRAND_SERVICES.flatMap((service) =>
+        CAR_BRANDS.filter((brand) => isBrandPageIndexed(service.key, brand.slug))
+            .map((brand) => brandPagePath(service.basePath, brand.slug)),
+    );
