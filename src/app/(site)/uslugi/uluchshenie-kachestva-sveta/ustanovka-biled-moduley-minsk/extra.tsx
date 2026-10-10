@@ -2,6 +2,7 @@ import React from "react";
 import Link from "next/link";
 import ServiceExtra from "@/components/_HelperComponents/ServiceExtra/ServiceExtra";
 import {NAVIGATION_URL} from "@/constants/navigation";
+import {LINKS} from "@/constants/links";
 
 /*
   Разделы под «установка би лед модулей в минске» (6,8) и «установка
@@ -13,7 +14,10 @@ const BiledExtra = () => (
         table={{
             title: "Сколько стоит установка Bi-Led под ключ",
             lead: <>Цена под ключ — это работы ниже плюс сами модули. Модули подбираем под вашу фару и бюджет и
-                называем цену до начала работ. Пришлите фото фар и марку машины — посчитаем заранее.</>,
+                называем цену до начала работ. Пришлите фото фар и марку машины — посчитаем заранее. Модули и
+                переходные рамки можно посмотреть в каталоге нашего магазина:{" "}
+                <a href={LINKS.vdfBiled} target="_blank" rel="noopener">Bi-Led модули на VDF.BY</a>,{" "}
+                <a href={LINKS.vdfFrames} target="_blank" rel="noopener">рамки под линзы</a>.</>,
             head: ["Работа", "Что входит", "Цена"],
             rows: [
                 {cells: ["Снятие и установка фар", "Без снятия бампера / с бампером / с колёсами и подкрылками", "от 10 руб. за сторону / 100 / 200 руб."]},

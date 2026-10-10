@@ -19,4 +19,11 @@ export const LINKS = {
       картографическими сущностями весит больше, чем ссылки на соцсети.
     */
     googleBusiness: 'https://share.google/sXDdDf0UyPz8lXxl2',
+    /*
+      Магазин VDF.BY — тот же владелец. Товары (стёкла, модули) ведём туда,
+      услуги — сюда; на vdf.by у товаров обратные ссылки на наши услуги.
+    */
+    vdfGlass: 'https://vdf.by/catalog/stekla-far/',
+    vdfBiled: 'https://vdf.by/catalog/bi-led-moduli/',
+    vdfFrames: 'https://vdf.by/catalog/perehodnye-ramki/',
 }

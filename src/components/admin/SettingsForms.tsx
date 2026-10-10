@@ -53,7 +53,7 @@ export const ShopLinksForm = ({value}: {value: string}) => {
             <h2 className="a-h2">Ссылки на магазин VDF.BY</h2>
             <p className="a-note">
                 Нейросеть может сослаться на магазин 1–2 раза за статью — только по этим адресам и только там, где читателю
-                нужно что-то купить. По строке на ссылку: «https://vdf.by/catalog/linzy/ | Би-LED линзы». Пустой список —
+                нужно что-то купить. По строке на ссылку: «https://vdf.by/catalog/bi-led-moduli/ | Bi-LED модули». Пустой список —
                 ссылок на магазин не будет.
             </p>
             <textarea className="a-textarea a-mono" rows={7} value={text} onChange={(event) => setText(event.target.value)} />
