@@ -69,12 +69,19 @@ const ChatFloatingBlock = () => {
 
     return (
         <div className={`chat-block-wrapper${isBarVisible ? ' chat-block-wrapper--open' : ''}`}>
+            {/* иконки висят над кнопкой абсолютно: раскрытие не меняет размер блока,
+                иначе Lighthouse считал это сдвигом вёрстки (CLS 0.14) */}
+            <div className="chat-items">
             {
                 ChatConfig.map((item, index) => (
                     <div
                         key={item.id}
                         className="chat-item"
-                        style={{transitionDelay: itemDelay(index, isBarVisible)}}
+                        style={{
+                            transitionDelay: itemDelay(index, isBarVisible),
+                            // дальние от кнопки иконки выезжают с большего расстояния — как из кнопки
+                            '--chat-shift': `${(ChatConfig.length - index) * 30}px`,
+                        }}
                     >
                         <Link
                             href={item.link}
@@ -97,6 +104,7 @@ const ChatFloatingBlock = () => {
                     </div>
                 ))
             }
+            </div>
 
             <button
                 type="button"

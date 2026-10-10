@@ -55,7 +55,7 @@ export interface SearchReport {
     problems: {code: string; severity: string}[];
 }
 
-const BRAND = /прайм|prime|праим|прайм-авто|primeauto/i;
+const BRAND = /прайм|prime|праим|прайм-авто|primeauto|брилевск/i;
 
 /* сырые ответы API — их форма описана в seo-collect.mjs */
 type Raw = any;
