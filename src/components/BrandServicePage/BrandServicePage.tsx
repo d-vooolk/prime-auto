@@ -10,6 +10,8 @@ import LinksCloudBlock from "@/components/_HelperComponents/LinksCloudBlock/Link
 import Portfolio from "@/components/Portfolio/Portfolio";
 import FormBlock from "@/components/FormBlock/FormBlock";
 import JsonLd from "@/components/_HelperComponents/JsonLd/JsonLd";
+import ReviewsBlock from "@/components/ReviewsBlock/ReviewsBlock";
+import {REVIEW_TOPICS_BY_PATH} from "@/constants/yandexReviews";
 import BrandDetailsBlock from "@/components/_HelperComponents/BrandDetailsBlock/BrandDetailsBlock";
 import {BRAND_SERVICES, getBrandService} from "@/constants/brandServices";
 import {CAR_BRANDS, getBrand} from "@/constants/carBrands";
@@ -109,6 +111,8 @@ const BrandServicePage = ({serviceKey, brandSlug}: BrandServicePageProps) => {
                 title={service.priceTitle}
                 priceDataSource={service.priceDataSource}
             />
+
+            <ReviewsBlock topics={REVIEW_TOPICS_BY_PATH[service.basePath]} mention={brand.name} />
 
             <InstallmentBlock />
 

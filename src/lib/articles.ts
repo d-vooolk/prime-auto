@@ -59,6 +59,8 @@ export interface ArticleRecord {
     coverAlt: string;
     faq: FaqEntry[];
     related: RelatedLink[];
+    /** Рубрика из articleCategories; пусто — определяется по заголовку */
+    category: string;
     topic: string;
     keyword: string;
     notes: string;
@@ -85,6 +87,7 @@ interface Row {
     cover_alt: string;
     faq: string;
     related: string;
+    category: string;
     topic: string;
     keyword: string;
     notes: string;
@@ -120,6 +123,7 @@ const fromRow = (row: Row): ArticleRecord => ({
     coverAlt: row.cover_alt,
     faq: json<FaqEntry[]>(row.faq, []),
     related: json<RelatedLink[]>(row.related, []),
+    category: row.category ?? "",
     topic: row.topic,
     keyword: row.keyword,
     notes: row.notes,
@@ -178,6 +182,7 @@ const COLUMNS: Record<keyof ArticleInput, string> = {
     coverAlt: "cover_alt",
     faq: "faq",
     related: "related",
+    category: "category",
     topic: "topic",
     keyword: "keyword",
     notes: "notes",

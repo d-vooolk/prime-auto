@@ -22,6 +22,7 @@ import {toSlug} from "@/lib/slug";
 import {isUploadUrl} from "@/lib/uploads";
 import {checkUrl, describeProblem, findLinkProblems} from "@/lib/link-check";
 import {formatShopLinks, parseShopLinks, SHOP_LINKS_KEY} from "@/lib/site-pages";
+import {getArticleCategory} from "@/constants/articleCategories";
 
 /*
   Каждое действие начинается с requireAdmin(): Server Action — обычный POST,
@@ -56,6 +57,7 @@ export interface ArticleForm {
     faq: FaqEntry[];
     related: RelatedLink[];
     keyword: string;
+    category: string;
 }
 
 const text = (value: unknown, limit: number) => (typeof value === "string" ? value.trim().slice(0, limit) : "");
@@ -81,6 +83,7 @@ export const saveArticleAction = async (id: number, form: ArticleForm): Promise<
         cover: isUploadUrl(text(form.cover, 300)) ? text(form.cover, 300) : "",
         coverAlt: text(form.coverAlt, 200),
         keyword: text(form.keyword, 200),
+        category: getArticleCategory(text(form.category, 60)) ? text(form.category, 60) : "",
         faq: (form.faq ?? [])
             .map((item) => ({q: text(item.q, 500), a: text(item.a, 3000)}))
             .filter((item) => item.q && item.a),

@@ -96,6 +96,11 @@ const MIGRATIONS = [
     ALTER TABLE articles ADD COLUMN cover_alt TEXT NOT NULL DEFAULT '';
     ALTER TABLE articles ADD COLUMN source_title TEXT NOT NULL DEFAULT '';
     `,
+    // 3 — рубрика статьи (slug из src/constants/articleCategories.ts); пусто —
+    //     рубрика определяется по заголовку
+    `
+    ALTER TABLE articles ADD COLUMN category TEXT NOT NULL DEFAULT '';
+    `,
 ];
 
 /**

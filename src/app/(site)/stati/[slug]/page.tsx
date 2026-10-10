@@ -7,6 +7,8 @@ import JsonLd from "@/components/_HelperComponents/JsonLd/JsonLd";
 import ArticleView from "@/components/ArticleView/ArticleView";
 import {getPublishedArticle, getPublishedArticles, isoDate} from "@/lib/articles";
 import {NAVIGATION_URL} from "@/constants/navigation";
+import {categoryOf, categoryPath} from "@/constants/articleCategories";
+import {imageSize} from "@/lib/article-body";
 import {articleJsonLd, breadcrumbJsonLd, buildMetadata} from "@/utils/seo";
 
 interface PageProps {
@@ -37,7 +39,12 @@ export const generateMetadata = async ({params}: PageProps) => {
         title: `${article.metaTitle || article.title} | Prime Auto`,
         description: article.metaDescription || article.excerpt,
         path: `${NAVIGATION_URL.articles}/${article.slug}`,
-        ...(article.cover ? {ogImage: article.cover} : {}),
+        ...(article.cover ? {ogImage: article.cover, ogImageSize: imageSize(article.cover)} : {}),
+        article: {
+            published: isoDate(article.publishedAt ?? article.createdAt),
+            modified: isoDate(article.updatedAt),
+            section: categoryOf(article).name,
+        },
     });
 };
 
@@ -50,6 +57,12 @@ const ArticlePage = async ({params}: PageProps) => {
     }
 
     const path = `${NAVIGATION_URL.articles}/${article.slug}`;
+    const category = categoryOf(article);
+    const crumbs = [
+        {name: 'Статьи', path: NAVIGATION_URL.articles},
+        {name: category.name, path: categoryPath(category.slug)},
+        {name: article.title, path},
+    ];
 
     return (
         <main>
@@ -63,17 +76,14 @@ const ArticlePage = async ({params}: PageProps) => {
                             published: isoDate(article.publishedAt ?? article.createdAt),
                             updated: isoDate(article.updatedAt),
                             image: article.cover || undefined,
+                            section: category.name,
                         }),
-                        breadcrumbJsonLd([
-                            {name: 'Главная', path: NAVIGATION_URL.home},
-                            {name: 'Статьи', path: NAVIGATION_URL.articles},
-                            {name: article.title, path},
-                        ]),
+                        breadcrumbJsonLd([{name: 'Главная', path: NAVIGATION_URL.home}, ...crumbs]),
                     ]}
                 />
 
                 <div className="article-container">
-                    <Breadcrumbs currentLabel={article.title} />
+                    <Breadcrumbs items={crumbs} />
                     <ArticleView article={article} />
                 </div>
             </div>

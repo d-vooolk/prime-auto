@@ -1,0 +1,91 @@
+.yandex-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 14px;
+    padding: 12px 20px 12px 12px;
+    border-radius: 20px;
+    text-decoration: none;
+    font-family: Inter, sans-serif;
+    box-sizing: border-box;
+    transition: transform .25s ease, border-color .25s ease, box-shadow .25s ease;
+}
+
+.yandex-badge--dark {
+    background-color: var(--black-dark-cards);
+    border: .5px solid rgba(168, 168, 168, 0.3);
+    color: var(--base-white);
+}
+
+.yandex-badge--light {
+    background-color: var(--base-white);
+    border: .5px solid rgba(168, 168, 168, 0.4);
+    color: var(--base-dark);
+}
+
+.yandex-badge:hover {
+    transform: translateY(-2px);
+    border-color: var(--base-green);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
+}
+
+.yandex-badge-logo {
+    flex: none;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background-color: #FC3F1D;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: Montserrat, sans-serif;
+    font-weight: 800;
+    font-size: 22px;
+}
+
+.yandex-badge-source {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.yandex-badge-name {
+    font-family: Montserrat, sans-serif;
+    font-weight: 800;
+    font-size: 16px;
+    line-height: 120%;
+}
+
+.yandex-badge-count {
+    font-size: 13px;
+    line-height: 130%;
+    font-weight: 300;
+    color: var(--gray-light);
+}
+
+.yandex-badge--light .yandex-badge-count {
+    color: var(--base-gray);
+}
+
+.yandex-badge-score {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    margin-left: 6px;
+    padding-left: 16px;
+    border-left: .5px solid rgba(168, 168, 168, 0.4);
+}
+
+.yandex-badge-value {
+    font-family: Montserrat, sans-serif;
+    font-weight: 900;
+    font-size: 28px;
+    line-height: 100%;
+}
+
+.yandex-badge-stars {
+    font-size: 13px;
+    letter-spacing: 1px;
+    line-height: 140%;
+    color: #FFC107;
+}

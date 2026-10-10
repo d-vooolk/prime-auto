@@ -5,6 +5,7 @@ import JsonLd from "@/components/_HelperComponents/JsonLd/JsonLd";
 import {imageSize} from "@/lib/article-body";
 import type {ArticleRecord} from "@/lib/articles";
 import {faqJsonLd} from "@/utils/seo";
+import {categoryOf, categoryPath} from "@/constants/articleCategories";
 
 /** Дата в подписи под заголовком — человекочитаемо, в разметке остаётся ISO */
 export const formatArticleDate = (ms: number) =>
@@ -39,6 +40,7 @@ const ArticleFaq = ({items}: {items: ArticleRecord['faq']}) => {
  */
 const ArticleView = ({article}: {article: ArticleRecord}) => {
     const cover = article.cover ? imageSize(article.cover) : null;
+    const category = categoryOf(article);
     return (
         <article className="article-body">
             <h1 className="article-h1">{article.title}</h1>
@@ -46,6 +48,8 @@ const ArticleView = ({article}: {article: ArticleRecord}) => {
                 <time dateTime={new Date(article.updatedAt).toISOString()}>
                     Обновлено {formatArticleDate(article.updatedAt)}
                 </time>
+                {' · '}
+                <Link href={categoryPath(category.slug)} className="article-meta-category">{category.name}</Link>
             </p>
 
             {article.cover && (

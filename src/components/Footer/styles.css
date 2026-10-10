@@ -88,6 +88,8 @@ footer .footer-contacts {
 
 .footer-full-info-wrapper {
     display: flex;
+    flex-wrap: wrap;
+    gap: 20px 30px;
     width: 100%;
     justify-content: space-between;
     margin: 20px 0 20px;

@@ -3,6 +3,7 @@ import {SITE_URL} from "@/constants/site";
 import {NAVIGATION_URL} from "@/constants/navigation";
 import {allBrandPagePaths} from "@/utils/brandPages";
 import {getPublishedArticles} from "@/lib/articles";
+import {ARTICLE_CATEGORIES, categoryOf, categoryPath} from "@/constants/articleCategories";
 
 interface SitemapEntry {
     path: string;
@@ -62,6 +63,17 @@ const sitemap = (): MetadataRoute.Sitemap => {
             changeFrequency: page.changeFrequency,
             priority: page.priority,
         })),
+        // страницы рубрик; страницы пагинации (/stranica/2…) не включаем — они noindex
+        ...ARTICLE_CATEGORIES.flatMap((category) => {
+            const inCategory = articles.filter((article) => categoryOf(article).slug === category.slug);
+            if (!inCategory.length) return [];
+            return [{
+                url: `${SITE_URL}${categoryPath(category.slug)}`,
+                lastModified: new Date(Math.max(...inCategory.map((article) => article.updatedAt))),
+                changeFrequency: 'weekly' as const,
+                priority: 0.6,
+            }];
+        }),
         ...articles.map((article) => ({
             url: `${SITE_URL}${NAVIGATION_URL.articles}/${article.slug}`,
             // у статей дата настоящая: поисковик по ней решает, стоит ли перечитать страницу

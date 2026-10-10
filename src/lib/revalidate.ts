@@ -30,7 +30,8 @@ const purgeNginxCache = () => {
 };
 
 export const revalidateArticles = (...slugs: string[]): void => {
-    revalidatePath(NAVIGATION_URL.articles);
+    // "layout" — вместе со списком обновляются страницы рубрик и пагинации
+    revalidatePath(NAVIGATION_URL.articles, "layout");
     for (const slug of new Set(slugs.filter(Boolean))) {
         revalidatePath(`${NAVIGATION_URL.articles}/${slug}`);
     }

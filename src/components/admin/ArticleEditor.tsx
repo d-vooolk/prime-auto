@@ -11,6 +11,7 @@ import {
 } from "@/app/admin/actions";
 import {BodyEditor, CoverField} from "@/components/admin/ArticleImages";
 import {requestJob} from "@/components/admin/NewArticleForm";
+import {ARTICLE_CATEGORIES, categoryOf} from "@/constants/articleCategories";
 
 interface ArticleEditorProps {
     id: number;
@@ -135,6 +136,16 @@ export const ArticleEditor = ({id, published, initial, aiReady}: ArticleEditorPr
                         <input className="a-input" value={form.keyword} onChange={(event) => set("keyword", event.target.value)} maxLength={200} />
                     </label>
                 </div>
+                <label className="a-field">
+                    <span className="a-label">Рубрика</span>
+                    <select className="a-input" value={form.category} onChange={(event) => set("category", event.target.value)}>
+                        <option value="">Автоматически — сейчас «{categoryOf({title: form.title, keyword: form.keyword}).name}»</option>
+                        {ARTICLE_CATEGORIES.map((category) => (
+                            <option key={category.slug} value={category.slug}>{category.name}</option>
+                        ))}
+                    </select>
+                    <span className="a-hint">Статья появится на странице рубрики prime-auto.by/stati/tema/… и в фильтре над списком статей.</span>
+                </label>
                 <label className="a-field">
                     <span className="a-label">SEO-заголовок (title)</span>
                     <input className="a-input" value={form.metaTitle} onChange={(event) => set("metaTitle", event.target.value)} maxLength={120} />

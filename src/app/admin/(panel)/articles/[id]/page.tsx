@@ -125,6 +125,7 @@ const ArticlePage = async ({params}: {params: Promise<{id: string}>}) => {
                     faq: article.faq,
                     related: article.related,
                     keyword: article.keyword,
+                    category: article.category,
                 }}
             />
         </>

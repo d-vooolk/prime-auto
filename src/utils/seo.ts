@@ -12,6 +12,10 @@ interface BuildMetadataArgs {
     path: string;
     noIndex?: boolean;
     ogImage?: string;
+    /** Реальный размер ogImage, если это не картинка по умолчанию */
+    ogImageSize?: {width: number; height: number} | null;
+    /** Для статей: og:type=article с датами и рубрикой */
+    article?: {published: string; modified: string; section?: string};
 }
 
 const DEFAULT_OG_IMAGE = '/images/first-car.webp';
@@ -27,8 +31,12 @@ export const buildMetadata = ({
     path,
     noIndex = false,
     ogImage = DEFAULT_OG_IMAGE,
+    ogImageSize,
+    article,
 }: BuildMetadataArgs): Metadata => {
     const url = absoluteUrl(path);
+    // размер известен для картинки по умолчанию и для обложек статей (он в имени файла)
+    const imageSize = ogImage === DEFAULT_OG_IMAGE ? {width: 1100, height: 632} : ogImageSize ?? undefined;
 
     return {
         title,
@@ -56,7 +64,14 @@ export const buildMetadata = ({
                 },
             },
         openGraph: {
-            type: 'website',
+            ...(article
+                ? {
+                    type: 'article' as const,
+                    publishedTime: article.published,
+                    modifiedTime: article.modified,
+                    ...(article.section ? {section: article.section} : {}),
+                }
+                : {type: 'website' as const}),
             locale: 'ru_RU',
             siteName: SITE.name,
             url,
@@ -65,8 +80,7 @@ export const buildMetadata = ({
             images: [
                 {
                     url: absoluteUrl(ogImage),
-                    width: 1100,
-                    height: 632,
+                    ...imageSize,
                     alt: `${SITE.name} — мастерская автосвета в Минске`,
                 },
             ],
@@ -260,7 +274,7 @@ export const faqJsonLd = (items: FaqItem[]) => ({
  * а размечать их «на глаз» — прямой путь к ручным санкциям за фейковые
  * rich-сниппеты. Текст и авторы поисковику всё равно полезны.
  */
-export const reviewsJsonLd = (reviews: {name: string; review: string}[], path: string) => ({
+export const reviewsJsonLd = (reviews: {name: string; text: string; date: string}[], path: string) => ({
     '@context': 'https://schema.org',
     '@type': 'ItemList',
     '@id': `${absoluteUrl(path)}#reviews`,
@@ -274,7 +288,8 @@ export const reviewsJsonLd = (reviews: {name: string; review: string}[], path: s
                 '@type': 'Person',
                 name: item.name,
             },
-            reviewBody: item.review,
+            datePublished: item.date,
+            reviewBody: item.text,
             itemReviewed: {'@id': ORGANIZATION_ID},
         },
     })),
@@ -288,6 +303,8 @@ interface ArticleJsonLdArgs {
     updated: string;
     /** Обложка статьи; без неё — общая картинка сайта */
     image?: string;
+    /** Рубрика статьи */
+    section?: string;
 }
 
 /**
@@ -295,7 +312,7 @@ interface ArticleJsonLdArgs {
  * @id — поисковик связывает материал с уже описанной сущностью, а не заводит
  * отдельного безымянного автора.
  */
-export const articleJsonLd = ({title, description, path, published, updated, image}: ArticleJsonLdArgs) => ({
+export const articleJsonLd = ({title, description, path, published, updated, image, section}: ArticleJsonLdArgs) => ({
     '@context': 'https://schema.org',
     '@type': 'Article',
     '@id': `${absoluteUrl(path)}#article`,
@@ -308,4 +325,5 @@ export const articleJsonLd = ({title, description, path, published, updated, ima
     author: {'@id': ORGANIZATION_ID},
     publisher: {'@id': ORGANIZATION_ID},
     image: absoluteUrl(image || '/images/first-car.webp'),
+    ...(section ? {articleSection: section} : {}),
 });

@@ -9,6 +9,8 @@ import LinksCloudBlock from "@/components/_HelperComponents/LinksCloudBlock/Link
 import Portfolio from "@/components/Portfolio/Portfolio";
 import FormBlock from "@/components/FormBlock/FormBlock";
 import JsonLd from "@/components/_HelperComponents/JsonLd/JsonLd";
+import ReviewsBlock from "@/components/ReviewsBlock/ReviewsBlock";
+import {REVIEW_TOPICS_BY_PATH} from "@/constants/yandexReviews";
 import BeforeAfterBlock, {type WorkPhoto} from "@/components/_HelperComponents/BeforeAfterBlock/BeforeAfterBlock";
 import {getBrandService} from "@/constants/brandServices";
 import {CAR_BRANDS} from "@/constants/carBrands";
@@ -108,6 +110,8 @@ const ServiceLandingPage = ({
                 title={priceTitle}
                 priceDataSource={priceDataSource}
             />
+
+            <ReviewsBlock topics={REVIEW_TOPICS_BY_PATH[service.basePath]} />
 
             <InstallmentBlock />
 

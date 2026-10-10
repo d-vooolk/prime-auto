@@ -9,6 +9,7 @@ import {SVG_NAMES} from "../_HelperComponents/SvgComponent/constants.js";
 import {LINKS} from "../../constants/links.js";
 import {NAVIGATION_URL} from "../../constants/navigation.js";
 import { CONTACTS_DATA } from "../../constants/contactsData.js";
+import YandexRatingBadge from "../_HelperComponents/YandexRatingBadge/YandexRatingBadge";
 
 const Footer = () => {
     return (
@@ -42,6 +43,8 @@ const Footer = () => {
 
             <div className="footer-full-info-wrapper">
                 <div className="footer-full-info-name">Prime Auto</div>
+                {/* Рейтинг с Яндекс Карт — на каждой странице, как у конкурентов */}
+                <YandexRatingBadge />
                 <div className="footer-full-info-email">
                     <div>Email</div>
                     <div>
