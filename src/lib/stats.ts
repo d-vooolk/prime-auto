@@ -135,13 +135,133 @@ export const articleViewCounts = (): Map<string, number> => {
     return new Map(rows.map((row) => [row.slug, row.n]));
 };
 
-export const recordVote = (slug: string, useful: boolean, visitor: string): void => {
+export const recordVote = (slug: string, useful: boolean, visitor: string, comment = ""): void => {
     getDb()
         .prepare(
-            `INSERT INTO article_votes (ts, slug, useful, visitor) VALUES (?, ?, ?, ?)
-             ON CONFLICT(slug, visitor) DO UPDATE SET useful = excluded.useful, ts = excluded.ts`,
+            `INSERT INTO article_votes (ts, slug, useful, visitor, comment) VALUES (?, ?, ?, ?, ?)
+             ON CONFLICT(slug, visitor) DO UPDATE SET
+                useful = excluded.useful, ts = excluded.ts,
+                comment = CASE WHEN excluded.comment != '' THEN excluded.comment ELSE article_votes.comment END`,
         )
-        .run(Date.now(), slug, useful ? 1 : 0, visitor);
+        .run(Date.now(), slug, useful ? 1 : 0, visitor, comment);
+};
+
+/* ------------------------------------------------------------------ */
+/* Конверсии                                                           */
+/* ------------------------------------------------------------------ */
+
+export type ConversionType = "lead" | "lead_open" | "phone" | "telegram" | "viber" | "whatsapp" | "instagram" | "map";
+
+export const CONVERSION_LABELS: Record<ConversionType, string> = {
+    lead: "Заявка отправлена",
+    lead_open: "Открыта форма заявки",
+    phone: "Звонок",
+    telegram: "Telegram",
+    viber: "Viber",
+    whatsapp: "WhatsApp",
+    instagram: "Instagram",
+    map: "Маршрут / карта",
+};
+
+/** Обращения — то, что считаем конверсией; открытие формы — только шаг к ней */
+export const CONTACT_TYPES: ConversionType[] = ["lead", "phone", "telegram", "viber", "whatsapp"];
+
+export const isConversionType = (value: unknown): value is ConversionType =>
+    typeof value === "string" && value in CONVERSION_LABELS;
+
+/** Записать конверсию. Источник — последний вход на сайт этого посетителя */
+export const recordConversion = (type: ConversionType, path: string, visitor: string, device: Device): void => {
+    const db = getDb();
+    const now = Date.now();
+    // двойной клик или повтор той же кнопки на той же странице за 10 минут — одно действие
+    if (db.prepare("SELECT 1 FROM conversions WHERE visitor = ? AND type = ? AND path = ? AND ts > ?")
+        .get(visitor, type, path, now - 10 * 60000)) return;
+    const entry = db
+        .prepare("SELECT source FROM page_views WHERE visitor = ? AND entry = 1 ORDER BY ts DESC LIMIT 1")
+        .get(visitor) as {source: Source} | undefined;
+    db.prepare("INSERT INTO conversions (ts, day, type, path, visitor, source, device) VALUES (?, ?, ?, ?, ?, ?, ?)")
+        .run(now, minskDay(now), type, path, visitor, entry?.source ?? "direct", device);
+};
+
+export interface ConversionPage {
+    path: string;
+    visitors: number;
+    contacts: number;
+    counts: Partial<Record<ConversionType, number>>;
+}
+
+export interface ConversionsReport {
+    days: number;
+    from: string;
+    to: string;
+    visitors: number;
+    converted: number;
+    byType: {type: ConversionType; n: number; prev: number}[];
+    byPage: ConversionPage[];
+    bySource: {source: Source; visitors: number; converted: number; contacts: number}[];
+    byDevice: {device: Device; visitors: number; converted: number}[];
+    recent: {ts: number; type: ConversionType; path: string; source: Source; device: Device}[];
+}
+
+export const conversionsReport = (days: number): ConversionsReport => {
+    const db = getDb();
+    const now = Date.now();
+    const from = minskDay(now - (days - 1) * 86400000);
+    const prevFrom = minskDay(now - (2 * days - 1) * 86400000);
+    const all = <T>(sql: string, ...args: unknown[]) => db.prepare(sql).all(...args) as T[];
+    const contactsSql = CONTACT_TYPES.map((t) => `'${t}'`).join(",");
+
+    const visitors = (db.prepare("SELECT COUNT(DISTINCT visitor) n FROM page_views WHERE day >= ?").get(from) as {n: number}).n;
+    const converted = (db.prepare(`SELECT COUNT(DISTINCT visitor) n FROM conversions WHERE day >= ? AND type IN (${contactsSql})`)
+        .get(from) as {n: number}).n;
+
+    const prevByType = new Map(all<{type: string; n: number}>(
+        "SELECT type, COUNT(*) n FROM conversions WHERE day >= ? AND day < ? GROUP BY type", prevFrom, from).map((r) => [r.type, r.n]));
+    const byType = all<{type: ConversionType; n: number}>(
+        "SELECT type, COUNT(*) n FROM conversions WHERE day >= ? GROUP BY type ORDER BY n DESC", from)
+        .map((r) => ({...r, prev: prevByType.get(r.type) ?? 0}));
+
+    const pageVisitors = new Map(all<{path: string; n: number}>(
+        "SELECT path, COUNT(DISTINCT visitor) n FROM page_views WHERE day >= ? GROUP BY path", from).map((r) => [r.path, r.n]));
+    const pages = new Map<string, ConversionPage>();
+    for (const row of all<{path: string; type: ConversionType; n: number}>(
+        "SELECT path, type, COUNT(*) n FROM conversions WHERE day >= ? GROUP BY path, type", from)) {
+        const page = pages.get(row.path) ?? {path: row.path, visitors: pageVisitors.get(row.path) ?? 0, contacts: 0, counts: {}};
+        page.counts[row.type] = row.n;
+        if (CONTACT_TYPES.includes(row.type)) page.contacts += row.n;
+        pages.set(row.path, page);
+    }
+
+    const sourceVisitors = all<{source: Source; n: number}>(
+        "SELECT source, COUNT(DISTINCT visitor) n FROM page_views WHERE day >= ? AND entry = 1 GROUP BY source", from);
+    const sourceConv = new Map(all<{source: string; converted: number; contacts: number}>(
+        `SELECT source, COUNT(DISTINCT visitor) converted, COUNT(*) contacts FROM conversions
+          WHERE day >= ? AND type IN (${contactsSql}) GROUP BY source`, from).map((r) => [r.source, r]));
+    const deviceConv = new Map(all<{device: string; n: number}>(
+        `SELECT device, COUNT(DISTINCT visitor) n FROM conversions WHERE day >= ? AND type IN (${contactsSql}) GROUP BY device`, from)
+        .map((r) => [r.device, r.n]));
+
+    return {
+        days,
+        from,
+        to: minskDay(now),
+        visitors,
+        converted,
+        byType,
+        byPage: [...pages.values()].sort((a, b) => b.contacts - a.contacts || b.visitors - a.visitors),
+        bySource: sourceVisitors
+            .map((s) => ({
+                source: s.source,
+                visitors: s.n,
+                converted: sourceConv.get(s.source)?.converted ?? 0,
+                contacts: sourceConv.get(s.source)?.contacts ?? 0,
+            }))
+            .sort((a, b) => b.converted - a.converted || b.visitors - a.visitors),
+        byDevice: all<{device: Device; n: number}>(
+            "SELECT device, COUNT(DISTINCT visitor) n FROM page_views WHERE day >= ? GROUP BY device ORDER BY n DESC", from)
+            .map((d) => ({device: d.device, visitors: d.n, converted: deviceConv.get(d.device) ?? 0})),
+        recent: all("SELECT ts, type, path, source, device FROM conversions ORDER BY ts DESC LIMIT 30"),
+    };
 };
 
 /* ------------------------------------------------------------------ */
@@ -169,6 +289,7 @@ export interface StatsReport {
     referrers: {host: string; n: number}[];
     devices: {device: Device; n: number}[];
     votes: {slug: string; yes: number; no: number}[];
+    comments: {slug: string; comment: string; ts: number}[];
 }
 
 export const statsReport = (days: number): StatsReport => {
@@ -218,5 +339,6 @@ export const statsReport = (days: number): StatsReport => {
               GROUP BY referrer ORDER BY n DESC LIMIT 15`, from),
         devices: all("SELECT device, COUNT(DISTINCT visitor) n FROM page_views WHERE day >= ? GROUP BY device ORDER BY n DESC", from),
         votes: all("SELECT slug, SUM(useful) yes, SUM(1 - useful) no FROM article_votes GROUP BY slug ORDER BY yes + no DESC"),
+        comments: all("SELECT slug, comment, ts FROM article_votes WHERE comment != '' ORDER BY ts DESC LIMIT 50"),
     };
 };

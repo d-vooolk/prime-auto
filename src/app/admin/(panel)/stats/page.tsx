@@ -1,43 +1,14 @@
-import Link from "next/link";
 import React from "react";
 import {listArticles} from "@/lib/articles";
 import {DEVICE_LABELS, SOURCE_LABELS, statsReport, type Source} from "@/lib/stats";
-import {breadcrumbLabels, NAVIGATION_URL} from "@/constants/navigation";
-import {BRAND_SERVICES} from "@/constants/brandServices";
-import {CAR_BRANDS} from "@/constants/carBrands";
 import {SITE_URL} from "@/constants/site";
+import {Bar, Change, number, percent, periodFrom, StatsHeader, titleResolver} from "@/components/admin/stats-ui";
 
 export const dynamic = "force-dynamic";
-
-const PERIODS = [7, 30, 90, 365];
 
 interface PageProps {
     searchParams: Promise<{d?: string}>;
 }
-
-/** Человеческое название страницы по адресу */
-const titleResolver = () => {
-    const titles = new Map<string, string>(Object.entries(breadcrumbLabels));
-    titles.set("/", "Главная");
-    for (const article of listArticles()) titles.set(`${NAVIGATION_URL.articles}/${article.slug}`, article.title);
-    for (const service of BRAND_SERVICES) {
-        for (const brand of CAR_BRANDS) titles.set(`${service.basePath}/${brand.slug}`, `${service.label} ${brand.name}`);
-    }
-    return (path: string) => titles.get(path) ?? path;
-};
-
-const number = (n: number) => n.toLocaleString("ru-RU");
-const percent = (part: number, whole: number) => (whole ? `${Math.round((part / whole) * 100)}%` : "—");
-
-const Change = ({now, before}: {now: number; before: number}) => {
-    if (!before) return <span className="a-note">{now ? "новое" : "—"}</span>;
-    const delta = Math.round(((now - before) / before) * 100);
-    return <span style={{color: delta >= 0 ? "var(--a-accent)" : "var(--a-danger)"}}>{delta >= 0 ? "+" : ""}{delta}%</span>;
-};
-
-const Bar = ({value, max}: {value: number; max: number}) => (
-    <span style={{display: "inline-block", height: 8, borderRadius: 4, background: "var(--a-accent)", width: `${max ? Math.max(2, (value / max) * 100) : 0}%`, verticalAlign: "middle"}} />
-);
 
 const sourceList = (sources: {source: Source; n: number}[]) =>
     sources.slice(0, 3).map((item) => `${SOURCE_LABELS[item.source]} ${item.n}`).join(", ") || "—";
@@ -48,8 +19,7 @@ const sourceList = (sources: {source: Source; n: number}[]) =>
  * Метрика остаётся основной аналитикой, здесь — быстрый ответ «что читают».
  */
 const StatsPage = async ({searchParams}: PageProps) => {
-    const requested = Number((await searchParams).d);
-    const days = PERIODS.includes(requested) ? requested : 30;
+    const days = periodFrom((await searchParams).d);
     const report = statsReport(days);
     const title = titleResolver();
     const maxDaily = Math.max(1, ...report.daily.map((d) => d.views));
@@ -60,16 +30,7 @@ const StatsPage = async ({searchParams}: PageProps) => {
 
     return (
         <>
-            <div className="a-row" style={{justifyContent: "space-between", marginBottom: 16}}>
-                <h1 className="a-h1" style={{margin: 0}}>Популярное</h1>
-                <div className="a-tabs">
-                    {PERIODS.map((period) => (
-                        <Link key={period} href={`/admin/stats?d=${period}`} className={`a-tab${period === days ? " a-tab-active" : ""}`}>
-                            {period === 365 ? "Год" : `${period} дней`}
-                        </Link>
-                    ))}
-                </div>
-            </div>
+            <StatsHeader tab="views" days={days} />
 
             <section className="a-card">
                 <div className="a-row" style={{gap: 40, flexWrap: "wrap"}}>
@@ -194,6 +155,27 @@ const StatsPage = async ({searchParams}: PageProps) => {
                             </tbody>
                         </table>
                     ) : <p className="a-note">Пока никто не ответил.</p>}
+
+                    {report.comments.length > 0 && (
+                        <>
+                            <h2 className="a-h2" style={{marginTop: 20}}>Чего не хватило читателям</h2>
+                            <table className="a-table">
+                                <tbody>
+                                {report.comments.map((c) => (
+                                    <tr key={`${c.slug}-${c.ts}`}>
+                                        <td>
+                                            <div>{c.comment}</div>
+                                            <div className="a-note">
+                                                {new Date(c.ts).toLocaleDateString("ru-RU")} ·{" "}
+                                                <a href={`${SITE_URL}/stati/${c.slug}`} target="_blank" rel="noreferrer">{articleTitles.get(c.slug) ?? c.slug}</a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                ))}
+                                </tbody>
+                            </table>
+                        </>
+                    )}
                 </section>
             </div>
         </>

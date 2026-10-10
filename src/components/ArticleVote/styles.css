@@ -53,3 +53,39 @@
     font-weight: 600;
     text-underline-offset: 3px;
 }
+
+.article-vote-form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
+}
+
+.article-vote-textarea {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 14px 16px;
+    border-radius: 12px;
+    border: 1px solid rgba(38, 38, 38, 0.2);
+    font-family: Inter, sans-serif;
+    font-size: 15px;
+    line-height: 150%;
+    resize: vertical;
+}
+
+.article-vote-textarea:focus {
+    outline: none;
+    border-color: var(--base-green);
+    box-shadow: 0 0 0 3px rgba(162, 219, 0, 0.25);
+}
+
+.article-vote-button--primary {
+    background-color: var(--base-dark);
+    border-color: var(--base-dark);
+    color: var(--base-white);
+}
+
+.article-vote-button:disabled {
+    opacity: .5;
+    cursor: default;
+}

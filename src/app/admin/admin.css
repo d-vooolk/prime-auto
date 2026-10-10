@@ -56,10 +56,120 @@ body {
     flex: 1;
 }
 
+/* --- раскладка: боковое меню слева --- */
+
+.a-shell {
+    display: grid;
+    grid-template-columns: 230px minmax(0, 1fr);
+    align-items: start;
+}
+
+.a-side {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding: 20px 14px;
+    background: var(--a-text);
+    color: #fff;
+}
+
+.a-side-brand {
+    display: flex;
+    flex-direction: column;
+    padding: 4px 12px 18px;
+    font-weight: 800;
+    font-size: 18px;
+    color: #fff !important;
+    text-decoration: none;
+}
+
+.a-side-brand small {
+    font-weight: 400;
+    font-size: 12px;
+    opacity: .6;
+}
+
+.a-side-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.a-side-link {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 12px;
+    border-radius: 8px;
+    color: #fff !important;
+    text-decoration: none;
+    opacity: .8;
+}
+
+.a-side-link:hover {
+    opacity: 1;
+    background: rgba(255, 255, 255, .08);
+}
+
+.a-side-link-active {
+    opacity: 1;
+    background: rgba(255, 255, 255, .14);
+    font-weight: 600;
+}
+
+.a-side-icon {
+    width: 20px;
+    text-align: center;
+}
+
+.a-side-bottom {
+    margin-top: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.a-side-logout {
+    width: 100%;
+}
+
 .a-main {
-    max-width: 1100px;
+    max-width: 1200px;
+    width: 100%;
     margin: 0 auto;
     padding: 24px;
+}
+
+@media (max-width: 860px) {
+    .a-shell {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .a-side {
+        position: static;
+        height: auto;
+        flex-direction: row;
+        flex-wrap: wrap;
+        align-items: center;
+        padding: 10px 12px;
+    }
+
+    .a-side-brand {
+        padding: 0 12px 0 4px;
+    }
+
+    .a-side-nav {
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+
+    .a-side-bottom {
+        margin: 0 0 0 auto;
+        flex-direction: row;
+    }
 }
 
 .a-h1 {
@@ -321,4 +431,13 @@ body {
     .a-main {
         padding: 14px;
     }
+}
+
+/* вкладки-ссылки (статистика): без подчёркивания, активная — белым по тёмному */
+.admin a.a-tab {
+    text-decoration: none;
+}
+
+.admin a.a-tab-active {
+    color: #fff;
 }

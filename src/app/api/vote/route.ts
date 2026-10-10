@@ -11,7 +11,7 @@ export const POST = async (request: NextRequest) => {
     const ip = clientIp(request);
     if (isBot(ua) || rateLimited(`vote:${ip}`, 20)) return NextResponse.json({ok: false}, {status: 429});
 
-    let body: {slug?: unknown; useful?: unknown};
+    let body: {slug?: unknown; useful?: unknown; comment?: unknown};
     try {
         body = await request.json();
     } catch {
@@ -21,6 +21,7 @@ export const POST = async (request: NextRequest) => {
     if (!slug || typeof body.useful !== "boolean" || !getPublishedArticle(slug)) {
         return NextResponse.json({ok: false}, {status: 400});
     }
-    recordVote(slug, body.useful, visitorId(ip, ua, minskDay()));
+    const comment = typeof body.comment === "string" ? body.comment.trim().slice(0, 1000) : "";
+    recordVote(slug, body.useful, visitorId(ip, ua, minskDay()), comment);
     return NextResponse.json({ok: true});
 };

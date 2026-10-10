@@ -4,6 +4,7 @@ import React, {useEffect, useRef} from "react";
 import './styles.css';
 import '@/components/FormBlock/styles.css';
 import Form from "@/components/_HelperComponents/Form/Form.jsx";
+import {trackConversion} from "@/utils/conversions";
 
 export const OPEN_LEAD_EVENT = 'prime:open-lead';
 
@@ -20,7 +21,10 @@ const LeadModal = () => {
     const ref = useRef<HTMLDialogElement>(null);
 
     useEffect(() => {
-        const open = () => ref.current?.showModal();
+        const open = () => {
+            ref.current?.showModal();
+            trackConversion("lead_open");
+        };
         window.addEventListener(OPEN_LEAD_EVENT, open);
         return () => window.removeEventListener(OPEN_LEAD_EVENT, open);
     }, []);

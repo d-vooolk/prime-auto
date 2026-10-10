@@ -128,6 +128,23 @@ const MIGRATIONS = [
         UNIQUE (slug, visitor)
     );
     `,
+    // 5 — конверсии (заявка, звонок, мессенджеры) с источником визита и
+    //     комментарий к ответу «статья не полезна»
+    `
+    ALTER TABLE article_votes ADD COLUMN comment TEXT NOT NULL DEFAULT '';
+
+    CREATE TABLE conversions (
+        id      INTEGER PRIMARY KEY,
+        ts      INTEGER NOT NULL,
+        day     TEXT NOT NULL,
+        type    TEXT NOT NULL,
+        path    TEXT NOT NULL,
+        visitor TEXT NOT NULL,
+        source  TEXT NOT NULL,
+        device  TEXT NOT NULL
+    );
+    CREATE INDEX conversions_day ON conversions (day);
+    `,
 ];
 
 /**

@@ -2,6 +2,7 @@
 
 import {useEffect, useRef} from "react";
 import {usePathname} from "next/navigation";
+import {conversionForLink, trackConversion} from "@/utils/conversions";
 
 const ENTRY_KEY = 'prime-pv-entry';
 
@@ -39,6 +40,17 @@ const PageViewTracker = () => {
             fetch('/api/pv', {method: 'POST', body, keepalive: true, headers: {'Content-Type': 'application/json'}}).catch(() => {});
         }
     }, [pathname]);
+
+    // клики по телефону, мессенджерам и карте — конверсии (ссылки по всему сайту, слушаем документ)
+    useEffect(() => {
+        const onClick = (event: MouseEvent) => {
+            const href = (event.target as Element | null)?.closest?.("a[href]")?.getAttribute("href");
+            const type = href ? conversionForLink(href) : null;
+            if (type) trackConversion(type);
+        };
+        document.addEventListener("click", onClick, {capture: true});
+        return () => document.removeEventListener("click", onClick, {capture: true});
+    }, []);
 
     return null;
 };

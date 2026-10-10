@@ -5,6 +5,7 @@ import {formBlockText} from "@/components/FormBlock/FormBlock.jsx";
 import {sendLeadToBot} from "@/app/api/tg-bot/leads";
 import {GOALS, reachGoal} from "@/utils/analytics";
 import {CONTACTS_DATA} from "@/constants/contactsData";
+import {trackConversion} from "@/utils/conversions";
 
 const ERROR_TEXT = `Не получилось отправить заявку. Позвоните нам: ${CONTACTS_DATA.phone1} — или напишите в Telegram.`;
 
@@ -113,6 +114,7 @@ const Form = () => {
 
             if (response?.success) {
                 reachGoal(GOALS.lead);
+                trackConversion('lead');
                 setStatus('Данные успешно отправлены!');
                 resetPhoneField();
                 setFormData({ name: '', phone: '', message: '', agreement: false });
