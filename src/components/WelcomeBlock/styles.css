@@ -91,10 +91,12 @@
     color: var(--base-dark);
 }
 
+/* фон непрозрачный: на узких экранах кнопки ложатся поверх машины */
 .welcome-tg-button {
     border: 1px solid var(--base-dark);
-    background-color: transparent;
+    background-color: var(--base-white);
     color: var(--base-dark);
+    box-shadow: 0 4px 14px rgba(38, 38, 38, 0.12);
 }
 
 .welcome-tg-button svg {

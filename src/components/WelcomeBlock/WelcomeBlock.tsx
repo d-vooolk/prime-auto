@@ -23,7 +23,7 @@ const SERVICES = [
   «1000+ работ / 4 года / 100% довольных / от 2 лет гарантии» на целый экран
   вниз — «100%» ничем не подтверждено, а настоящий рейтинг с Яндекса лежал
   в самом низу. Теперь доверие — одной строкой прямо под кнопками: рейтинг
-  с Яндекс Карт, число работ и гарантия. Плюс адрес с графиком и второй
+  с Яндекс Карт и число работ. Плюс адрес с графиком и второй
   способ связи — Telegram, «Оставить заявку» открывает попап, а не уводит
   к форме в конце страницы.
 */
@@ -68,10 +68,6 @@ const WelcomeBlock = () => (
                 <div className="welcome-trust-item">
                     <span className="welcome-trust-value">1000+</span>
                     <span className="welcome-trust-label">выполненных работ</span>
-                </div>
-                <div className="welcome-trust-item">
-                    <span className="welcome-trust-value">от 2 лет</span>
-                    <span className="welcome-trust-label">гарантия на модули</span>
                 </div>
             </div>
 
