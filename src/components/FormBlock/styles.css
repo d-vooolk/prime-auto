@@ -357,3 +357,182 @@
     line-height: 1;
     cursor: pointer;
 }
+
+/* --- заявка отправлена: форма сменяется подтверждением --- */
+.form-error {
+    margin: 0;
+    font-family: Inter, sans-serif;
+    font-size: 15px;
+    line-height: 140%;
+    color: #c0392b;
+    text-align: center;
+}
+
+.form-get-lead-button[aria-busy="true"] {
+    opacity: .7;
+    cursor: progress;
+}
+
+.form-success {
+    width: min(602px, calc(100% - 40px));
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 30px 0 60px;
+    color: var(--base-dark);
+    animation: form-success-in .45s cubic-bezier(.2, .8, .2, 1) both;
+}
+
+.form-success-badge {
+    position: relative;
+    width: 112px;
+    height: 112px;
+    margin-bottom: 28px;
+}
+
+/* два кольца расходятся от галочки */
+.form-success-badge::before,
+.form-success-badge::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    border: 2px solid var(--base-green);
+    opacity: 0;
+    animation: form-success-ring 1.4s ease-out .35s both;
+}
+
+.form-success-badge::after {
+    animation-delay: .6s;
+}
+
+.form-success-circle {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    background: var(--base-green);
+    color: #111;
+    box-shadow: 0 14px 40px rgba(162, 219, 0, .45);
+    animation: form-success-pop .6s cubic-bezier(.34, 1.56, .64, 1) both;
+}
+
+.form-success-check path {
+    stroke-dasharray: 40;
+    stroke-dashoffset: 40;
+    animation: form-success-draw .4s ease-out .4s forwards;
+}
+
+/* искры по кругу */
+.form-success-burst i {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 8px;
+    height: 8px;
+    margin: -4px 0 0 -4px;
+    border-radius: 50%;
+    background: var(--base-green);
+    opacity: 0;
+    transform: rotate(calc(var(--i) * 45deg)) translateY(0);
+    animation: form-success-spark .7s ease-out .3s both;
+}
+
+.form-success-burst i:nth-child(even) {
+    width: 6px;
+    height: 6px;
+    margin: -3px 0 0 -3px;
+    background: var(--base-dark);
+}
+
+.form-success-title {
+    margin: 0 0 12px;
+    font-family: Montserrat, sans-serif;
+    font-weight: 800;
+    font-size: 36px;
+    line-height: 120%;
+    text-transform: uppercase;
+    overflow-wrap: anywhere;
+    animation: form-success-rise .5s ease .45s both;
+}
+
+.form-success-text {
+    max-width: 440px;
+    margin: 0 0 30px;
+    font-family: Inter, sans-serif;
+    font-weight: 300;
+    font-size: 16px;
+    line-height: 140%;
+    animation: form-success-rise .5s ease .55s both;
+}
+
+.form-success-again {
+    padding: 16px 26px;
+    border-radius: 31px;
+    border: 1px solid var(--base-dark);
+    background: transparent;
+    color: var(--base-dark);
+    font-family: Inter, sans-serif;
+    font-weight: 600;
+    font-size: 15px;
+    cursor: pointer;
+    transition: .3s ease all;
+    animation: form-success-rise .5s ease .65s both;
+}
+
+.form-success-again:hover {
+    background: var(--base-dark);
+    color: var(--base-white);
+}
+
+@keyframes form-success-in {
+    from { opacity: 0; transform: translateY(14px); }
+}
+
+@keyframes form-success-pop {
+    from { transform: scale(0); }
+}
+
+@keyframes form-success-draw {
+    to { stroke-dashoffset: 0; }
+}
+
+@keyframes form-success-ring {
+    0% { opacity: .8; transform: scale(1); }
+    100% { opacity: 0; transform: scale(1.9); }
+}
+
+@keyframes form-success-spark {
+    0% { opacity: 1; transform: rotate(calc(var(--i) * 45deg)) translateY(0); }
+    100% { opacity: 0; transform: rotate(calc(var(--i) * 45deg)) translateY(-86px); }
+}
+
+@keyframes form-success-rise {
+    from { opacity: 0; transform: translateY(10px); }
+}
+
+@media (max-width: 768px) {
+    .form-success-title {
+        font-size: 26px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .form-success,
+    .form-success *,
+    .form-success-badge::before,
+    .form-success-badge::after {
+        animation: none !important;
+    }
+
+    .form-success-check path {
+        stroke-dashoffset: 0;
+    }
+
+    .form-success-burst {
+        display: none;
+    }
+}

@@ -32,3 +32,34 @@ export const sendLeadToBot = async (clientData: SendLeadToBotParamsInterface) =>
         clearTimeout(timer);
     }
 };
+
+/** Та же заявка — в раздел «Заявки» CRM (через /api/lead сайта: ключ CRM живёт на сервере) */
+export const sendLeadToCrm = async (clientData: SendLeadToBotParamsInterface) => {
+    const controller = new AbortController();
+    const timer = setTimeout(() => controller.abort(), TIMEOUT_MS);
+    try {
+        const response = await fetch('/api/lead', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(clientData),
+            signal: controller.signal,
+        });
+        return response.ok ? await response.json() : {success: false};
+    } catch (error) {
+        console.error('CRM lead error:', error);
+        return {success: false};
+    } finally {
+        clearTimeout(timer);
+    }
+};
+
+/**
+ * Заявка уходит и в Telegram, и в CRM. Дошла хоть куда-то — заявка не потеряна, поэтому
+ * успех показываем по первому успешному ответу, не дожидаясь второго
+ */
+export const sendLead = (clientData: SendLeadToBotParamsInterface): Promise<boolean> => {
+    const ok = (promise: Promise<{success?: boolean}>) =>
+        promise.then((r) => (r?.success ? true : Promise.reject(new Error('not sent'))));
+    return Promise.any([ok(sendLeadToBot(clientData)), ok(sendLeadToCrm(clientData))])
+        .then(() => true, () => false);
+};

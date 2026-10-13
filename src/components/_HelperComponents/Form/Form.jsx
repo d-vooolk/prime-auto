@@ -2,7 +2,7 @@
 
 import React, {useCallback, useEffect, useId, useRef, useState} from "react";
 import {formBlockText} from "@/components/FormBlock/FormBlock.jsx";
-import {sendLeadToBot} from "@/app/api/tg-bot/leads";
+import {sendLead} from "@/app/api/tg-bot/leads";
 import {GOALS, reachGoal} from "@/utils/analytics";
 import {CONTACTS_DATA} from "@/constants/contactsData";
 import {trackConversion} from "@/utils/conversions";
@@ -12,6 +12,8 @@ const MAX_PHOTOS = 3;
 
 const ERROR_TEXT = `Не получилось отправить заявку. Позвоните нам: ${CONTACTS_DATA.phone1} — или напишите в Telegram.`;
 
+const SENDING = 'Отправка...';
+
 const PHONE_MASK = '+375 (00) 000-00-00';
 const PHONE_PLACEHOLDER = '+375 (__) ___-__-__';
 
@@ -19,8 +21,10 @@ const PHONE_PLACEHOLDER = '+375 (__) ___-__-__';
   initialMessage — текст, которым заполняется комментарий (подбор «Что с фарой?»
   открывает попап с уже описанной проблемой). Фото фары сжимаются в браузере
   и уходят вместе с заявкой; к заявке добавляются страница и источник визита.
+  Заявка уходит и в Telegram, и в CRM. После отправки форма сменяется
+  анимированным подтверждением; onSent — сообщить попапу, что заявка ушла.
 */
-const Form = ({initialMessage = ''}) => {
+const Form = ({initialMessage = '', onSent}) => {
     // форм на странице может быть две (внизу и в попапе) — id полей должны различаться
     const uid = useId();
     const [formData, setFormData] = useState({
@@ -31,6 +35,8 @@ const Form = ({initialMessage = ''}) => {
     });
     const [status, setStatus] = useState('');
     const [photos, setPhotos] = useState([]);
+    // Имя отправившего — показываем экран «Заявка отправлена»
+    const [sentName, setSentName] = useState(null);
 
     const addPhotos = async (event) => {
         const files = [...(event.target.files ?? [])].slice(0, MAX_PHOTOS - photos.length);
@@ -131,17 +137,19 @@ const Form = ({initialMessage = ''}) => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        setStatus('Отправка...');
+        setStatus(SENDING);
         try {
-            const response = await sendLeadToBot({...formData, ...leadContext(), photos});
+            const sent = await sendLead({...formData, ...leadContext(), photos});
 
-            if (response?.success) {
+            if (sent) {
                 reachGoal(GOALS.lead);
                 trackConversion('lead');
-                setStatus('Данные успешно отправлены!');
+                setStatus('');
+                setSentName(formData.name.trim());
                 resetPhoneField();
-                setFormData({ name: '', phone: '', message: '', agreement: false });
+                setFormData({ name: '', phone: '', message: '', agreement: true });
                 setPhotos([]);
+                onSent?.();
             } else {
                 setStatus(ERROR_TEXT);
             }
@@ -150,6 +158,41 @@ const Form = ({initialMessage = ''}) => {
             setStatus(ERROR_TEXT);
         }
     };
+
+    // «Отправить ещё»: поле телефона создаётся заново — маску тоже
+    const startOver = () => {
+        maskRef.current?.destroy();
+        maskRef.current = null;
+        isMaskRequested.current = false;
+        setSentName(null);
+    };
+
+    if (sentName !== null) {
+        return (
+            <div className="form-success" role="status" aria-live="polite">
+                <div className="form-success-badge" aria-hidden="true">
+                    <span className="form-success-burst">
+                        {Array.from({length: 8}, (_, i) => <i key={i} style={{'--i': i}} />)}
+                    </span>
+                    <span className="form-success-circle">
+                        <svg className="form-success-check" viewBox="0 0 52 52" width="56" height="56">
+                            <path d="M14 27.5l8 8L38.5 18" fill="none" stroke="currentColor" strokeWidth="5"
+                                  strokeLinecap="round" strokeLinejoin="round"/>
+                        </svg>
+                    </span>
+                </div>
+                <p className="form-success-title">
+                    {sentName ? `Спасибо, ${sentName}!` : 'Спасибо!'}
+                </p>
+                <p className="form-success-text">
+                    Заявка у нас. Мастер посмотрит её и перезвонит вам, чтобы подсказать по работе и цене.
+                </p>
+                <button type="button" className="form-success-again" onClick={startOver}>
+                    Отправить ещё одну заявку
+                </button>
+            </div>
+        );
+    }
 
     return (
         <form
@@ -250,8 +293,8 @@ const Form = ({initialMessage = ''}) => {
             </div>
 
             <div className="form-block-button-wrapper">
-                <button type="submit" className="form-get-lead-button" disabled={status === 'Отправка...'}>
-                    <span>Отправить</span>
+                <button type="submit" className="form-get-lead-button" disabled={status === SENDING} aria-busy={status === SENDING}>
+                    <span>{status === SENDING ? 'Отправляем…' : 'Отправить'}</span>
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                         <path d="M7 7H17M17 7V17M17 7L7 17" stroke="currentColor" strokeWidth="2"
                               strokeLinecap="round"
@@ -259,7 +302,7 @@ const Form = ({initialMessage = ''}) => {
                     </svg>
                 </button>
             </div>
-            {status && <p aria-live="polite">{status}</p>}
+            {status && status !== SENDING && <p className="form-error" aria-live="polite">{status}</p>}
         </form>
     )
 };

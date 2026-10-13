@@ -25,11 +25,14 @@ const LeadModal = () => {
     const ref = useRef<HTMLDialogElement>(null);
     // ключ пересоздаёт форму, чтобы подставить новый текст; без текста форма не сбрасывается
     const [prefill, setPrefill] = useState({key: 0, message: ""});
+    // заявку из попапа уже отправили — при следующем открытии нужна чистая форма, а не «Спасибо»
+    const sent = useRef(false);
 
     useEffect(() => {
         const open = (event: Event) => {
             const message = (event as CustomEvent<{message?: string}>).detail?.message ?? "";
-            if (message) setPrefill((current) => ({key: current.key + 1, message}));
+            if (message || sent.current) setPrefill((current) => ({key: current.key + 1, message}));
+            sent.current = false;
             ref.current?.showModal();
             trackConversion("lead_open");
         };
@@ -54,7 +57,7 @@ const LeadModal = () => {
                 <p className="lead-modal-text">
                     Опишите, что с фарами, — перезвоним, подскажем по работе и цене и запишем на удобное время.
                 </p>
-                <Form key={prefill.key} initialMessage={prefill.message} />
+                <Form key={prefill.key} initialMessage={prefill.message} onSent={() => { sent.current = true; }} />
             </div>
         </dialog>
     );
