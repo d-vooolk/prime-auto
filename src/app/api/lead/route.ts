@@ -3,7 +3,7 @@ import {env} from "@/lib/env.mjs";
 import {clientIp, rateLimited} from "@/lib/request-meta";
 
 /*
-  Заявка из формы → раздел «Заявки» в CRM (crm.prime-auto.by). Отдельно от бота в Telegram:
+  Заявка из формы → раздел «Заявки» в CRM (crm.prime-auto.by), в Telegram заявки не уходят:
   браузер шлёт сюда, а мы пересылаем в CRM с общим ключом — ключ не попадает в браузер.
   CRM_LEADS_KEY в .env.local сайта = SITE_LEADS_KEY в .env CRM. Ключа нет — пересылка выключена.
 */
