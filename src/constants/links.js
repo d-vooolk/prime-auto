@@ -22,6 +22,16 @@ export const LINKS = {
     /* Профиль на агрегаторе onlix.by — там ищут «ремонт фар в минске онликс» */
     onlix: 'https://onlix.by/companies/prime-auto',
     /*
+      Карточки в справочниках (docs/links-and-catalogs.md) — тоже в sameAs:
+      одни и те же название, адрес и телефон на разных площадках плюс обратная
+      ссылка на сайт помогают поисковику связать их с одной организацией.
+      2ГИС — постоянный адрес карточки, без параметров карты.
+    */
+    twoGis: 'https://2gis.by/minsk/firm/70000001118557262',
+    idriver: 'https://idriver.by/4892-ooo-pervyy-avtosvet',
+    spravka: 'https://spravka.by/avtoatele/prajm-avto-remont-far',
+    forsage: 'https://forsage.by/service/sto/15021-praym-avto-minsk-card/',
+    /*
       Магазин VDF.BY — тот же владелец. Товары (стёкла, модули) ведём туда,
       услуги — сюда; на vdf.by у товаров обратные ссылки на наши услуги.
     */
