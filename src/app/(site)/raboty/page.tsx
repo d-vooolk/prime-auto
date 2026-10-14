@@ -12,6 +12,7 @@ import LeadButton from "@/components/LeadModal/LeadButton";
 import {CASES, CLUSTERS, clusterOf} from "@/constants/cases";
 import {NAVIGATION_URL} from "@/constants/navigation";
 import {plural} from "@/constants/yandexReviews";
+import {LINKS} from "@/constants/links";
 import {absoluteUrl, breadcrumbJsonLd, buildMetadata} from "@/utils/seo";
 
 export const metadata = buildMetadata({
@@ -59,7 +60,8 @@ const RabotyPage = () => {
                     <h1 className="cases-page-h1">Наши работы: фары до и после</h1>
                     <p className="cases-page-lead">
                         {plural(CASES.length, ['работа', 'работы', 'работ'])} на машинах {brands} марок — что было с фарами,
-                        что сделали и что сказал владелец. Фото — из нашей мастерской, отзывы — с Яндекс Карт.
+                        что сделали и что сказал владелец. Фото и видео — из нашей мастерской (больше роликов —
+                        на нашем <a href={LINKS.youTube} target="_blank" rel="noopener">YouTube-канале</a>), отзывы — с Яндекс Карт.
                         Нашли похожий случай? Пришлите фото своей фары — скажем, что можно сделать и сколько это будет стоить.
                     </p>
                     <LeadButton className="cases-page-cta">Прислать фото фары</LeadButton>

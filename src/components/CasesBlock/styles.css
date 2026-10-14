@@ -358,3 +358,55 @@
     font-weight: 400;
     opacity: .7;
 }
+
+/* --- видео в карточке кейса --- */
+.case-card-play {
+    display: block;
+    position: relative;
+    width: 100%;
+    padding: 0;
+    border: 0;
+    background: none;
+    cursor: pointer;
+}
+
+.case-card-play-icon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 64px;
+    height: 64px;
+    margin: -32px 0 0 -32px;
+    border-radius: 50%;
+    background: rgba(0, 0, 0, 0.6);
+    transition: background .2s, transform .2s;
+}
+
+.case-card-play-icon::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin: -12px 0 0 -7px;
+    border-style: solid;
+    border-width: 12px 0 12px 20px;
+    border-color: transparent transparent transparent var(--base-white);
+}
+
+.case-card-play:hover .case-card-play-icon,
+.case-card-play:focus-visible .case-card-play-icon {
+    background: var(--base-green);
+    transform: scale(1.08);
+}
+
+.case-card-video {
+    aspect-ratio: 9 / 16;
+    background: #000;
+}
+
+.case-card-video iframe {
+    display: block;
+    width: 100%;
+    height: 100%;
+    border: 0;
+}

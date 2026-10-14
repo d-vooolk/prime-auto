@@ -18,6 +18,7 @@
  */
 import {NAVIGATION_URL} from "./navigation";
 import recent from "./cases-recent.json";
+import videos from "./cases-video.json";
 
 export type CaseService =
     | "biled" | "remont" | "zamenaStekla" | "remontLed" | "polirovkaOkleyka"
@@ -59,6 +60,18 @@ export interface WorkCase {
     /** Фото — сгенерированная иллюстрация, а не наша работа: на карточке пометка */
     illustration?: boolean;
     quote?: {name: string; date: string; text: string};
+    /** Шортс с YouTube-канала мастерской про эту работу */
+    video?: CaseVideo;
+}
+
+export interface CaseVideo {
+    /** id ролика на YouTube */
+    id: string;
+    /** Название ролика — для микроразметки VideoObject */
+    name: string;
+    uploadDate: string;
+    seconds: number;
+    thumb: string;
 }
 
 export const SERVICE_TITLES: Record<CaseService, {title: string; href: string}> = {
@@ -366,11 +379,78 @@ const RECENT_CASES: WorkCase[] = recent
         photos: [{src: item.photo, alt: item.alt}],
     }));
 
-/** Свежие работы — первыми */
-export const CASES: WorkCase[] = [...RECENT_CASES, ...OLDER_CASES];
+/*
+  Видео-кейсы — шортсы YouTube-канала мастерской (scripts/video-cases.mjs
+  собирает cases-video.json: машина и работы — из названия ролика, дата,
+  длительность, обложка). Ролик про машину, которая уже есть среди кейсов с
+  тем же набором работ, не заводится вторым кейсом, а прикрепляется к нему
+  (attachTo).
+*/
+interface VideoSource {
+    videoId: string;
+    attachTo?: string;
+    car?: string;
+    brand?: string | null;
+    services?: string[];
+    title?: string;
+    text?: string;
+    uploadDate: string;
+    seconds: number;
+    thumb: {src: string};
+}
 
-/** Кейсы с настоящими фото — вперёд, иллюстрации — после */
-const photoRank = (c: WorkCase) => (c.photos.length && !c.illustration ? 2 : c.photos.length ? 1 : 0);
+const VIDEO_SOURCES = videos as VideoSource[];
+
+const videoTitle = (item: VideoSource): string => {
+    if (item.title) return item.title;
+    const s = new Set(item.services);
+    const text = item.text ?? "";
+    if (s.has("biled")) {
+        const film = /оклеили/.test(text);
+        const polish = /отполировали/.test(text);
+        return ["Bi-Led модули", s.has("zamenaStekla") && "новые стёкла",
+            film && polish ? "полировка и плёнка" : film ? "плёнка" : polish && "полировка",
+            s.has("remontLed") && "ремонт ДХО"].filter(Boolean).join(", ");
+    }
+    if (s.has("remontLed")) return "Ремонт ДХО";
+    return "Полировка и оклейка плёнкой";
+};
+
+const caseVideo = (item: VideoSource, name: string): CaseVideo => ({
+    id: item.videoId,
+    name,
+    uploadDate: item.uploadDate,
+    seconds: item.seconds,
+    thumb: item.thumb.src,
+});
+
+const VIDEO_CASES: WorkCase[] = VIDEO_SOURCES
+    .filter((item) => !item.attachTo)
+    .sort((a, b) => b.uploadDate.localeCompare(a.uploadDate))
+    .map((item) => {
+        const title = videoTitle(item);
+        return {
+            id: `video-${item.videoId.toLowerCase().replace(/[^a-z0-9]/g, "")}`,
+            car: item.car!,
+            brand: item.brand ?? null,
+            title,
+            text: item.text!,
+            services: item.services as CaseService[],
+            photos: [{src: item.thumb.src, alt: `${item.car}: ${item.text!.replace(/\.$/, "").toLowerCase()}`}],
+            video: caseVideo(item, `${item.car}: ${title}`),
+        };
+    });
+
+const attachVideos = (list: WorkCase[]): WorkCase[] => list.map((c) => {
+    const item = VIDEO_SOURCES.find((v) => v.attachTo === c.id);
+    return item ? {...c, video: caseVideo(item, `${c.car}: ${c.title}`)} : c;
+});
+
+/** Видео — первыми (самое наглядное), потом свежие фото, потом портфолио и отзывы */
+export const CASES: WorkCase[] = [...VIDEO_CASES, ...attachVideos([...RECENT_CASES, ...OLDER_CASES])];
+
+/** Кейсы с видео — вперёд, потом с настоящими фото, иллюстрации — после */
+const photoRank = (c: WorkCase) => (c.video ? 3 : c.photos.length && !c.illustration ? 2 : c.photos.length ? 1 : 0);
 const byPhotos = (a: WorkCase, b: WorkCase) => photoRank(b) - photoRank(a);
 
 /* На общей странице ремонта уместны и работы по стёклам, ДХО и запотеванию — это тоже ремонт фар */

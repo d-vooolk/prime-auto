@@ -1,0 +1,705 @@
+[
+ {
+  "videoId": "oKK6SS_ZVTo",
+  "car": "Mercedes W211",
+  "brand": "mercedes-benz",
+  "services": [
+   "biled"
+  ],
+  "text": "Установили Bi-Led модули.",
+  "uploadDate": "2026-10-06T23:13:46-07:00",
+  "seconds": 36,
+  "thumb": {
+   "src": "/images/works/video/oKK6SS_ZVTo.webp",
+   "w": 720,
+   "h": 1280
+  }
+ },
+ {
+  "videoId": "pQk4vKY4vb4",
+  "car": "BMW E46",
+  "brand": "bmw",
+  "services": [
+   "biled"
+  ],
+  "text": "Установили Bi-Led модули вместо штатного света.",
+  "uploadDate": "2026-09-09T08:32:18-07:00",
+  "seconds": 29,
+  "thumb": {
+   "src": "/images/works/video/pQk4vKY4vb4.webp",
+   "w": 720,
+   "h": 1280
+  }
+ },
+ {
+  "videoId": "juItCIsMFvs",
+  "car": "LiXiang L7",
+  "brand": null,
+  "services": [
+   "uluchsheniyeKachestvaSveta"
+  ],
+  "title": "Модули с регулировкой яркости и цвета",
+  "text": "Установили модули с регулировкой яркости света и цветовой температуры — в штатном стиле, без следов вмешательства.",
+  "uploadDate": "2026-08-18T00:14:46-07:00",
+  "seconds": 38,
+  "thumb": {
+   "src": "/images/works/video/juItCIsMFvs.webp",
+   "w": 720,
+   "h": 1280
+  }
+ },
+ {
+  "videoId": "xGZRbwcVd3U",
+  "car": "Renault Megane",
+  "brand": "renault",
+  "services": [
+   "biled",
+   "polirovkaOkleyka"
+  ],
+  "text": "Установили Bi-Led модули, отполировали фары.",
+  "uploadDate": "2026-08-10T07:12:36-07:00",
+  "seconds": 32,
+  "thumb": {
+   "src": "/images/works/video/xGZRbwcVd3U.webp",
+   "w": 720,
+   "h": 1280
+  }
+ },
+ {
+  "videoId": "OXU8Dx6kefk",
+  "car": "Lexus GS",
+  "brand": "lexus",
+  "services": [
+   "biled",
+   "zamenaStekla",
+   "polirovkaOkleyka"
+  ],
+  "text": "Установили Bi-Led модули, поставили новые стёкла, оклеили фары полиуретановой плёнкой.",
+  "uploadDate": "2026-07-10T02:13:41-07:00",
+  "seconds": 54,
+  "thumb": {
+   "src": "/images/works/video/OXU8Dx6kefk.webp",
+   "w": 720,
+   "h": 1280
+  }
+ },
+ {
+  "videoId": "EPCeXt6jYWs",
+  "car": "Peugeot 307",
+  "brand": "peugeot",
+  "services": [
+   "biled",
+   "uluchsheniyeKachestvaSveta",
+   "polirovkaOkleyka"
+  ],
+  "text": "Установили Bi-Led модули, покрасили маски, отполировали и оклеили фары плёнкой.",
+  "uploadDate": "2026-05-11T06:04:48-07:00",
+  "seconds": 31,
+  "thumb": {
+   "src": "/images/works/video/EPCeXt6jYWs.webp",
+   "w": 720,
+   "h": 1280
+  },
+  "title": "Bi-Led модули, покраска масок, полировка и плёнка"
+ },
+ {
+  "videoId": "M5bSIXfZU3M",
+  "attachTo": "audi-a4-b6-biled",
+  "uploadDate": "2026-04-01T13:11:46-07:00",
+  "seconds": 124,
+  "thumb": {
+   "src": "/images/works/video/M5bSIXfZU3M.webp",
+   "w": 540,
+   "h": 960
+  }
+ },
+ {
+  "videoId": "1Zoz4bgzudY",
+  "car": "BMW G30",
+  "brand": "bmw",
+  "services": [
+   "remontLed"
+  ],
+  "text": "Отремонтировали ДХО.",
+  "uploadDate": "2026-03-30T05:04:24-07:00",
+  "seconds": 23,
+  "thumb": {
+   "src": "/images/works/video/1Zoz4bgzudY.webp",
+   "w": 720,
+   "h": 1280
+  }
+ },
+ {
+  "videoId": "vd2c0qD8038",
+  "car": "Volvo XC60",
+  "brand": "volvo",
+  "services": [
+   "biled",
+   "polirovkaOkleyka"
+  ],
+  "text": "Установили Bi-Led модули, отшлифовали и отполировали фары, оклеили полиуретановой плёнкой.",
+  "uploadDate": "2026-03-27T04:44:50-07:00",
+  "seconds": 54,
+  "thumb": {
+   "src": "/images/works/video/vd2c0qD8038.webp",
+   "w": 720,
+   "h": 1280
+  }
+ },
+ {
+  "videoId": "Z2IvPIzsjAc",
+  "car": "Mercedes ML",
+  "brand": "mercedes-benz",
+  "services": [
+   "polirovkaOkleyka"
+  ],
+  "text": "Отшлифовали и отполировали фары, оклеили полиуретановой плёнкой.",
+  "uploadDate": "2026-03-18T07:18:04-07:00",
+  "seconds": 56,
+  "thumb": {
+   "src": "/images/works/video/Z2IvPIzsjAc.webp",
+   "w": 720,
+   "h": 1280
+  }
+ },
+ {
+  "videoId": "tEC3F5Fl2UA",
+  "car": "Volkswagen Passat",
+  "brand": "volkswagen",
+  "services": [
+   "biled",
+   "polirovkaOkleyka"
+  ],
+  "text": "Установили Bi-Led модули, отшлифовали и отполировали фары, оклеили полиуретановой плёнкой.",
+  "uploadDate": "2026-03-10T05:51:38-07:00",
+  "seconds": 30,
+  "thumb": {
+   "src": "/images/works/video/tEC3F5Fl2UA.webp",
+   "w": 720,
+   "h": 1280
+  }
+ },
+ {
+  "videoId": "2kZl1GnbTDs",
+  "car": "Ford Focus",
+  "brand": "ford",
+  "services": [
+   "biled"
+  ],
+  "text": "Установили Bi-Led модули.",
+  "uploadDate": "2026-03-09T03:45:20-07:00",
+  "seconds": 34,
+  "thumb": {
+   "src": "/images/works/video/2kZl1GnbTDs.webp",
+   "w": 720,
+   "h": 1280
+  }
+ },
+ {
+  "videoId": "nAghsTGjuMw",
+  "car": "Audi A4 B5",
+  "brand": "audi",
+  "services": [
+   "biled",
+   "polirovkaOkleyka"
+  ],
+  "text": "Установили Bi-Led модули, отполировали и оклеили фары полиуретановой плёнкой.",
+  "uploadDate": "2026-03-06T03:34:45-08:00",
+  "seconds": 31,
+  "thumb": {
+   "src": "/images/works/video/nAghsTGjuMw.webp",
+   "w": 720,
+   "h": 1280
+  }
+ },
+ {
+  "videoId": "PRm25Kkiz9U",
+  "attachTo": "volkswagen-jetta-biled",
+  "uploadDate": "2026-02-24T04:33:04-08:00",
+  "seconds": 42,
+  "thumb": {
+   "src": "/images/works/video/PRm25Kkiz9U.webp",
+   "w": 720,
+   "h": 1280
+  }
+ },
+ {
+  "videoId": "8hXYiV5jMx4",
+  "attachTo": "bmw-x5-e70-biled",
+  "uploadDate": "2026-02-20T06:14:39-08:00",
+  "seconds": 39,
+  "thumb": {
+   "src": "/images/works/video/8hXYiV5jMx4.webp",
+   "w": 720,
+   "h": 1280
+  }
+ },
+ {
+  "videoId": "KGKkffvZUSA",
+  "car": "Toyota",
+  "brand": "toyota",
+  "services": [
+   "biled",
+   "polirovkaOkleyka"
+  ],
+  "text": "Установили Bi-Led модули, отшлифовали и отполировали фары, оклеили полиуретановой плёнкой.",
+  "uploadDate": "2026-02-13T04:56:13-08:00",
+  "seconds": 46,
+  "thumb": {
+   "src": "/images/works/video/KGKkffvZUSA.webp",
+   "w": 720,
+   "h": 1280
+  }
+ },
+ {
+  "videoId": "4E015YekTtE",
+  "car": "Hyundai Santa Fe",
+  "brand": "hyundai",
+  "services": [
+   "biled"
+  ],
+  "text": "Установили Bi-Led модули — свет заметно лучше штатного.",
+  "uploadDate": "2026-02-12T04:22:18-08:00",
+  "seconds": 39,
+  "thumb": {
+   "src": "/images/works/video/4E015YekTtE.webp",
+   "w": 720,
+   "h": 1280
+  }
+ },
+ {
+  "videoId": "taHoVC0mKbU",
+  "car": "Mitsubishi Pajero",
+  "brand": "mitsubishi",
+  "services": [
+   "biled",
+   "polirovkaOkleyka"
+  ],
+  "text": "Установили Bi-Led модули, отполировали и оклеили фары плёнкой.",
+  "uploadDate": "2025-12-12T04:31:07-08:00",
+  "seconds": 65,
+  "thumb": {
+   "src": "/images/works/video/taHoVC0mKbU.webp",
+   "w": 720,
+   "h": 1280
+  }
+ },
+ {
+  "videoId": "jWzoJFJQeXU",
+  "car": "Audi A6 C6",
+  "brand": "audi",
+  "services": [
+   "biled"
+  ],
+  "text": "Установили Bi-Led модули.",
+  "uploadDate": "2025-12-02T03:36:21-08:00",
+  "seconds": 36,
+  "thumb": {
+   "src": "/images/works/video/jWzoJFJQeXU.webp",
+   "w": 720,
+   "h": 1280
+  }
+ },
+ {
+  "videoId": "1Rp9aU9dbwc",
+  "car": "Toyota Camry",
+  "brand": "toyota",
+  "services": [
+   "biled"
+  ],
+  "text": "Установили Bi-Led модули.",
+  "uploadDate": "2025-11-25T03:05:54-08:00",
+  "seconds": 39,
+  "thumb": {
+   "src": "/images/works/video/1Rp9aU9dbwc.webp",
+   "w": 720,
+   "h": 1280
+  }
+ },
+ {
+  "videoId": "TOWoGFsvTI4",
+  "car": "Audi Q5",
+  "brand": "audi",
+  "services": [
+   "biled"
+  ],
+  "text": "Установили Bi-Led модули.",
+  "uploadDate": "2025-11-20T02:25:01-08:00",
+  "seconds": 33,
+  "thumb": {
+   "src": "/images/works/video/TOWoGFsvTI4.webp",
+   "w": 720,
+   "h": 1280
+  }
+ },
+ {
+  "videoId": "C8hBzVQQbcY",
+  "car": "Peugeot 607",
+  "brand": "peugeot",
+  "services": [
+   "biled",
+   "polirovkaOkleyka"
+  ],
+  "text": "Установили Bi-Led модули, отполировали и оклеили фары плёнкой.",
+  "uploadDate": "2025-11-19T02:59:35-08:00",
+  "seconds": 39,
+  "thumb": {
+   "src": "/images/works/video/C8hBzVQQbcY.webp",
+   "w": 720,
+   "h": 1280
+  }
+ },
+ {
+  "videoId": "d2oFc2SwLWw",
+  "car": "Volkswagen Passat",
+  "brand": "volkswagen",
+  "services": [
+   "biled"
+  ],
+  "text": "Установили Bi-Led модули.",
+  "uploadDate": "2025-11-14T00:44:52-08:00",
+  "seconds": 33,
+  "thumb": {
+   "src": "/images/works/video/d2oFc2SwLWw.webp",
+   "w": 720,
+   "h": 1280
+  }
+ },
+ {
+  "videoId": "SCq84Oqrgs8",
+  "car": "Audi Q7",
+  "brand": "audi",
+  "services": [
+   "biled",
+   "zamenaStekla"
+  ],
+  "text": "Установили Bi-Led модули, поставили новые стёкла.",
+  "uploadDate": "2025-11-13T03:50:33-08:00",
+  "seconds": 37,
+  "thumb": {
+   "src": "/images/works/video/SCq84Oqrgs8.webp",
+   "w": 720,
+   "h": 1280
+  }
+ },
+ {
+  "videoId": "xKxTuvlMy5A",
+  "car": "Honda Civic",
+  "brand": "honda",
+  "services": [
+   "biled"
+  ],
+  "text": "Установили Bi-Led модули.",
+  "uploadDate": "2025-10-30T02:24:50-07:00",
+  "seconds": 34,
+  "thumb": {
+   "src": "/images/works/video/xKxTuvlMy5A.webp",
+   "w": 720,
+   "h": 1280
+  }
+ },
+ {
+  "videoId": "v2kWT9gV3LY",
+  "car": "Toyota Highlander",
+  "brand": "toyota",
+  "services": [
+   "biled",
+   "polirovkaOkleyka"
+  ],
+  "text": "Улучшили свет Bi-Led модулями, отшлифовали и отполировали фары, оклеили плёнкой.",
+  "uploadDate": "2025-10-18T03:35:50-07:00",
+  "seconds": 37,
+  "thumb": {
+   "src": "/images/works/video/v2kWT9gV3LY.webp",
+   "w": 720,
+   "h": 1280
+  }
+ },
+ {
+  "videoId": "dAKKgD8LZBg",
+  "car": "Volkswagen Caddy",
+  "brand": "volkswagen",
+  "services": [
+   "biled"
+  ],
+  "text": "Установили Bi-Led модули.",
+  "uploadDate": "2025-10-16T06:35:03-07:00",
+  "seconds": 37,
+  "thumb": {
+   "src": "/images/works/video/dAKKgD8LZBg.webp",
+   "w": 720,
+   "h": 1280
+  }
+ },
+ {
+  "videoId": "15i4gZfxnpE",
+  "car": "Skoda Superb",
+  "brand": "skoda",
+  "services": [
+   "biled",
+   "zamenaStekla",
+   "polirovkaOkleyka"
+  ],
+  "text": "Установили Bi-Led модули, поставили новые стёкла, оклеили фары полиуретановой плёнкой.",
+  "uploadDate": "2025-10-09T02:43:16-07:00",
+  "seconds": 38,
+  "thumb": {
+   "src": "/images/works/video/15i4gZfxnpE.webp",
+   "w": 720,
+   "h": 1280
+  }
+ },
+ {
+  "videoId": "U_ZTzNlAaQ8",
+  "car": "BMW E39",
+  "brand": "bmw",
+  "services": [
+   "biled",
+   "polirovkaOkleyka"
+  ],
+  "text": "Установили Bi-Led модули, отполировали и оклеили фары плёнкой.",
+  "uploadDate": "2025-10-06T07:33:16-07:00",
+  "seconds": 28,
+  "thumb": {
+   "src": "/images/works/video/U_ZTzNlAaQ8.webp",
+   "w": 720,
+   "h": 1280
+  }
+ },
+ {
+  "videoId": "CrYSkKw4A5k",
+  "car": "Volkswagen Tiguan",
+  "brand": "volkswagen",
+  "services": [
+   "biled",
+   "remontLed"
+  ],
+  "text": "Установили Bi-Led модули, отремонтировали ДХО.",
+  "uploadDate": "2025-10-03T01:34:17-07:00",
+  "seconds": 41,
+  "thumb": {
+   "src": "/images/works/video/CrYSkKw4A5k.webp",
+   "w": 720,
+   "h": 1280
+  }
+ },
+ {
+  "videoId": "gtXLeyAXAHQ",
+  "car": "Hyundai Sonata",
+  "brand": "hyundai",
+  "services": [
+   "biled",
+   "polirovkaOkleyka"
+  ],
+  "text": "Установили Bi-Led модули, отполировали фары и оклеили плёнкой.",
+  "uploadDate": "2025-10-02T01:53:57-07:00",
+  "seconds": 39,
+  "thumb": {
+   "src": "/images/works/video/gtXLeyAXAHQ.webp",
+   "w": 720,
+   "h": 1280
+  }
+ },
+ {
+  "videoId": "N-4berDiHbs",
+  "car": "BMW F20",
+  "brand": "bmw",
+  "services": [
+   "biled",
+   "polirovkaOkleyka"
+  ],
+  "text": "Установили Bi-Led модули, отполировали фары.",
+  "uploadDate": "2025-09-23T03:10:21-07:00",
+  "seconds": 30,
+  "thumb": {
+   "src": "/images/works/video/N-4berDiHbs.webp",
+   "w": 720,
+   "h": 1280
+  }
+ },
+ {
+  "videoId": "0ZviIfu-NtU",
+  "car": "Volkswagen Passat (USA)",
+  "brand": "volkswagen",
+  "services": [
+   "biled"
+  ],
+  "text": "Установили Bi-Led модули в фары американской версии.",
+  "uploadDate": "2025-09-15T04:42:43-07:00",
+  "seconds": 33,
+  "thumb": {
+   "src": "/images/works/video/0ZviIfu-NtU.webp",
+   "w": 720,
+   "h": 1280
+  }
+ },
+ {
+  "videoId": "CZiylYmLlvg",
+  "car": "Volvo S60",
+  "brand": "volvo",
+  "services": [
+   "biled",
+   "uluchsheniyeKachestvaSveta"
+  ],
+  "text": "Установили Bi-Led модули, отшлифовали стёкла под линзу.",
+  "uploadDate": "2025-09-13T06:51:19-07:00",
+  "seconds": 32,
+  "thumb": {
+   "src": "/images/works/video/CZiylYmLlvg.webp",
+   "w": 720,
+   "h": 1280
+  },
+  "title": "Bi-Led модули и шлифовка стёкол под линзу"
+ },
+ {
+  "videoId": "QFcCQtQqOFo",
+  "car": "Skoda Octavia",
+  "brand": "skoda",
+  "services": [
+   "biled",
+   "polirovkaOkleyka"
+  ],
+  "text": "Установили Bi-Led модули, отполировали стёкла фар.",
+  "uploadDate": "2025-09-04T02:15:12-07:00",
+  "seconds": 44,
+  "thumb": {
+   "src": "/images/works/video/QFcCQtQqOFo.webp",
+   "w": 720,
+   "h": 1280
+  }
+ },
+ {
+  "videoId": "fX2AyIS8SiQ",
+  "car": "BMW E46",
+  "brand": "bmw",
+  "services": [
+   "biled",
+   "uluchsheniyeKachestvaSveta"
+  ],
+  "text": "Установили Bi-Led модули и доустановили ангельские глазки.",
+  "uploadDate": "2025-08-27T07:24:24-07:00",
+  "seconds": 50,
+  "thumb": {
+   "src": "/images/works/video/fX2AyIS8SiQ.webp",
+   "w": 720,
+   "h": 1280
+  },
+  "title": "Bi-Led модули и ангельские глазки"
+ },
+ {
+  "videoId": "4rnsBqHSPD0",
+  "car": "Audi A6 C5",
+  "brand": "audi",
+  "services": [
+   "biled",
+   "zamenaStekla",
+   "polirovkaOkleyka"
+  ],
+  "text": "Установили Bi-Led модули, поставили новые стёкла, оклеили фары полиуретановой плёнкой.",
+  "uploadDate": "2025-08-22T03:39:44-07:00",
+  "seconds": 50,
+  "thumb": {
+   "src": "/images/works/video/4rnsBqHSPD0.webp",
+   "w": 720,
+   "h": 1280
+  }
+ },
+ {
+  "videoId": "_hvQiWOWK1U",
+  "car": "Acura TSX",
+  "brand": null,
+  "services": [
+   "biled"
+  ],
+  "text": "Установили Bi-Led модули.",
+  "uploadDate": "2025-08-20T03:41:16-07:00",
+  "seconds": 32,
+  "thumb": {
+   "src": "/images/works/video/_hvQiWOWK1U.webp",
+   "w": 720,
+   "h": 1280
+  }
+ },
+ {
+  "videoId": "6sKIYW2UJxM",
+  "car": "Hyundai Solaris",
+  "brand": "hyundai",
+  "services": [
+   "biled"
+  ],
+  "text": "Установили Bi-Led модули.",
+  "uploadDate": "2025-08-19T07:06:42-07:00",
+  "seconds": 38,
+  "thumb": {
+   "src": "/images/works/video/6sKIYW2UJxM.webp",
+   "w": 720,
+   "h": 1280
+  }
+ },
+ {
+  "videoId": "kqQF1zaBV68",
+  "car": "Infiniti G35",
+  "brand": "infiniti",
+  "services": [
+   "biled"
+  ],
+  "text": "Установили Bi-Led модули.",
+  "uploadDate": "2025-08-15T10:02:22-07:00",
+  "seconds": 40,
+  "thumb": {
+   "src": "/images/works/video/kqQF1zaBV68.webp",
+   "w": 720,
+   "h": 1280
+  }
+ },
+ {
+  "videoId": "9RFZUq1b19k",
+  "car": "Toyota Corolla",
+  "brand": "toyota",
+  "services": [
+   "polirovkaOkleyka"
+  ],
+  "text": "Отполировали и оклеили фары плёнкой.",
+  "uploadDate": "2025-08-12T02:37:55-07:00",
+  "seconds": 46,
+  "thumb": {
+   "src": "/images/works/video/9RFZUq1b19k.webp",
+   "w": 720,
+   "h": 1280
+  }
+ },
+ {
+  "videoId": "kSCyQYJF60A",
+  "car": "BMW E60",
+  "brand": "bmw",
+  "services": [
+   "biled",
+   "zamenaStekla",
+   "polirovkaOkleyka"
+  ],
+  "text": "Установили би-линзы, поставили новые стёкла, оклеили фары полиуретановой плёнкой.",
+  "uploadDate": "2025-08-07T06:58:10-07:00",
+  "seconds": 34,
+  "thumb": {
+   "src": "/images/works/video/kSCyQYJF60A.webp",
+   "w": 720,
+   "h": 1280
+  }
+ },
+ {
+  "videoId": "4jJSvORuYdg",
+  "car": "Audi A6 C5",
+  "brand": "audi",
+  "services": [
+   "polirovkaOkleyka"
+  ],
+  "text": "Отполировали и оклеили фары плёнкой.",
+  "uploadDate": "2025-08-04T01:10:57-07:00",
+  "seconds": 50,
+  "thumb": {
+   "src": "/images/works/video/4jJSvORuYdg.webp",
+   "w": 720,
+   "h": 1280
+  }
+ }
+]
