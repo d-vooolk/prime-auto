@@ -16,8 +16,8 @@ import {absoluteUrl, breadcrumbJsonLd, buildMetadata} from "@/utils/seo";
 
 export const metadata = buildMetadata({
     title: 'Наши работы: фары до и после — Prime Auto, Минск',
-    description: 'Примеры работ мастерской автосвета: установка Bi-Led, ремонт и пересвет ДХО, запотевание, ' +
-        'полировка и плёнка. Audi, BMW, Mercedes, Kia, Dodge и другие — фото и отзывы клиентов.',
+    description: 'Работы мастерской автосвета с фото: Bi-Led, ремонт и пересвет ДХО, запотевание, ' +
+        'полировка и плёнка. Audi, BMW, Mercedes, Kia и другие, отзывы клиентов.',
     path: NAVIGATION_URL.raboty,
 });
 

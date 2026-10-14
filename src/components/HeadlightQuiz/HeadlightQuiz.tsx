@@ -17,12 +17,17 @@ interface Problem {
     note?: string;
 }
 
+/*
+  Порядок — по сезону: с ноября по февраль сверху конденсат и «плохо светит»
+  (сырость, тёмное время, регулировка перед техосмотром), с марта — мутные фары
+  после зимы. Переставлять вручную в начале сезона (docs/seo-plan.md).
+*/
 const PROBLEMS: Problem[] = [
-    {id: "mutnaya", icon: "🌫️", title: "Фара мутная или пожелтела", service: NAVIGATION_URL.polirovkaOkleyka, serviceTitle: "Полировка и оклейка плёнкой",
-        note: "Если стекло уже сточено прошлыми полировками или в сколах — честнее заменить стекло, скажем на осмотре."},
     {id: "voda", icon: "💧", title: "Внутри конденсат или вода", service: NAVIGATION_URL.zapotevaniye, serviceTitle: "Устранение запотевания"},
     {id: "slepit", icon: "🔦", title: "Плохо светит или слепит встречных", service: NAVIGATION_URL.regulirovka, serviceTitle: "Регулировка фар",
         note: "Если после регулировки света всё равно мало — дело в оптике, тогда помогут Bi-Led модули."},
+    {id: "mutnaya", icon: "🌫️", title: "Фара мутная или пожелтела", service: NAVIGATION_URL.polirovkaOkleyka, serviceTitle: "Полировка и оклейка плёнкой",
+        note: "Если стекло уже сточено прошлыми полировками или в сколах — честнее заменить стекло, скажем на осмотре."},
     {id: "yarche", icon: "✨", title: "Хочу яркий современный свет", service: NAVIGATION_URL.biled, serviceTitle: "Установка Bi-Led модулей"},
     {id: "razbita", icon: "🔨", title: "Разбита, трещина, сломаны крепления", service: NAVIGATION_URL.remont, serviceTitle: "Ремонт фар"},
     {id: "steklo", icon: "🪟", title: "Стекло в сколах или сточено", service: NAVIGATION_URL.zamenaStekla, serviceTitle: "Замена стекла фары"},
