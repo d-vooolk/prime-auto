@@ -37,7 +37,7 @@ const STATIC_PAGES: SitemapEntry[] = [
   Тексты страниц марок живут в src/constants (carBrands, brandServices,
   brandServiceNotes). Дату меняйте, когда правите эти файлы.
 */
-const BRAND_PAGES_UPDATED = '2026-10-10';
+const BRAND_PAGES_UPDATED = '2026-10-15';
 
 /* Статьи публикуются из админки — карта пересобирается вместе с ними */
 export const revalidate = 3600;
