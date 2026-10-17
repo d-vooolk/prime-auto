@@ -4,7 +4,7 @@
 }
 
 .portfolio-wrapper {
-    background-image: url("../../../public/images/noise-background.webp");
+    background-image: url("/images/noise-background.webp");
     box-sizing: border-box;
     padding: 0 var(--gutter);
     margin: 0;

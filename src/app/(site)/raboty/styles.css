@@ -1,5 +1,5 @@
 .cases-page {
-    background-image: url("../../../../public/images/noise-background.webp");
+    background-image: url("/images/noise-background.webp");
     background-color: var(--light-gray-background);
     padding: 140px var(--gutter) 100px;
     box-sizing: border-box;

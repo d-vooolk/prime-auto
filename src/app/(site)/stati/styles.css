@@ -6,7 +6,7 @@
 
 .articles-page-wrapper,
 .article-wrapper {
-    background-image: url("../../../../public/images/noise-background.webp");
+    background-image: url("/images/noise-background.webp");
     background-color: var(--light-gray-background);
     box-sizing: border-box;
     width: 100%;

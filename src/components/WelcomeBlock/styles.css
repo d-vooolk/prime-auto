@@ -4,7 +4,7 @@
     box-sizing: border-box;
     min-height: 860px;
     padding: 120px var(--gutter) 80px;
-    background-image: url("../../../public/images/noise-background.webp");
+    background-image: url("/images/noise-background.webp");
     display: flex;
     flex-direction: column;
 }

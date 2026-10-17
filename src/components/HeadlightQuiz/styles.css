@@ -1,6 +1,6 @@
 .quiz {
     background-color: var(--light-gray-background);
-    background-image: url("../../../public/images/noise-background.webp");
+    background-image: url("/images/noise-background.webp");
     padding: 90px var(--gutter);
     box-sizing: border-box;
 }

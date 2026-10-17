@@ -1,5 +1,5 @@
 .our-proposal-block-wrapper {
-    background-image: url("../../../../public/images/noise-background.webp");
+    background-image: url("/images/noise-background.webp");
     background-color: var(--light-gray-background);
     padding: 100px var(--gutter) 110px;
     box-sizing: border-box;

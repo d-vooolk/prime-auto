@@ -1,5 +1,5 @@
 .brand-details-wrapper {
-    background-image: url("../../../../public/images/noise-background.webp");
+    background-image: url("/images/noise-background.webp");
     background-color: var(--base-white);
     padding: 100px var(--gutter) 120px;
     box-sizing: border-box;
