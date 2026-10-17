@@ -1,0 +1,63 @@
+# Запуск сайта в Docker (blue-green, см. docs/deploy.md).
+#
+# Два сервиса — blue и green, каждый со своим портом и каталогом сборки.
+# Под трафиком всегда один; какой — решает upstream в nginx, его переключает
+# scripts/deploy.sh. ПОРТЫ заданы только здесь: deploy.sh и rollback.sh
+# читают их из этого файла.
+#
+# network_mode: host — процессы слушают 127.0.0.1 хоста, как раньше под pm2,
+# и наружу их публикует только nginx. Docker не пробрасывает порты и не
+# открывает их мимо файрвола.
+#
+# tools — разовые команды в той же среде: npm ci, сборка, cron-скрипты.
+#   docker compose run --rm tools npm ci
+
+name: prime-auto
+
+x-app: &app
+  build: .
+  image: prime-auto-runtime
+  network_mode: host
+  init: true
+  working_dir: /app
+  volumes:
+    - .:/app
+
+x-server: &server
+  <<: *app
+  command: ["node", "server.js"]
+  volumes:
+    - .:/app
+    # После публикации статьи сайт сам чистит кеш nginx (настройка
+    # «Каталог кеша nginx» в админке, src/lib/revalidate.ts) — каталог должен
+    # быть виден изнутри контейнера по тому же пути.
+    - /var/cache/nginx:/var/cache/nginx
+  # Прежний max_memory_restart у pm2 был 512M. Здесь потолок с запасом:
+  # упёршийся в него контейнер убивается и поднимается заново.
+  mem_limit: 1g
+  # После ручной остановки (deploy.sh гасит старый цвет) контейнер остаётся
+  # остановленным и после перезагрузки сервера — поднимется только активный.
+  restart: unless-stopped
+
+services:
+  blue:
+    <<: *server
+    container_name: prime-auto-blue
+    environment:
+      NODE_ENV: production
+      HOST: 127.0.0.1
+      PORT: "3101"
+      NEXT_DIST_DIR: .next-blue
+
+  green:
+    <<: *server
+    container_name: prime-auto-green
+    environment:
+      NODE_ENV: production
+      HOST: 127.0.0.1
+      PORT: "3102"
+      NEXT_DIST_DIR: .next-green
+
+  tools:
+    <<: *app
+    profiles: ["tools"]

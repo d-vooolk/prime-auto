@@ -16,74 +16,53 @@
 
 ## Как устроено сейчас
 
-Два процесса, `blue` (порт 3101) и `green` (порт 3102), каждый со своим
+Сайт работает в Docker. Образ (`Dockerfile`) — это только среда: Node из
+`.nvmrc`, curl и компилятор для `better-sqlite3`. Кода в образе нет — каталог
+приложения монтируется в контейнер, поэтому база и фото в `var/`, сборки и
+`.env.local` лежат на диске сервера, как и раньше.
+
+Два контейнера, `blue` (порт 3101) и `green` (порт 3102), каждый со своим
 каталогом сборки (`.next-blue` / `.next-green`) — за это отвечает
 `distDir: process.env.NEXT_DIST_DIR` в `next.config.mjs`. Под трафиком всегда
-ровно один; какой именно, решает `upstream` в nginx.
+ровно один; какой именно, решает `upstream` в nginx. Порты заданы только в
+`docker-compose.yml`, скрипты читают их оттуда.
+
+Контейнеры работают в сети хоста (`network_mode: host`) и слушают
+`127.0.0.1` — наружу их публикует только nginx. Поэтому адреса вида
+`127.0.0.1:3005` (CRM) и `127.0.0.1:25345` (прокси нейросети) работают
+изнутри так же, как раньше под pm2.
 
 `scripts/deploy.sh` собирает и поднимает **простаивающий** цвет, проверяет
 health-check'ом, что он отвечает, и только потом переключает на него nginx.
-Старый процесс до этого момента продолжает обслуживать пользователей, а
+Старый контейнер до этого момента продолжает обслуживать пользователей, а
 `systemctl reload nginx` подменяет воркеры плавно, не обрывая соединения.
 
 Если сборка или health-check упали — трафик не переключается, и сайт
 продолжает работать на старой версии. Это главное свойство схемы:
 **неудачный деплой не приводит к падению.**
 
-## Разовая настройка на сервере
+Разовые команды — в сервисе `tools` той же среды:
 
-Всё ниже выполняется от root (в скриптах `sudo` нет — вы и так root).
+```bash
+docker compose run --rm tools npm ci
+docker compose run --rm tools node scripts/admin.mjs
+```
 
-### 0. Проверить, что порты свободны
+Расписание (отзывы Яндекса, сводка поиска, чистка старой статики) лежит в
+`/etc/cron.d/prime-auto`, его пишет `deploy.sh` при каждом деплое.
 
-На сервере живут и другие приложения, поэтому первым делом:
+## Разовая настройка на новом сервере
+
+Всё ниже выполняется от root. Нужны Docker с плагином compose, nginx и
+python3 (им скрипты читают порты из `docker-compose.yml`).
 
 ```bash
 ss -ltnp | grep -E ':(3101|3102)'     # ожидаем пустой вывод
+cd /var/www && git clone https://github.com/d-vooolk/prime-auto.git
+# перенести со старого сервера var/ и .env.local
 ```
 
-Если что-то занято — поменяйте `BLUE_PORT` / `GREEN_PORT` в
-`ecosystem.bluegreen.config.cjs`. Это единственное место, где порты заданы:
-`scripts/deploy.sh` и `scripts/rollback.sh` читают их оттуда, править их
-не нужно.
-
-**Про имя файла конфига.** pm2 считает файл ecosystem-конфигом только если в
-имени есть `.config.js` / `.config.cjs` / `.config.mjs` / `.json` / `.yaml`.
-Файл с другим именем pm2 молча запустит как обычный Node-скрипт: в списке
-появится процесс с именем по имени файла, а `prime-auto-blue` и
-`prime-auto-green` не поднимутся. Поэтому переименовывать нельзя.
-
-### 1. Код и первая сборка
-
-```bash
-cd /var/www/prime-auto
-git checkout -- package-lock.json    # разблокировать pull, если ещё не делали
-git pull
-npm ci
-
-NODE_ENV=production NEXT_DIST_DIR=.next-blue npm run build
-mkdir -p shared/next-static
-cp -rlf .next-blue/static/. shared/next-static/
-```
-
-### 2. Поднять blue и убедиться, что он отвечает
-
-```bash
-pm2 start ecosystem.bluegreen.config.cjs --only prime-auto-blue --env production
-pm2 list                              # в списке должен быть prime-auto-blue, а не имя файла
-curl -sI http://127.0.0.1:3101/       # ожидаем 200
-curl -s  http://127.0.0.1:3101/ | grep -o "$(cat .next-blue/BUILD_ID)"   # ожидаем BUILD_ID
-```
-
-Вторая проверка важнее первой: она подтверждает, что на порту отвечает именно
-наше приложение и именно новой сборкой, а не какой-то другой сервис. Тот же
-самый health-check делает `deploy.sh` перед переключением трафика.
-
-Старый процесс на 3000 пока работает и обслуживает сайт — не трогаем.
-
-### 3. upstream для nginx
-
-Этот файл дальше перезаписывает `deploy.sh`, вручную к нему возвращаться не нужно.
+upstream для nginx (дальше его перезаписывает `deploy.sh`):
 
 ```bash
 cat > /etc/nginx/conf.d/prime-auto-upstream.conf <<'EOF'
@@ -93,97 +72,66 @@ upstream prime_auto {
 EOF
 ```
 
-### 4. Правки в конфиге сайта
-
-В вашем `server { ... }` для `prime-auto.by`:
+В `server { ... }` для `prime-auto.by` статика отдаётся из общего каталога,
+остальное — в upstream:
 
 ```nginx
-# Статику отдаёт nginx из общего каталога. Там лежат чанки и текущего, и
-# предыдущего релиза — поэтому клиент, у которого в браузере остался HTML
-# прошлой версии, не поймает 404 на /_next/static/chunks/<старый-хеш>.js.
-# Побочная польза: раздача статики уходит с Node на nginx.
+# Там лежат чанки и текущего, и предыдущего релиза — поэтому клиент, у
+# которого в браузере остался HTML прошлой версии, не поймает 404 на
+# /_next/static/chunks/<старый-хеш>.js.
 location /_next/static/ {
     alias /var/www/prime-auto/shared/next-static/;
     access_log off;
     add_header Cache-Control "public, max-age=31536000, immutable";
-    try_files $uri =404;
 }
 
 location / {
-    proxy_pass http://prime_auto;          # вместо http://127.0.0.1:3000
+    proxy_pass http://prime_auto;
     proxy_http_version 1.1;
-    proxy_set_header Host              $host;
-    proxy_set_header X-Real-IP         $remote_addr;
-    proxy_set_header X-Forwarded-For   $proxy_add_x_forwarded_for;
-    proxy_set_header X-Forwarded-Proto $scheme;
-
-    proxy_cache            ВАША_ЗОНА;      # см. предупреждение ниже
-    proxy_cache_use_stale  updating error timeout http_500 http_502 http_503 http_504;
-    proxy_cache_background_update on;
-    proxy_cache_lock       on;
+    proxy_set_header Host      $host;
+    proxy_set_header X-Real-IP $remote_addr;
 }
 ```
 
-**`proxy_cache ВАША_ЗОНА`** — подставьте имя зоны из своей директивы
-`proxy_cache_path ... keys_zone=ИМЯ:...`. Я её не знаю; если сейчас в конфиге
-`proxy_cache` уже есть, просто оставьте как есть и добавьте только строки
-`proxy_cache_use_stale` / `background_update` / `lock`.
-
-Отдельно стоит отметить `proxy_cache_use_stale`: он разрешает nginx отдавать
-устаревший ответ из кэша, пока бэкенд недоступен или обновляется. Для сайта,
-который почти целиком статические страницы, это прячет от пользователя даже
-секундные перезапуски — **и работает независимо от blue-green**. Если на
-полную схему переходить не хочется, начните с одной этой строки.
-
-### 5. Применить и переключиться
-
-```bash
-nginx -t && systemctl reload nginx
-curl -I https://prime-auto.by/         # проверяем, что сайт жив на blue
-pm2 delete prime-auto                  # старый одиночный процесс на 3000 больше не нужен
-pm2 save --force
-```
-
-### 6. Собрать второй цвет, чтобы откат был возможен сразу
-
-```bash
-NODE_ENV=production NEXT_DIST_DIR=.next-green npm run build
-cp -rlf .next-green/static/. shared/next-static/
-```
+Первый запуск — обычный деплой: `bash scripts/deploy.sh`. Он соберёт образ,
+поставит зависимости, соберёт и поднимет `green`, переключит на него nginx и
+запишет расписание. Вторым деплоем соберётся `blue` — после этого доступен
+откат.
 
 ## Повседневное использование
 
 ```bash
-cd /var/www/prime-auto && ./scripts/deploy.sh
+cd /var/www/prime-auto && bash scripts/deploy.sh
 ```
 
-или `npm run deploy:bluegreen`. Скрипт сам определяет активный цвет по конфигу
-nginx, так что помнить, где вы сейчас, не нужно.
+или `npm run deploy`. Скрипт сам определяет активный цвет по конфигу nginx,
+так что помнить, где вы сейчас, не нужно.
 
 Откат на предыдущую версию (без сборки, секунды):
 
 ```bash
-./scripts/rollback.sh
+bash scripts/rollback.sh
 ```
 
 Откат возможен **ровно на один деплой назад** — следующий `deploy.sh`
 перезапишет каталог сборки того цвета.
 
+Логи: `docker compose logs -f blue` (или `green`), состояние —
+`docker compose ps`.
+
 ## Что осталось знать
 
-- **`shared/next-static` растёт.** Каждый деплой докладывает туда статику и
-  ничего не удаляет — в этом весь смысл. Раз в месяц по cron:
-  `find /var/www/prime-auto/shared/next-static -type f -mtime +30 -delete`.
-  Копирование идёт жёсткими ссылками (`cp -l`), так что места занимает
-  столько же, сколько сами сборки.
-- **Диск.** Теперь на сервере лежат два `node_modules`-независимых каталога
-  сборки вместо одного, плюс общая статика. Ориентировочно +300–400 МБ.
+- **`shared/next-static` растёт** — каждый деплой докладывает туда статику и
+  ничего не удаляет. Файлы старше месяца удаляет cron раз в месяц.
+- **Кеш nginx.** После публикации статьи сайт сам чистит каталог из настройки
+  «Каталог кеша nginx» в админке. Он смонтирован в контейнеры по тому же пути
+  (`/var/cache/nginx`); другой каталог нужно добавить в `volumes` в
+  `docker-compose.yml`.
 - **Первый запрос после переключения** идёт в холодный процесс и кэш nginx
   чистится, поэтому одна-две страницы отдадутся медленнее обычного. На метрики
   PageSpeed это не влияет — он мерит позже.
-- **Перезагрузка сервера.** `pm2 save --force` в конце деплоя фиксирует
-  состояние; убедитесь, что `pm2 startup` когда-то был выполнен, иначе после
-  ребута процессы не поднимутся.
-- **Прежний путь никуда не делся.** `ecosystem.config.cjs` и `npm run restart`
-  оставлены рабочими. Пока nginx проксирует на 3000, всё работает по-старому,
-  и перейти на blue-green можно в любой момент.
+- **Перезагрузка сервера.** Активный контейнер поднимается сам
+  (`restart: unless-stopped`), остановленный деплоем цвет остаётся
+  остановленным.
+- **Переход с pm2.** Первый деплой в Docker сам удаляет процессы
+  `prime-auto-blue` / `prime-auto-green` из pm2 и задачи сайта из crontab root.
