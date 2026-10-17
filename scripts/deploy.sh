@@ -115,7 +115,7 @@ docker compose up -d --no-deps --force-recreate "$IDLE"
 log "проверка http://127.0.0.1:$IDLE_PORT/ на BUILD_ID $BUILD_ID"
 ok=
 for _ in $(seq 1 "$HEALTH_RETRIES"); do
-    if curl -fsS --max-time 5 "http://127.0.0.1:$IDLE_PORT/" 2>/dev/null | grep -q "$BUILD_ID"; then
+    if curl -fsS --max-time 5 "http://127.0.0.1:$IDLE_PORT/" 2>/dev/null | grep -qF -- "$BUILD_ID"; then
         ok=1; break
     fi
     sleep "$HEALTH_DELAY"

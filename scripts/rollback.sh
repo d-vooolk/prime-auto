@@ -41,7 +41,7 @@ docker compose up -d --no-deps --force-recreate "$TARGET"
 
 ok=
 for _ in $(seq 1 30); do
-    if curl -fsS --max-time 5 "http://127.0.0.1:$TARGET_PORT/" 2>/dev/null | grep -q "$BUILD_ID"; then
+    if curl -fsS --max-time 5 "http://127.0.0.1:$TARGET_PORT/" 2>/dev/null | grep -qF -- "$BUILD_ID"; then
         ok=1; break
     fi
     sleep 2
