@@ -7,12 +7,27 @@ import {SVG_NAMES} from "@/components/_HelperComponents/SvgComponent/constants.j
 import {CARD_INFO, SERVICE_TYPES} from "./constants.ts";
 import {NAVIGATION_URL} from "../../constants/navigation.js";
 
-const Card3 = ({svgName, svgClassName, cardCount = 3, title, list, link}) => {
+/*
+  Иллюстрации карточек — отдельные файлы в public/images/services/card-*.svg,
+  а не JSX: встроенными они весили ~40 КБ на каждой странице с этим блоком и
+  ещё раз столько же в данных React. Файлом браузер скачивает их один раз и
+  берёт из кеша на всех страницах.
+*/
+const Card3 = ({illustration, cardCount = 3, title, list, link}) => {
     return (
         <div className={`card-${cardCount}`}>
             <Link href={link} className="card-3-link">
                 <div className="card-text-info">
-                    <SvgComponent name={svgName} className={svgClassName}/>
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                        src={`/images/services/card-${illustration}.svg`}
+                        className="svg-card-services"
+                        width={260}
+                        height={170}
+                        alt=""
+                        loading="lazy"
+                        decoding="async"
+                    />
                     <h3 className="h2-services">{title}</h3>
 
                     <ListComponent
@@ -50,24 +65,21 @@ const Services = ({withoutHeader = false}) => {
 
             <div className="card-3-wrapper">
                 <Card3
-                    svgName={SVG_NAMES.tuning}
-                    svgClassName="svg-card-services"
+                    illustration="tuning"
                     title={CARD_INFO[SERVICE_TYPES.IMPROVEMENT_LIGHT_QUALITY].title}
                     list={CARD_INFO[SERVICE_TYPES.IMPROVEMENT_LIGHT_QUALITY].list}
                     link={NAVIGATION_URL.uluchsheniyeKachestvaSveta}
                     cardCount={3}
                 />
                 <Card3
-                    svgName={SVG_NAMES.polirovka}
-                    svgClassName="svg-card-services"
+                    illustration="polirovka"
                     title={CARD_INFO[SERVICE_TYPES.POLISHING_POSTING].title}
                     list={CARD_INFO[SERVICE_TYPES.POLISHING_POSTING].list}
                     link={NAVIGATION_URL.polirovkaOkleyka}
                     cardCount={3}
                 />
                 <Card3
-                    svgName={SVG_NAMES.remontFar}
-                    svgClassName="svg-card-services"
+                    illustration="remont-far"
                     title={CARD_INFO[SERVICE_TYPES.HEADLIGHTS_REPAIR].title}
                     list={CARD_INFO[SERVICE_TYPES.HEADLIGHTS_REPAIR].list}
                     link={NAVIGATION_URL.remont}
@@ -76,16 +88,14 @@ const Services = ({withoutHeader = false}) => {
             </div>
             <div className="card-2-wrapper">
                 <Card3
-                    svgName={SVG_NAMES.zapotevaniye}
-                    svgClassName="svg-card-services"
+                    illustration="zapotevaniye"
                     title={CARD_INFO[SERVICE_TYPES.HEADLIGHTS_PERSPIRATION].title}
                     list={CARD_INFO[SERVICE_TYPES.HEADLIGHTS_PERSPIRATION].list}
                     link={NAVIGATION_URL.zapotevaniye}
                     cardCount={2}
                 />
                 <Card3
-                    svgName={SVG_NAMES.remontFonarey}
-                    svgClassName="svg-card-services"
+                    illustration="remont-fonarey"
                     title={CARD_INFO[SERVICE_TYPES.MAINTENANCE].title}
                     list={CARD_INFO[SERVICE_TYPES.MAINTENANCE].list}
                     link={NAVIGATION_URL.tehObsluzhivaniye}

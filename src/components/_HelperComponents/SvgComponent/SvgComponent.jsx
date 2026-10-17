@@ -2,21 +2,12 @@ import React from "react";
 import {SVG_NAMES} from "./constants.js";
 import {
     ArrowUpRight, FacebookIcon,
-    InstagramIcon,
-    PolirovkaSvg,
-    RemontFar,
-    RemontFonarey, TiktokIcon,
-    Tuning, YoutubeIcon,
-    Zapotevaniye
+    InstagramIcon, TiktokIcon,
+    YoutubeIcon,
 } from "./utils/SvgCollection.jsx";
 
 const SvgComponent = ({name, className}) => {
     const {
-        polirovka,
-        zapotevaniye,
-        remontFar,
-        remontFonarey,
-        tuning,
         arrowUpRight,
         instagram,
         facebook,
@@ -29,11 +20,6 @@ const SvgComponent = ({name, className}) => {
     }
 
     const svgNames = {
-        [polirovka]: <PolirovkaSvg {...rest} />,
-        [zapotevaniye]: <Zapotevaniye {...rest} />,
-        [remontFar]: <RemontFar {...rest} />,
-        [remontFonarey]: <RemontFonarey {...rest} />,
-        [tuning]: <Tuning {...rest} />,
         [arrowUpRight]: <ArrowUpRight {...rest} />,
         [instagram]: <InstagramIcon {...rest} />,
         [facebook]: <FacebookIcon {...rest} />,
