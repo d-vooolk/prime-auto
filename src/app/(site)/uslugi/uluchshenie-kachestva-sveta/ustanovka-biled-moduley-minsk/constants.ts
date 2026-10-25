@@ -29,6 +29,11 @@ export const lightQualityProposalList: OurProposalBlockList[] = [
 
 export const priceDataSource = [
     {
+        // Bi-Led — комплекс работ; «от 50» ниже — только монтаж модуля в разобранную фару
+        serviceName: 'Установка Bi-Led модулей под ключ (две фары, без учёта модулей)',
+        price: 'от 700',
+    },
+    {
         serviceName: 'Регулировка света фар',
         price: '50',
     },
@@ -37,12 +42,8 @@ export const priceDataSource = [
         price: '100',
     },
     {
-        serviceName: 'Снятие и установка фары с одной стороны (без снятия бампера)',
-        price: 'от 10',
-    },
-    {
         serviceName: 'Снятие и установка фар с обеих сторон (без снятия бампера)',
-        price: 'от 20',
+        price: 'от 50',
     },
     {
         serviceName: 'Снятие и установка фар со снятием колес и подкрылков с обеих сторон',
