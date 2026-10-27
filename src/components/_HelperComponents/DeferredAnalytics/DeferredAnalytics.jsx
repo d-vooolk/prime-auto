@@ -1,7 +1,7 @@
 'use client'
 
 import {useEffect} from "react";
-import {GA_ID, METRIKA_ID, goalForLink, reachGoal} from "@/utils/analytics";
+import {GA_ID, META_PIXEL_ID, METRIKA_ID, goalForLink, reachGoal} from "@/utils/analytics";
 
 /**
  * GTM убран (10.10.2026): в контейнере был чужой счётчик Метрики 99258775, к
@@ -18,6 +18,7 @@ import {GA_ID, METRIKA_ID, goalForLink, reachGoal} from "@/utils/analytics";
  */
 
 const METRIKA_SRC = 'https://mc.yandex.ru/metrika/tag.js';
+const META_PIXEL_SRC = 'https://connect.facebook.net/en_US/fbevents.js';
 
 // mousemove/scroll ловят почти любой реальный визит; Lighthouse не делает ничего
 // из этого списка, поэтому сторонний код не попадает в замер.
@@ -39,6 +40,10 @@ const startAnalytics = () => {
     injectScript(`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`);
 
     injectScript(METRIKA_SRC);
+
+    if (META_PIXEL_ID) {
+        injectScript(META_PIXEL_SRC);
+    }
 };
 
 const DeferredAnalytics = () => {
@@ -59,6 +64,23 @@ const DeferredAnalytics = () => {
                 (window.ym.a = window.ym.a || []).push(arguments);
             };
             window.ym.l = Date.now();
+        }
+
+        // Заглушка fbq из стандартного сниппета Meta: fbevents.js проигрывает
+        // очередь при загрузке. Переходы между страницами без перезагрузки
+        // пиксель ловит сам (отслеживание history), повторный PageView не нужен.
+        if (META_PIXEL_ID && !window.fbq) {
+            const fbq = function () {
+                fbq.callMethod ? fbq.callMethod.apply(fbq, arguments) : fbq.queue.push(arguments);
+            };
+            fbq.push = fbq;
+            fbq.loaded = true;
+            fbq.version = '2.0';
+            fbq.queue = [];
+            window.fbq = fbq;
+            window._fbq = window._fbq || fbq;
+            fbq('init', META_PIXEL_ID);
+            fbq('track', 'PageView');
         }
 
         // Без ssr: true. Этот флаг рассчитан на счётчик, разметка которого уже

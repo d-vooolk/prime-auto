@@ -1,6 +1,8 @@
 export const METRIKA_ID = 103843698;
 /* GA4 — подключается напрямую (раньше через GTM) */
 export const GA_ID = 'G-GLSYGY5T6Y';
+/* Meta Pixel (Facebook/Instagram Ads) — ID из Events Manager; пустая строка отключает пиксель */
+export const META_PIXEL_ID = '';
 
 /*
   Идентификаторы целей типа «JavaScript-событие». В счётчике цели заводятся
@@ -34,7 +36,16 @@ const GA_EVENTS = {
     [GOALS.instagram]: 'click_social',
 };
 
-/* До загрузки tag.js вызов ложится в очередь заглушки ym и уходит после init; с gtag так же */
+/* Стандартные события Meta: по ним рекламный кабинет оптимизирует показы и считает конверсии */
+const META_EVENTS = {
+    [GOALS.lead]: 'Lead',
+    [GOALS.phone]: 'Contact',
+    [GOALS.telegram]: 'Contact',
+    [GOALS.viber]: 'Contact',
+    [GOALS.whatsapp]: 'Contact',
+};
+
+/* До загрузки tag.js вызов ложится в очередь заглушки ym и уходит после init; с gtag и fbq так же */
 export const reachGoal = (goal) => {
     if (typeof window === 'undefined') {
         return;
@@ -44,6 +55,9 @@ export const reachGoal = (goal) => {
     }
     if (typeof window.gtag === 'function' && GA_EVENTS[goal]) {
         window.gtag('event', GA_EVENTS[goal], {event_label: goal});
+    }
+    if (typeof window.fbq === 'function' && META_EVENTS[goal]) {
+        window.fbq('track', META_EVENTS[goal], {content_name: goal});
     }
 };
 
