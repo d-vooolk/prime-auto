@@ -11,8 +11,9 @@
      кликов у вопросных запросов. Снимки живут 30 дней, а это — дольше.
 
   Логи: NGINX_LOG_DIR (по умолчанию /var/log/nginx; в контейнер tools он
-  смонтирован только на чтение). Свой лог сайта prime-auto.by.access.log,
-  если появится, берётся вместо общего access.log.
+  смонтирован только на чтение). С 29.10.2026 у сайта свой лог
+  prime-auto.by.access.log; общий access.log (там же crm и zapis) читается
+  для дней до переключения.
 */
 import fs from "node:fs";
 import path from "node:path";
@@ -77,12 +78,11 @@ const inRanges = (ip, ranges) => {
 
 /* ---------- логи ---------- */
 
-const logFiles = () => {
-  const own = fs.existsSync(path.join(LOG_DIR, "prime-auto.by.access.log")) ? "prime-auto.by.access.log" : "access.log";
-  return fs.readdirSync(LOG_DIR)
-    .filter((name) => name === own || name.startsWith(`${own}.`))
-    .map((name) => path.join(LOG_DIR, name));
-};
+// Свой лог сайта и общий: с 29.10.2026 запросы prime-auto.by пишутся только в свой,
+// поэтому двойного счёта нет, а дни до переключения берутся из общего, пока он хранится
+const logFiles = () => fs.readdirSync(LOG_DIR)
+  .filter((name) => /^(prime-auto\.by\.)?access\.log(\.\d+(\.gz)?)?$/.test(name))
+  .map((name) => path.join(LOG_DIR, name));
 
 const lines = async function* (file) {
   const stream = fs.createReadStream(file);

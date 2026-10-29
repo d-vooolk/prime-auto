@@ -404,7 +404,7 @@ export const READINESS: {item: string; status: ReadyStatus; who: string; note?: 
     {item: "Первый экран услуг: цена «от», срок, гарантия — короткий самодостаточный ответ", status: "done", who: "Claude"},
     {item: "Блок «Коротко» (ответ в 2–3 предложения) в начале статей и FAQ с цифрами", status: "todo", who: "Claude"},
     {item: "llms.txt — краткая карта сайта для нейросетей", status: "todo", who: "Claude", note: "сейчас 404"},
-    {item: "Свой лог nginx у сайта (сейчас общий с crm/zapis — главная у ботов может быть завышена)", status: "todo", who: "Claude"},
+    {item: "Свой лог nginx у сайта (до 29.10 лог был общий с crm/zapis — главная у ботов могла быть завышена)", status: "done", who: "Claude"},
     {item: "Bing Webmaster Tools: сайт подтверждён, sitemap отправлен (индекс Bing = ChatGPT и Copilot)", status: "todo", who: "вы"},
     {item: "Одинаковые название, адрес, телефон, цены: Яндекс Карты, Google, 2ГИС, onlix, каталоги", status: "partial", who: "вы"},
     {item: "Упоминания на сторонних площадках: onliner, drive2, форумы, подборки «где сделать фары»", status: "todo", who: "вы"},

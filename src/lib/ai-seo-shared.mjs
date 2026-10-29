@@ -42,9 +42,9 @@ export const AI_BOTS = [
 export const SCANNER_PATH = /\.env|\.git|\/@fs|\.\.[/;%]|wp-|\.php|\.aws|credentials|\.ya?ml$|\.toml$|\.key$|\/proc\/|phpmyadmin|\.boto|\.profile|\.bash|\.idea|__vite|\/userfiles|\/api\/system|\/actuator|\/cgi-bin|\/vendor\/|\.json$/i;
 
 /**
- * Страницы сайта. В общий access.log nginx пишут и соседние сайты сервера
- * (crm, zapis) — берём только адреса prime-auto.by. «/» у них общий, поэтому
- * главная может быть чуть завышена, пока у сайта нет своего лога.
+ * Страницы сайта. До 29.10.2026 лог был общий с соседними сайтами сервера
+ * (crm, zapis) — берём только адреса prime-auto.by; «/» у них общий, поэтому
+ * главная в те дни может быть чуть завышена.
  */
 export const SITE_PATH = /^\/($|uslugi|stati|price|otzyvy|raboty|contacts|confidence-policy|robots\.txt$|sitemap\.xml$|llms\.txt$)/;
 

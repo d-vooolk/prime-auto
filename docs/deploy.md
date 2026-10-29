@@ -76,6 +76,9 @@ EOF
 остальное — в upstream:
 
 ```nginx
+# Свой лог сайта — по нему scripts/ai-seo-collect.mjs считает ИИ-ботов
+access_log /var/log/nginx/prime-auto.by.access.log;
+
 # Там лежат чанки и текущего, и предыдущего релиза — поэтому клиент, у
 # которого в браузере остался HTML прошлой версии, не поймает 404 на
 # /_next/static/chunks/<старый-хеш>.js.
