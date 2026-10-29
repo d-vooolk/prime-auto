@@ -1,5 +1,6 @@
 import crypto from "node:crypto";
 import {getDb, getSetting, setSetting} from "./db";
+import {AI_REFERRER} from "./ai-seo-shared.mjs";
 
 /**
  * Свой счётчик просмотров.
@@ -17,12 +18,13 @@ import {getDb, getSetting, setSetting} from "./db";
  * - боты по User-Agent отсекаются, а большинство ботов JS и не выполняет.
  */
 
-export type Source = "yandex" | "google" | "maps" | "social" | "messenger" | "ads" | "direct" | "internal" | "other";
+export type Source = "yandex" | "google" | "ai" | "maps" | "social" | "messenger" | "ads" | "direct" | "internal" | "other";
 export type Device = "mobile" | "tablet" | "desktop";
 
 export const SOURCE_LABELS: Record<Source, string> = {
     yandex: "Яндекс (поиск)",
     google: "Google (поиск)",
+    ai: "Нейросети (ChatGPT, Алиса…)",
     maps: "Карты (Яндекс, Google)",
     social: "Соцсети",
     messenger: "Мессенджеры",
@@ -75,6 +77,9 @@ export const sourceOf = (referrer: string, utmSource: string, utmMedium: string,
     }
     if (/^(cpc|ppc|paid|cpm|banner)/i.test(utmMedium) || /yandex_direct|direct|ads/i.test(utmSource)) return {source: "ads", host};
     if (host && (host === siteHost || host.endsWith(`.${siteHost}`))) return {source: "internal", host};
+    // раньше Яндекса и Google: alice.yandex.ru и gemini.google.com — это ответы нейросетей, не поиск
+    if (AI_REFERRER.test(host)) return {source: "ai", host};
+    if (!host && AI_REFERRER.test(utmSource)) return {source: "ai", host: utmSource};
     if (!host) {
         if (utmSource) return {source: /insta|vk|facebook|tiktok|youtube/i.test(utmSource) ? "social" : "other", host: utmSource};
         return {source: "direct", host: ""};

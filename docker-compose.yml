@@ -61,3 +61,7 @@ services:
   tools:
     <<: *app
     profiles: ["tools"]
+    volumes:
+      - .:/app
+      # scripts/ai-seo-collect.mjs читает логи nginx — заходы ИИ-ботов
+      - /var/log/nginx:/var/log/nginx:ro

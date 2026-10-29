@@ -165,6 +165,8 @@ PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 15 5 * * 1 root cd $APP_DIR && docker compose run --rm --no-deps tools node scripts/yandex-reviews.mjs --live >> /var/log/prime-auto-yandex-reviews.log 2>&1
 # Сводка поиска (Search Console, Вебмастер) — каждое утро
 40 6 * * * root cd $APP_DIR && docker compose run --rm --no-deps tools node scripts/search-collect.mjs >> /var/log/prime-auto-search.log 2>&1
+# AI-SEO: ИИ-боты из логов nginx и вопросные запросы — после сводки поиска
+10 7 * * * root cd $APP_DIR && docker compose run --rm --no-deps tools node scripts/ai-seo-collect.mjs >> /var/log/prime-auto-ai-seo.log 2>&1
 # Статика прошлых релизов старше месяца никому уже не нужна
 30 4 1 * * root find $SHARED_STATIC -type f -mtime +30 -delete
 CRON

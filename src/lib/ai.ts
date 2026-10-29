@@ -11,7 +11,7 @@ import {getConfig, getConfigNumber} from "./config";
  * Список и описания — src/lib/config.ts.
  */
 
-export type AiTask = "article" | "review" | "extract" | "unique" | "check";
+export type AiTask = "article" | "review" | "extract" | "unique" | "check" | "aiseo";
 
 export class AiError extends Error {}
 
@@ -29,7 +29,12 @@ interface ResponseMeta {
 }
 
 interface ChatResponse extends ResponseMeta {
-    choices?: Array<{message?: {content?: string | null}}>;
+    choices?: Array<{message?: {
+        content?: string | null;
+        annotations?: Array<{type?: string; url_citation?: {url?: string}}>;
+    }}>;
+    /* Perplexity отдаёт источники ещё и отдельным списком */
+    citations?: string[];
 }
 
 interface StreamChunk extends ResponseMeta {
@@ -50,6 +55,8 @@ export interface AiRequestOptions {
     maxTokens?: number;
     models?: string[];
     temperature?: number;
+    /** Дополнительные поля запроса, например plugins: [{id: "web"}] — поиск в интернете у OpenRouter */
+    extra?: Record<string, unknown>;
 }
 
 const LOG_RETENTION_MS = 180 * 24 * 60 * 60 * 1000;
@@ -158,6 +165,7 @@ const request = async (
         temperature: options.temperature ?? 0.7,
         stream,
         ...(options.maxTokens ? {max_tokens: options.maxTokens} : {}),
+        ...options.extra,
     };
     if (config.isOpenRouter) {
         if (models.length > 1) body.models = models;
@@ -293,6 +301,35 @@ export const completeStreaming = async (
         throw error;
     } finally {
         record(trace, outcome);
+    }
+};
+
+/** Ответ с поиском в интернете и адресами источников — для проверки видимости в нейросетях (AI-SEO) */
+export const completeWithSources = async (
+    system: string,
+    user: string,
+    task: AiTask,
+    options: AiRequestOptions = {},
+): Promise<{text: string; sources: string[]; model: string}> => {
+    const trace = startTrace(task);
+    try {
+        const response = await request(system, user, false, options);
+        const data = (await response.json().catch(() => ({}))) as ChatResponse;
+        noteMeta(trace, data);
+        if (data.error) throw failure(Number(data.error.code) || 500, data.error.message ?? "неизвестная ошибка");
+        const message = data.choices?.[0]?.message;
+        const text = stripThinking(message?.content?.trim() ?? "");
+        if (!text) throw new AiError("Нейросеть вернула пустой ответ");
+        const sources = [
+            ...(message?.annotations ?? []).map((a) => a.url_citation?.url ?? ""),
+            ...(data.citations ?? []),
+        ].filter(Boolean);
+        trace.firstTokenMs = Date.now() - trace.startedAt;
+        record(trace, null);
+        return {text, sources: [...new Set(sources)], model: trace.model};
+    } catch (error) {
+        record(trace, (error as Error).message);
+        throw error;
     }
 };
 

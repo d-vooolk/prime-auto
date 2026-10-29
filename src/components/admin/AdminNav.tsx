@@ -7,6 +7,7 @@ const ITEMS = [
     {href: "/admin", label: "Статьи", icon: "📝", exact: true},
     {href: "/admin/new", label: "Написать статью", icon: "✨"},
     {href: "/admin/stats", label: "Статистика", icon: "📊"},
+    {href: "/admin/ai-seo", label: "AI-SEO", icon: "🤖"},
     {href: "/admin/settings", label: "Настройки", icon: "⚙️"},
 ];
 

@@ -196,3 +196,27 @@ export const refreshSearchAction = async (): Promise<void> => {
     const {revalidatePath} = await import("next/cache");
     revalidatePath("/admin/stats/search");
 };
+
+/* AI-SEO: проверка ответов нейросетей идёт в фоне, страница показывает ход */
+export const startAiCheckAction = async (): Promise<ActionResult> => {
+    await requireAdmin();
+    const {startAnswerCheck} = await import("@/lib/ai-seo");
+    const result = startAnswerCheck();
+    return result.ok ? {ok: true, message: "Проверка запущена — 1–3 минуты, обновите страницу"} : result;
+};
+
+export const saveManualAiAction = async (form: FormData): Promise<void> => {
+    await requireAdmin();
+    const {AI_QUERIES, MANUAL_ENGINES, saveManualChecks} = await import("@/lib/ai-seo");
+    const engine = String(form.get("engine") ?? "");
+    const run = String(form.get("run") ?? "");
+    if (!MANUAL_ENGINES.some((e) => e.id === engine) || !/^\d{4}-\d{2}-\d{2}$/.test(run)) return;
+    const marks: Record<string, number> = {};
+    AI_QUERIES.forEach(({query}, index) => {
+        const value = form.get(`q${index}`);
+        if (value !== null && value !== "") marks[query] = Number(value);
+    });
+    saveManualChecks(run, engine, marks, String(form.get("competitors") ?? "").slice(0, 2000));
+    const {revalidatePath} = await import("next/cache");
+    revalidatePath("/admin/ai-seo");
+};

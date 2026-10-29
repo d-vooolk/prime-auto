@@ -154,6 +154,46 @@ const MIGRATIONS = [
         data         TEXT NOT NULL
     );
     `,
+    // 7 — AI-SEO (src/lib/ai-seo.ts, раздел «AI-SEO» в админке):
+    //     ai_bot_hits — заходы ИИ-ботов по логам nginx, только с проверенных IP
+    //       (scripts/ai-seo-collect.mjs раз в сутки);
+    //     ai_daily — вопросные запросы из снимка поиска, по дню (тот же скрипт):
+    //       сами снимки хранятся 30 дней, а динамика нужна дольше;
+    //     ai_checks — ответы нейросетей на набор запросов: назван ли Prime Auto,
+    //       есть ли ссылка, на кого ссылаются вместо нас. manual = 1 — внесено руками
+    //       (Яндекс Нейро, Алиса, Google AI Overviews — у них нет API)
+    `
+    CREATE TABLE ai_bot_hits (
+        day  TEXT NOT NULL,
+        bot  TEXT NOT NULL,
+        path TEXT NOT NULL,
+        hits INTEGER NOT NULL,
+        PRIMARY KEY (day, bot, path)
+    );
+
+    CREATE TABLE ai_daily (
+        day  TEXT PRIMARY KEY,
+        data TEXT NOT NULL
+    );
+
+    CREATE TABLE ai_checks (
+        id          INTEGER PRIMARY KEY,
+        run         TEXT NOT NULL,
+        ts          INTEGER NOT NULL,
+        engine      TEXT NOT NULL,
+        query       TEXT NOT NULL,
+        mentioned   INTEGER NOT NULL DEFAULT 0,
+        linked      INTEGER NOT NULL DEFAULT 0,
+        cited_url   TEXT NOT NULL DEFAULT '',
+        rank        INTEGER,
+        sources     TEXT NOT NULL DEFAULT '[]',
+        answer      TEXT NOT NULL DEFAULT '',
+        error       TEXT NOT NULL DEFAULT '',
+        manual      INTEGER NOT NULL DEFAULT 0,
+        UNIQUE (run, engine, query)
+    );
+    CREATE INDEX ai_checks_run ON ai_checks (run);
+    `,
 ];
 
 /**
