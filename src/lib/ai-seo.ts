@@ -65,7 +65,8 @@ export interface AiEngine {
 export const AI_ENGINES: AiEngine[] = [
     {id: "perplexity", label: "Perplexity", model: "perplexity/sonar"},
     {id: "chatgpt", label: "ChatGPT (GPT + поиск)", model: "openai/gpt-5.4-mini", extra: {plugins: [{id: "web", max_results: 8}]}},
-    {id: "gemini", label: "Gemini (+ поиск)", model: "google/gemini-3.5-flash", extra: {plugins: [{id: "web", max_results: 8}]}},
+    {id: "gemini", label: "Gemini (+ поиск)", model: "google/gemini-3.5-flash",
+        extra: {plugins: [{id: "web", max_results: 8}], reasoning: {effort: "low"}}},
     {id: "yandex", label: "Яндекс Нейро / Алиса"},
     {id: "google_aio", label: "Google AI Overviews / AI Mode"},
 ];

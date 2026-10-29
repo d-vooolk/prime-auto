@@ -165,7 +165,6 @@ const request = async (
         temperature: options.temperature ?? 0.7,
         stream,
         ...(options.maxTokens ? {max_tokens: options.maxTokens} : {}),
-        ...options.extra,
     };
     if (config.isOpenRouter) {
         if (models.length > 1) body.models = models;
@@ -175,6 +174,8 @@ const request = async (
     } else if (stream) {
         body.stream_options = {include_usage: true};
     }
+    // Последними — чтобы модель могла переопределить общее (у Gemini рассуждение не отключается)
+    Object.assign(body, options.extra);
 
     const send = async () => {
         try {
