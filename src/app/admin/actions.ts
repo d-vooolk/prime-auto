@@ -220,3 +220,25 @@ export const saveManualAiAction = async (form: FormData): Promise<void> => {
     const {revalidatePath} = await import("next/cache");
     revalidatePath("/admin/ai-seo");
 };
+
+/* Очередь статей: «тема | главный запрос | нюансы» — по одной на строку */
+export const enqueueArticlesAction = async (form: FormData): Promise<void> => {
+    await requireAdmin();
+    const {enqueueArticles} = await import("@/lib/article-jobs");
+    const items = String(form.get("topics") ?? "")
+        .split(/\r?\n/)
+        .map((line) => line.split("|").map((part) => part.trim()))
+        .filter(([topic]) => topic)
+        .slice(0, 200)
+        .map(([topic, keyword, notes]) => ({topic: topic.slice(0, 500), keyword: keyword?.slice(0, 200), notes: notes?.slice(0, 4000)}));
+    if (items.length) enqueueArticles(items);
+    redirect("/admin");
+};
+
+export const clearQueueAction = async (): Promise<void> => {
+    await requireAdmin();
+    const {clearArticleQueue} = await import("@/lib/article-jobs");
+    clearArticleQueue();
+    const {revalidatePath} = await import("next/cache");
+    revalidatePath("/admin");
+};

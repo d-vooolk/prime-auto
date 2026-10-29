@@ -1,7 +1,7 @@
 import Link from "next/link";
 import {listArticles} from "@/lib/articles";
-import {JOB_TITLES, recentJobs} from "@/lib/article-jobs";
-import {createEmptyArticleAction} from "@/app/admin/actions";
+import {articleQueue, JOB_TITLES, recentJobs} from "@/lib/article-jobs";
+import {clearQueueAction, createEmptyArticleAction} from "@/app/admin/actions";
 import {formatDateTime, ScoreBadge, StatusBadge, UniquenessBadge} from "@/components/admin/badges";
 
 export const dynamic = "force-dynamic";
@@ -11,6 +11,7 @@ const JOB_STATUS = {running: "идёт", done: "готово", error: "ошиб�
 const Dashboard = () => {
     const articles = listArticles();
     const jobs = recentJobs(8);
+    const queue = articleQueue();
 
     return (
         <>
@@ -23,6 +24,18 @@ const Dashboard = () => {
                     <Link href="/admin/new" className="a-btn a-btn-primary">Написать с нейросетью</Link>
                 </div>
             </div>
+
+            {queue.length > 0 && (
+                <section className="a-card">
+                    <div className="a-row" style={{justifyContent: "space-between"}}>
+                        <h2 className="a-h2" style={{margin: 0}}>В очереди: {queue.length}</h2>
+                        <form action={clearQueueAction}>
+                            <button className="a-btn">Очистить очередь</button>
+                        </form>
+                    </div>
+                    <p className="a-note">Следующие: {queue.slice(0, 5).map((item) => item.topic).join("; ")}</p>
+                </section>
+            )}
 
             {jobs.length > 0 && (
                 <section className="a-card">

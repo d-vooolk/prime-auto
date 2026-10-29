@@ -12,7 +12,7 @@ import {ensureDistinctTitle, titlesSimilar} from "./article-title";
 import {createArticle, getArticle, updateArticle, type ArticleRecord, type ArticleReview, type ArticleUniqueness} from "./articles";
 import {getConfigNumber} from "./config";
 import {describeProblem, findLinkProblems, removeDeadLinks} from "./link-check";
-import {getDb} from "./db";
+import {getDb, getSetting, setSetting} from "./db";
 import {fetchSourceArticle, SourcePageError} from "./source-page";
 import {
     articleTextForCheck,
@@ -458,6 +458,7 @@ const run = async (id: number, kind: JobKind, input: JobInput) => {
         ctx.finish("error", known ? (error as Error).message : "Внутренняя ошибка, подробности в логе сервера");
     } finally {
         running.delete(id);
+        pumpQueue();
     }
 };
 
@@ -483,4 +484,56 @@ export const startJob = (kind: JobKind, input: JobInput): number => {
     const id = Number(result.lastInsertRowid);
     void run(id, kind, input);
     return id;
+};
+
+/* ------------------------------------------------------------------ */
+/* Очередь: темы пакетом                                               */
+/* ------------------------------------------------------------------ */
+
+/*
+  Статьи под расширение сайта идут десятками — по одной через форму это часы
+  ручной работы. Темы лежат в настройках списком; сервер берёт следующую, как
+  только освобождается место (не больше MAX_RUNNING задач сразу). Готовое —
+  черновики: публикует по-прежнему человек.
+
+  Тему из списка забираем в транзакции IMMEDIATE: при blue-green деплое
+  ненадолго работают два процесса, и оба не должны взять одну тему.
+*/
+
+const QUEUE_KEY = "article_queue";
+
+export interface QueueItem {
+    topic: string;
+    keyword?: string;
+    notes?: string;
+}
+
+const readQueue = (): QueueItem[] => JSON.parse(getSetting(QUEUE_KEY) ?? "[]") as QueueItem[];
+const writeQueue = (items: QueueItem[]) => setSetting(QUEUE_KEY, items.length ? JSON.stringify(items) : null);
+
+export const articleQueue = (): QueueItem[] => readQueue();
+
+export const enqueueArticles = (items: QueueItem[]): void => {
+    getDb().transaction(() => writeQueue([...readQueue(), ...items])).immediate();
+    pumpQueue();
+};
+
+export const clearArticleQueue = (): void => writeQueue([]);
+
+export const pumpQueue = (): void => {
+    while (running.size < MAX_RUNNING) {
+        const item = getDb().transaction(() => {
+            const [next, ...rest] = readQueue();
+            if (next) writeQueue(rest);
+            return next;
+        }).immediate();
+        if (!item) return;
+        try {
+            startJob("generate", item);
+        } catch (error) {
+            getDb().transaction(() => writeQueue([item, ...readQueue()])).immediate();
+            console.error("[jobs] очередь", error);
+            return;
+        }
+    }
 };
