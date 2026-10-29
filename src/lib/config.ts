@@ -24,7 +24,8 @@ export type ConfigName =
     | "TEXTRU_API_KEY"
     | "TEXTRU_MIN_UNIQUE"
     | "UNIQUE_MAX_ROUNDS"
-    | "NGINX_CACHE_DIR";
+    | "NGINX_CACHE_DIR"
+    | "LEONARDO_API_KEY";
 
 export interface ConfigField {
     name: ConfigName;
@@ -102,6 +103,11 @@ export const CONFIG_FIELDS: ConfigField[] = [
         name: "UNIQUE_MAX_ROUNDS", group: "unique", type: "number", fallback: "2", min: 0, max: 5,
         label: "Кругов переписывания",
         hint: "Каждый круг — ещё одна платная проверка в text.ru. После последнего статья остаётся черновиком с отчётом.",
+    },
+    {
+        name: "LEONARDO_API_KEY", group: "ai", type: "secret", fallback: "",
+        label: "API-ключ Leonardo",
+        hint: "Картинки для статей: обложки и иллюстрации генерирует Leonardo.ai (leonardo.ai → API Access).",
     },
     {
         name: "NGINX_CACHE_DIR", group: "site", type: "text", fallback: "",
