@@ -34,6 +34,11 @@ export const lightQualityProposalList: OurProposalBlockList[] = [
 
 export const priceDataSource = [
     {
+        // Bi-Led — комплекс работ; «от 50» ниже — только монтаж модуля в разобранную фару
+        serviceName: 'Установка Bi-Led модулей под ключ (две фары, без учёта модулей)',
+        price: 'от 700',
+    },
+    {
         serviceName: 'Регулировка света фар',
         price: '50',
     },
@@ -62,11 +67,11 @@ export const priceDataSource = [
         price: 'от 50',
     },
     {
-        serviceName: 'Установка/замена модуля освещения (одна фара)',
+        serviceName: 'Только монтаж модуля в уже разобранную фару (одна фара; Bi-Led под ключ — от 700 за две)',
         price: 'от 50',
     },
     {
-        serviceName: 'Замена модуля освещения (для фар с адаптивной системой) (одна фара)',
+        serviceName: 'Только монтаж модуля в разобранную адаптивную фару (одна фара)',
         price: 'от 100',
     },
     {

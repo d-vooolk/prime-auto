@@ -23,6 +23,12 @@ export interface ServiceHeroData {
     /** 1–2 предложения под заголовком */
     lead: string;
     facts: ServiceFact[];
+    /**
+     * Блок «Коротко» под первым экраном: самодостаточный ответ в 2–3 предложения —
+     * кто, где, сколько стоит и сколько ждать. Нейросети цитируют такие абзацы
+     * дословно, поэтому в каждом — название, город и цифры из «Фактов» плана SEO.
+     */
+    short: string;
 }
 
 export const SERVICE_HERO: Record<string, ServiceHeroData> = {
@@ -36,6 +42,7 @@ export const SERVICE_HERO: Record<string, ServiceHeroData> = {
             {value: '1 день', label: 'обычно, даже с разборкой'},
             {value: '4 руб./см', label: 'сварка трещин корпуса'},
         ],
+        short: 'Ремонт фар в Минске в Prime Auto (Брилевский тупик, 5): меняем стекло, завариваем трещины корпуса и крепления, чиним LED-фары и ДХО, устраняем запотевание. Разборка и сборка фары — 150–200 руб., сварка корпуса — 4 руб. за 1 см шва, ремонт ДХО — от 100 руб.; обычно готово за 1 день, изредка за 2. Смету называем после осмотра и до начала работ — если ремонт невыгоден, скажем сразу.',
     },
     [NAVIGATION_URL.zamenaStekla]: {
         image: '/images/services/zamena-stekla-fary.webp',
@@ -47,6 +54,7 @@ export const SERVICE_HERO: Record<string, ServiceHeroData> = {
             {value: '1 день', label: 'обычно, изредка два'},
             {value: 'Проверка', label: 'на герметичность перед выдачей'},
         ],
+        short: 'Замена стекла фары в Минске в Prime Auto: работа — 150–200 руб. за фару в зависимости от герметика (бутиловый или полиуретановый), стекло считается отдельно и зависит от модели. Обычно готово за 1 день, изредка за 2; перед выдачей проверяем фару на герметичность.',
     },
     [NAVIGATION_URL.remontLed]: {
         image: '/images/services/remont-led-far-i-dho.webp',
@@ -58,6 +66,7 @@ export const SERVICE_HERO: Record<string, ServiceHeroData> = {
             {value: 'за день', label: 'ДХО и электрика обычно'},
             {value: '50 руб.', label: 'диагностика прибором'},
         ],
+        short: 'Ремонт LED-фар и ДХО в Минске в Prime Auto: светодиоды и платы, драйверы, блоки управления, световоды, адаптивные и матричные фары. Ремонт ДХО — от 100 руб., диагностика прибором — 50 руб., кодирование блоков — от 100 руб.; ДХО и электрику обычно чиним в день обращения.',
     },
     [NAVIGATION_URL.polirovkaOkleyka]: {
         image: '/images/services/polirovka-far.webp',
@@ -69,6 +78,7 @@ export const SERVICE_HERO: Record<string, ServiceHeroData> = {
             {value: 'от 150 руб.', label: 'оклейка плёнкой двух фар'},
             {value: '1 день', label: 'полировка с оклейкой'},
         ],
+        short: 'Полировка фар в Минске в Prime Auto — от 150 руб. за две фары, оклейка защитной полиуретановой плёнкой — ещё от 150 руб. за две. Полировка с оклейкой обычно занимает 1 день; плёнка защищает стекло от повторного помутнения и сколов.',
     },
     [NAVIGATION_URL.zapotevaniye]: {
         image: '/images/services/ustranenie-zapotevaniya.webp',
@@ -80,6 +90,7 @@ export const SERVICE_HERO: Record<string, ServiceHeroData> = {
             {value: '1 день', label: 'обычно, изредка два'},
             {value: 'Проверка', label: 'на герметичность перед выдачей'},
         ],
+        short: 'Устранение запотевания фар в Минске в Prime Auto: находим, где влага попадает в фару, переуплотняем её на новом герметике — 150–200 руб. за фару — и проверяем на герметичность. Обычно готово за 1 день, изредка за 2.',
     },
     [NAVIGATION_URL.regulirovka]: {
         image: '/images/services/regulirovka-far.webp',
@@ -91,6 +102,7 @@ export const SERVICE_HERO: Record<string, ServiceHeroData> = {
             {value: '15 минут', label: 'машина ждёт при вас'},
             {value: 'По ГОСТ', label: 'на настроечной стене'},
         ],
+        short: 'Регулировка фар в Минске в Prime Auto (Брилевский тупик, 5) — 50 руб., если доступ к регуляторам только через подкрылки — от 70 руб. Настраиваем ближний, дальний и противотуманный свет на настроечной стене по ГОСТ, около 15 минут, вы ждёте в мастерской. Работаем по будням с 9:00 до 19:00.',
     },
     [NAVIGATION_URL.tehObsluzhivaniye]: {
         image: '/images/services/to-far.webp',
@@ -102,6 +114,7 @@ export const SERVICE_HERO: Record<string, ServiceHeroData> = {
             {value: '50 руб.', label: 'регулировка света по ГОСТ'},
             {value: '15 минут', label: 'регулировка при вас'},
         ],
+        short: 'Техобслуживание фар в Минске в Prime Auto: замена ламп и блоков розжига — от 50 руб., регулировка света по ГОСТ — 50 руб. и около 15 минут при вас, диагностика прибором — 50 руб. Мелкие работы делаем в день обращения.',
     },
     [NAVIGATION_URL.uluchsheniyeKachestvaSveta]: {
         image: '/images/services/retrofit-far.webp',
@@ -113,6 +126,7 @@ export const SERVICE_HERO: Record<string, ServiceHeroData> = {
             {value: '1 день', label: 'обычно, изредка два'},
             {value: 'от 1 года', label: 'гарантия на модули'},
         ],
+        short: 'Ретрофит фар в Минске в Prime Auto — установка Bi-Led модулей или би-линз в штатные фары: под ключ от 700 руб. за две фары без учёта модулей (снятие, вскрытие и склейка, монтаж, проводка, проверка герметичности и регулировка). Обычно 1 день, изредка 2; гарантия на модули — от 1 года.',
     },
     [NAVIGATION_URL.biled]: {
         image: '/images/services/ustanovka-biled.webp',
@@ -124,6 +138,7 @@ export const SERVICE_HERO: Record<string, ServiceHeroData> = {
             {value: '1 день', label: 'обычно, изредка два'},
             {value: 'от 1 года', label: 'гарантия на модули'},
         ],
+        short: 'Установка Bi-Led линз в Минске в Prime Auto стоит под ключ от 700 руб. за две фары без учёта модулей: снятие фар и бампера, вскрытие и склейка, монтаж модулей, перепайка проводки, проверка герметичности и регулировка на стене. Обычно 1 день, изредка 2; гарантия на модули — от 1 года.',
     },
 };
 

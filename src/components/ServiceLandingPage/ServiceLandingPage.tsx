@@ -123,6 +123,8 @@ const ServiceLandingPage = ({
                 <ServicePageTitleContainer headText={headText} description={description} breadcrumbs={breadcrumbs} />
             )}
 
+            {hero && <ServiceAbout title="Коротко" text={hero.short} />}
+
             <OurProposalBlock list={proposalList} />
 
             {hero && <ServiceAbout text={description} />}

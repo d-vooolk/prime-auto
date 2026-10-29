@@ -106,15 +106,33 @@ export const runState = (): RunState | null => {
 
 const SYSTEM = "Отвечай на русском, коротко и по делу. Пользователь находится в Минске, Беларусь.";
 
+/**
+ * Gemini отдаёт источники переадресацией Google (vertexaisearch…/grounding-api-redirect/…) —
+ * без раскрытия не видно ни нашей ссылки, ни конкурентов. Не раскрылась — оставляем как есть.
+ */
+const REDIRECT_HOST = /(^|\.)vertexaisearch\.cloud\.google\.com$/i;
+
+const resolveSource = async (url: string): Promise<string> => {
+    if (!REDIRECT_HOST.test(hostOf(url))) return url;
+    try {
+        const response = await fetch(url, {redirect: "manual", signal: AbortSignal.timeout(10_000)});
+        return response.headers.get("location") || url;
+    } catch {
+        return url;
+    }
+};
+
 const checkOne = async (engine: AiEngine, query: string) => {
     try {
-        const {text, sources} = await completeWithSources(SYSTEM, query, "aiseo", {
+        const answer = await completeWithSources(SYSTEM, query, "aiseo", {
             models: [engine.model!],
             temperature: 0.2,
             maxTokens: 1500,
             timeout: 120_000,
             extra: engine.extra,
         });
+        const text = answer.text;
+        const sources = [...new Set(await Promise.all(answer.sources.map(resolveSource)))];
         const ourIndex = sources.findIndex((url) => OUR_HOST.test(hostOf(url)));
         const linked = ourIndex >= 0 || /prime-auto\.by/i.test(text);
         return {
