@@ -17,7 +17,7 @@ import {getConfig} from "./config";
  * которым админка спрашивает о ходе задачи.
  */
 
-const purgeNginxCache = () => {
+export const purgeNginxCache = (): void => {
     const dir = getConfig("NGINX_CACHE_DIR");
     if (!dir) return;
     try {

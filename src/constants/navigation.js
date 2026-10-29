@@ -16,6 +16,15 @@ export const NAVIGATION_URL = {
     zapotevaniye: '/uslugi/ustraneniye-zapotevaniya',
     uluchsheniyeKachestvaSveta: '/uslugi/uluchshenie-kachestva-sveta',
     biled: '/uslugi/uluchshenie-kachestva-sveta/ustanovka-biled-moduley-minsk',
+    zadnieFonari: '/uslugi/remont-far/remont-zadnih-fonarey',
+    ptf: '/uslugi/remont-far/remont-protivotumannyh-far',
+    adaptivnye: '/uslugi/remont-far/remont-adaptivnyh-far',
+    ksenon: '/uslugi/remont-far/remont-ksenona',
+    krepleniya: '/uslugi/remont-far/remont-krepleniy-far',
+    chistka: '/uslugi/remont-far/chistka-fary-iznutri',
+    zamenaLinz: '/uslugi/uluchshenie-kachestva-sveta/zamena-linz',
+    amerikanskie: '/uslugi/uluchshenie-kachestva-sveta/peredelka-amerikanskih-far',
+    pravorulnye: '/uslugi/uluchshenie-kachestva-sveta/peredelka-pravorulnyh-far',
     confidencePolicy: '/confidence-policy',
 };
 
@@ -46,6 +55,15 @@ export const breadcrumbLabels = {
     [NAVIGATION_URL.articles]: "Статьи",
     [NAVIGATION_URL.raboty]: "Наши работы",
     [NAVIGATION_URL.biled]: "Установка Bi-Led модулей в фары",
+    [NAVIGATION_URL.zadnieFonari]: "Ремонт задних фонарей",
+    [NAVIGATION_URL.ptf]: "Ремонт противотуманных фар",
+    [NAVIGATION_URL.adaptivnye]: "Ремонт адаптивных и матричных фар",
+    [NAVIGATION_URL.ksenon]: "Ремонт ксенона и блоков розжига",
+    [NAVIGATION_URL.krepleniya]: "Ремонт креплений фар",
+    [NAVIGATION_URL.chistka]: "Чистка фары изнутри",
+    [NAVIGATION_URL.zamenaLinz]: "Замена линз в фарах",
+    [NAVIGATION_URL.amerikanskie]: "Переделка американских фар",
+    [NAVIGATION_URL.pravorulnye]: "Переделка праворульных фар",
     [NAVIGATION_URL.confidencePolicy]: "Политика конфиденциальности",
 };
 

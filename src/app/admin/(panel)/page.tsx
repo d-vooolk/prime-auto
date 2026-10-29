@@ -2,6 +2,8 @@ import Link from "next/link";
 import {listArticles} from "@/lib/articles";
 import {articleQueue, JOB_TITLES, recentJobs} from "@/lib/article-jobs";
 import {clearQueueAction, createEmptyArticleAction} from "@/app/admin/actions";
+import {getArticle} from "@/lib/articles";
+import {PUBLISH_HOUR, publishQueue} from "@/lib/publish-schedule";
 import {formatDateTime, ScoreBadge, StatusBadge, UniquenessBadge} from "@/components/admin/badges";
 
 export const dynamic = "force-dynamic";
@@ -12,6 +14,7 @@ const Dashboard = () => {
     const articles = listArticles();
     const jobs = recentJobs(8);
     const queue = articleQueue();
+    const scheduled = publishQueue().map((id) => getArticle(id)).filter((article) => article?.status === "draft");
 
     return (
         <>
@@ -24,6 +27,16 @@ const Dashboard = () => {
                     <Link href="/admin/new" className="a-btn a-btn-primary">Написать с нейросетью</Link>
                 </div>
             </div>
+
+            {scheduled.length > 0 && (
+                <section className="a-card">
+                    <h2 className="a-h2">Публикация по расписанию: {scheduled.length}</h2>
+                    <p className="a-note">
+                        Одна статья в день в {PUBLISH_HOUR}:00 по Минску, по порядку. Следующие:{" "}
+                        {scheduled.slice(0, 5).map((article) => article!.title).join("; ")}
+                    </p>
+                </section>
+            )}
 
             {queue.length > 0 && (
                 <section className="a-card">

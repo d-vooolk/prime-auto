@@ -31,6 +31,15 @@ const serviceLinks = [
     {title: 'Регулировка фар', href: NAVIGATION_URL.regulirovka},
     {title: 'Замена стекла фары', href: NAVIGATION_URL.zamenaStekla},
     {title: 'Ремонт LED-фар и ДХО', href: NAVIGATION_URL.remontLed},
+    {title: 'Ремонт адаптивных и матричных фар', href: NAVIGATION_URL.adaptivnye},
+    {title: 'Ремонт ксенона и блоков розжига', href: NAVIGATION_URL.ksenon},
+    {title: 'Ремонт противотуманных фар', href: NAVIGATION_URL.ptf},
+    {title: 'Ремонт задних фонарей', href: NAVIGATION_URL.zadnieFonari},
+    {title: 'Ремонт креплений фар', href: NAVIGATION_URL.krepleniya},
+    {title: 'Чистка фары изнутри', href: NAVIGATION_URL.chistka},
+    {title: 'Замена линз в фарах', href: NAVIGATION_URL.zamenaLinz},
+    {title: 'Переделка американских фар', href: NAVIGATION_URL.amerikanskie},
+    {title: 'Переделка праворульных фар', href: NAVIGATION_URL.pravorulnye},
 ];
 
 /*

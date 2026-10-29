@@ -27,6 +27,15 @@ const SERVICE_PATHS = [
     NAVIGATION_URL.regulirovka,
     NAVIGATION_URL.zamenaStekla,
     NAVIGATION_URL.remontLed,
+    NAVIGATION_URL.zadnieFonari,
+    NAVIGATION_URL.ptf,
+    NAVIGATION_URL.adaptivnye,
+    NAVIGATION_URL.ksenon,
+    NAVIGATION_URL.krepleniya,
+    NAVIGATION_URL.chistka,
+    NAVIGATION_URL.zamenaLinz,
+    NAVIGATION_URL.amerikanskie,
+    NAVIGATION_URL.pravorulnye,
     NAVIGATION_URL.zapotevaniye,
 ];
 
