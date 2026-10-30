@@ -22,7 +22,8 @@ import leo
 W, H = 1344, 768
 YELLOW, WHITE, DARK = (247, 184, 0), (255, 255, 255), (20, 20, 20)
 RED, GREEN = (214, 32, 39), (46, 178, 74)
-F = "C:/Windows/Fonts/Montserrat-"
+# Montserrat Bold/ExtraBold/Black (.ttf): Windows — C:/Windows/Fonts, Mac — ~/Library/Fonts
+FONTS = ["C:/Windows/Fonts", os.path.expanduser("~/Library/Fonts"), "/Library/Fonts"]
 LOGO = os.path.join(os.path.dirname(os.path.abspath(__file__)), "brand-logo.png")  # public/dark-logo.svg, ширина 300
 PLACE = {
     "left": "main subject placed on the right third of the frame, large empty very dark negative space on the left half",
@@ -33,7 +34,8 @@ STYLE = "cinematic dark automotive photography, dramatic low-key lighting, deep 
 
 
 def font(kind, size):
-    return ImageFont.truetype(F + kind + ".ttf", size)
+    name = f"Montserrat-{kind}.ttf"
+    return ImageFont.truetype(next((os.path.join(d, name) for d in FONTS if os.path.exists(os.path.join(d, name))), name), size)
 
 
 def wrap(d, text, fnt, width):

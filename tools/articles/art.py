@@ -17,7 +17,9 @@ python art.py publish-queue <id,id,…>  задать порядок публи�
 import hashlib, os, subprocess, sys, tempfile
 from PIL import Image
 
-SSH = ["ssh", "-i", os.path.expanduser("~/.ssh/vdf_deploy"), "root@93.125.12.160"]
+# ключ сервера: vdf_deploy (Windows-машина) или vdf_home (Mac)
+KEY = next((k for k in map(os.path.expanduser, ["~/.ssh/vdf_deploy", "~/.ssh/vdf_home"]) if os.path.exists(k)), os.path.expanduser("~/.ssh/vdf_deploy"))
+SSH = ["ssh", "-i", KEY, "-o", "IdentitiesOnly=yes", "root@93.125.12.160"]
 SITE = "/var/www/prime-auto"
 RUN = f"cd {SITE} && docker compose run --rm -T --no-deps tools node scripts/.claude-art.mjs"
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -33,7 +35,7 @@ def ssh(cmd, stdin=None):
 
 
 def scp(local, remote):
-    subprocess.run(["scp", "-q", "-i", os.path.expanduser("~/.ssh/vdf_deploy"), local, f"root@93.125.12.160:{remote}"], check=True)
+    subprocess.run(["scp", "-q", "-i", KEY, "-o", "IdentitiesOnly=yes", local, f"root@93.125.12.160:{remote}"], check=True)
 
 
 def ensure_server_script():

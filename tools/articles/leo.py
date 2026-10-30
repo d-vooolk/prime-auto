@@ -1,8 +1,20 @@
 """Генерация картинки в Leonardo: python leo.py <выход.png> "<промпт>" [ширина высота]"""
 import json, os, sys, time, urllib.request
 
-# ключ: переменная LEONARDO_API_KEY или файл ~/Desktop/leonardo.txt (тот же ключ — в админке, «Настройки»)
-KEY = os.environ.get("LEONARDO_API_KEY") or open(os.path.expanduser("~/Desktop/leonardo.txt"), encoding="utf8").read().strip()
+KEY_FILE = os.path.expanduser("~/Desktop/leonardo.txt")
+_key = None
+
+
+def key():
+    """Переменная LEONARDO_API_KEY, файл ~/Desktop/leonardo.txt или настройки на сервере (админка, «Настройки»)"""
+    global _key
+    if not _key:
+        _key = os.environ.get("LEONARDO_API_KEY") or (open(KEY_FILE, encoding="utf8").read().strip() if os.path.exists(KEY_FILE) else "")
+    if not _key:
+        import art
+        art.ensure_server_script()
+        _key = art.ssh(f"{art.RUN} leokey").strip()
+    return _key
 API = "https://cloud.leonardo.ai/api/rest/v1"
 MODEL = "7b592283-e8a7-4c5a-9ba6-d18c31f258b9"  # Lucid Origin
 NEGATIVE = "text, letters, words, watermark, logo, signature, caption, cartoon, illustration, blurry, deformed, extra wheels"
@@ -10,7 +22,7 @@ NEGATIVE = "text, letters, words, watermark, logo, signature, caption, cartoon, 
 
 def call(method, path, body=None):
     req = urllib.request.Request(API + path, method=method, data=json.dumps(body).encode() if body else None,
-                                 headers={"authorization": f"Bearer {KEY}", "content-type": "application/json", "accept": "application/json", "user-agent": "prime-auto-covers/1.0"})
+                                 headers={"authorization": f"Bearer {key()}", "content-type": "application/json", "accept": "application/json", "user-agent": "prime-auto-covers/1.0"})
     with urllib.request.urlopen(req, timeout=60) as r:
         return json.load(r)
 

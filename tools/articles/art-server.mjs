@@ -33,7 +33,7 @@ if (cmd === "list") {
     const added = [];
     for (const id of args[0].split(",").map(Number)) {
         const r = db.prepare("SELECT title, status, notes FROM articles WHERE id = ?").get(id);
-        if (!r || r.status !== "draft" || /проверено Claude/.test(r.notes || "") || factcheck(id)) continue;
+        if (!r || r.status !== "draft" || /проверено Claude/.test(r.notes || "") || ["queued", "running", "done"].includes(factcheck(id))) continue;  // после error — можно ещё раз
         queue.push({topic: `${FACTCHECK}: ${r.title}`, articleId: id});
         added.push(id);
     }
@@ -49,6 +49,9 @@ if (cmd === "list") {
         r.task = j ? JSON.parse(j.input) : null;
         console.log(JSON.stringify(r));
     }
+} else if (cmd === "leokey") {
+    // ключ Leonardo из «Настроек» админки — для leo.py, если на машине нет файла с ключом
+    console.log(db.prepare("SELECT value FROM settings WHERE key = 'cfg:LEONARDO_API_KEY'").get()?.value ?? "");
 } else if (cmd === "get") {
     const r = db.prepare(`SELECT id, slug, ${FIELDS.join(", ")}, notes FROM articles WHERE id = ?`).get(Number(args[0]));
     const j = db.prepare("SELECT input FROM jobs WHERE article_id = ? AND kind = 'generate' ORDER BY id LIMIT 1").get(Number(args[0]));
@@ -99,6 +102,6 @@ if (cmd === "list") {
     db.prepare("INSERT INTO settings (key, value) VALUES ('publish_queue', ?) ON CONFLICT(key) DO UPDATE SET value = excluded.value").run(JSON.stringify(ids));
     console.log("publish_queue", ids.length, ids.join(","));
 } else {
-    console.error("cmd: list | get <id> | dump <ids> | factcheck <ids> | put <id> <file> | published | photos | sync-queue | publish-queue <ids>");
+    console.error("cmd: list | get <id> | dump <ids> | factcheck <ids> | leokey | put <id> <file> | published | photos | sync-queue | publish-queue <ids>");
     process.exit(1);
 }
