@@ -1,12 +1,16 @@
 """Дешёвая доводка статей: проверка кодом и картинки без просмотра глазами.
 
 python auto.py lint <id,id,…>     найти в черновиках типичные ошибки нейросети (по REVIEW.md) — с цитатой места
+python auto.py scan <id,id,…>     предложения, где обычно прячутся выдумки (цены, сроки, правила, ремонт корпусов, наши машины)
+python auto.py check <plan.json>  холостой прогон плана: все ли цитаты найдены, что останется в lint, какие ссылки уцелеют
 python auto.py build <plan.json>  применить правки, сделать обложку и иллюстрацию, залить и записать (put)
 
 plan.json — список заданий, по одному на статью (пишет Claude, читая только lint, заголовок и аннотацию):
 [{
   "id": 61,
   "replace": [["точная цитата из статьи", "на что заменить"], …],      # правки по lint; "" — удалить
+  "faq_add": [["вопрос", "ответ 1–3 предложения"]],                    # дописать вопросы FAQ
+  "faq_drop": ["часть вопроса"],                                     # убрать лишние вопросы FAQ (нужно 4–6)
   "links": 9,                                                          # ссылок не больше (по умолчанию 9) — лишние снимает trim_links
   "how": "Как это делаем мы: … Подробности и цены — на странице [Ремонт креплений](/uslugi/…).",  # без «> », после первого раздела
   "cover": {"scene": "…англ.", "title": "2–5 слов", "accent": "до 6 слов", "chips": […] | "compare": [a, b] | "badge": "…" | "warning": true},
@@ -35,8 +39,8 @@ INTERNAL = ("/uslugi", "/price", "/contacts", "/otzyvy", "/stati/", "/raboty")
 PATTERNS = [
     (r"\d+\s*%|процент", "статистика/проценты — выдумка?"),
     (r"по статистике|в половине случаев|в разы|в \d+ из \d+|большинств\w+ случа", "выдуманная статистика"),
-    (r"\d+\s*[–-]\s*\d+\s*минут", "диапазон минут: для запотевания норма 20–40"),
-    (r"гаранти", "гарантия: только «на модули от 1 года», других сроков нет"),
+    (r"\b(?!20\s*[–-]\s*40)\d+\s*[–-]\s*\d+\s*минут", "диапазон минут: для запотевания норма 20–40"),
+    (r"гаранти(?!р)", "гарантия: только «на модули от 1 года», других сроков нет"),
     (r"засверл", "засверливание трещин не упоминаем — варим полимером"),
     (r"армир|(?:усил|шов|шва|свар|пайк)[^.]{0,40}сетк|сетк[^.]{0,40}(?:усил|шов|шва|свар|пайк)", "армирующую сетку не используем — варим ремонтными прутками"),
     (r"распил|пропил", "фары не распиливаем — расклеиваем"),
@@ -48,7 +52,7 @@ PATTERNS = [
     (r"\b[PUBC]\d{4}\b", "код ошибки — выдумка?"),
     (r"ксенон[^.]{0,120}желт|желт[^.]{0,120}ксенон", "стареющий ксенон уходит в розовый, а не желтеет"),
     (r"матричн[^.]{0,120}ближн", "матрица — это дальний свет"),
-    (r"проводк[^.]{0,80}(?:берёмся|беремся|устраним|отремонтируем|восстановим)", "за проводку машины не берёмся"),
+    (r"(?<!не )(?:берёмся|беремся|займёмся)[^.]{0,40}проводк|проводк[^.]{0,80}(?<!не )(?:берёмся|беремся|устраним|отремонтируем|восстановим)", "за проводку машины не берёмся"),
     (r"драйвер[^.]{0,80}напряжени", "драйвер стабилизирует ток"),
 ]
 
@@ -144,6 +148,67 @@ def trim_links(body, notes, limit=9):
     return body
 
 
+RISKY = re.compile(r"руб|\bBYN|штраф|ГАИ|техосмотр|запрещ|разреш|законн|кодир|маркер|сертиф|омолог|прутк|сетк|армир|кронштейн|"
+                   r"полимер|пайк|паян|распил|лет\b|час|минут|дн(?:я|ей)\b|гарант|ГОСТ|правил(?!ьн)|наш\w* (?:работ|машин|клиент)|у нас в работе", re.I)
+
+
+def scan(ids):
+    for a in load(ids):
+        task = a.get("task") or {}
+        print(f"=== {a['id']} | {len(a['title'])} | {a['title']} | md {len(a['meta_description'] or '')}")
+        print(f"нюансы: {(task.get('notes') or '').strip()[:300]}")
+        text = a["body"] + "\n" + "\n".join("FAQ " + x["q"] + " :: " + x["a"] for x in a["faq"])
+        seen = set()
+        for s in sentences(text):
+            if RISKY.search(s) and s not in seen and not s.startswith(("|---", "![")):
+                seen.add(s)
+                print(" -", s.strip()[:240])
+        print()
+
+
+def apply_plan(job, a):
+    """Правки replace и чистка ссылок — общая часть check и build. Возвращает список ненайденных цитат."""
+    fields = ["title", "meta_title", "meta_description", "excerpt", "body"]
+    missing = []
+    for old, new in job.get("replace", []):
+        hit = [f for f in fields if old in (a[f] or "")]
+        faq_hit = [x for x in a["faq"] if old in x["q"] or old in x["a"]]
+        if not hit and not faq_hit:
+            missing.append(old)
+        for f in hit:
+            a[f] = a[f].replace(old, new)
+        for x in faq_hit:
+            x["q"], x["a"] = x["q"].replace(old, new), x["a"].replace(old, new)
+    for q, ans in job.get("faq_add", []):  # дописать вопрос FAQ: [вопрос, ответ]
+        a["faq"].append({"q": q, "a": ans})
+    for q in job.get("faq_drop", []):  # убрать вопрос FAQ по части формулировки
+        before = len(a["faq"])
+        a["faq"] = [x for x in a["faq"] if q not in x["q"]]
+        if len(a["faq"]) == before:
+            missing.append("faq: " + q)
+    adds_how = bool(job.get("how")) and "Как это делаем мы" not in a["body"]  # блок how добавит свою ссылку
+    a["body"] = trim_links(a["body"], (a.get("task") or {}).get("notes", ""), job.get("links", 9) - adds_how)
+    a["body"] = re.sub(r"[ \t]+\n", "\n", re.sub(r"\n{3,}", "\n\n", a["body"]))
+    if adds_how:
+        a["body"] = insert_after_section(a["body"], "", "> " + job["how"].lstrip("> ").strip())
+    return missing
+
+
+def check(plan_path):
+    plan = json.load(open(plan_path, encoding="utf8"))
+    articles = {a["id"]: a for a in load(",".join(str(j["id"]) for j in plan))}
+    for job in plan:
+        a = articles[job["id"]]
+        missing = apply_plan(job, a)
+        print(f"== {job['id']} | title {len(a['title'])} | md {len(a['meta_description'] or '')}")
+        for old in missing:
+            print(f"   НЕ НАЙДЕНО: «{old[:90]}»")
+        for x in lint_article(a):
+            if not x.startswith("блок «Как это"):
+                print("   lint:", x)
+        print("   ссылки:", " ".join(h for _, h in LINK.findall(a["body"])))
+
+
 def insert_after_section(body, heading, block):
     """Вставить блок после первого абзаца раздела ## с заголовком, содержащим heading (или после первого раздела)"""
     parts = re.split(r"(?m)^(?=## )", body)
@@ -201,20 +266,9 @@ def build(plan_path):
             continue
         try:
             fields = ["title", "meta_title", "meta_description", "excerpt", "body"]
-            for old, new in job.get("replace", []):
-                hit = [f for f in fields if old in (a[f] or "")]
-                faq_hit = [x for x in a["faq"] if old in x["q"] or old in x["a"]]
-                if not hit and not faq_hit:
-                    raise ValueError(f"не найдено для замены: «{old[:80]}»")
-                for f in hit:
-                    a[f] = a[f].replace(old, new)
-                for x in faq_hit:
-                    x["q"], x["a"] = x["q"].replace(old, new), x["a"].replace(old, new)
-            adds_how = bool(job.get("how")) and "Как это делаем мы" not in a["body"]  # блок how добавит свою ссылку
-            a["body"] = trim_links(a["body"], (a.get("task") or {}).get("notes", ""), job.get("links", 9) - adds_how)
-            a["body"] = re.sub(r"[ \t]+\n", "\n", re.sub(r"\n{3,}", "\n\n", a["body"]))
-            if job.get("how") and "Как это делаем мы" not in a["body"]:
-                a["body"] = insert_after_section(a["body"], "", "> " + job["how"].lstrip("> ").strip())
+            missing = apply_plan(job, a)
+            if missing:
+                raise ValueError(f"не найдено для замены: «{missing[0][:80]}»")
             folder = os.path.join(art.WORK, f"a{i}")
             cover, illus = make_images(job, folder)
             a["cover"] = upload(cover)
@@ -244,4 +298,4 @@ def build(plan_path):
 if __name__ == "__main__":
     if len(sys.argv) < 3:
         sys.exit(__doc__)
-    {"lint": lint, "build": build}[sys.argv[1]](sys.argv[2])
+    {"lint": lint, "scan": scan, "check": check, "build": build}[sys.argv[1]](sys.argv[2])
