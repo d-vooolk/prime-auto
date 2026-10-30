@@ -7,6 +7,7 @@ plan.json — список заданий, по одному на статью (
 [{
   "id": 61,
   "replace": [["точная цитата из статьи", "на что заменить"], …],      # правки по lint; "" — удалить
+  "links": 9,                                                          # ссылок не больше (по умолчанию 9) — лишние снимает trim_links
   "how": "Как это делаем мы: … Подробности и цены — на странице [Ремонт креплений](/uslugi/…).",  # без «> », после первого раздела
   "cover": {"scene": "…англ.", "title": "2–5 слов", "accent": "до 6 слов", "chips": […] | "compare": [a, b] | "badge": "…" | "warning": true},
   "cover_alt": "что на обложке по-русски",
@@ -109,6 +110,38 @@ def lint(ids):
         print()
 
 
+DROP_LINKS = re.compile(r"^(?:https://vdf\.by/?|/stati/?|/uslugi/?|/contacts|/otzyvy|/raboty/?)$")
+
+
+def trim_links(body, notes, limit=9):
+    """Оставить не больше limit ссылок: сначала пути из нюансов задания, потом по порядку; дубли и общие разделы снять.
+    Пункт списка, который был одной ссылкой, удаляется целиком, опустевший раздел ## — тоже."""
+    links = list(re.finditer(r"(?<!!)\[([^\]]+)\]\(([^ )]+)\)", body))
+    wanted = [m.group(2) for m in links if m.group(2) in (notes or "") and not DROP_LINKS.match(m.group(2))]
+    keep, seen = set(), set()
+    for href in wanted + [m.group(2) for m in links]:
+        if len(seen) >= limit:
+            break
+        if href not in seen and not DROP_LINKS.match(href):
+            seen.add(href)
+    for m in links:  # первое вхождение каждого оставленного адреса
+        if m.group(2) in seen and m.group(2) not in keep:
+            keep.add(m.group(2))
+            keep.add(m.start())
+    out, pos = [], 0
+    for m in links:
+        out.append(body[pos:m.start()])
+        out.append(m.group(0) if m.start() in keep else "⟦" + m.group(1) + "⟧")
+        pos = m.end()
+    body = "".join(out) + body[pos:]
+    # пункт списка из одной снятой ссылки (с пояснением через тире или двоеточие) — убрать
+    body = re.sub(r"(?m)^[-*] ⟦[^⟧\n]*⟧(?:\s*[—:–-][^\n]*)?\.?\n", "", body)
+    body = body.replace("⟦", "").replace("⟧", "")
+    # раздел без текста после удаления пунктов — убрать вместе с заголовком
+    body = re.sub(r"(?m)^##+ [^\n]+\n+(?:[^\n]*:\n+)?(?=##|\Z)", "", body)
+    return body
+
+
 def insert_after_section(body, heading, block):
     """Вставить блок после первого абзаца раздела ## с заголовком, содержащим heading (или после первого раздела)"""
     parts = re.split(r"(?m)^(?=## )", body)
@@ -175,6 +208,8 @@ def build(plan_path):
                     a[f] = a[f].replace(old, new)
                 for x in faq_hit:
                     x["q"], x["a"] = x["q"].replace(old, new), x["a"].replace(old, new)
+            adds_how = bool(job.get("how")) and "Как это делаем мы" not in a["body"]  # блок how добавит свою ссылку
+            a["body"] = trim_links(a["body"], (a.get("task") or {}).get("notes", ""), job.get("links", 9) - adds_how)
             a["body"] = re.sub(r"[ \t]+\n", "\n", re.sub(r"\n{3,}", "\n\n", a["body"]))
             if job.get("how") and "Как это делаем мы" not in a["body"]:
                 a["body"] = insert_after_section(a["body"], "", "> " + job["how"].lstrip("> ").strip())
