@@ -506,6 +506,8 @@ export interface QueueItem {
     topic: string;
     keyword?: string;
     notes?: string;
+    /** Повторная проверка готового черновика редактором (tools/articles: art.py factcheck) */
+    articleId?: number;
 }
 
 const readQueue = (): QueueItem[] => JSON.parse(getSetting(QUEUE_KEY) ?? "[]") as QueueItem[];
@@ -529,7 +531,8 @@ export const pumpQueue = (): void => {
         }).immediate();
         if (!item) return;
         try {
-            startJob("generate", item);
+            if (item.articleId) startJob("review", {topic: item.topic, articleId: item.articleId});
+            else startJob("generate", item);
         } catch (error) {
             getDb().transaction(() => writeQueue([item, ...readQueue()])).immediate();
             console.error("[jobs] очередь", error);

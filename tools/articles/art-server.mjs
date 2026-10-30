@@ -5,6 +5,16 @@ import Database from "better-sqlite3";
 const DB = process.env.DATABASE_PATH || "var/prime-auto.db";
 const db = new Database(DB);
 const [cmd, ...args] = process.argv.slice(2);
+const FACTCHECK = "Проверка по фактам";
+
+/** Повторная проверка по фактам: queued | running | done | error | null (не запускалась) */
+function factcheck(id) {
+    const queue = JSON.parse(db.prepare("SELECT value FROM settings WHERE key = 'article_queue'").get()?.value ?? "[]");
+    if (queue.some((item) => item.articleId === id)) return "queued";
+    const job = db.prepare("SELECT status FROM jobs WHERE article_id = ? AND kind = 'review' AND input LIKE ? ORDER BY id DESC LIMIT 1").get(id, `%${FACTCHECK}%`);
+    return job?.status ?? null;
+}
+
 const FIELDS = ["title", "meta_title", "meta_description", "excerpt", "body", "faq", "cover", "cover_alt"];
 
 if (cmd === "list") {
@@ -15,7 +25,29 @@ if (cmd === "list") {
         WHERE a.status = 'draft' GROUP BY a.id ORDER BY a.id`).all();
     for (const r of rows) {
         const topic = r.input ? JSON.parse(r.input).topic : "";
-        console.log(JSON.stringify({id: r.id, status: r.status, reviewed: /проверено Claude/.test(r.notes || ""), cover: !!r.cover, title: r.title, topic}));
+        console.log(JSON.stringify({id: r.id, status: r.status, reviewed: /проверено Claude/.test(r.notes || ""), factcheck: factcheck(r.id), cover: !!r.cover, title: r.title, topic}));
+    }
+} else if (cmd === "factcheck") {
+    // повторная проверка редактором-нейросетью уже с «Фактами» в задании: в очередь статей, сервер берёт по две
+    const queue = JSON.parse(db.prepare("SELECT value FROM settings WHERE key = 'article_queue'").get()?.value ?? "[]");
+    const added = [];
+    for (const id of args[0].split(",").map(Number)) {
+        const r = db.prepare("SELECT title, status, notes FROM articles WHERE id = ?").get(id);
+        if (!r || r.status !== "draft" || /проверено Claude/.test(r.notes || "") || factcheck(id)) continue;
+        queue.push({topic: `${FACTCHECK}: ${r.title}`, articleId: id});
+        added.push(id);
+    }
+    db.prepare("INSERT INTO settings (key, value) VALUES ('article_queue', ?) ON CONFLICT(key) DO UPDATE SET value = excluded.value").run(JSON.stringify(queue));
+    console.log("в очередь проверки:", added.length, added.join(","));
+} else if (cmd === "dump") {
+    // несколько статей разом, по строке JSON на статью
+    for (const id of args[0].split(",").map(Number)) {
+        const r = db.prepare(`SELECT id, slug, ${FIELDS.join(", ")}, notes FROM articles WHERE id = ?`).get(id);
+        if (!r) continue;
+        const j = db.prepare("SELECT input FROM jobs WHERE article_id = ? AND kind = 'generate' ORDER BY id LIMIT 1").get(id);
+        r.faq = JSON.parse(r.faq || "[]");
+        r.task = j ? JSON.parse(j.input) : null;
+        console.log(JSON.stringify(r));
     }
 } else if (cmd === "get") {
     const r = db.prepare(`SELECT id, slug, ${FIELDS.join(", ")}, notes FROM articles WHERE id = ?`).get(Number(args[0]));
@@ -67,6 +99,6 @@ if (cmd === "list") {
     db.prepare("INSERT INTO settings (key, value) VALUES ('publish_queue', ?) ON CONFLICT(key) DO UPDATE SET value = excluded.value").run(JSON.stringify(ids));
     console.log("publish_queue", ids.length, ids.join(","));
 } else {
-    console.error("cmd: list | get <id> | put <id> <file> | published | photos | sync-queue | publish-queue <ids>");
+    console.error("cmd: list | get <id> | dump <ids> | factcheck <ids> | put <id> <file> | published | photos | sync-queue | publish-queue <ids>");
     process.exit(1);
 }

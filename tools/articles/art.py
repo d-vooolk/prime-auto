@@ -1,6 +1,8 @@
 """Работа со статьями на проде prime-auto.by.
 
-python art.py list                     черновики нейросети (id, проверена ли, есть ли обложка, заголовок)
+python art.py list                     черновики нейросети (id, проверена ли, factcheck — повторная проверка нейросетью по фактам, обложка, заголовок)
+python art.py factcheck <id,id,…>      поставить черновики на повторную проверку нейросетью-редактором с «Фактами» (сервер, ~$0.01 за статью)
+python art.py dump <id,id,…> <файл>    выгрузить несколько статей разом (JSON по строке на статью)
 python art.py get <id> <файл.json>     выгрузить статью (title, meta_*, excerpt, body, faq, cover, task — задание)
 python art.py put <id> <файл.json>     записать изменённые поля (те же ключи) и пометить «проверено Claude»
 python art.py upload <картинка>        залить WebP в var/uploads/2026/10 → печатает адрес /uploads/2026/10/…
@@ -71,10 +73,21 @@ def main():
         print(ssh(f"{RUN} put {int(args[0])} scripts/.claude-put-{int(args[0])}.json; rm -f {SITE}/scripts/.claude-put-{int(args[0])}.json"), end="")
     elif cmd in ("published", "photos", "sync-queue"):
         print(ssh(f"{RUN} {cmd}"), end="")
+    elif cmd == "factcheck":
+        print(ssh(f"{RUN} factcheck {args[0]}"), end="")
+    elif cmd == "dump":
+        open(args[1], "w", encoding="utf8").write(dump(args[0]))
+        print("saved", args[1])
     elif cmd == "publish-queue":
         print(ssh(f"{RUN} publish-queue {args[0]}"), end="")
     else:
         sys.exit(__doc__)
+
+
+def dump(ids):
+    """Статьи <id,id,…> одной строкой JSON каждая (для auto.py)"""
+    ensure_server_script()
+    return ssh(f"{RUN} dump {ids}")
 
 
 WORK = os.path.join(tempfile.gettempdir(), "prime-articles")
