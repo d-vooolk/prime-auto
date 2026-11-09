@@ -21,11 +21,12 @@ interface Problem {
   Порядок — по сезону: с ноября по февраль сверху конденсат и «плохо светит»
   (сырость, тёмное время, регулировка перед техосмотром), с марта — мутные фары
   после зимы. Переставлять вручную в начале сезона (docs/seo-plan.md).
+  С 9.11.2026 регулировка первой: самая быстрорастущая услуга в Яндексе.
 */
 const PROBLEMS: Problem[] = [
-    {id: "voda", icon: "💧", title: "Внутри конденсат или вода", service: NAVIGATION_URL.zapotevaniye, serviceTitle: "Устранение запотевания"},
-    {id: "slepit", icon: "🔦", title: "Плохо светит или слепит встречных", service: NAVIGATION_URL.regulirovka, serviceTitle: "Регулировка фар",
+    {id: "slepit", icon: "🔦", title: "Плохо светит, слепит или скоро техосмотр", service: NAVIGATION_URL.regulirovka, serviceTitle: "Регулировка фар",
         note: "Если после регулировки света всё равно мало — дело в оптике, тогда помогут Bi-Led модули."},
+    {id: "voda", icon: "💧", title: "Внутри конденсат или вода", service: NAVIGATION_URL.zapotevaniye, serviceTitle: "Устранение запотевания"},
     {id: "mutnaya", icon: "🌫️", title: "Фара мутная или пожелтела", service: NAVIGATION_URL.polirovkaOkleyka, serviceTitle: "Полировка и оклейка плёнкой",
         note: "Если стекло уже сточено прошлыми полировками или в сколах — честнее заменить стекло, скажем на осмотре."},
     {id: "yarche", icon: "✨", title: "Хочу яркий современный свет", service: NAVIGATION_URL.biled, serviceTitle: "Установка Bi-Led модулей"},

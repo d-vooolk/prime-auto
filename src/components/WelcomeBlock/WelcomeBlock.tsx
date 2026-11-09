@@ -9,13 +9,18 @@ import TelegramIcon from "@/components/LeadModal/TelegramIcon";
 import ViberIcon from "@/components/LeadModal/ViberIcon";
 import YandexRatingBadge from "@/components/_HelperComponents/YandexRatingBadge/YandexRatingBadge";
 
-/* Услуги — ссылками: это и короткий путь для человека, и перелинковка с главной */
+/*
+  Услуги — ссылками: это и короткий путь для человека, и перелинковка с главной.
+  Ремонт первым: по «ремонт фар минск» Google ведёт на главную (сверка 9.11.2026).
+  Регулировка поднята на сезон техосмотра (ноябрь–февраль), с марта её место
+  можно вернуть полировке.
+*/
 const SERVICES = [
-    {title: 'Установка Bi-Led модулей', href: NAVIGATION_URL.biled},
     {title: 'Ремонт фар и замена стёкол', href: NAVIGATION_URL.remont},
-    {title: 'Полировка и оклейка плёнкой', href: NAVIGATION_URL.polirovkaOkleyka},
+    {title: 'Установка Bi-Led модулей', href: NAVIGATION_URL.biled},
+    {title: 'Регулировка фар перед техосмотром', href: NAVIGATION_URL.regulirovka},
     {title: 'Устранение запотевания', href: NAVIGATION_URL.zapotevaniye},
-    {title: 'Регулировка фар', href: NAVIGATION_URL.regulirovka},
+    {title: 'Полировка и оклейка плёнкой', href: NAVIGATION_URL.polirovkaOkleyka},
 ];
 
 /*
