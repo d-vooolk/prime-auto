@@ -194,6 +194,20 @@ const MIGRATIONS = [
     );
     CREATE INDEX ai_checks_run ON ai_checks (run);
     `,
+    // 8 — коммерческие предложения (src/lib/proposals.ts, раздел «КП» в админке).
+    //     Содержимое КП — JSON в data: набор полей ещё будет меняться, а искать
+    //     по ним не нужно. number — сквозной номер для «КП № … от …»
+    `
+    CREATE TABLE proposals (
+        id         INTEGER PRIMARY KEY,
+        number     INTEGER NOT NULL UNIQUE,
+        client     TEXT NOT NULL DEFAULT '',
+        total      REAL NOT NULL DEFAULT 0,
+        data       TEXT NOT NULL,
+        created_at INTEGER NOT NULL,
+        updated_at INTEGER NOT NULL
+    );
+    `,
 ];
 
 /**

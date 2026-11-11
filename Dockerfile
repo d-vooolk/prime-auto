@@ -10,8 +10,9 @@ FROM node:20.19.6-bookworm-slim
 # curl — scripts/yandex-reviews.mjs качает страницу отзывов через него.
 # python3, make, g++ — запасной путь для better-sqlite3: если готового
 # бинарника под эту версию Node нет, npm ci соберёт его из исходников.
+# chromium — печать коммерческих предложений в PDF (src/lib/proposal-pdf.ts).
 RUN apt-get update \
-    && apt-get install -y --no-install-recommends ca-certificates curl python3 make g++ \
+    && apt-get install -y --no-install-recommends ca-certificates curl python3 make g++ chromium \
     && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
