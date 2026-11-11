@@ -22,6 +22,10 @@ export const metadata = {
     },
     verification: {
         yandex: '46166f0eb1874634',
+        // Bing Webmaster Tools — индекс Bing нужен ChatGPT и Copilot
+        other: {
+            'msvalidate.01': '4F6BEDF39D989DD244FE584306FFAF31',
+        },
     },
     openGraph: {
         type: 'website',
