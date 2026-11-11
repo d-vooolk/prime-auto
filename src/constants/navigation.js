@@ -26,6 +26,10 @@ export const NAVIGATION_URL = {
     zamenaLinz: '/uslugi/uluchshenie-kachestva-sveta/zamena-linz',
     amerikanskie: '/uslugi/uluchshenie-kachestva-sveta/peredelka-amerikanskih-far',
     pravorulnye: '/uslugi/uluchshenie-kachestva-sveta/peredelka-pravorulnyh-far',
+    tyuning: '/uslugi/uluchshenie-kachestva-sveta/tyuning-far',
+    gruzovye: '/uslugi/remont-far/remont-far-gruzovikov',
+    obuchenie: '/obuchenie-remontu-far',
+    sertifikat: '/podarochnyy-sertifikat',
     confidencePolicy: '/confidence-policy',
 };
 
@@ -66,6 +70,10 @@ export const breadcrumbLabels = {
     [NAVIGATION_URL.zamenaLinz]: "Замена линз в фарах",
     [NAVIGATION_URL.amerikanskie]: "Переделка американских фар",
     [NAVIGATION_URL.pravorulnye]: "Переделка праворульных фар",
+    [NAVIGATION_URL.tyuning]: "Тюнинг фар",
+    [NAVIGATION_URL.gruzovye]: "Ремонт фар грузовиков и автобусов",
+    [NAVIGATION_URL.obuchenie]: "Обучение ремонту фар",
+    [NAVIGATION_URL.sertifikat]: "Подарочный сертификат",
     [NAVIGATION_URL.confidencePolicy]: "Политика конфиденциальности",
 };
 

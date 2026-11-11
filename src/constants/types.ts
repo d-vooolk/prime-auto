@@ -35,5 +35,7 @@ export interface MetaParamsInterface {
     zamenaLinz: MetaParams,
     amerikanskie: MetaParams,
     pravorulnye: MetaParams,
+    tyuning: MetaParams,
+    gruzovye: MetaParams,
     biled: MetaParams,
 }

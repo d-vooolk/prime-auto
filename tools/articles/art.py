@@ -2,6 +2,7 @@
 
 python art.py list                     черновики нейросети (id, проверена ли, factcheck — повторная проверка нейросетью по фактам, обложка, заголовок)
 python art.py factcheck <id,id,…>      поставить черновики на повторную проверку нейросетью-редактором с «Фактами» (сервер, ~$0.01 за статью)
+python art.py enqueue <file.json>       новые темы в очередь статей: [{topic, keyword, notes}] — сервер пишет черновики по две
 python art.py dump <id,id,…> <файл>    выгрузить несколько статей разом (JSON по строке на статью)
 python art.py get <id> <файл.json>     выгрузить статью (title, meta_*, excerpt, body, faq, cover, task — задание)
 python art.py put <id> <файл.json>     записать изменённые поля (те же ключи) и пометить «проверено Claude»
@@ -75,6 +76,9 @@ def main():
         print(ssh(f"{RUN} put {int(args[0])} scripts/.claude-put-{int(args[0])}.json; rm -f {SITE}/scripts/.claude-put-{int(args[0])}.json"), end="")
     elif cmd in ("published", "photos", "sync-queue"):
         print(ssh(f"{RUN} {cmd}"), end="")
+    elif cmd == "enqueue":
+        scp(args[0], f"{SITE}/scripts/.claude-enqueue.json")
+        print(ssh(f"{RUN} enqueue scripts/.claude-enqueue.json; rm -f {SITE}/scripts/.claude-enqueue.json"), end="")
     elif cmd == "factcheck":
         print(ssh(f"{RUN} factcheck {args[0]}"), end="")
     elif cmd == "dump":

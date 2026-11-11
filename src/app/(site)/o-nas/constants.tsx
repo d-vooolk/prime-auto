@@ -64,4 +64,6 @@ export const ABOUT_LINKS: {title: string; href: string}[] = [
     {title: 'Наши работы с фото', href: NAVIGATION_URL.raboty},
     {title: 'Отзывы клиентов', href: NAVIGATION_URL.reviews},
     {title: 'Адрес и как доехать', href: NAVIGATION_URL.contacts},
+    {title: 'Подарочный сертификат', href: NAVIGATION_URL.sertifikat},
+    {title: 'Обучение ремонту фар', href: NAVIGATION_URL.obuchenie},
 ];

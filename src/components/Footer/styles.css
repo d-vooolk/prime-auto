@@ -51,9 +51,21 @@ footer .footer-contacts {
 
 .footer-copyright-wrapper {
     display: flex;
+    flex-wrap: wrap;
+    gap: 8px 24px;
     justify-content: space-between;
     align-items: center;
-    height: 57px;
+    min-height: 57px;
+    color: var(--gray-on-dark);
+}
+
+.footer-extra-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 24px;
+}
+
+.footer-extra-links a {
     color: var(--gray-on-dark);
 }
 
@@ -151,7 +163,7 @@ footer .footer-contacts {
         flex-direction: column;
         justify-content: space-between;
         align-items: flex-start;
-        height: 57px;
+        height: auto;
         padding-bottom: 20px;
     }
 

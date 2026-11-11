@@ -100,6 +100,11 @@ const Footer = () => {
 
             <div className="footer-copyright-wrapper">
                 <span>© 2024 Prime auto. Все права защищены</span>
+                <span className="footer-extra-links">
+                    <Link href={NAVIGATION_URL.about}>О мастерской</Link>
+                    <Link href={NAVIGATION_URL.sertifikat}>Подарочный сертификат</Link>
+                    <Link href={NAVIGATION_URL.obuchenie}>Обучение ремонту фар</Link>
+                </span>
                 <span>
                     <Link
                         className="conf-polic"

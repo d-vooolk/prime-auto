@@ -40,6 +40,8 @@ const serviceLinks = [
     {title: 'Замена линз в фарах', href: NAVIGATION_URL.zamenaLinz},
     {title: 'Переделка американских фар', href: NAVIGATION_URL.amerikanskie},
     {title: 'Переделка праворульных фар', href: NAVIGATION_URL.pravorulnye},
+    {title: 'Тюнинг фар', href: NAVIGATION_URL.tyuning},
+    {title: 'Ремонт фар грузовиков и автобусов', href: NAVIGATION_URL.gruzovye},
 ];
 
 /*

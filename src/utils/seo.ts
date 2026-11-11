@@ -117,7 +117,6 @@ export const personJsonLd = (member: TeamMember) => ({
     '@id': personId(member),
     name: member.shortName,
     jobTitle: member.role,
-    ...(member.photo ? {image: absoluteUrl(member.photo)} : {}),
     url: personId(member),
     worksFor: {'@id': ORGANIZATION_ID},
 });

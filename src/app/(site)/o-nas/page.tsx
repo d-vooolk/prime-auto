@@ -4,6 +4,7 @@ import './styles.css';
 import ServicePageTitleContainer
     from "@/components/_HelperComponents/ServicePageTitleContainer/ServicePageTitleContainer";
 import YandexRatingBadge from "@/components/_HelperComponents/YandexRatingBadge/YandexRatingBadge";
+import InfoCards from "@/components/_HelperComponents/InfoCards/InfoCards";
 import JsonLd from "@/components/_HelperComponents/JsonLd/JsonLd";
 import Portfolio from "@/components/Portfolio/Portfolio";
 import FormBlock from "@/components/FormBlock/FormBlock";
@@ -19,8 +20,6 @@ export const metadata = buildMetadata({
         'Руслан Томилин, опыт больше 5 лет. Как работаем: сварка полимером, регулировка по ГОСТ.',
     path: NAVIGATION_URL.about,
 });
-
-const initials = (name: string) => name.split(' ').map((part) => part[0]).join('');
 
 const AboutPage = () => (
     <main className="about-page-wrapper">
@@ -53,15 +52,9 @@ const AboutPage = () => (
             <ul className="about-team-list">
                 {TEAM.map((member) => (
                     <li className="about-team-card" id={member.slug} key={member.slug}>
-                        {member.photo ? (
-                            // eslint-disable-next-line @next/next/no-img-element
-                            <img className="about-team-photo" src={member.photo} alt={member.shortName}
-                                 width={160} height={160} loading="lazy" />
-                        ) : (
-                            <div className="about-team-photo about-team-initials" aria-hidden="true">
-                                {initials(member.shortName)}
-                            </div>
-                        )}
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
+                        <img className="about-team-scene" src={member.scene.src} alt={member.scene.alt}
+                             width={800} height={500} loading="lazy" decoding="async" />
                         <div className="about-team-name">{member.shortName}</div>
                         <div className="about-team-role">{member.role}</div>
                         {member.experience && <div className="about-team-experience">{member.experience}</div>}
@@ -78,17 +71,7 @@ const AboutPage = () => (
             </div>
         </section>
 
-        <section className="about-principles" aria-labelledby="about-principles-title">
-            <h2 className="about-team-title" id="about-principles-title">Как мы работаем</h2>
-            <ul className="about-principles-list">
-                {ABOUT_PRINCIPLES.map((item) => (
-                    <li key={item.title}>
-                        <h3 className="about-principles-name">{item.title}</h3>
-                        <p>{item.body}</p>
-                    </li>
-                ))}
-            </ul>
-        </section>
+        <InfoCards id="about-principles-title" title="Как мы работаем" items={ABOUT_PRINCIPLES} />
 
         <nav className="about-links" aria-label="Дальше">
             {ABOUT_LINKS.map((link) => (

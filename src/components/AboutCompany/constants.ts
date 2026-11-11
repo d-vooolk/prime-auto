@@ -22,7 +22,7 @@ export const works = [
     },
     {
         title: 'Тюнинг',
-        link: NAVIGATION_URL.uluchsheniyeKachestvaSveta,
+        link: NAVIGATION_URL.tyuning,
     },
     {
         title: 'Регулировка света',

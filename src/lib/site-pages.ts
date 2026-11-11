@@ -36,6 +36,8 @@ const SERVICE_PATHS = [
     NAVIGATION_URL.zamenaLinz,
     NAVIGATION_URL.amerikanskie,
     NAVIGATION_URL.pravorulnye,
+    NAVIGATION_URL.tyuning,
+    NAVIGATION_URL.gruzovye,
     NAVIGATION_URL.zapotevaniye,
 ];
 
@@ -47,6 +49,8 @@ export const commonPages = (): SitePage[] => [
     {path: NAVIGATION_URL.reviews, title: "Отзывы клиентов"},
     {path: NAVIGATION_URL.contacts, title: "Контакты и адрес мастерской"},
     {path: NAVIGATION_URL.about, title: "О мастерской и мастерах"},
+    {path: NAVIGATION_URL.obuchenie, title: "Обучение ремонту фар"},
+    {path: NAVIGATION_URL.sertifikat, title: "Подарочный сертификат"},
     {path: NAVIGATION_URL.articles, title: "Все статьи"},
 ];
 

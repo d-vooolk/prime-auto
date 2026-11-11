@@ -27,6 +27,12 @@ if (cmd === "list") {
         const topic = r.input ? JSON.parse(r.input).topic : "";
         console.log(JSON.stringify({id: r.id, status: r.status, reviewed: /проверено Claude/.test(r.notes || ""), factcheck: factcheck(r.id), cover: !!r.cover, title: r.title, topic}));
     }
+} else if (cmd === "enqueue") {
+    // новые темы в очередь статей: файл — массив {topic, keyword, notes}; темы, что уже в очереди, не дублируем
+    const queue = JSON.parse(db.prepare("SELECT value FROM settings WHERE key = 'article_queue'").get()?.value ?? "[]");
+    const items = JSON.parse(fs.readFileSync(args[0], "utf8")).filter((item) => !queue.some((q) => q.topic === item.topic));
+    db.prepare("INSERT INTO settings (key, value) VALUES ('article_queue', ?) ON CONFLICT(key) DO UPDATE SET value = excluded.value").run(JSON.stringify([...queue, ...items]));
+    console.log(`в очереди: +${items.length}, всего ${queue.length + items.length}`);
 } else if (cmd === "factcheck") {
     // повторная проверка редактором-нейросетью уже с «Фактами» в задании: в очередь статей, сервер берёт по две
     const queue = JSON.parse(db.prepare("SELECT value FROM settings WHERE key = 'article_queue'").get()?.value ?? "[]");
