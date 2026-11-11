@@ -9,6 +9,8 @@ import {categoryCover, categoryOf, categoryPath} from "@/constants/articleCatego
 import {parseArticleBody} from "@/lib/article-body";
 import {SERVICE_HERO} from "@/constants/serviceHero";
 import LeadButton from "@/components/LeadModal/LeadButton";
+import {ARTICLE_EXPERT} from "@/constants/team";
+import {NAVIGATION_URL} from "@/constants/navigation";
 
 /** Дата в подписи под заголовком — человекочитаемо, в разметке остаётся ISO */
 export const formatArticleDate = (ms: number) =>
@@ -95,6 +97,14 @@ const ArticleView = ({article}: {article: ArticleRecord}) => {
                 </time>
                 {' · '}
                 <Link href={categoryPath(category.slug)} className="article-meta-category">{category.name}</Link>
+            </p>
+            {/* Кто стоит за фактами: Google и нейросети больше доверяют тексту с живым специалистом */}
+            <p className="article-expert">
+                Цены и факты — со слов мастерской. Эксперт:{' '}
+                <Link href={`${NAVIGATION_URL.about}#${ARTICLE_EXPERT.slug}`}>
+                    {ARTICLE_EXPERT.shortName}
+                </Link>, {ARTICLE_EXPERT.role.toLowerCase()} Prime Auto
+                {ARTICLE_EXPERT.experience ? `, ${ARTICLE_EXPERT.experience}` : ''}
             </p>
 
             {coverSrc && (

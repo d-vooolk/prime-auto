@@ -53,6 +53,14 @@
     box-sizing: border-box;
 }
 
+.about-section-team-link {
+    color: var(--base-dark);
+    font-weight: 500;
+    text-decoration-color: var(--base-green);
+    text-decoration-thickness: 2px;
+    text-underline-offset: 3px;
+}
+
 .about-section-title {
     /* было h3, у которого жирность шла из стилей браузера — задаём явно */
     font-weight: 700;

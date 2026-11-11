@@ -3,6 +3,7 @@ import './styles.css';
 import ListComponent from "@/components/_HelperComponents/ListComponent/ListComponent.jsx";
 import {benefitsItems, textAbout, works, worksTitle} from "./constants.ts";
 import Link from "next/link";
+import {NAVIGATION_URL} from "@/constants/navigation";
 
 
 const DescriptionButtons = () => {
@@ -67,6 +68,9 @@ const AboutCompany = () => {
                 <div className="about-section-description-wrapper">
                     <div className="about-section-first">{textAbout.first}</div>
                     <div className="about-section-second">{textAbout.second}</div>
+                    <Link className="about-section-team-link" href={NAVIGATION_URL.about}>
+                        Кто делает работу и как мы работаем →
+                    </Link>
                 </div>
             </div>
 

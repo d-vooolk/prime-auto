@@ -39,6 +39,7 @@ const STATIC_PAGES: SitemapEntry[] = [
     {path: NAVIGATION_URL.articles, priority: 0.7, changeFrequency: 'weekly', updated: '2026-09-27'},
     {path: NAVIGATION_URL.raboty, priority: 0.8, changeFrequency: 'monthly', updated: '2026-10-15'},
     {path: NAVIGATION_URL.contacts, priority: 0.7, changeFrequency: 'monthly', updated: '2026-09-27'},
+    {path: NAVIGATION_URL.about, priority: 0.6, changeFrequency: 'monthly', updated: '2026-11-11'},
     {path: NAVIGATION_URL.confidencePolicy, priority: 0.2, changeFrequency: 'yearly', updated: '2026-09-27'},
 ];
 

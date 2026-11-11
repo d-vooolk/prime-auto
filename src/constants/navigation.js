@@ -3,6 +3,7 @@ export const NAVIGATION_URL = {
     newYearSale: '/new-year-sale',
     price: '/price',
     contacts: '/contacts',
+    about: '/o-nas',
     reviews: '/otzyvy',
     uslugi: '/uslugi',
     articles: '/stati',
@@ -51,6 +52,7 @@ export const breadcrumbLabels = {
 
     [NAVIGATION_URL.price]: "Цены",
     [NAVIGATION_URL.contacts]: "Контакты",
+    [NAVIGATION_URL.about]: "О мастерской",
     [NAVIGATION_URL.reviews]: "Отзывы",
     [NAVIGATION_URL.articles]: "Статьи",
     [NAVIGATION_URL.raboty]: "Наши работы",

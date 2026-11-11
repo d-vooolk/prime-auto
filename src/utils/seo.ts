@@ -1,6 +1,8 @@
 import type {Metadata} from "next";
 import {SITE, SITE_URL} from "@/constants/site";
 import {LINKS} from "@/constants/links";
+import {NAVIGATION_URL} from "@/constants/navigation";
+import {ARTICLE_EXPERT, TEAM, type TeamMember} from "@/constants/team";
 
 export const absoluteUrl = (path: string): string =>
     `${SITE_URL}${path === '/' ? '/' : path}`;
@@ -106,6 +108,20 @@ const WEBSITE_ID = `${SITE_URL}/#website`;
  * он же наследует LocalBusiness, поэтому Яндекс и Google читают адрес,
  * телефон и часы работы из одного объекта.
  */
+/** @id сотрудника — карточка на странице «О мастерской» */
+export const personId = (member: TeamMember) => `${absoluteUrl(NAVIGATION_URL.about)}#${member.slug}`;
+
+export const personJsonLd = (member: TeamMember) => ({
+    '@context': 'https://schema.org',
+    '@type': 'Person',
+    '@id': personId(member),
+    name: member.shortName,
+    jobTitle: member.role,
+    ...(member.photo ? {image: absoluteUrl(member.photo)} : {}),
+    url: personId(member),
+    worksFor: {'@id': ORGANIZATION_ID},
+});
+
 export const localBusinessJsonLd = () => ({
     '@context': 'https://schema.org',
     '@type': 'AutoRepair',
@@ -150,6 +166,11 @@ export const localBusinessJsonLd = () => ({
       отфильтровываются — пока не заполнен LINKS.googleBusiness, в разметку
       уходит только Яндекс.
     */
+    // люди целиком, а не ссылкой: карточка организации стоит на всех страницах, а Person — только на /o-nas
+    employee: TEAM.map((member) => {
+        const {'@context': _context, ...person} = personJsonLd(member);
+        return person;
+    }),
     sameAs: [
         LINKS.yandexMap,
         LINKS.googleBusiness,
@@ -326,7 +347,12 @@ export const articleJsonLd = ({title, description, path, published, updated, ima
     inLanguage: 'ru-RU',
     datePublished: published,
     dateModified: updated,
-    mainEntityOfPage: {'@type': 'WebPage', '@id': absoluteUrl(path)},
+    // эксперт — reviewedBy у страницы: статью не он писал, а факты и цены сверены с мастерской
+    mainEntityOfPage: {
+        '@type': 'WebPage',
+        '@id': absoluteUrl(path),
+        reviewedBy: {'@type': 'Person', '@id': personId(ARTICLE_EXPERT), name: ARTICLE_EXPERT.shortName, jobTitle: ARTICLE_EXPERT.role},
+    },
     author: {'@id': ORGANIZATION_ID},
     publisher: {'@id': ORGANIZATION_ID},
     image: absoluteUrl(image || '/images/first-car.webp'),
