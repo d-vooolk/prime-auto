@@ -71,6 +71,10 @@ export const priceDataSource = [
         price: "от 70",
     },
     {
+        serviceName: "Регулировка противотуманных фар",
+        price: "50",
+    },
+    {
         serviceName: "Подключение диагностики и считывание ошибок",
         price: "50",
     },

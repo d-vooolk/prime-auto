@@ -182,6 +182,7 @@ export const localBusinessJsonLd = () => ({
         'https://www.tiktok.com/@prime_auto_minsk',
         'https://www.youtube.com/@prime-auto-minsk',
         'https://www.facebook.com/profile.php?id=61558468265260',
+        LINKS.telegram,
     ].filter(Boolean),
 });
 

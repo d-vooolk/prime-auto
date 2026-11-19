@@ -93,7 +93,7 @@ async function collectGoogle(keyFile, site) {
     }).then((body) => body.rows ?? []);
   const total = (range) => query(range, [], 1).then((rows) => rows[0] ?? null);
 
-  const [totals, previousTotals, weekTotals, previousWeekTotals, queries, previousQueries, pages, previousPages, devices, daily, sitemaps] =
+  const [totals, previousTotals, weekTotals, previousWeekTotals, queries, previousQueries, pages, previousPages, devices, countries, daily, sitemaps] =
     await Promise.all([
       total(month.current),
       total(month.previous),
@@ -104,6 +104,7 @@ async function collectGoogle(keyFile, site) {
       query(month.current, ["page"], 500),
       query(month.previous, ["page"], 500),
       query(month.current, ["device"], 10),
+      query(month.current, ["country"], 30),
       query(history, ["date"], HISTORY_DAYS + 5),
       requestJson(`${base}/sitemaps`, { headers }).then((body) => body.sitemap ?? []),
     ]);
@@ -120,6 +121,7 @@ async function collectGoogle(keyFile, site) {
     pages,
     previousPages,
     devices,
+    countries,
     daily,
     sitemaps,
   };

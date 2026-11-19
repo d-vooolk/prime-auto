@@ -23,6 +23,17 @@ const DAMAGE: {problem: string; work: string; price: string; time: string; href?
     {problem: "Тусклый свет, выгорел отражатель", work: "Замена модуля на Bi-Led — вместо восстановления отражателя", price: "под ключ от 700 руб. за две фары + модули", time: "обычно за день", href: NAVIGATION_URL.biled},
 ];
 
+/*
+  Сравнение «ремонт / новая оригинальная / аналог» таблицей, а не текстом:
+  нейросети и сниппеты берут таблицы дословно. Цифры — те же, что в DAMAGE
+  и в колонке «Ремонт или новая фара» ниже.
+*/
+const COMPARISON: {option: string; price: string; light: string; when: string}[] = [
+    {option: "Ремонт родной фары", price: "работа 150–200 руб. за фару + стекло; трещины — 4 руб. за 1 см шва", light: "родная оптика с правильной светотеневой границей", when: "мутное или разбитое стекло, трещины, сломанные крепления, не горит ДХО, вода внутри"},
+    {option: "Новая оригинальная фара", price: "сотни и тысячи рублей, LED и адаптивные — дороже", light: "как с завода", when: "разрушена силовая часть корпуса или посадочные места — ремонт не удержится"},
+    {option: "Аналог («китай»)", price: "дешевле ремонта", light: "часто хуже родной, бывают проблемы на техосмотре", when: "не советуем, если родную фару можно отремонтировать"},
+];
+
 const STEPS = [
     {title: "Осмотр и смета", text: "Смотрим фару, называем, что делать и сколько стоит — до начала работ. Если ремонт невыгоден, скажем сразу."},
     {title: "Снятие фары", text: "Без снятия бампера — от 50 руб. за обе фары, с бампером — 100 руб., с колёсами и подкрылками — 200 руб."},
@@ -66,6 +77,29 @@ const RemontExtra = () => (
 
         <section className="remont-extra">
             <div className="remont-extra-inner">
+                <h2 className="remont-extra-title">Ремонт, новая фара или аналог: сравнение</h2>
+                <div className="remont-extra-table-wrap">
+                    <table className="remont-extra-table">
+                        <thead>
+                        <tr><th>Вариант</th><th>Сколько стоит</th><th>Как светит</th><th>Когда выбирать</th></tr>
+                        </thead>
+                        <tbody>
+                        {COMPARISON.map((row) => (
+                            <tr key={row.option}>
+                                <td><b>{row.option}</b></td>
+                                <td>{row.price}</td>
+                                <td>{row.light}</td>
+                                <td>{row.when}</td>
+                            </tr>
+                        ))}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <section className="remont-extra remont-extra--light">
+            <div className="remont-extra-inner">
                 <h2 className="remont-extra-title">Как проходит ремонт фары</h2>
                 <ol className="remont-extra-steps">
                     {STEPS.map((step, index) => (
@@ -81,7 +115,7 @@ const RemontExtra = () => (
             </div>
         </section>
 
-        <section className="remont-extra remont-extra--light">
+        <section className="remont-extra">
             <div className="remont-extra-inner remont-extra-columns">
                 <div>
                     <h2 className="remont-extra-title">Ремонт или новая фара</h2>

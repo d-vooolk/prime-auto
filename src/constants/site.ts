@@ -38,6 +38,6 @@ export const SITE = {
         },
     ],
     /** Диапазон стоимости работ по прайсу, BYN. Google рекомендует его для LocalBusiness */
-    priceRange: '4-200 BYN',
+    priceRange: '4-700 BYN',
     openingHoursText: 'Пн–Пт 09:00–19:00, Сб–Вс — выходной',
 } as const;
