@@ -217,42 +217,57 @@ const AiSeoPage = async () => {
                 <h2 className="a-h2">Ручная отметка: Яндекс Нейро, Алиса, Google AI Overviews</h2>
                 <p className="a-hint">
                     Задайте каждый запрос в системе (без входа в аккаунт, в режиме инкогнито) и отметьте, что в ответе.
-                    Пустое — не проверяли. Повторное сохранение за ту же дату перезаписывает отметки.
+                    Пустое — не проверяли. В форме — последние сохранённые отметки; повторное сохранение за ту же
+                    дату перезаписывает их, за новую дату — добавляет прогон в «Динамику».
                 </p>
-                <form action={saveManualAiAction}>
-                    <div className="a-row" style={{gap: 12, flexWrap: "wrap", marginBottom: 10}}>
-                        <label className="a-label">Система{" "}
-                            <select name="engine" className="a-input" style={{width: "auto"}}>
-                                {MANUAL_ENGINES.map((e) => <option key={e.id} value={e.id}>{e.label}</option>)}
-                            </select>
-                        </label>
-                        <label className="a-label">Дата{" "}
-                            <input type="date" name="run" className="a-input" style={{width: "auto"}} defaultValue={minskDay()} />
-                        </label>
-                    </div>
-                    <table className="a-table">
-                        <tbody>
-                        {AI_QUERIES.map(({query}, index) => (
-                            <tr key={query}>
-                                <td>{query}</td>
-                                <td>
-                                    <select name={`q${index}`} className="a-input" style={{width: "auto"}} defaultValue="">
-                                        <option value="">не проверяли</option>
-                                        <option value="0">не назван</option>
-                                        <option value="1">назван без ссылки</option>
-                                        <option value="2">назван со ссылкой</option>
-                                    </select>
-                                </td>
-                            </tr>
-                        ))}
-                        </tbody>
-                    </table>
-                    <label className="a-label" style={{display: "block", marginTop: 10}}>
-                        Кого называли вместо нас (сайты через запятую)
-                        <input name="competitors" className="a-input" placeholder="onlix.by, 2gis.by, drive2.ru" />
-                    </label>
-                    <button className="a-btn a-btn-primary" style={{marginTop: 10}}>Сохранить отметки</button>
-                </form>
+                {MANUAL_ENGINES.map((engine) => {
+                    /* форма заполнена последними сохранёнными отметками: после сохранения
+                       React сбрасывает форму к этим значениям, а не к пустым */
+                    const saved = report.latest.get(engine.id) ?? new Map<string, CheckRow>();
+                    const rows = [...saved.values()];
+                    const lastRun = rows.map((r) => r.run).sort().at(-1);
+                    const mark = (row: CheckRow | undefined) => (row ? (row.linked ? "2" : row.mentioned ? "1" : "0") : "");
+                    const competitors = [...new Set(rows.flatMap((r) => r.sources.map(hostOf)))].filter(Boolean).join(", ");
+                    const signature = `${lastRun}|${AI_QUERIES.map(({query}) => mark(saved.get(query))).join("")}|${competitors}`;
+                    return (
+                        <form key={signature} action={saveManualAiAction} style={{marginTop: 16}}>
+                            <input type="hidden" name="engine" value={engine.id} />
+                            <div className="a-row" style={{gap: 12, flexWrap: "wrap", alignItems: "baseline", marginBottom: 10}}>
+                                <h3 className="a-h2" style={{fontSize: 16, margin: 0}}>{engine.label}</h3>
+                                <label className="a-label">Дата{" "}
+                                    <input type="date" name="run" className="a-input" style={{width: "auto"}} defaultValue={minskDay()} />
+                                </label>
+                                <span className="a-note">
+                                    {lastRun
+                                        ? `Сохранено ${lastRun}: назван ${rows.filter((r) => r.mentioned).length} из ${rows.length}, со ссылкой ${rows.filter((r) => r.linked).length}`
+                                        : "Отметок ещё нет"}
+                                </span>
+                            </div>
+                            <table className="a-table">
+                                <tbody>
+                                {AI_QUERIES.map(({query}, index) => (
+                                    <tr key={query}>
+                                        <td>{query}</td>
+                                        <td>
+                                            <select name={`q${index}`} className="a-input" style={{width: "auto"}} defaultValue={mark(saved.get(query))}>
+                                                <option value="">не проверяли</option>
+                                                <option value="0">не назван</option>
+                                                <option value="1">назван без ссылки</option>
+                                                <option value="2">назван со ссылкой</option>
+                                            </select>
+                                        </td>
+                                    </tr>
+                                ))}
+                                </tbody>
+                            </table>
+                            <label className="a-label" style={{display: "block", marginTop: 10}}>
+                                Кого называли вместо нас (сайты через запятую)
+                                <input name="competitors" className="a-input" placeholder="onlix.by, 2gis.by, drive2.ru" defaultValue={competitors} />
+                            </label>
+                            <button className="a-btn a-btn-primary" style={{marginTop: 10}}>Сохранить: {engine.label}</button>
+                        </form>
+                    );
+                })}
             </section>
 
             <section className="a-card">

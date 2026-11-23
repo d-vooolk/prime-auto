@@ -373,7 +373,17 @@ export const aiSeoReport = (): AiSeoReport => {
         byQuery.set(c.query, row);
         latest.set(c.engine, byQuery);
     }
+    /* у ручной отметки список «кого называли» один на всю форму и записан в каждую строку —
+       считаем его один раз за прогон, иначе каждый сайт получает +25 */
+    const manualSeen = new Set<string>();
     const competitors = count([...latest.values()].flatMap((m) => [...m.values()])
+        .filter((r) => {
+            if (!r.manual) return true;
+            const key = `${r.engine}|${r.run}`;
+            if (manualSeen.has(key)) return false;
+            manualSeen.add(key);
+            return true;
+        })
         .flatMap((r) => [...new Set(r.sources.map(hostOf))])
         .filter((host) => host && !OUR_HOST.test(host)))
         .slice(0, 20)
@@ -421,11 +431,14 @@ export const READINESS: {item: string; status: ReadyStatus; who: string; note?: 
     {item: "Текст страниц есть в HTML без JavaScript (боты нейросетей JS не выполняют)", status: "done", who: "Claude"},
     {item: "Микроразметка: AutoRepair, Service/Offer с ценами, FAQPage, Article, BreadcrumbList", status: "done", who: "Claude"},
     {item: "Первый экран услуг: цена «от», срок, гарантия — короткий самодостаточный ответ", status: "done", who: "Claude"},
-    {item: "Блок «Коротко» (ответ в 2–3 предложения) в начале статей и FAQ с цифрами", status: "todo", who: "Claude"},
-    {item: "llms.txt — краткая карта сайта для нейросетей", status: "todo", who: "Claude", note: "сейчас 404"},
+    {item: "Блок «Коротко» (ответ в 2–3 предложения) в начале статей и FAQ с цифрами", status: "done", who: "Claude",
+        note: "короткий ответ — лид в начале каждой из 51 статьи; FAQ с ценами есть во всех, у пяти первых статей дописан 23.11.2026"},
+    {item: "llms.txt — краткая карта сайта для нейросетей", status: "done", who: "Claude", note: "/llms.txt собирается из констант услуг и цен (с 11.11.2026)"},
     {item: "Свой лог nginx у сайта (до 29.10 лог был общий с crm/zapis — главная у ботов могла быть завышена)", status: "done", who: "Claude"},
-    {item: "Bing Webmaster Tools: сайт подтверждён, sitemap отправлен (индекс Bing = ChatGPT и Copilot)", status: "todo", who: "вы"},
-    {item: "Одинаковые название, адрес, телефон, цены: Яндекс Карты, Google, 2ГИС, onlix, каталоги", status: "partial", who: "вы"},
-    {item: "Упоминания на сторонних площадках: onliner, drive2, форумы, подборки «где сделать фары»", status: "todo", who: "вы"},
-    {item: "Отзывы с подробностями (марка, услуга, цена) на Яндекс Картах и в Google", status: "partial", who: "вы"},
+    {item: "Bing Webmaster Tools: сайт подтверждён, sitemap отправлен (индекс Bing = ChatGPT и Copilot)", status: "done", who: "вы"},
+    {item: "Одинаковые название, адрес, телефон, цены: Яндекс Карты, Google, 2ГИС, onlix, каталоги", status: "done", who: "вы",
+        note: "новые каталоги из docs/links-and-catalogs.md (площадки 13–18) заполнять так же"},
+    {item: "Упоминания на сторонних площадках: onliner, drive2, форумы, подборки «где сделать фары»", status: "done", who: "вы",
+        note: "три статьи на drive2, статья для spr.by; дальше — каталоги kufar, Яндекс Услуги, 7745, blizko, vsesto, zoon"},
+    {item: "Отзывы с подробностями (марка, услуга, цена) на Яндекс Картах и в Google", status: "done", who: "вы", note: "поступают регулярно"},
 ];
