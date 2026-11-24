@@ -32,6 +32,17 @@ const nextConfig = {
         config.resolve.extensions.push('.ts', '.tsx'); // Убедитесь, что эти расширения добавлены
         return config;
     },
+    async redirects() {
+        return [
+            {
+                // Такого адреса на сайте не было: его придумала Алиса по аналогии
+                // с …-moduley-minsk и ставит в ответы про регулировку (24.11).
+                source: '/uslugi/regulirovka-far-minsk',
+                destination: '/uslugi/regulirovka-far',
+                statusCode: 301,
+            },
+        ];
+    },
     async headers() {
         return [
             {
