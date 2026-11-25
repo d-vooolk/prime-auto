@@ -181,17 +181,32 @@
     }
 }
 
-/* Адаптивность: карточки по ширине ряда, а не фиксированные 398 px */
+/* Адаптивность: четыре карточки — в ряд на широком экране, 2×2 на среднем
+   (флекс давал ряд 3 + 1), одна колонка на телефоне */
+.installment-cards-wrapper {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    max-width: 1400px;
+}
+
 .installment-card {
-    flex: 1 1 300px;
     width: auto;
-    max-width: 420px;
     box-sizing: border-box;
 }
 
+@media (max-width: 1200px) {
+    .installment-cards-wrapper {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        max-width: 860px;
+    }
+}
+
 @media (max-width: 768px) {
+    .installment-cards-wrapper {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
     .installment-card {
-        max-width: none;
         width: 100%;
     }
 }
